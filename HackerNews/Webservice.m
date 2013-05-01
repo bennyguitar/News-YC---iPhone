@@ -149,8 +149,14 @@
            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
             
             if (responseDict) {
+                NSMutableArray *comments = [@[] mutableCopy];
+                NSArray *commentDicts = [responseDict objectForKey:@"results"];
+                for (NSDictionary *comment in commentDicts) {
+                    [comments addObject:[Comment commentFromDictionary:comment]];
+                }
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    //
+                    [delegate didFetchComments:comments];
                 });
             }
             else {

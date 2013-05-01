@@ -16,4 +16,6 @@
 @property (nonatomic, retain) NSString *ParentID;
 @property (nonatomic, assign) int Level;
 
++(Comment *)commentFromDictionary:(NSDictionary *)dict;
+
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Post.h"
+#import "Comment.h"
 
 @protocol WebserviceDelegate
 @optional

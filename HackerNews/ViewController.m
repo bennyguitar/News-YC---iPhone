@@ -28,7 +28,7 @@
 }
 
 
-#pragma mark - Load Webpages
+#pragma mark - Load HomePage
 -(void)loadHomepage {
     Webservice *service = [[Webservice alloc] init];
     service.delegate = self;
@@ -38,12 +38,25 @@
 -(void)didFetchPosts:(NSArray *)posts {
     if (posts) {
         // Handle
-        Webservice *service = [[Webservice alloc] init];
-        service.delegate = self;
-        [service getCommentsForPost:posts[0]];
     }
     else {
         // No posts were retrieved. Handle exception.
+    }
+}
+
+#pragma mark - Load Comments
+-(void)loadCommentsForPost:(Post *)post {
+    Webservice *service = [[Webservice alloc] init];
+    service.delegate = self;
+    [service getCommentsForPost:post];
+}
+
+-(void)didFetchComments:(NSArray *)comments {
+    if (comments) {
+        
+    }
+    else {
+        // No comments were retrieved. Handle exception.
     }
 }
 
