@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface triangleView : UIView
+@interface TriangleView : UIView
 
 @property (nonatomic, assign) float x;
 @property (nonatomic, retain) UIColor *color;

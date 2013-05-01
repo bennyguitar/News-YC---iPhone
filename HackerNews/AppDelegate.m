@@ -16,6 +16,16 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    // Check Theme
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"Theme"]) {
+        [[HNSingleton sharedHNSingleton] changeTheme];
+    }
+    else {
+        [[NSUserDefaults standardUserDefaults] setValue:@"Night" forKey:@"Theme"];
+        [[HNSingleton sharedHNSingleton] changeTheme];
+    }
+    
     self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];

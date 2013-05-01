@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Benjamin Gordon. All rights reserved.
 //
 
-#import "triangleView.h"
+#import "TriangleView.h"
 
-@implementation triangleView
+@implementation TriangleView
 @synthesize x;
 
 - (id)initWithFrame:(CGRect)frame

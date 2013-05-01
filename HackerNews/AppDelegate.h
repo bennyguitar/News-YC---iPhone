@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HNSingleton.h"
 
 @class ViewController;
 
