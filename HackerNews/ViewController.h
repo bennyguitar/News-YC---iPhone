@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Webservice.h"
 
-@interface ViewController : UIViewController <WebserviceDelegate>
+@interface ViewController : UIViewController <WebserviceDelegate> {
+    NSArray *homePagePosts;
+}
+
+
 
 @end

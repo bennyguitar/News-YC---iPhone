@@ -18,7 +18,9 @@
 {
     [super viewDidLoad];
     [self loadHomepage];
-	// Do any additional setup after loading the view, typically from a nib.
+	
+    // Set Up Work
+    homePagePosts = @[];
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,6 +40,7 @@
 -(void)didFetchPosts:(NSArray *)posts {
     if (posts) {
         // Handle
+        homePagePosts = posts;
     }
     else {
         // No posts were retrieved. Handle exception.

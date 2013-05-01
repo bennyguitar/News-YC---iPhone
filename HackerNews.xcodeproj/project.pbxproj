@@ -21,6 +21,23 @@
 		C01EDE0C1731557900AE97B8 /* Webservice.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE0B1731557900AE97B8 /* Webservice.m */; };
 		C01EDE1017315C6700AE97B8 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE0F17315C6700AE97B8 /* Post.m */; };
 		C01EDE131731861F00AE97B8 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE121731861F00AE97B8 /* Comment.m */; };
+		C01EDE191731A3CA00AE97B8 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE161731A3CA00AE97B8 /* IIViewDeckController.m */; };
+		C01EDE1A1731A3CA00AE97B8 /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE181731A3CA00AE97B8 /* IIWrapController.m */; };
+		C01EDE1E1731A3E500AE97B8 /* triangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE1D1731A3E500AE97B8 /* triangleView.m */; };
+		C01EDE2F1731A44200AE97B8 /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE241731A44200AE97B8 /* FilterCell.m */; };
+		C01EDE301731A44200AE97B8 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE251731A44200AE97B8 /* FilterCell.xib */; };
+		C01EDE311731A44200AE97B8 /* ShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE271731A44200AE97B8 /* ShareCell.m */; };
+		C01EDE321731A44200AE97B8 /* ShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE281731A44200AE97B8 /* ShareCell.xib */; };
+		C01EDE331731A44200AE97B8 /* SettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE2A1731A44200AE97B8 /* SettingsCell.m */; };
+		C01EDE341731A44200AE97B8 /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE2B1731A44200AE97B8 /* SettingsCell.xib */; };
+		C01EDE351731A44200AE97B8 /* CreditsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE2D1731A44200AE97B8 /* CreditsCell.m */; };
+		C01EDE361731A44200AE97B8 /* CreditsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE2E1731A44200AE97B8 /* CreditsCell.xib */; };
+		C01EDE3B1731A4BB00AE97B8 /* frontPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE391731A4BB00AE97B8 /* frontPageCell.m */; };
+		C01EDE3C1731A4BB00AE97B8 /* frontPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE3A1731A4BB00AE97B8 /* frontPageCell.xib */; };
+		C01EDE401731A4C900AE97B8 /* CommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE3E1731A4C800AE97B8 /* CommentsCell.m */; };
+		C01EDE411731A4C900AE97B8 /* CommentsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE3F1731A4C900AE97B8 /* CommentsCell.xib */; };
+		C01EDE441731A61700AE97B8 /* HNSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE431731A61700AE97B8 /* HNSingleton.m */; };
+		C01EDE461731A67C00AE97B8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDE451731A67C00AE97B8 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +63,33 @@
 		C01EDE0F17315C6700AE97B8 /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 		C01EDE111731861F00AE97B8 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		C01EDE121731861F00AE97B8 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		C01EDE151731A3CA00AE97B8 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
+		C01EDE161731A3CA00AE97B8 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
+		C01EDE171731A3CA00AE97B8 /* IIWrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIWrapController.h; sourceTree = "<group>"; };
+		C01EDE181731A3CA00AE97B8 /* IIWrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIWrapController.m; sourceTree = "<group>"; };
+		C01EDE1C1731A3E500AE97B8 /* triangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangleView.h; sourceTree = "<group>"; };
+		C01EDE1D1731A3E500AE97B8 /* triangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = triangleView.m; sourceTree = "<group>"; };
+		C01EDE231731A44200AE97B8 /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
+		C01EDE241731A44200AE97B8 /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
+		C01EDE251731A44200AE97B8 /* FilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
+		C01EDE261731A44200AE97B8 /* ShareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareCell.h; sourceTree = "<group>"; };
+		C01EDE271731A44200AE97B8 /* ShareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareCell.m; sourceTree = "<group>"; };
+		C01EDE281731A44200AE97B8 /* ShareCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareCell.xib; sourceTree = "<group>"; };
+		C01EDE291731A44200AE97B8 /* SettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsCell.h; sourceTree = "<group>"; };
+		C01EDE2A1731A44200AE97B8 /* SettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsCell.m; sourceTree = "<group>"; };
+		C01EDE2B1731A44200AE97B8 /* SettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
+		C01EDE2C1731A44200AE97B8 /* CreditsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsCell.h; sourceTree = "<group>"; };
+		C01EDE2D1731A44200AE97B8 /* CreditsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsCell.m; sourceTree = "<group>"; };
+		C01EDE2E1731A44200AE97B8 /* CreditsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreditsCell.xib; sourceTree = "<group>"; };
+		C01EDE381731A4BB00AE97B8 /* frontPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = frontPageCell.h; sourceTree = "<group>"; };
+		C01EDE391731A4BB00AE97B8 /* frontPageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = frontPageCell.m; sourceTree = "<group>"; };
+		C01EDE3A1731A4BB00AE97B8 /* frontPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = frontPageCell.xib; sourceTree = "<group>"; };
+		C01EDE3D1731A4C800AE97B8 /* CommentsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsCell.h; sourceTree = "<group>"; };
+		C01EDE3E1731A4C800AE97B8 /* CommentsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsCell.m; sourceTree = "<group>"; };
+		C01EDE3F1731A4C900AE97B8 /* CommentsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsCell.xib; sourceTree = "<group>"; };
+		C01EDE421731A61700AE97B8 /* HNSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNSingleton.h; sourceTree = "<group>"; };
+		C01EDE431731A61700AE97B8 /* HNSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNSingleton.m; sourceTree = "<group>"; };
+		C01EDE451731A67C00AE97B8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C01EDE461731A67C00AE97B8 /* QuartzCore.framework in Frameworks */,
 				C01EDDE71731553B00AE97B8 /* UIKit.framework in Frameworks */,
 				C01EDDE91731553B00AE97B8 /* Foundation.framework in Frameworks */,
 				C01EDDEB1731553B00AE97B8 /* CoreGraphics.framework in Frameworks */,
@@ -65,6 +110,7 @@
 		C01EDDDA1731553B00AE97B8 = {
 			isa = PBXGroup;
 			children = (
+				C01EDE451731A67C00AE97B8 /* QuartzCore.framework */,
 				C01EDDEC1731553B00AE97B8 /* HackerNews */,
 				C01EDDE51731553B00AE97B8 /* Frameworks */,
 				C01EDDE41731553B00AE97B8 /* Products */,
@@ -92,13 +138,18 @@
 		C01EDDEC1731553B00AE97B8 /* HackerNews */ = {
 			isa = PBXGroup;
 			children = (
-				C01EDE0D17315C5700AE97B8 /* Data Objects */,
 				C01EDE091731554E00AE97B8 /* Webservice */,
+				C01EDE0D17315C5700AE97B8 /* Data Objects */,
+				C01EDE371731A48500AE97B8 /* Utilities */,
+				C01EDE1B1731A3D500AE97B8 /* Custom Views */,
+				C01EDE141731A3B900AE97B8 /* Sliding Deck (Nav/Share) */,
 				C01EDDF51731553B00AE97B8 /* AppDelegate.h */,
 				C01EDDF61731553B00AE97B8 /* AppDelegate.m */,
 				C01EDDFE1731553B00AE97B8 /* ViewController.h */,
 				C01EDDFF1731553B00AE97B8 /* ViewController.m */,
 				C01EDE011731553B00AE97B8 /* ViewController.xib */,
+				C01EDE421731A61700AE97B8 /* HNSingleton.h */,
+				C01EDE431731A61700AE97B8 /* HNSingleton.m */,
 				C01EDDED1731553B00AE97B8 /* Supporting Files */,
 			);
 			path = HackerNews;
@@ -136,6 +187,83 @@
 				C01EDE121731861F00AE97B8 /* Comment.m */,
 			);
 			name = "Data Objects";
+			sourceTree = "<group>";
+		};
+		C01EDE141731A3B900AE97B8 /* Sliding Deck (Nav/Share) */ = {
+			isa = PBXGroup;
+			children = (
+				C01EDE211731A42F00AE97B8 /* Right Deck */,
+				C01EDE201731A42900AE97B8 /* Left Deck */,
+				C01EDE1F1731A42400AE97B8 /* Library */,
+			);
+			name = "Sliding Deck (Nav/Share)";
+			sourceTree = "<group>";
+		};
+		C01EDE1B1731A3D500AE97B8 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				C01EDE381731A4BB00AE97B8 /* frontPageCell.h */,
+				C01EDE391731A4BB00AE97B8 /* frontPageCell.m */,
+				C01EDE3A1731A4BB00AE97B8 /* frontPageCell.xib */,
+				C01EDE3D1731A4C800AE97B8 /* CommentsCell.h */,
+				C01EDE3E1731A4C800AE97B8 /* CommentsCell.m */,
+				C01EDE3F1731A4C900AE97B8 /* CommentsCell.xib */,
+				C01EDE1C1731A3E500AE97B8 /* triangleView.h */,
+				C01EDE1D1731A3E500AE97B8 /* triangleView.m */,
+			);
+			name = "Custom Views";
+			sourceTree = "<group>";
+		};
+		C01EDE1F1731A42400AE97B8 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				C01EDE151731A3CA00AE97B8 /* IIViewDeckController.h */,
+				C01EDE161731A3CA00AE97B8 /* IIViewDeckController.m */,
+				C01EDE171731A3CA00AE97B8 /* IIWrapController.h */,
+				C01EDE181731A3CA00AE97B8 /* IIWrapController.m */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		C01EDE201731A42900AE97B8 /* Left Deck */ = {
+			isa = PBXGroup;
+			children = (
+				C01EDE221731A43B00AE97B8 /* Nav Cells */,
+			);
+			name = "Left Deck";
+			sourceTree = "<group>";
+		};
+		C01EDE211731A42F00AE97B8 /* Right Deck */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Right Deck";
+			sourceTree = "<group>";
+		};
+		C01EDE221731A43B00AE97B8 /* Nav Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C01EDE231731A44200AE97B8 /* FilterCell.h */,
+				C01EDE241731A44200AE97B8 /* FilterCell.m */,
+				C01EDE251731A44200AE97B8 /* FilterCell.xib */,
+				C01EDE261731A44200AE97B8 /* ShareCell.h */,
+				C01EDE271731A44200AE97B8 /* ShareCell.m */,
+				C01EDE281731A44200AE97B8 /* ShareCell.xib */,
+				C01EDE291731A44200AE97B8 /* SettingsCell.h */,
+				C01EDE2A1731A44200AE97B8 /* SettingsCell.m */,
+				C01EDE2B1731A44200AE97B8 /* SettingsCell.xib */,
+				C01EDE2C1731A44200AE97B8 /* CreditsCell.h */,
+				C01EDE2D1731A44200AE97B8 /* CreditsCell.m */,
+				C01EDE2E1731A44200AE97B8 /* CreditsCell.xib */,
+			);
+			name = "Nav Cells";
+			sourceTree = "<group>";
+		};
+		C01EDE371731A48500AE97B8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +322,12 @@
 				C01EDDFB1731553B00AE97B8 /* Default@2x.png in Resources */,
 				C01EDDFD1731553B00AE97B8 /* Default-568h@2x.png in Resources */,
 				C01EDE031731553B00AE97B8 /* ViewController.xib in Resources */,
+				C01EDE301731A44200AE97B8 /* FilterCell.xib in Resources */,
+				C01EDE321731A44200AE97B8 /* ShareCell.xib in Resources */,
+				C01EDE341731A44200AE97B8 /* SettingsCell.xib in Resources */,
+				C01EDE361731A44200AE97B8 /* CreditsCell.xib in Resources */,
+				C01EDE3C1731A4BB00AE97B8 /* frontPageCell.xib in Resources */,
+				C01EDE411731A4C900AE97B8 /* CommentsCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +344,16 @@
 				C01EDE0C1731557900AE97B8 /* Webservice.m in Sources */,
 				C01EDE1017315C6700AE97B8 /* Post.m in Sources */,
 				C01EDE131731861F00AE97B8 /* Comment.m in Sources */,
+				C01EDE191731A3CA00AE97B8 /* IIViewDeckController.m in Sources */,
+				C01EDE1A1731A3CA00AE97B8 /* IIWrapController.m in Sources */,
+				C01EDE1E1731A3E500AE97B8 /* triangleView.m in Sources */,
+				C01EDE2F1731A44200AE97B8 /* FilterCell.m in Sources */,
+				C01EDE311731A44200AE97B8 /* ShareCell.m in Sources */,
+				C01EDE331731A44200AE97B8 /* SettingsCell.m in Sources */,
+				C01EDE351731A44200AE97B8 /* CreditsCell.m in Sources */,
+				C01EDE3B1731A4BB00AE97B8 /* frontPageCell.m in Sources */,
+				C01EDE401731A4C900AE97B8 /* CommentsCell.m in Sources */,
+				C01EDE441731A61700AE97B8 /* HNSingleton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
