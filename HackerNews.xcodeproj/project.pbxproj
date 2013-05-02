@@ -60,6 +60,7 @@
 		C01EDE771731A84800AE97B8 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE601731A84800AE97B8 /* Default.png */; };
 		C01EDE781731A84800AE97B8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE611731A84800AE97B8 /* Default@2x.png */; };
 		C01EDE791731A84800AE97B8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE621731A84800AE97B8 /* Default-568h@2x.png */; };
+		C01EDE7C1731E2A900AE97B8 /* Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE7B1731E2A900AE97B8 /* Helpers.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,6 +135,8 @@
 		C01EDE601731A84800AE97B8 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		C01EDE611731A84800AE97B8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C01EDE621731A84800AE97B8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C01EDE7A1731E2A900AE97B8 /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
+		C01EDE7B1731E2A900AE97B8 /* Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helpers.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +309,8 @@
 		C01EDE371731A48500AE97B8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C01EDE7A1731E2A900AE97B8 /* Helpers.h */,
+				C01EDE7B1731E2A900AE97B8 /* Helpers.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -450,6 +455,7 @@
 				C01EDE3B1731A4BB00AE97B8 /* frontPageCell.m in Sources */,
 				C01EDE401731A4C900AE97B8 /* CommentsCell.m in Sources */,
 				C01EDE441731A61700AE97B8 /* HNSingleton.m in Sources */,
+				C01EDE7C1731E2A900AE97B8 /* Helpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

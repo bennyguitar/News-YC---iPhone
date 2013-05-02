@@ -34,13 +34,32 @@
 
 #pragma mark - UI
 -(void)buildUI {
+    // Header Triangle
     headerTriangle.color = [UIColor colorWithWhite:0.17 alpha:1.0];
     [headerTriangle drawTriangleAtXPosition:self.view.frame.size.width/2];
     
+    // Sizes
     headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
     frontPageTable.frame = CGRectMake(0, headerContainer.frame.size.height, frontPageTable.frame.size.width, [[UIScreen mainScreen] bounds].size.height - headerContainer.frame.size.height - 20);
     
+    // Add Refresh Controls
+    //Add Refresh Controls
+    frontPageRefresher = [[UIRefreshControl alloc] init];
+    [frontPageRefresher addTarget:self action:@selector(loadHomepage) forControlEvents:UIControlEventValueChanged];
+    frontPageRefresher.tintColor = [UIColor blackColor];
+    frontPageRefresher.alpha = 0.38;
+    [frontPageTable addSubview:frontPageRefresher];
+    
+    commentsRefresher = [[UIRefreshControl alloc] init];
+    [commentsRefresher addTarget:self action:@selector(loadCommentsForPost:) forControlEvents:UIControlEventValueChanged];
+    commentsRefresher.tintColor = [UIColor blackColor];
+    commentsRefresher.alpha = 0.38;
+    [commentsTable addSubview:commentsRefresher];
+    
     NSArray *sArray = @[commentsHeader, headerContainer, linkHeader];
+    for (UIView *view in sArray) {
+        [Helpers makeShadowForView:view withRadius:0];
+    }
 }
 
 
@@ -49,6 +68,7 @@
     Webservice *service = [[Webservice alloc] init];
     service.delegate = self;
     [service getHomepage];
+    loadingIndicator.alpha = 1;
 }
 
 -(void)didFetchPosts:(NSArray *)posts {
@@ -60,6 +80,10 @@
     else {
         // No posts were retrieved. Handle exception.
     }
+    
+    // Stop Activity Indicators
+    loadingIndicator.alpha = 0;
+    [frontPageRefresher endRefreshing];
 }
 
 #pragma mark - Load Comments
@@ -158,12 +182,9 @@
         NSString *CellIdentifier = @"frontPageCell";
         frontPageCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            
             NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"frontPageCell" owner:nil options:nil];
-            
             for (UIView *view in views) {
-                if([view isKindOfClass:[UITableViewCell class]])
-                {
+                if([view isKindOfClass:[UITableViewCell class]]) {
                     cell = (frontPageCell *)view;
                 }
             }
@@ -176,7 +197,9 @@
             
             cell.titleLabel.text = post.Title;
             //cell.postedTimeLabel.text = [NSString stringWithFormat:@"%@ by %@", [postDict objectForKey:@"time"], [postDict objectForKey:@"user"]];
-            cell.scoreLabel.text = [NSString stringWithFormat:@"%d", post.Points];
+            cell.postedTimeLabel.text = post.Username;
+            cell.commentsLabel.text = [NSString stringWithFormat:@"%d", post.CommentCount];
+            cell.scoreLabel.text = [NSString stringWithFormat:@"%d Points", post.Points];
             cell.commentTagButton.tag = indexPath.row;
             cell.commentBGButton.tag = indexPath.row;
             [cell.commentTagButton addTarget:self action:@selector(goToCommentsFromFrontPage:) forControlEvents:UIControlEventTouchUpInside];
@@ -190,15 +213,6 @@
             cell.bottomBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
             [cell.commentTagButton setImage:[[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CommentBubble"] forState:UIControlStateNormal];
             //cell.commentsLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
-            
-            /*
-            if ([[postDict objectForKey:@"comments"] isEqualToString:@"discuss"] || [[postDict objectForKey:@"comments"] isEqualToString:@"comments"]) {
-                cell.commentsLabel.text = @"0";
-            }
-            else {
-                cell.commentsLabel.text = [[[postDict objectForKey:@"comments"] componentsSeparatedByString:@" "] objectAtIndex:0];
-            }
-            */
             
             if (cell.titleLabel.text.length >= 9) {
                 if ([[cell.titleLabel.text substringWithRange:NSMakeRange(0, 9)] isEqualToString:@"Show HN: "]) {

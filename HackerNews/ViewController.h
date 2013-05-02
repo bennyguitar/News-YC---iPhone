@@ -11,6 +11,7 @@
 #import "TriangleView.h"
 #import "HNSingleton.h"
 #import "frontPageCell.h"
+#import "Helpers.h"
 
 @interface ViewController : UIViewController <WebserviceDelegate, UITableViewDataSource, UITableViewDelegate> {
     // Home Page UI
@@ -18,9 +19,13 @@
     __weak IBOutlet UITableView *frontPageTable;
     __weak IBOutlet TriangleView *headerTriangle;
     __weak IBOutlet UIActivityIndicatorView *loadingIndicator;
+    UIRefreshControl *frontPageRefresher;
     
     // Comments Page UI
     __weak IBOutlet UIView *commentsHeader;
+    __weak IBOutlet UITableView *commentsTable;
+    __weak IBOutlet UILabel *commentPostTitleLabel;
+    UIRefreshControl *commentsRefresher;
     
     
     // Link Page UI
