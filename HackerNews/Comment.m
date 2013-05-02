@@ -41,7 +41,7 @@
     
     // 2. Add Children to Top-Level
     for (Comment *comment in topLevelComments) {
-        [Comment addChildrenToComment:comment fromPool:comments count:[NSNumber numberWithInt:comments.count]];
+        [Comment addChildrenToComment:comment fromPool:comments];
     }
     
     // 3. Get Levels and add to same-layer Array
@@ -52,14 +52,11 @@
     return organizedComments;
 }
 
-+(void)addChildrenToComment:(Comment *)comment fromPool:(NSMutableArray *)pool count:(NSNumber *)count {
-    for (int xx = 0; xx < [count intValue]; xx++) {
-        Comment *poolComment = [pool objectAtIndex:xx];
++(void)addChildrenToComment:(Comment *)comment fromPool:(NSMutableArray *)pool {
+    for (Comment *poolComment in pool) {
         if ([poolComment.ParentID isEqualToString:comment.CommentID]) {
             [comment.Children addObject:poolComment];
-            //[pool removeObject:poolComment];
-            //count = [NSNumber numberWithInt:[count intValue] - 1];
-            [Comment addChildrenToComment:poolComment fromPool:pool count:count];
+            [Comment addChildrenToComment:poolComment fromPool:pool];
         }
     }
 }
