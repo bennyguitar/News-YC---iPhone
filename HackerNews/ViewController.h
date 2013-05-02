@@ -11,6 +11,7 @@
 #import "TriangleView.h"
 #import "HNSingleton.h"
 #import "frontPageCell.h"
+#import "CommentsCell.h"
 #import "Helpers.h"
 
 @interface ViewController : UIViewController <WebserviceDelegate, UITableViewDataSource, UITableViewDelegate> {
@@ -22,22 +23,30 @@
     UIRefreshControl *frontPageRefresher;
     
     // Comments Page UI
+    IBOutlet UIView *commentsView;
     __weak IBOutlet UIView *commentsHeader;
     __weak IBOutlet UITableView *commentsTable;
     __weak IBOutlet UILabel *commentPostTitleLabel;
     UIRefreshControl *commentsRefresher;
+    __weak IBOutlet UILabel *postTitleLabel;
     
     
     // Link Page UI
     __weak IBOutlet UIView *linkHeader;
+    __weak IBOutlet UIWebView *linkWebView;
+    IBOutlet UIView *linkView;
     
     
     // Data
     NSArray *homePagePosts;
+    NSArray *organizedCommentsArray;
+    Post *currentPost;
     float frontPageLastLocation;
+    float commentsLastLocation;
     int scrollDirection;
 }
 
 
+- (IBAction)hideComments:(id)sender;
 
 @end

@@ -23,7 +23,9 @@
 	
     // Set Up Work
     homePagePosts = @[];
+    organizedCommentsArray = @[];
     frontPageLastLocation = 0;
+    commentsLastLocation = 0;
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,7 +45,6 @@
     frontPageTable.frame = CGRectMake(0, headerContainer.frame.size.height, frontPageTable.frame.size.width, [[UIScreen mainScreen] bounds].size.height - headerContainer.frame.size.height - 20);
     
     // Add Refresh Controls
-    //Add Refresh Controls
     frontPageRefresher = [[UIRefreshControl alloc] init];
     [frontPageRefresher addTarget:self action:@selector(loadHomepage) forControlEvents:UIControlEventValueChanged];
     frontPageRefresher.tintColor = [UIColor blackColor];
@@ -51,11 +52,12 @@
     [frontPageTable addSubview:frontPageRefresher];
     
     commentsRefresher = [[UIRefreshControl alloc] init];
-    [commentsRefresher addTarget:self action:@selector(loadCommentsForPost:) forControlEvents:UIControlEventValueChanged];
+    [commentsRefresher addTarget:self action:@selector(reloadComments) forControlEvents:UIControlEventValueChanged];
     commentsRefresher.tintColor = [UIColor blackColor];
     commentsRefresher.alpha = 0.38;
     [commentsTable addSubview:commentsRefresher];
     
+    // Add Shadows
     NSArray *sArray = @[commentsHeader, headerContainer, linkHeader];
     for (UIView *view in sArray) {
         [Helpers makeShadowForView:view withRadius:0];
@@ -90,16 +92,33 @@
 -(void)loadCommentsForPost:(Post *)post {
     Webservice *service = [[Webservice alloc] init];
     service.delegate = self;
-    [service getCommentsForPost:post];
+    [service getCommentsForPost:post launchComments:YES];
+    currentPost = post;
+    loadingIndicator.alpha = 1;
 }
 
--(void)didFetchComments:(NSArray *)comments {
+-(void)reloadComments {
+    Webservice *service = [[Webservice alloc] init];
+    service.delegate = self;
+    [service getCommentsForPost:currentPost launchComments:NO];
+    [commentsRefresher beginRefreshing];
+    loadingIndicator.alpha = 1;
+}
+
+-(void)didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch {
     if (comments) {
-        
+        organizedCommentsArray = comments;
+        [commentsTable reloadData];
+        if (launch) {
+            [self launchCommentsView];
+        }
     }
     else {
         // No comments were retrieved. Handle exception.
     }
+    
+    [commentsRefresher endRefreshing];
+    loadingIndicator.alpha = 0;
 }
 
 #pragma mark - Scroll View Delegate
@@ -145,11 +164,48 @@
         }
         
     }
-    /*
+    
     else if (scrollView == commentsTable) {
         [self scrollCommentsToHideWithScrollView:commentsTable];
     }
-     */
+}
+
+-(void)scrollCommentsToHideWithScrollView:(UIScrollView *)scrollView {
+    if (commentsLastLocation < scrollView.contentOffset.y) {
+        scrollDirection = scrollDirectionUp;
+    }
+    else {
+        scrollDirection = scrollDirectionDown;
+    }
+    
+    if (scrollDirection == scrollDirectionUp) {
+        if (scrollView.contentSize.height >= [[UIScreen mainScreen] bounds].size.height) {
+            if (scrollView.contentOffset.y <= headerContainer.frame.size.height) {
+                headerContainer.frame = CGRectMake(0, -1*scrollView.contentOffset.y, headerContainer.frame.size.width, headerContainer.frame.size.height);
+                commentsView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, commentsView.frame.size.width,[[UIScreen mainScreen] bounds].size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y) - 20);
+                commentsLastLocation = scrollView.contentOffset.y;
+            }
+            // This just ensures you can't fast-scroll, keeping the header off-screen
+            // if the contentOffset is > header.height
+            else if (scrollView.contentOffset.y > headerContainer.frame.size.height && (headerContainer.frame.origin.y != (-1*headerContainer.frame.size.height))) {
+                headerContainer.frame = CGRectMake(0, -1*headerContainer.frame.size.height, headerContainer.frame.size.width, headerContainer.frame.size.height);
+                commentsView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, commentsView.frame.size.width,[[UIScreen mainScreen] bounds].size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y) - 20);
+            }
+        }
+    }
+    
+    else {
+        if (scrollView.contentOffset.y <= headerContainer.frame.size.height && scrollView.contentOffset.y >= 0) {
+            headerContainer.frame = CGRectMake(0, -1*scrollView.contentOffset.y, headerContainer.frame.size.width, headerContainer.frame.size.height);
+            commentsView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, commentsView.frame.size.width,[[UIScreen mainScreen] bounds].size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y) - 20);
+            commentsLastLocation = scrollView.contentOffset.y;
+        }
+        else if (scrollView.contentOffset.y < 0) {
+            headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
+            commentsView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, commentsView.frame.size.width,[[UIScreen mainScreen] bounds].size.height - headerContainer.frame.size.height - 20);
+        }
+    }
+
 }
 
 
@@ -165,7 +221,7 @@
         }
         return homePagePosts.count - 1;
     }
-    /*
+    
     else {
         if (organizedCommentsArray.count > 0) {
             return organizedCommentsArray.count;
@@ -174,7 +230,6 @@
             return 1;
         }
     }
-     */
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -264,7 +319,7 @@
         }
     }
     
-    /*
+    
     else  {
         NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %d", indexPath.row];
         CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -284,13 +339,13 @@
         cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
         
         if (organizedCommentsArray.count > 0) {
-            HackerComment *newComment = [organizedCommentsArray objectAtIndex:indexPath.row];
-            cell.commentLevel = newComment.commentLevel;
-            cell.holdingView.frame = CGRectMake(15 * newComment.commentLevel, 0, cell.frame.size.width - (15*newComment.commentLevel), cell.frame.size.height);
-            cell.username.text = newComment.username;
-            cell.postedTime.text = newComment.time;
+            Comment *newComment = [organizedCommentsArray objectAtIndex:indexPath.row];
+            cell.commentLevel = newComment.Level;
+            cell.holdingView.frame = CGRectMake(15 * newComment.Level, 0, cell.frame.size.width - (15*newComment.Level), cell.frame.size.height);
+            cell.username.text = newComment.Username;
+            //cell.postedTime.text = newComment.time;
             
-            cell.comment.text = [self replaceAllTheBullShit:newComment.comment];
+            cell.comment.text = newComment.Text;
             
             CGSize s = [cell.comment.text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(cell.comment.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
             cell.comment.frame = CGRectMake(cell.comment.frame.origin.x, cell.comment.frame.origin.y, cell.comment.frame.size.width, s.height);
@@ -310,8 +365,105 @@
         
         return cell;
     }
-     */
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == frontPageTable) {
+        [self loadCommentsForPost:[homePagePosts objectAtIndex:indexPath.row]];
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Comment Cell Height
+    if (tableView == commentsTable) {
+        NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %d", indexPath.row];
+        CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            
+            NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:nil options:nil];
+            
+            for (UIView *view in views) {
+                if([view isKindOfClass:[UITableViewCell class]])
+                {
+                    cell = (CommentsCell *)view;
+                }
+            }
+        }
+        
+        if (organizedCommentsArray.count > 0) {
+            Comment *newComment = [organizedCommentsArray objectAtIndex:indexPath.row];
+
+            CGSize s = [newComment.Text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(cell.comment.frame.size.width - (newComment.Level*15), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+            
+            return s.height + 45;
+        }
+        return cell.frame.size.height;
+    }
+    
+    
+    // Front Page Cell Height
+    else {
+        return frontPageTable.rowHeight;
+    }
 }
 
 
+#pragma mark - Launch/Hide Comments
+-(void)launchCommentsView {
+    // Scroll to Top
+    [commentsTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    
+    // Set Post-Title Label
+    postTitleLabel.text = currentPost.Title;
+    
+    commentsView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - headerContainer.frame.size.height - 20);
+    commentsHeader.frame = CGRectMake(0, 0, commentsHeader.frame.size.width, commentsHeader.frame.size.height);
+    commentsTable.frame = CGRectMake(0, commentsHeader.frame.size.height, commentsView.frame.size.width, commentsView.frame.size.height - commentsHeader.frame.size.height);
+    [self.view addSubview:commentsView];
+    [self.view bringSubviewToFront:commentsView];
+    [UIView animateWithDuration:0.3 animations:^{
+        [frontPageTable setScrollEnabled:NO];
+        [frontPageTable setContentOffset:frontPageTable.contentOffset animated:NO];
+        headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
+        commentsView.frame = CGRectMake(0, headerContainer.frame.size.height, commentsView.frame.size.width, [UIScreen mainScreen].bounds.size.height - headerContainer.frame.size.height - 20);
+    } completion:^(BOOL fin){
+        [frontPageTable setScrollEnabled:YES];
+    }];
+}
+
+
+#pragma mark - Launch/Hide
+
+
+- (IBAction)hideComments:(id)sender {
+    [linkWebView stopLoading];
+    
+    // These make sure the comments don't re-open after closing
+    if ([commentsTable isDragging]) {
+        [commentsTable setContentOffset:commentsTable.contentOffset animated:NO];
+    }
+    if (commentsTable.contentOffset.y < 0  || commentsTable.contentSize.height <= [UIScreen mainScreen].bounds.size.height){
+        [commentsTable setContentOffset:CGPointZero animated:NO];
+    }
+    
+    loadingIndicator.alpha = 0;
+    //[self placeHeaderBarBack];
+    [UIView animateWithDuration:0.3 animations:^{
+        commentsView.frame = CGRectMake(0, self.view.frame.size.height, commentsView.frame.size.width, frontPageTable.frame.size.height);
+        linkView.frame = CGRectMake(0, self.view.frame.size.height, linkView.frame.size.width, linkView.frame.size.height);
+    } completion:^(BOOL fin){
+        if (frontPageTable.contentOffset.y >= headerContainer.frame.size.height) {
+            [UIView animateWithDuration:0.25 animations:^{
+                headerContainer.frame = CGRectMake(0, -1*headerContainer.frame.size.height, headerContainer.frame.size.width, headerContainer.frame.size.height);
+                frontPageTable.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, frontPageTable.frame.size.width,[[UIScreen mainScreen] bounds].size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y) - 20);
+            }];
+        }
+        else {
+            [UIView animateWithDuration:0.25 animations:^{
+                headerContainer.frame = CGRectMake(0, -1*frontPageTable.contentOffset.y, headerContainer.frame.size.width, headerContainer.frame.size.height);
+                frontPageTable.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, frontPageTable.frame.size.width,[[UIScreen mainScreen] bounds].size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y) - 20);
+            }];
+        }
+    }];
+}
 @end

@@ -22,7 +22,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.subvertllc.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.subvertllc.${PRODUCT_NAME:rfc1034identifier}2</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

@@ -36,6 +36,12 @@
     return NO;
 }
 
++(NSString *)replaceHTMLMarks:(NSString *)text {
+    text = [text stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n\n"];
+    text = [text stringByReplacingOccurrencesOfString:@"</p>" withString:@""];
+    
+    return text;
+}
 
 
 @end

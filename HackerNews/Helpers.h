@@ -12,5 +12,6 @@
 
 +(void)makeShadowForView:(UIView *)s withRadius:(float)radius;
 +(BOOL)isViewOnScreen:(UIView *)view;
++(NSString *)replaceHTMLMarks:(NSString *)text;
 
 @end

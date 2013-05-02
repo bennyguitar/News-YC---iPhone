@@ -14,7 +14,7 @@
 @optional
 
 -(void)didFetchPosts:(NSArray *)posts;
--(void)didFetchComments:(NSArray *)comments;
+-(void)didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch;
 
 @end
 
@@ -26,6 +26,6 @@
 
 // Methods
 -(void)getHomepage;
--(void)getCommentsForPost:(Post *)post;
+-(void)getCommentsForPost:(Post *)post launchComments:(BOOL)launch;
 
 @end

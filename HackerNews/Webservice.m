@@ -51,6 +51,7 @@
     });
 }
 
+
 -(void)parseIDsAndGrabPosts:(NSString *)parseString {
     // Parse String and grab IDs
     NSMutableArray *items = [@[] mutableCopy];
@@ -131,44 +132,45 @@
 
 
 #pragma mark - Get Comments
--(void)getCommentsForPost:(Post *)post {
+-(void)getCommentsForPost:(Post *)post launchComments:(BOOL)launch {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSURLResponse *response;
         NSError *error;
         
         // Create the URL Request
-        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][discussion.sigid]=%@",post.PostID]]];
+        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][discussion.sigid]=%@&limit=100&start=0&sortby=parent_id",post.PostID]]];
         
         // Start the request
         NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
         
-        
-        //Handle response
-        //Callback to main thread
+        // Handle response
+        // Callback to main thread
         if (responseData) {
            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
             
-            if (responseDict) {
+            if ([responseDict objectForKey:@"results"]) {
                 NSMutableArray *comments = [@[] mutableCopy];
                 NSArray *commentDicts = [responseDict objectForKey:@"results"];
                 for (NSDictionary *comment in commentDicts) {
-                    [comments addObject:[Comment commentFromDictionary:comment]];
+                    [comments addObject:[Comment commentFromDictionary:[comment objectForKey:@"item"]]];
                 }
                 
+                NSArray *orderedComments = [Comment organizeComments:comments topLevelID:post.PostID];
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didFetchComments:comments];
+                    [delegate didFetchComments:orderedComments forPostID:post.PostID launchComments:launch];
                 });
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didFetchComments:nil];
+                    [delegate didFetchComments:nil forPostID:nil launchComments:NO];
                 });
                 
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didFetchComments:nil];
+                [delegate didFetchComments:nil forPostID:nil launchComments:NO];
             });
         }
         
