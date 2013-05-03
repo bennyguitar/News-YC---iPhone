@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kOrangeColor [UIColor colorWithRed:204/255.0f green:96/255.0f blue:52/255.0f alpha:1.0f]
+#define kOrangeColor [UIColor colorWithRed:200/255.0f green:97/255.0f blue:41/255.0f alpha:1.0f]
 
 @interface LinkButton : UIButton
 

@@ -62,6 +62,10 @@
 		C01EDE791731A84800AE97B8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE621731A84800AE97B8 /* Default-568h@2x.png */; };
 		C01EDE7C1731E2A900AE97B8 /* Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE7B1731E2A900AE97B8 /* Helpers.m */; };
 		C01EDEB01733553A00AE97B8 /* LinkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDEAF1733553900AE97B8 /* LinkButton.m */; };
+		C01EDEB41733683200AE97B8 /* NavigationDeckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDEB21733683200AE97B8 /* NavigationDeckViewController.m */; };
+		C01EDEB51733683200AE97B8 /* NavigationDeckViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDEB31733683200AE97B8 /* NavigationDeckViewController.xib */; };
+		C01EDEB71733698600AE97B8 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDEB61733698600AE97B8 /* Social.framework */; };
+		C01EDEB91733698D00AE97B8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDEB81733698D00AE97B8 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,6 +144,11 @@
 		C01EDE7B1731E2A900AE97B8 /* Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helpers.m; sourceTree = "<group>"; };
 		C01EDEAE1733553900AE97B8 /* LinkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkButton.h; sourceTree = "<group>"; };
 		C01EDEAF1733553900AE97B8 /* LinkButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkButton.m; sourceTree = "<group>"; };
+		C01EDEB11733683200AE97B8 /* NavigationDeckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationDeckViewController.h; sourceTree = "<group>"; };
+		C01EDEB21733683200AE97B8 /* NavigationDeckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationDeckViewController.m; sourceTree = "<group>"; };
+		C01EDEB31733683200AE97B8 /* NavigationDeckViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationDeckViewController.xib; sourceTree = "<group>"; };
+		C01EDEB61733698600AE97B8 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		C01EDEB81733698D00AE97B8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +156,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C01EDEB91733698D00AE97B8 /* MessageUI.framework in Frameworks */,
+				C01EDEB71733698600AE97B8 /* Social.framework in Frameworks */,
 				C01EDE461731A67C00AE97B8 /* QuartzCore.framework in Frameworks */,
 				C01EDDE71731553B00AE97B8 /* UIKit.framework in Frameworks */,
 				C01EDDE91731553B00AE97B8 /* Foundation.framework in Frameworks */,
@@ -160,6 +171,8 @@
 		C01EDDDA1731553B00AE97B8 = {
 			isa = PBXGroup;
 			children = (
+				C01EDEB81733698D00AE97B8 /* MessageUI.framework */,
+				C01EDEB61733698600AE97B8 /* Social.framework */,
 				C01EDE471731A7C400AE97B8 /* icon57.png */,
 				C01EDE481731A7C400AE97B8 /* icon114.png */,
 				C01EDE451731A67C00AE97B8 /* QuartzCore.framework */,
@@ -280,6 +293,9 @@
 		C01EDE201731A42900AE97B8 /* Left Deck */ = {
 			isa = PBXGroup;
 			children = (
+				C01EDEB11733683200AE97B8 /* NavigationDeckViewController.h */,
+				C01EDEB21733683200AE97B8 /* NavigationDeckViewController.m */,
+				C01EDEB31733683200AE97B8 /* NavigationDeckViewController.xib */,
 				C01EDE221731A43B00AE97B8 /* Nav Cells */,
 			);
 			name = "Left Deck";
@@ -434,6 +450,7 @@
 				C01EDE771731A84800AE97B8 /* Default.png in Resources */,
 				C01EDE781731A84800AE97B8 /* Default@2x.png in Resources */,
 				C01EDE791731A84800AE97B8 /* Default-568h@2x.png in Resources */,
+				C01EDEB51733683200AE97B8 /* NavigationDeckViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +479,7 @@
 				C01EDE441731A61700AE97B8 /* HNSingleton.m in Sources */,
 				C01EDE7C1731E2A900AE97B8 /* Helpers.m in Sources */,
 				C01EDEB01733553A00AE97B8 /* LinkButton.m in Sources */,
+				C01EDEB41733683200AE97B8 /* NavigationDeckViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

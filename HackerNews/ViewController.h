@@ -21,6 +21,7 @@
     // Home Page UI
     __weak IBOutlet UIView *headerContainer;
     __weak IBOutlet UITableView *frontPageTable;
+    __weak IBOutlet UIImageView *underHeaderTriangle;
     __weak IBOutlet TriangleView *headerTriangle;
     __weak IBOutlet UIActivityIndicatorView *loadingIndicator;
     UIRefreshControl *frontPageRefresher;

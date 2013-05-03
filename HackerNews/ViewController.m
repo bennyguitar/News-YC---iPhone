@@ -20,6 +20,7 @@
     [self.navigationController setNavigationBarHidden:YES];
     [self loadHomepage];
     [self buildUI];
+    [self colorUI];
 	
     // Set Up Work
     homePagePosts = @[];
@@ -36,10 +37,6 @@
 
 #pragma mark - UI
 -(void)buildUI {
-    // Header Triangle
-    headerTriangle.color = [UIColor colorWithWhite:0.17 alpha:1.0];
-    [headerTriangle drawTriangleAtXPosition:self.view.frame.size.width/2];
-    
     // Sizes
     headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
     frontPageTable.frame = CGRectMake(0, headerContainer.frame.size.height, frontPageTable.frame.size.width, [[UIScreen mainScreen] bounds].size.height - headerContainer.frame.size.height - 20);
@@ -62,6 +59,19 @@
     for (UIView *view in sArray) {
         [Helpers makeShadowForView:view withRadius:0];
     }
+}
+
+-(void)colorUI {
+    self.view.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
+    frontPageTable.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
+    frontPageTable.separatorColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"Separator"];
+    commentsTable.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
+    
+    underHeaderTriangle.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"TableTriangle"];
+    headerTriangle.color = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"TableTriangle"];
+    [headerTriangle drawTriangleAtXPosition:self.view.frame.size.width/2];
+    
+    [self.view setNeedsDisplay];
 }
 
 

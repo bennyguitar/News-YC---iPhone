@@ -7,8 +7,10 @@
 //
 
 #import "AppDelegate.h"
-
 #import "ViewController.h"
+#import "IIViewDeckController.h"
+#import "NavigationDeckViewController.h"
+
 
 @implementation AppDelegate
 
@@ -26,8 +28,27 @@
         [[HNSingleton sharedHNSingleton] changeTheme];
     }
     
-    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
+    // If no User Default for Readability, turn it ON!
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"Readability"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Readability"];
+    }
+    // If no User Default for MarkAsRead, turn it ON!
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"MarkAsRead"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MarkAsRead"];
+    }
+    
+    // Set initial filter to Top
+    [HNSingleton sharedHNSingleton].filter = fTypeTop;
+    
+    
+    self.leftController = [[NavigationDeckViewController alloc] initWithNibName:@"NavigationDeckViewController" bundle:nil];
+    ViewController *centerController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    self.centerController = [[UINavigationController alloc] initWithRootViewController:centerController];
+    IIViewDeckController* deckController =  [[IIViewDeckController alloc] initWithCenterViewController:self.centerController
+                                                                                    leftViewController:self.leftController
+                                                                                   rightViewController:nil];
+    
+    self.window.rootViewController = deckController;
     [self.window makeKeyAndVisible];
     return YES;
 }
