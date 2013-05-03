@@ -21,6 +21,7 @@
     newComment.ParentID = [dict objectForKey:@"parent_sigid"];
     newComment.Username = [dict objectForKey:@"username"];
     newComment.Level = 0;
+    newComment.TimeCreated = [Helpers postDateFromString:[dict objectForKey:@"create_ts"]];
     
     return newComment;
 }
@@ -53,6 +54,8 @@
     return organizedComments;
 }
 
+// Recursively adds Children comments to original Comment
+// passed in from the pool of comments.
 +(void)addChildrenToComment:(Comment *)comment fromPool:(NSMutableArray *)pool {
     for (Comment *poolComment in pool) {
         if ([poolComment.ParentID isEqualToString:comment.CommentID]) {
@@ -62,6 +65,9 @@
     }
 }
 
+// Recursively changes the linked-list of comments
+// into a single-layer array, and keeps the order so nested
+// comments look good (Level property)
 +(void)addLevel:(int)level toComment:(Comment *)comment forArray:(NSMutableArray *)orderedArray {
     comment.Level = level;
     [orderedArray addObject:comment];

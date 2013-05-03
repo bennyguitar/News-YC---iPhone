@@ -78,5 +78,17 @@
     return linkTextComponents.count > 0 ? newString : text;
 }
 
++(NSString *)postStringFromDate:(NSDate *)date {
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"YYYY-MM-dd'T'HH:mm:ssZ"];
+    return [format stringFromDate:date];
+}
+
++(NSDate *)postDateFromString:(NSString *)string {
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"YYYY-MM-dd'T'HH:mm:ssZ"];
+    return [format dateFromString:string];
+}
+
 
 @end

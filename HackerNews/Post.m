@@ -7,6 +7,7 @@
 //
 
 #import "Post.h"
+#import "Helpers.h"
 
 @implementation Post
 
@@ -20,7 +21,7 @@
     newPost.CommentCount = [[dict objectForKey:@"num_comments"] intValue];
     newPost.Title = [dict objectForKey:@"title"];
     newPost.HasRead = NO;
-    
+    newPost.TimeCreated = [Helpers postDateFromString:[dict objectForKey:@"create_ts"]];
     
     return newPost;
 }

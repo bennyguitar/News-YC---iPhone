@@ -14,5 +14,7 @@
 +(void)makeShadowForView:(UIView *)s withRadius:(float)radius;
 +(BOOL)isViewOnScreen:(UIView *)view;
 +(NSString *)replaceHTMLMarks:(NSString *)text forComment:(Comment *)comment;
++(NSString *)postStringFromDate:(NSDate *)date;
++(NSDate *)postDateFromString:(NSString *)string;
 
 @end

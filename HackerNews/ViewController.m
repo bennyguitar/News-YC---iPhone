@@ -22,7 +22,7 @@
     [self buildUI];
     [self colorUI];
 	
-    // Set Up Work
+    // Set Up Data
     homePagePosts = @[];
     organizedCommentsArray = @[];
     frontPageLastLocation = 0;
@@ -279,7 +279,6 @@
             
             
             cell.titleLabel.text = post.Title;
-            //cell.postedTimeLabel.text = [NSString stringWithFormat:@"%@ by %@", [postDict objectForKey:@"time"], [postDict objectForKey:@"user"]];
             cell.postedTimeLabel.text = post.Username;
             cell.commentsLabel.text = [NSString stringWithFormat:@"%d", post.CommentCount];
             cell.scoreLabel.text = [NSString stringWithFormat:@"%d Points", post.Points];
@@ -304,19 +303,6 @@
                     [cell insertSubview:showHNView atIndex:0];
                 }
             }
-            
-            /*
-            if (!([postDict objectForKey:@"user"])) {
-                UIView *showHNView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
-                showHNView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"HNJobs"];
-                [cell insertSubview:showHNView atIndex:0];
-                [showHNView release];
-                cell.postedTimeLabel.text = [NSString stringWithFormat:@"%@", [postDict objectForKey:@"time"]];
-                cell.scoreLabel.text = @"HN Jobs";
-                cell.commentTagButton.alpha = 0;
-            }
-            */
-            
             
             // Mark as Read
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MarkAsRead"]) {
