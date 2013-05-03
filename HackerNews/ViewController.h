@@ -13,6 +13,9 @@
 #import "frontPageCell.h"
 #import "CommentsCell.h"
 #import "Helpers.h"
+#import "LinkButton.h"
+
+#define kPad 10
 
 @interface ViewController : UIViewController <WebserviceDelegate, UITableViewDataSource, UITableViewDelegate> {
     // Home Page UI
@@ -36,6 +39,11 @@
     __weak IBOutlet UIWebView *linkWebView;
     IBOutlet UIView *linkView;
     
+    // External Link View
+    __weak IBOutlet UIWebView *externalLinkWebView;
+    IBOutlet UIView *externalLinkView;
+    __weak IBOutlet UIView *externalLinkHeader;
+    
     
     // Data
     NSArray *homePagePosts;
@@ -46,7 +54,9 @@
     int scrollDirection;
 }
 
-
-- (IBAction)hideComments:(id)sender;
+- (IBAction)didClickCommentsFromLinkView:(id)sender;
+- (IBAction)hideCommentsAndLinkView:(id)sender;
+- (IBAction)didClickLinkViewFromComments:(id)sender;
+- (IBAction)didClickBackToComments:(id)sender;
 
 @end

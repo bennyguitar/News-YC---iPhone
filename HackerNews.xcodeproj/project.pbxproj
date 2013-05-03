@@ -61,6 +61,7 @@
 		C01EDE781731A84800AE97B8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE611731A84800AE97B8 /* Default@2x.png */; };
 		C01EDE791731A84800AE97B8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE621731A84800AE97B8 /* Default-568h@2x.png */; };
 		C01EDE7C1731E2A900AE97B8 /* Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE7B1731E2A900AE97B8 /* Helpers.m */; };
+		C01EDEB01733553A00AE97B8 /* LinkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDEAF1733553900AE97B8 /* LinkButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +138,8 @@
 		C01EDE621731A84800AE97B8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C01EDE7A1731E2A900AE97B8 /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
 		C01EDE7B1731E2A900AE97B8 /* Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helpers.m; sourceTree = "<group>"; };
+		C01EDEAE1733553900AE97B8 /* LinkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkButton.h; sourceTree = "<group>"; };
+		C01EDEAF1733553900AE97B8 /* LinkButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +260,8 @@
 				C01EDE3F1731A4C900AE97B8 /* CommentsCell.xib */,
 				C01EDE1C1731A3E500AE97B8 /* triangleView.h */,
 				C01EDE1D1731A3E500AE97B8 /* triangleView.m */,
+				C01EDEAE1733553900AE97B8 /* LinkButton.h */,
+				C01EDEAF1733553900AE97B8 /* LinkButton.m */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -456,6 +461,7 @@
 				C01EDE401731A4C900AE97B8 /* CommentsCell.m in Sources */,
 				C01EDE441731A61700AE97B8 /* HNSingleton.m in Sources */,
 				C01EDE7C1731E2A900AE97B8 /* Helpers.m in Sources */,
+				C01EDEB01733553A00AE97B8 /* LinkButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

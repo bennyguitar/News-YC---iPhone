@@ -257,8 +257,8 @@
             cell.scoreLabel.text = [NSString stringWithFormat:@"%d Points", post.Points];
             cell.commentTagButton.tag = indexPath.row;
             cell.commentBGButton.tag = indexPath.row;
-            [cell.commentTagButton addTarget:self action:@selector(goToCommentsFromFrontPage:) forControlEvents:UIControlEventTouchUpInside];
-            [cell.commentBGButton addTarget:self action:@selector(goToCommentsFromFrontPage:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.commentTagButton addTarget:self action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.commentBGButton addTarget:self action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
             
             
             // COLOR
@@ -349,6 +349,13 @@
             
             CGSize s = [cell.comment.text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(cell.comment.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
             cell.comment.frame = CGRectMake(cell.comment.frame.origin.x, cell.comment.frame.origin.y, cell.comment.frame.size.width, s.height);
+            
+            // Add Links
+            for (int xx = 0; xx < newComment.Links.count; xx++) {
+                LinkButton *newLinkButton = [LinkButton newLinkButtonWithTag:indexPath.row linkTag:xx frame:CGRectMake(15*newComment.Level + kPad, cell.comment.frame.size.height + cell.comment.frame.origin.y + xx*kPad + xx*30 + kPad, cell.frame.size.width - (15*newComment.Level + 2*kPad), 30) title:newComment.Links[xx]];
+                [newLinkButton addTarget:self action:@selector(didClickExternalLinkInComment:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:newLinkButton];
+            }
         }
         else {
             cell.username.text = @"";
@@ -369,7 +376,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == frontPageTable) {
-        [self loadCommentsForPost:[homePagePosts objectAtIndex:indexPath.row]];
+        currentPost = homePagePosts[indexPath.row];
+        [self launchLinkView];
     }
 }
 
@@ -395,7 +403,7 @@
 
             CGSize s = [newComment.Text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(cell.comment.frame.size.width - (newComment.Level*15), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
             
-            return s.height + 45;
+            return s.height + 45 + (newComment.Links.count*30 + newComment.Links.count*kPad);
         }
         return cell.frame.size.height;
     }
@@ -408,7 +416,12 @@
 }
 
 
-#pragma mark - Launch/Hide Comments
+#pragma mark - Launch/Hide Comments & Link View
+-(void)didClickCommentsFromHomepage:(UIButton *)commentButton {
+    currentPost = [homePagePosts objectAtIndex:commentButton.tag];
+    [self loadCommentsForPost:currentPost];
+}
+
 -(void)launchCommentsView {
     // Scroll to Top
     [commentsTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
@@ -431,11 +444,7 @@
     }];
 }
 
-
-#pragma mark - Launch/Hide
-
-
-- (IBAction)hideComments:(id)sender {
+- (IBAction)hideCommentsAndLinkView:(id)sender {
     [linkWebView stopLoading];
     
     // These make sure the comments don't re-open after closing
@@ -466,4 +475,77 @@
         }
     }];
 }
+
+- (IBAction)didClickLinkViewFromComments:(id)sender {
+    [self launchLinkView];
+}
+
+- (IBAction)didClickCommentsFromLinkView:(id)sender {
+    [self launchCommentsView];
+}
+
+-(void)launchLinkView {
+    if ([commentsTable isDragging]) {
+        [commentsTable setContentOffset:commentsTable.contentOffset animated:NO];
+    }
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
+        commentsView.frame = CGRectMake(0, headerContainer.frame.size.height, commentsView.frame.size.width, commentsView.frame.size.height);
+    }];
+    
+    // Reset WebView
+    [linkWebView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
+    
+    // Open that sucka'
+    linkView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, [[UIScreen mainScreen] bounds].size.height - headerContainer.frame.size.height - 20);
+    linkHeader.frame = CGRectMake(0, 0, linkHeader.frame.size.width, linkHeader.frame.size.height);
+    linkWebView.frame = CGRectMake(0, linkHeader.frame.size.height, linkWebView.frame.size.width, linkView.frame.size.height - linkHeader.frame.size.height);
+    [self.view addSubview:linkView];
+    [self.view bringSubviewToFront:linkView];
+    [UIView animateWithDuration:0.3 animations:^{
+        headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
+        linkView.frame = CGRectMake(0, headerContainer.frame.size.height, linkView.frame.size.width, linkView.frame.size.height);
+    }];
+    
+    // Determine if using Readability
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Readability"]) {
+        [linkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.readability.com/m?url=%@", currentPost.URLString]]]];
+    }
+    else {
+        [linkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:currentPost.URLString]]];
+    }
+}
+
+
+#pragma mark - External Link View
+-(void)didClickExternalLinkInComment:(LinkButton *)linkButton {
+    Comment *clickComment = organizedCommentsArray[linkButton.tag];
+    [self launchExternalLinkViewWithLink:clickComment.Links[linkButton.LinkTag]];
+}
+
+-(void)launchExternalLinkViewWithLink:(NSString *)linkString {
+    // Set up External Link View
+    [externalLinkWebView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
+    [externalLinkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:linkString]]];
+    
+    // Launch Link View
+    externalLinkView.frame = CGRectMake(0, self.view.frame.size.height, externalLinkView.frame.size.width, self.view.frame.size.height);
+    [self.view addSubview:externalLinkView];
+    [UIView animateWithDuration:0.25 animations:^{
+        externalLinkView.frame = CGRectMake(0, 0, externalLinkView.frame.size.width, self.view.frame.size.height);
+    }];
+    
+}
+
+-(void)hideExternalLinkView {
+    [UIView animateWithDuration:0.25 animations:^{
+        externalLinkView.frame = CGRectMake(0, self.view.frame.size.height, externalLinkView.frame.size.width, self.view.frame.size.height);
+    }];
+}
+
+- (IBAction)didClickBackToComments:(id)sender {
+    [self hideExternalLinkView];
+}
+
 @end

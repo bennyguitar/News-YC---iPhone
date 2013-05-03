@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString *ParentID;
 @property (nonatomic, assign) int Level;
 @property (nonatomic, retain) NSMutableArray *Children;
+@property (nonatomic, retain) NSMutableArray *Links;
 
 +(Comment *)commentFromDictionary:(NSDictionary *)dict;
 +(NSArray *)organizeComments:(NSArray *)comments topLevelID:(NSString *)topLevelID;

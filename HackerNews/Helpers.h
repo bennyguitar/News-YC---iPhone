@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Comment.h"
 
 @interface Helpers : NSObject
 
 +(void)makeShadowForView:(UIView *)s withRadius:(float)radius;
 +(BOOL)isViewOnScreen:(UIView *)view;
-+(NSString *)replaceHTMLMarks:(NSString *)text;
++(NSString *)replaceHTMLMarks:(NSString *)text forComment:(Comment *)comment;
 
 @end

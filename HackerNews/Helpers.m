@@ -36,11 +36,46 @@
     return NO;
 }
 
-+(NSString *)replaceHTMLMarks:(NSString *)text {
++(NSString *)replaceHTMLMarks:(NSString *)text forComment:(Comment *)comment {
     text = [text stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n\n"];
     text = [text stringByReplacingOccurrencesOfString:@"</p>" withString:@""];
+    text = [text stringByReplacingOccurrencesOfString:@"<i>" withString:@""];
+    text = [text stringByReplacingOccurrencesOfString:@"</i>" withString:@""];
+    text = [text stringByReplacingOccurrencesOfString:@"&#38;" withString:@"&"];
+    text = [text stringByReplacingOccurrencesOfString:@"&#62;" withString:@">"];
     
-    return text;
+    NSArray *linkTextComponents = [text componentsSeparatedByString:@"<a href=\""];
+    NSString *newString = @"";
+    for (int xx = 0; xx < linkTextComponents.count; xx++) {
+        NSString *component = linkTextComponents[xx];
+        if (xx == 0) {
+            newString = component;
+        }
+        else {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ contains[c] SELF", component];
+            if ([predicate evaluateWithObject:@"</a>"]) {
+                // Contains a link
+                NSScanner *scanner = [NSScanner scannerWithString:component];
+                NSString *linkString=@"";
+                [scanner scanUpToString:@"\" rel=" intoString:&linkString];
+                [comment.Links addObject:linkString];
+                newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@", linkString]];
+                
+                // Now grab the rest of the comment after the link
+                // and add it back to newString
+                NSArray *commentComponents = [component componentsSeparatedByString:@"</a>"];
+                if (commentComponents.count > 1) {
+                    newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@",commentComponents[1]]];
+                }
+            }
+            else {
+                // No Link
+                newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@", component]];
+            }
+        }
+    }
+    
+    return linkTextComponents.count > 0 ? newString : text;
 }
 
 

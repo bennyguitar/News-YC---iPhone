@@ -14,12 +14,13 @@
 +(Comment *)commentFromDictionary:(NSDictionary *)dict {
     Comment *newComment = [[Comment alloc] init];
     
-    newComment.Text = [Helpers replaceHTMLMarks:[dict objectForKey:@"text"]];
+    newComment.Children = [@[] mutableCopy];
+    newComment.Links = [@[] mutableCopy];
+    newComment.Text = [Helpers replaceHTMLMarks:[dict objectForKey:@"text"] forComment:newComment];
     newComment.CommentID = [dict objectForKey:@"_id"];
     newComment.ParentID = [dict objectForKey:@"parent_sigid"];
     newComment.Username = [dict objectForKey:@"username"];
     newComment.Level = 0;
-    newComment.Children = [@[] mutableCopy];
     
     return newComment;
 }
@@ -44,7 +45,7 @@
         [Comment addChildrenToComment:comment fromPool:comments];
     }
     
-    // 3. Get Levels and add to same-layer Array
+    // 3. Get Levels and add to a single layer Array
     for (Comment *comment in topLevelComments) {
         [Comment addLevel:0 toComment:comment forArray:organizedComments];
     }
