@@ -16,5 +16,6 @@
 +(NSString *)replaceHTMLMarks:(NSString *)text forComment:(Comment *)comment;
 +(NSString *)postStringFromDate:(NSDate *)date;
 +(NSDate *)postDateFromString:(NSString *)string;
++(NSString *)timeAgoStringForDate:(NSDate *)date;
 
 @end

@@ -274,12 +274,10 @@
         }
         
         if (homePagePosts.count > 0) {
-            // We have Stories/Links to Display
+            // There are Stories/Links to Display
             Post *post = [homePagePosts objectAtIndex:indexPath.row];
-            
-            
             cell.titleLabel.text = post.Title;
-            cell.postedTimeLabel.text = post.Username;
+            cell.postedTimeLabel.text = [NSString stringWithFormat:@"%@ by %@", [Helpers timeAgoStringForDate:post.TimeCreated], post.Username];
             cell.commentsLabel.text = [NSString stringWithFormat:@"%d", post.CommentCount];
             cell.scoreLabel.text = [NSString stringWithFormat:@"%d Points", post.Points];
             cell.commentTagButton.tag = indexPath.row;
@@ -358,7 +356,7 @@
             cell.commentLevel = newComment.Level;
             cell.holdingView.frame = CGRectMake(15 * newComment.Level, 0, cell.frame.size.width - (15*newComment.Level), cell.frame.size.height);
             cell.username.text = newComment.Username;
-            //cell.postedTime.text = newComment.time;
+            cell.postedTime.text = [Helpers timeAgoStringForDate:newComment.TimeCreated];
             
             cell.comment.text = newComment.Text;
             
