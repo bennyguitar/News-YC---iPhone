@@ -213,8 +213,7 @@
     }
     
     [[HNSingleton sharedHNSingleton] changeTheme];
-    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:[NSBundle mainBundle]];
-    self.viewDeckController.centerController = [[UINavigationController alloc] initWithRootViewController:vc];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidChangeTheme" object:nil];
 }
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
@@ -241,9 +240,8 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // FILTER CELL
     if (indexPath.row == 0) {
-        // FILTER CELL
-        
         NSString *CellIdentifier = @"FilterCell";
         FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -262,13 +260,7 @@
         NSArray *bArray = @[cell.filterTopButton,cell.filterNewButton, cell.filterAskButton];
         for (UIButton *b in bArray) {
             b.layer.cornerRadius = 10;
-            b.layer.shadowColor = [UIColor blackColor].CGColor;
-            b.layer.shadowOpacity = 0.4f;
-            b.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
-            b.layer.shadowRadius = 2.75f;
-            b.layer.masksToBounds = NO;
-            UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:b.bounds cornerRadius:10];
-            b.layer.shadowPath = path.CGPath;
+            [Helpers makeShadowForView:b withRadius:10];
         }
         
         cell.filterTopOverlay.layer.cornerRadius = 7;
@@ -369,6 +361,7 @@
         return cell;
     }
 
+    return nil;
 }
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

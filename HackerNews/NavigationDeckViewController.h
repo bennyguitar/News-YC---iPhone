@@ -18,6 +18,7 @@
 #import "SettingsCell.h"
 #import "CreditsCell.h"
 #import "AppDelegate.h"
+#import "Helpers.h"
 
 @interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate> {
     

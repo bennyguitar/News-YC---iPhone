@@ -27,6 +27,9 @@
     organizedCommentsArray = @[];
     frontPageLastLocation = 0;
     commentsLastLocation = 0;
+    
+    // Set Up NotificationCenter
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,6 +75,21 @@
     [headerTriangle drawTriangleAtXPosition:self.view.frame.size.width/2];
     
     [self.view setNeedsDisplay];
+}
+
+-(void)didChangeTheme {
+    frontPageTable.alpha = 0;
+    commentsTable.alpha = 0;
+    [UIView animateWithDuration:0.2 animations:^{
+        [self colorUI];
+    } completion:^(BOOL fin){
+        [frontPageTable reloadData];
+        [commentsTable reloadData];
+        [UIView animateWithDuration:0.2 animations:^{
+            frontPageTable.alpha = 1;
+            commentsTable.alpha = 1;
+        }];
+    }];
 }
 
 
@@ -277,8 +295,8 @@
             cell.scoreLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
             cell.bottomBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
             [cell.commentTagButton setImage:[[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CommentBubble"] forState:UIControlStateNormal];
-            //cell.commentsLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
             
+            // Show HN Color
             if (cell.titleLabel.text.length >= 9) {
                 if ([[cell.titleLabel.text substringWithRange:NSMakeRange(0, 9)] isEqualToString:@"Show HN: "]) {
                     UIView *showHNView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
@@ -299,12 +317,13 @@
             }
             */
             
-            /*
+            
             // Mark as Read
-            if ([postDict valueForKey:@"HasRead"]) {
-                cell.titleLabel.alpha = 0.35;
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MarkAsRead"]) {
+                if (post.HasRead) {
+                    cell.titleLabel.alpha = 0.35;
+                }
             }
-            */
             
             // Selected Cell Color
             UIView *bgView = [[UIView alloc] init];
@@ -387,7 +406,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == frontPageTable) {
         currentPost = homePagePosts[indexPath.row];
+        currentPost.HasRead = YES;
         [self launchLinkView];
+        [frontPageTable reloadData];
     }
 }
 
@@ -455,7 +476,12 @@
 }
 
 - (IBAction)hideCommentsAndLinkView:(id)sender {
+    // Stop the linkWebView from loading
+    // - Wrapped in the delegate-killer to prevent any
+    // - animations from happening after.
+    linkWebView.delegate = nil;
     [linkWebView stopLoading];
+    linkWebView.delegate = self;
     
     // These make sure the comments don't re-open after closing
     if ([commentsTable isDragging]) {
@@ -466,7 +492,7 @@
     }
     
     loadingIndicator.alpha = 0;
-    //[self placeHeaderBarBack];
+    [self placeHeaderBarBack];
     [UIView animateWithDuration:0.3 animations:^{
         commentsView.frame = CGRectMake(0, self.view.frame.size.height, commentsView.frame.size.width, frontPageTable.frame.size.height);
         linkView.frame = CGRectMake(0, self.view.frame.size.height, linkView.frame.size.width, linkView.frame.size.height);
@@ -484,6 +510,10 @@
             }];
         }
     }];
+}
+
+-(void)placeHeaderBarBack {
+    headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
 }
 
 - (IBAction)didClickLinkViewFromComments:(id)sender {
@@ -556,6 +586,19 @@
 
 - (IBAction)didClickBackToComments:(id)sender {
     [self hideExternalLinkView];
+}
+
+#pragma mark - WebView Delegate
+-(void)webViewDidStartLoad:(UIWebView *)webView {
+    loadingIndicator.alpha = 1;
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView {
+    loadingIndicator.alpha = 0;
+    [UIView animateWithDuration:0.25 animations:^{
+        headerContainer.frame = CGRectMake(0, -1*headerContainer.frame.size.height, headerContainer.frame.size.width, headerContainer.frame.size.height);
+        linkView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, linkView.frame.size.width,[[UIScreen mainScreen] bounds].size.height - 20);
+    }];
 }
 
 @end

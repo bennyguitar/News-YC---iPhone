@@ -138,7 +138,7 @@
         NSError *error;
         
         // Create the URL Request
-        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][discussion.sigid]=%@&limit=100&start=0",post.PostID]]];
+        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][discussion.sigid]=%@&limit=100&start=0&sortby=points%%20asc",post.PostID]]];
         
         // Start the request
         NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];

@@ -15,8 +15,8 @@
 @property (nonatomic, retain) NSString *Title;
 @property (nonatomic, assign) int Points;
 @property (nonatomic, assign) int CommentCount;
-@property (nonatomic, retain) NSArray *Comments;
 @property (nonatomic, retain) NSString *PostID;
+@property (nonatomic, assign) BOOL HasRead;
 
 
 +(Post *)postFromDictionary:(NSDictionary *)dict;

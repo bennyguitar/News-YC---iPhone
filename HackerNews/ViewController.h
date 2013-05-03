@@ -17,7 +17,7 @@
 
 #define kPad 10
 
-@interface ViewController : UIViewController <WebserviceDelegate, UITableViewDataSource, UITableViewDelegate> {
+@interface ViewController : UIViewController <WebserviceDelegate, UITableViewDataSource, UITableViewDelegate,UIWebViewDelegate> {
     // Home Page UI
     __weak IBOutlet UIView *headerContainer;
     __weak IBOutlet UITableView *frontPageTable;
@@ -54,6 +54,9 @@
     float commentsLastLocation;
     int scrollDirection;
 }
+
+// Change Theme
+-(void)colorUI;
 
 - (IBAction)didClickCommentsFromLinkView:(id)sender;
 - (IBAction)hideCommentsAndLinkView:(id)sender;

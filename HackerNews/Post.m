@@ -18,8 +18,9 @@
     newPost.URLString = [dict objectForKey:@"url"];
     newPost.Points = [[dict objectForKey:@"points"] intValue];
     newPost.CommentCount = [[dict objectForKey:@"num_comments"] intValue];
-    newPost.Comments = @[];
     newPost.Title = [dict objectForKey:@"title"];
+    newPost.HasRead = NO;
+    
     
     return newPost;
 }
