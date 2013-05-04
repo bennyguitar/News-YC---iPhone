@@ -136,16 +136,6 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
     
-    // Find italic substring
-    NSRange iRange = NSMakeRange(0, self.attrText.length);
-    while(iRange.location != NSNotFound)
-    {
-        iRange = [self.attrText.string rangeOfString:@"<i>" options:0 range:iRange];
-        if(iRange.location != NSNotFound) {
-            iRange = NSMakeRange(iRange.location + iRange.length, self.attrText.length - (iRange.location + iRange.length));
-        }
-    }
-    
     // Add attributes
     [self.attrText addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveitcaNeue" size:14] range:NSMakeRange(0, self.attrText.length)];
     [self.attrText addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, self.attrText.length)];

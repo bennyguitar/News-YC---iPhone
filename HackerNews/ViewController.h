@@ -15,6 +15,7 @@
 #import "Helpers.h"
 #import "LinkButton.h"
 #import "IIViewDeckController.h"
+#import "FailedLoadingView.h"
 
 #define kPad 10
 

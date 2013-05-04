@@ -114,6 +114,7 @@
     }
     else {
         // No posts were retrieved. Handle exception.
+        [FailedLoadingView launchFailedLoadingInView:self.view];
     }
     
     // Stop Activity Indicators
@@ -148,6 +149,7 @@
     }
     else {
         // No comments were retrieved. Handle exception.
+        [FailedLoadingView launchFailedLoadingInView:self.view];
     }
     
     [commentsRefresher endRefreshing];
@@ -513,6 +515,9 @@
 -(void)didClickCommentsFromHomepage:(UIButton *)commentButton {
     currentPost = [homePagePosts objectAtIndex:commentButton.tag];
     [self loadCommentsForPost:currentPost];
+    [UIView animateWithDuration:0.25 animations:^{
+        [self placeHeaderBarBack];
+    }];
 }
 
 -(void)launchCommentsView {

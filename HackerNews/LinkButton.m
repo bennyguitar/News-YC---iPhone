@@ -30,6 +30,7 @@
     newLink.tag = tag;
     newLink.LinkTag = lTag;
     newLink.layer.cornerRadius = 10;
+    newLink.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 5);
     [Helpers makeShadowForView:newLink withRadius:10];
     
     return newLink;
