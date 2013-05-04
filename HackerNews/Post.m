@@ -17,7 +17,14 @@
     
     newPost.Username = [dict objectForKey:@"username"];
     newPost.PostID = [dict objectForKey:@"_id"];
-    newPost.URLString = [dict objectForKey:@"url"];
+    
+    // Set URL for Ask HN
+    if ([dict objectForKey:@"url"] == [NSNull null]) {
+        newPost.URLString = [NSString stringWithFormat:@"http://news.ycombinator.com/item?id=%@", [dict objectForKey:@"id"]];
+    }
+    else {
+        newPost.URLString = [dict objectForKey:@"url"];
+    }
     newPost.Points = [[dict objectForKey:@"points"] intValue];
     newPost.CommentCount = [[dict objectForKey:@"num_comments"] intValue];
     newPost.Title = [dict objectForKey:@"title"];
