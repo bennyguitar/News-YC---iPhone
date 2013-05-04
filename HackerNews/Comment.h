@@ -17,6 +17,7 @@ typedef enum CommentType {
 @interface Comment : NSObject
 
 @property (nonatomic, retain) NSString *Text;
+@property (nonatomic, retain) NSMutableAttributedString *attrText;
 @property (nonatomic, retain) NSString *Username;
 @property (nonatomic, retain) NSString *CommentID;
 @property (nonatomic, retain) NSString *ParentID;

@@ -31,7 +31,7 @@
     Comment *newComment = [[Comment alloc] init];
     
     if ([dict objectForKey:@"text"] != [NSNull null]) {
-        newComment.Text = [Helpers replaceHTMLMarks:[dict objectForKey:@"text"] forComment:newComment];
+        [newComment setUpComment:[dict objectForKey:@"text"]];
     }
     
     newComment.CommentID = [dict objectForKey:@"_id"];
@@ -41,6 +41,114 @@
     newComment.TimeCreated = [Helpers postDateFromString:[dict objectForKey:@"create_ts"]];
     
     return newComment;
+}
+
+-(void)setUpComment:(NSString *)text {
+    text = [text stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n\n"];
+    text = [text stringByReplacingOccurrencesOfString:@"</p>" withString:@""];
+    text = [text stringByReplacingOccurrencesOfString:@"<i>" withString:@""];
+    text = [text stringByReplacingOccurrencesOfString:@"</i>" withString:@""];
+    text = [text stringByReplacingOccurrencesOfString:@"&#38;" withString:@"&"];
+    text = [text stringByReplacingOccurrencesOfString:@"&#62;" withString:@">"];
+    text = [text stringByReplacingOccurrencesOfString:@"&#60;" withString:@"<"];
+    text = [text stringByReplacingOccurrencesOfString:@"<pre><code>" withString:@""];
+    text = [text stringByReplacingOccurrencesOfString:@"</code></pre>" withString:@""];
+    
+    
+    NSArray *linkTextComponents = [text componentsSeparatedByString:@"<a href=\""];
+    NSString *newString = @"";
+    for (int xx = 0; xx < linkTextComponents.count; xx++) {
+        NSString *component = linkTextComponents[xx];
+        if (xx == 0) {
+            newString = component;
+        }
+        else {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ contains[c] SELF", component];
+            if ([predicate evaluateWithObject:@"</a>"]) {
+                // Contains a link
+                NSScanner *scanner = [NSScanner scannerWithString:component];
+                NSString *linkString=@"";
+                [scanner scanUpToString:@"\" rel=" intoString:&linkString];
+                [self.Links addObject:linkString];
+                newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@", linkString]];
+                
+                // Now grab the rest of the comment after the link
+                // and add it back to newString
+                NSArray *commentComponents = [component componentsSeparatedByString:@"</a>"];
+                if (commentComponents.count > 1) {
+                    newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@",commentComponents[1]]];
+                }
+            }
+            else {
+                // No Link
+                newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@", component]];
+            }
+        }
+    }
+    
+    self.Text = linkTextComponents.count > 0 ? newString : text;
+}
+
+-(void)setUpCommentText {
+    self.Text = [self.Text stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n\n"];
+    self.Text = [self.Text stringByReplacingOccurrencesOfString:@"</p>" withString:@""];
+    self.Text = [self.Text stringByReplacingOccurrencesOfString:@"</i>" withString:@""];
+    self.Text = [self.Text stringByReplacingOccurrencesOfString:@"&#38;" withString:@"&"];
+    self.Text = [self.Text stringByReplacingOccurrencesOfString:@"&#62;" withString:@">"];
+    self.Text = [self.Text stringByReplacingOccurrencesOfString:@"&#60;" withString:@"<"];
+    
+    NSArray *linkTextComponents = [self.Text componentsSeparatedByString:@"<a href=\""];
+    NSString *newString = @"";
+    for (int xx = 0; xx < linkTextComponents.count; xx++) {
+        NSString *component = linkTextComponents[xx];
+        if (xx == 0) {
+            newString = component;
+        }
+        else {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ contains[c] SELF", component];
+            if ([predicate evaluateWithObject:@"</a>"]) {
+                // Contains a link
+                NSScanner *scanner = [NSScanner scannerWithString:component];
+                NSString *linkString=@"";
+                [scanner scanUpToString:@"\" rel=" intoString:&linkString];
+                [self.Links addObject:linkString];
+                newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@", linkString]];
+                
+                // Now grab the rest of the comment after the link
+                // and add it back to newString
+                NSArray *commentComponents = [component componentsSeparatedByString:@"</a>"];
+                if (commentComponents.count > 1) {
+                    newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@",commentComponents[1]]];
+                }
+            }
+            else {
+                // No Link
+                newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@", component]];
+            }
+        }
+    }
+    
+    self.Text = linkTextComponents.count > 0 ? newString : self.Text;
+    
+    self.attrText = [[NSMutableAttributedString alloc] initWithString:self.Text];
+    
+    // Paragraph Style
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    // Find italic substring
+    NSRange iRange = NSMakeRange(0, self.attrText.length);
+    while(iRange.location != NSNotFound)
+    {
+        iRange = [self.attrText.string rangeOfString:@"<i>" options:0 range:iRange];
+        if(iRange.location != NSNotFound) {
+            iRange = NSMakeRange(iRange.location + iRange.length, self.attrText.length - (iRange.location + iRange.length));
+        }
+    }
+    
+    // Add attributes
+    [self.attrText addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveitcaNeue" size:14] range:NSMakeRange(0, self.attrText.length)];
+    [self.attrText addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, self.attrText.length)];
 }
 
 +(NSArray *)organizeComments:(NSMutableArray *)comments topLevelID:(NSString *)topLevelID {
