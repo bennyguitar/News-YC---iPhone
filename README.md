@@ -3,7 +3,7 @@ News-YC---iPhone
 
 The iPhone version of News/YC, a Hacker News reader and interactive iOS application. 
 
-![ScreenShot](https://raw.github.com/bennyguitar/News-YC---iPhone/master/screens.png)
+![ScreenShot](https://github.com/bennyguitar/News-YC---iPhone/master/screens.png)
 
 ## About ##
 
