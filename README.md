@@ -11,7 +11,7 @@ News/YC is a front-page reader for Hacker News (http://news.ycombinator.com), a 
 
 The root ViewController, App Delegate, and HNSingleton are in the top-level directory, while every other class should be self-documented through the folders they are in (Webservice, Data Objects, Utilities, etc.).
 
-** Webservice.{h,m} **
+* Webservice.{h,m} *
 
 This class contains all web requests to the API, using a delegated system so ViewController can receive callbacks about the success or failure of each call - as well as the objects (posts/comments) returned.
 
