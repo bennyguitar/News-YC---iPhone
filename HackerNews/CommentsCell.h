@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "HNSingleton.h"
 
+#define kCommentsHidden 20
+
 @interface CommentsCell : UITableViewCell {
     
 }
@@ -19,6 +21,8 @@
 @property (retain, nonatomic) IBOutlet UIImageView *topBar;
 @property (nonatomic, assign) int commentLevel;
 @property (nonatomic, retain) NSString *postTitle;
+@property (weak, nonatomic) IBOutlet UIButton *topBarButton;
+@property (weak, nonatomic) IBOutlet UIView *topBarBorder;
 
 
 @end

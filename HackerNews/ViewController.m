@@ -92,6 +92,11 @@
     }];
 }
 
+#pragma mark - Toggle Nav
+- (IBAction)toggleSideNav:(id)sender {
+    [self.viewDeckController toggleLeftView];
+}
+
 
 #pragma mark - Load HomePage
 -(void)loadHomepage {
@@ -261,6 +266,7 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Front Page
     if (tableView == frontPageTable) {
         NSString *CellIdentifier = @"frontPageCell";
         frontPageCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -332,7 +338,7 @@
         }
     }
     
-    
+    // Comments Cell
     else  {
         NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %d", indexPath.row];
         CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -352,25 +358,42 @@
         cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
         
         if (organizedCommentsArray.count > 0) {
+            // Set Data to UI Elements
             Comment *newComment = [organizedCommentsArray objectAtIndex:indexPath.row];
             cell.commentLevel = newComment.Level;
             cell.holdingView.frame = CGRectMake(15 * newComment.Level, 0, cell.frame.size.width - (15*newComment.Level), cell.frame.size.height);
             cell.username.text = newComment.Username;
             cell.postedTime.text = [Helpers timeAgoStringForDate:newComment.TimeCreated];
             
-            cell.comment.text = newComment.Text;
-            
-            CGSize s = [cell.comment.text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(cell.comment.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-            cell.comment.frame = CGRectMake(cell.comment.frame.origin.x, cell.comment.frame.origin.y, cell.comment.frame.size.width, s.height);
-            
-            // Add Links
-            for (int xx = 0; xx < newComment.Links.count; xx++) {
-                LinkButton *newLinkButton = [LinkButton newLinkButtonWithTag:indexPath.row linkTag:xx frame:CGRectMake(15*newComment.Level + kPad, cell.comment.frame.size.height + cell.comment.frame.origin.y + xx*kPad + xx*30 + kPad, cell.frame.size.width - (15*newComment.Level + 2*kPad), 30) title:newComment.Links[xx]];
-                [newLinkButton addTarget:self action:@selector(didClickExternalLinkInComment:) forControlEvents:UIControlEventTouchUpInside];
-                [cell addSubview:newLinkButton];
+            // Set Border based on CellType
+            if (newComment.CellType == CommentTypeClickClosed) {
+                cell.topBarBorder.alpha = 1;
             }
+            else if (newComment.CellType == CommentTypeHidden) {
+                cell.topBarBorder.alpha = 0;
+            }
+            else if (newComment.CellType == CommentTypeOpen) {
+                cell.topBarBorder.alpha = 0;
+                cell.comment.text = newComment.Text;
+                
+                // Set size of Comment Label
+                CGSize s = [cell.comment.text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(cell.comment.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+                cell.comment.frame = CGRectMake(cell.comment.frame.origin.x, cell.comment.frame.origin.y, cell.comment.frame.size.width, s.height);
+                
+                // Add Links
+                for (int xx = 0; xx < newComment.Links.count; xx++) {
+                    LinkButton *newLinkButton = [LinkButton newLinkButtonWithTag:indexPath.row linkTag:xx frame:CGRectMake(15*newComment.Level + kPad, cell.comment.frame.size.height + cell.comment.frame.origin.y + xx*kPad + xx*30 + kPad, cell.frame.size.width - (15*newComment.Level + 2*kPad), 30) title:newComment.Links[xx]];
+                    [newLinkButton addTarget:self action:@selector(didClickExternalLinkInComment:) forControlEvents:UIControlEventTouchUpInside];
+                    [cell addSubview:newLinkButton];
+                }
+            }
+            
+            // Set action of topBarButton
+            cell.topBarButton.tag = indexPath.row;
+            [cell.topBarButton addTarget:self action:@selector(hideNestedCommentsCell:) forControlEvents:UIControlEventTouchDownRepeat];
         }
         else {
+            // No comments
             cell.username.text = @"";
             cell.postedTime.text = @"";
             cell.comment.text = @"Ahh! Looks like no comments exist!";
@@ -391,6 +414,7 @@
     if (tableView == frontPageTable) {
         currentPost = homePagePosts[indexPath.row];
         currentPost.HasRead = YES;
+        [[HNSingleton sharedHNSingleton].hasReadThisArticleDict setValue:@"YES" forKey:currentPost.PostID];
         [self launchLinkView];
         [frontPageTable reloadData];
     }
@@ -402,7 +426,6 @@
         NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %d", indexPath.row];
         CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            
             NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:nil options:nil];
             
             for (UIView *view in views) {
@@ -415,11 +438,25 @@
         
         if (organizedCommentsArray.count > 0) {
             Comment *newComment = [organizedCommentsArray objectAtIndex:indexPath.row];
-
-            CGSize s = [newComment.Text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(cell.comment.frame.size.width - (newComment.Level*15), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
             
-            return s.height + 45 + (newComment.Links.count*30 + newComment.Links.count*kPad);
+            // Comment is Open
+            if (newComment.CellType == CommentTypeOpen) {
+                CGSize s = [newComment.Text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(cell.comment.frame.size.width - (newComment.Level*15), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+                
+                return s.height + 45 + (newComment.Links.count*30 + newComment.Links.count*kPad);
+            }
+            
+            // Comment has been Clicked Closed by User
+            else if (newComment.CellType == CommentTypeClickClosed) {
+                return kCommentsHidden;
+            }
+            
+            // Nested comment is hidden
+            else if (newComment.CellType == CommentTypeHidden) {
+                return 0;
+            }
         }
+        
         return cell.frame.size.height;
     }
     
@@ -428,6 +465,47 @@
     else {
         return frontPageTable.rowHeight;
     }
+}
+
+-(void)hideNestedCommentsCell:(UIButton *)commentButton {
+    NSMutableArray *rowArray = [@[] mutableCopy];
+    Comment *clickComment = organizedCommentsArray[commentButton.tag];
+    
+    // Close Comment and make hidden all nested Comments
+    if (clickComment.CellType == CommentTypeOpen) {
+        clickComment.CellType = CommentTypeClickClosed;
+        [rowArray addObject:[NSIndexPath indexPathForRow:commentButton.tag inSection:0]];
+        
+        for (int xx = commentButton.tag + 1; xx < organizedCommentsArray.count; xx++) {
+            Comment *newComment = organizedCommentsArray[xx];
+            if (newComment.Level > clickComment.Level) {
+                newComment.CellType = CommentTypeHidden;
+                [rowArray addObject:[NSIndexPath indexPathForRow:xx inSection:0]];
+            }
+            else {
+                break;
+            }
+        }
+    }
+    
+    // Open Comment and all nested Comments
+    else {
+        clickComment.CellType = CommentTypeOpen;
+        [rowArray addObject:[NSIndexPath indexPathForRow:commentButton.tag inSection:0]];
+        
+        for (int xx = commentButton.tag + 1; xx < organizedCommentsArray.count; xx++) {
+            Comment *newComment = organizedCommentsArray[xx];
+            if (newComment.Level > clickComment.Level) {
+                newComment.CellType = CommentTypeOpen;
+                [rowArray addObject:[NSIndexPath indexPathForRow:xx inSection:0]];
+            }
+            else {
+                break;
+            }
+        }
+    }
+    
+    [commentsTable reloadRowsAtIndexPaths:rowArray withRowAnimation:UITableViewRowAnimationFade];
 }
 
 
@@ -501,10 +579,25 @@
 }
 
 - (IBAction)didClickLinkViewFromComments:(id)sender {
+    currentPost.HasRead = YES;
+    [[HNSingleton sharedHNSingleton].hasReadThisArticleDict setValue:@"YES" forKey:currentPost.PostID];
     [self launchLinkView];
+    [frontPageTable reloadData];
 }
 
 - (IBAction)didClickCommentsFromLinkView:(id)sender {
+    // Drop in Header
+    [UIView animateWithDuration:0.25 animations:^{
+        headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
+        linkView.frame = CGRectMake(0, headerContainer.frame.size.height, linkView.frame.size.width, linkView.frame.size.height);
+    }];
+    
+    // Stop LinkView from Opening/Loading anymore
+    linkWebView.delegate = nil;
+    [linkWebView stopLoading];
+    linkWebView.delegate = self;
+    
+    // Launch the comments
     [self launchCommentsView];
 }
 
@@ -574,15 +667,25 @@
 
 #pragma mark - WebView Delegate
 -(void)webViewDidStartLoad:(UIWebView *)webView {
-    loadingIndicator.alpha = 1;
+    if (webView == externalLinkWebView) {
+        externalActivityIndicator.alpha = 1;
+    }
+    else {
+        loadingIndicator.alpha = 1;
+    }
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
-    loadingIndicator.alpha = 0;
-    [UIView animateWithDuration:0.25 animations:^{
-        headerContainer.frame = CGRectMake(0, -1*headerContainer.frame.size.height, headerContainer.frame.size.width, headerContainer.frame.size.height);
-        linkView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, linkView.frame.size.width,[[UIScreen mainScreen] bounds].size.height - 20);
-    }];
+    if (webView == externalLinkWebView) {
+        externalActivityIndicator.alpha = 0;
+    }
+    else {
+        loadingIndicator.alpha = 0;
+        [UIView animateWithDuration:0.25 animations:^{
+            headerContainer.frame = CGRectMake(0, -1*headerContainer.frame.size.height, headerContainer.frame.size.width, headerContainer.frame.size.height);
+            linkView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, linkView.frame.size.width,[[UIScreen mainScreen] bounds].size.height - 20);
+        }];
+    }
 }
 
 @end

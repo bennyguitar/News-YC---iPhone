@@ -14,6 +14,7 @@
 #import "CommentsCell.h"
 #import "Helpers.h"
 #import "LinkButton.h"
+#import "IIViewDeckController.h"
 
 #define kPad 10
 
@@ -44,6 +45,7 @@
     __weak IBOutlet UIWebView *externalLinkWebView;
     IBOutlet UIView *externalLinkView;
     __weak IBOutlet UIView *externalLinkHeader;
+    __weak IBOutlet UIActivityIndicatorView *externalActivityIndicator;
     
     
     // Data
@@ -57,6 +59,7 @@
 
 // Change Theme
 -(void)colorUI;
+- (IBAction)toggleSideNav:(id)sender;
 
 - (IBAction)didClickCommentsFromLinkView:(id)sender;
 - (IBAction)hideCommentsAndLinkView:(id)sender;

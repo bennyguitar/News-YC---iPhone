@@ -8,6 +8,7 @@
 
 #import "Post.h"
 #import "Helpers.h"
+#import "HNSingleton.h"
 
 @implementation Post
 
@@ -20,8 +21,10 @@
     newPost.Points = [[dict objectForKey:@"points"] intValue];
     newPost.CommentCount = [[dict objectForKey:@"num_comments"] intValue];
     newPost.Title = [dict objectForKey:@"title"];
-    newPost.HasRead = NO;
     newPost.TimeCreated = [Helpers postDateFromString:[dict objectForKey:@"create_ts"]];
+    
+    // Mark as Read
+    newPost.HasRead = [[HNSingleton sharedHNSingleton].hasReadThisArticleDict objectForKey:newPost.PostID] ? YES : NO;
     
     return newPost;
 }

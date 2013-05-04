@@ -11,12 +11,29 @@
 
 @implementation Comment
 
+-(id)init {
+    self = [super init];
+    if (self) {
+        self.Children = [@[] mutableCopy];
+        self.Links = [@[] mutableCopy];
+        self.Text = @"";
+        self.Username = @"";
+        self.CommentID = @"";
+        self.ParentID = @"";
+        self.Level = 0;
+        self.TimeCreated = [NSDate date];
+        self.CellType = CommentTypeOpen;
+    }
+    return self;
+}
+
 +(Comment *)commentFromDictionary:(NSDictionary *)dict {
     Comment *newComment = [[Comment alloc] init];
     
-    newComment.Children = [@[] mutableCopy];
-    newComment.Links = [@[] mutableCopy];
-    newComment.Text = [Helpers replaceHTMLMarks:[dict objectForKey:@"text"] forComment:newComment];
+    if ([dict objectForKey:@"text"] != [NSNull null]) {
+        newComment.Text = [Helpers replaceHTMLMarks:[dict objectForKey:@"text"] forComment:newComment];
+    }
+    
     newComment.CommentID = [dict objectForKey:@"_id"];
     newComment.ParentID = [dict objectForKey:@"parent_sigid"];
     newComment.Username = [dict objectForKey:@"username"];
@@ -31,13 +48,9 @@
     NSMutableArray *topLevelComments = [@[] mutableCopy];
     
     // 1. Find all Top-Level comments
-    int yy = comments.count;
-    for (int xx = 0; xx < yy; xx++) {
-        Comment *comment = comments[xx];
+    for (Comment *comment in comments) {
         if ([comment.ParentID isEqualToString:topLevelID]) {
             [topLevelComments addObject:comment];
-            [comments removeObject:comment];
-            yy--;
         }
     }
     

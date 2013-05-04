@@ -86,7 +86,7 @@
             }
             else {
                 // It WORKED!
-                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                 cell.checkImage.alpha = 1;
                 [UIView animateWithDuration:1.5 animations:^{
                     cell.checkImage.alpha = 0;
@@ -122,7 +122,7 @@
             }
             else {
                 // IT WORKED!
-                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                 cell.checkImage.alpha = 1;
                 [UIView animateWithDuration:1.5 animations:^{
                     cell.checkImage.alpha = 0;
@@ -161,7 +161,7 @@
 
 #pragma mark - Readability
 -(void)didClickReadability {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if (cell.readabilityLabel.text.length == 18) {
         [cell.readabilityButton setImage:[UIImage imageNamed:@"nav_readability_on-01.png"] forState:UIControlStateNormal];
         cell.readabilityButton.alpha = 1;
@@ -179,7 +179,7 @@
 
 #pragma mark - Mark As Read
 -(void)didClickMarkAsRead {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if (cell.markAsReadLabel.text.length == 19) {
         [cell.markAsReadButton setImage:[UIImage imageNamed:@"nav_markasread_on-01.png"] forState:UIControlStateNormal];
         cell.markAsReadButton.alpha = 1;
@@ -198,7 +198,7 @@
 
 #pragma mark - Theme Change
 -(void)didClickChangeTheme {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if (cell.themeLabel.text.length == 14) {
         [cell.nightModeButton setImage:[UIImage imageNamed:@"nav_daymode_on-01.png"] forState:UIControlStateNormal];
         cell.nightModeButton.alpha = 1;
@@ -236,12 +236,12 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 3;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // FILTER CELL
-    if (indexPath.row == 0) {
+    if (indexPath.row == 999) {
         NSString *CellIdentifier = @"FilterCell";
         FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -272,7 +272,7 @@
     
     
     // SHARE CELL
-    else if (indexPath.row == 2) {
+    else if (indexPath.row == 1) {
         NSString *CellIdentifier = @"ShareCell";
         ShareCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -290,7 +290,7 @@
     }
     
     // SETTINGS CELL
-    else if (indexPath.row == 1) {
+    else if (indexPath.row == 0) {
         NSString *CellIdentifier = @"SettingsCell";
         SettingsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -346,7 +346,7 @@
     }
     
     // SHARE CELL
-    else if (indexPath.row == 3) {
+    else if (indexPath.row == 2) {
         NSString *CellIdentifier = @"CreditsCell";
         CreditsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -365,13 +365,13 @@
 }
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
+    if (indexPath.row == 999) {
         return 102;
     }
-    else if (indexPath.row == 2) {
+    else if (indexPath.row == 1) {
         return 112;
     }
-    else if (indexPath.row == 1) {
+    else if (indexPath.row == 0) {
         return 180;
     }
     else {

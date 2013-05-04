@@ -18,7 +18,7 @@
         NSError *error;
         
         // Create the URL Request
-        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:@"https://www.hnsearch.com/rss"]];
+        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:@"https://www.hnsearch.com/bigrss"]];
         
         // Start the request
         NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
