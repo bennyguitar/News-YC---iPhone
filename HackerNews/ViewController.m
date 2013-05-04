@@ -414,11 +414,23 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == frontPageTable) {
+        // Set Current Post
         currentPost = homePagePosts[indexPath.row];
+        
+        // Mark As Read
         currentPost.HasRead = YES;
         [[HNSingleton sharedHNSingleton].hasReadThisArticleDict setValue:@"YES" forKey:currentPost.PostID];
+        
+        // Launch LinkView
         [self launchLinkView];
+        
+        // Reload table so Mark As Read will show up
         [frontPageTable reloadData];
+        
+        // Show header if it's offscreen
+        [UIView animateWithDuration:0.25 animations:^{
+            [self placeHeaderBarBack];
+        }];
     }
 }
 
