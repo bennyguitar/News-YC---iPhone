@@ -3,7 +3,7 @@ News-YC---iPhone
 
 The iPhone version of News/YC, a Hacker News reader and interactive iOS application. 
 
-![ScreenShot](https://raw.github.com/bennyguitar/News-YC---iPhone/master/screens.png)
+![ScreenShot](https://raw.github.com/bennyguitar/News-YC---iPhone/master/v11.png)
 
 ## About ##
 
@@ -21,7 +21,7 @@ This class contains all web requests to the API, using a delegated system so Vie
 -(void)getHomepage;
 ```
 
-Fairly self-explanitory, this method hits the API and pulls the homepage back as Post objects, then calls the delegate method <code>-(void)didFetchPosts:(NSArray *)posts</code> to return objects back to ViewController. If no posts are retrieved, or there is a database/server error, <code>nil</code> is returned through the delegate method. ViewController checks off of this for exceptions and displays the posts accordingly.
+Fairly self-explanatory, this method hits the API and pulls the homepage back as Post objects, then calls the delegate method <code>-(void)didFetchPosts:(NSArray *)posts</code> to return objects back to ViewController. If no posts are retrieved, or there is a database/server error, <code>nil</code> is returned through the delegate method. ViewController checks off of this for exceptions and displays the posts accordingly.
 
 ```objc
 -(void)getCommentsForPost:(Post *)post launchComments:(BOOL)launch;
@@ -62,6 +62,10 @@ These classes make up the data model used by News/YC. Both Post and Comment cont
 @property (nonatomic, retain) NSMutableArray *Links;
 @property (nonatomic, assign) CommentType CellType;
 ```
+
+## API ##
+
+News/YC uses the only officially sanctioned API that Hacker News approves of: http://hnsearch.com/api. The API calls made by this app are slightly tricky. For the front-page posts, a call is made to http://hnsearch.com/bigrss and then the resulting xml is parsed to grab the unique IDs from each post. Those are then sent as a request to the actual API to get the posts. The comments, unfortunately, return as basically a totally unordered set. I create a linked list out of those, and then I turn it into a flat array based on the nested nature of the comments - so UITableView will render correctly.
 
 ## 3rd Party Libraries ##
 
