@@ -85,5 +85,5 @@ For subsequent versions, I'd like to see a couple things happen to make this app
 * Commenting
 
 **In Code**
-* Comment labels using NSAttributedString (for <i> and other <html> tags)
+* Comment labels using NSAttributedString (for < html > tags)
 
