@@ -23,11 +23,7 @@
 @interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate> {
     
     IBOutlet UITableView *navTable;
-    
     IBOutlet UILabel *errorLabel;
-    
-    
-    IBOutlet UILabel *loginLabel;
 }
 
 - (IBAction)changeTypeToTop:(id)sender;
