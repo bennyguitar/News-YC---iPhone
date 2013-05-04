@@ -3,7 +3,7 @@ News-YC---iPhone
 
 The iPhone version of News/YC, a Hacker News reader and interactive iOS application. 
 
-![ScreenShot](https://raw.github.com/bennyguitar/News-YC---iPhone/master/v11.png)
+![ScreenShot](https://raw.github.com/bennyguitar/News-YC---iPhone/master/screens.png)
 
 ## About ##
 
@@ -83,7 +83,9 @@ For subsequent versions, I'd like to see a couple things happen to make this app
 * Voting
 * Submitting
 * Commenting
+* Viewing Ask HN / Newest Posts
 
 **In Code**
 * Comment labels using NSAttributedString (for < html > tags)
+* Cleaned up a little bit / better documentation
 
