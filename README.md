@@ -3,7 +3,7 @@ News-YC---iPhone
 
 The iPhone version of News/YC, a Hacker News reader and interactive iOS application. 
 
-![ScreenShot](https://github.com/bennyguitar/News-YC---iPhone/master/screens.png)
+![ScreenShot](https://raw.github.com/bennyguitar/News-YC---iPhone/master/screens.png)
 
 ## About ##
 
@@ -31,7 +31,7 @@ This method returns an NSArray of Comment objects using the delegate method <cod
 
 #### Data Objects - Post.{h,m} and Comment.{h,m} ####
 
-These classes make up the data model used by News/YC.
+These classes make up the data model used by News/YC. Both Post and Comment contain special constructor methods based on the JSON objects that return from <code>Webservice.{h,m}</code> calls.
 
 ```objc
 @interface Post : NSObject
@@ -45,9 +45,6 @@ These classes make up the data model used by News/YC.
 @property (nonatomic, retain) NSString *PostID;
 @property (nonatomic, assign) BOOL HasRead;
 @property (nonatomic, retain) NSDate *TimeCreated;
-
-// Special Constructor
-+(Post *)postFromDictionary:(NSDictionary *)dict;
 ```
 
 ```objc
@@ -64,9 +61,25 @@ These classes make up the data model used by News/YC.
 @property (nonatomic, retain) NSMutableArray *Children;
 @property (nonatomic, retain) NSMutableArray *Links;
 @property (nonatomic, assign) CommentType CellType;
-
-// Constructor
-+(Comment *)commentFromDictionary:(NSDictionary *)dict;
-+(NSArray *)organizeComments:(NSArray *)comments topLevelID:(NSString *)topLevelID;
 ```
+
+## 3rd Party Libraries ##
+
+News/YC uses the following third party libraries:
+
+* IIViewDeck - https://github.com/Inferis/ViewDeck
+
+## Things to Come ##
+
+For subsequent versions, I'd like to see a couple things happen to make this app awesome.
+
+**Features**
+
+* Logging In
+* Voting
+* Submitting
+* Commenting
+
+**In Code**
+* Comment labels using NSAttributedString (for <i> and <pre><code> tags)
 
