@@ -25,6 +25,7 @@
     else {
         newPost.URLString = [dict objectForKey:@"url"];
     }
+    
     newPost.Points = [[dict objectForKey:@"points"] intValue];
     newPost.CommentCount = [[dict objectForKey:@"num_comments"] intValue];
     newPost.Title = [dict objectForKey:@"title"];
