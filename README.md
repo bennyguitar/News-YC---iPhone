@@ -93,5 +93,5 @@ I'm hoping to basically include only one more class <code>HNUser.{h,m}</code> an
 * Comment labels using NSAttributedString (for < html > tags)
 * Cleaned up a little bit / better documentation
 
-The API returns comment text with different HTML tags inside it including <code><p>,<i>, and < code ></code> that would be very cool to format in via NSAttributedString. I'm already turning the <code><p></code> tags into new lines, but italics are used for emphasis quite a bit in HN comments, and I'd like to have that in here as well.
+The API returns comment text with different HTML tags inside it including <code>< p >,< i >, and < code ></code> that would be very cool to format in via NSAttributedString. I'm already turning the <code>< p ></code> tags into new lines, but italics are used for emphasis quite a bit in HN comments, and I'd like to have that in here as well.
 
