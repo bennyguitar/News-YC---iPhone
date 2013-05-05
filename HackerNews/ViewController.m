@@ -65,19 +65,24 @@
 }
 
 -(void)colorUI {
+    // Set Colors for all objects based on Theme
     self.view.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
     frontPageTable.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
     frontPageTable.separatorColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"Separator"];
     commentsTable.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
-    
     underHeaderTriangle.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"TableTriangle"];
     headerTriangle.color = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"TableTriangle"];
     [headerTriangle drawTriangleAtXPosition:self.view.frame.size.width/2];
     
+    // Redraw View
     [self.view setNeedsDisplay];
 }
 
 -(void)didChangeTheme {
+    // Set alphas to 0 for tables
+    // Color the UI
+    // Reload tables, and set their alphas to 1
+    
     frontPageTable.alpha = 0;
     commentsTable.alpha = 0;
     [UIView animateWithDuration:0.2 animations:^{
@@ -127,8 +132,10 @@
     Webservice *service = [[Webservice alloc] init];
     service.delegate = self;
     [service getCommentsForPost:post launchComments:YES];
-    currentPost = post;
     loadingIndicator.alpha = 1;
+    
+    // Set current post
+    currentPost = post;
 }
 
 -(void)reloadComments {
@@ -157,6 +164,9 @@
 }
 
 #pragma mark - Scroll View Delegate
+// This method handles the hiding header bar on frontPageTable scroll
+// - it checks contentOffset and moves the header bar up/down and
+// - resizes the tableview accordingly.
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == frontPageTable) {
         if (frontPageLastLocation < scrollView.contentOffset.y) {
@@ -201,10 +211,14 @@
     }
     
     else if (scrollView == commentsTable) {
+        // The same functionality for commentsTable
         [self scrollCommentsToHideWithScrollView:commentsTable];
     }
 }
 
+// This method handles the hiding header bar on commentsTable scroll
+// - it checks contentOffset and moves the header bar up/down and
+// - resizes the tableview accordingly.
 -(void)scrollCommentsToHideWithScrollView:(UIScrollView *)scrollView {
     if (commentsLastLocation < scrollView.contentOffset.y) {
         scrollDirection = scrollDirectionUp;
@@ -254,7 +268,7 @@
         if (homePagePosts.count == 0) {
             return 1;
         }
-        return homePagePosts.count - 1;
+        return homePagePosts.count;
     }
     
     else {
@@ -282,8 +296,10 @@
         }
         
         if (homePagePosts.count > 0) {
-            // There are Stories/Links to Display
+            // There are Stories/Links to Display, set Post
             Post *post = [homePagePosts objectAtIndex:indexPath.row];
+            
+            // Set data
             cell.titleLabel.text = post.Title;
             cell.postedTimeLabel.text = [NSString stringWithFormat:@"%@ by %@", [Helpers timeAgoStringForDate:post.TimeCreated], post.Username];
             cell.commentsLabel.text = [NSString stringWithFormat:@"%d", post.CommentCount];
@@ -294,7 +310,7 @@
             [cell.commentBGButton addTarget:self action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
             
             
-            // COLOR
+            // Color cell elements
             cell.titleLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
             cell.postedTimeLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
             cell.scoreLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
@@ -326,6 +342,7 @@
         }
         else {
             // No Links/Stories to Display!
+            // Hide cell elements
             cell.bottomBar.alpha = 0;
             cell.authorLabel.alpha = 0;
             cell.scoreLabel.alpha = 0;
@@ -345,17 +362,13 @@
         NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %d", indexPath.row];
         CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            
             NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:nil options:nil];
-            
             for (UIView *view in views) {
-                if([view isKindOfClass:[UITableViewCell class]])
-                {
+                if([view isKindOfClass:[UITableViewCell class]]) {
                     cell = (CommentsCell *)view;
                 }
             }
         }
-        
         
         cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
         
@@ -402,7 +415,7 @@
             cell.comment.textAlignment = NSTextAlignmentCenter;
         }
         
-        // COLOR
+        // Color cell elements
         cell.comment.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
         cell.username.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
         cell.postedTime.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
@@ -441,10 +454,8 @@
         CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:nil options:nil];
-            
             for (UIView *view in views) {
-                if([view isKindOfClass:[UITableViewCell class]])
-                {
+                if([view isKindOfClass:[UITableViewCell class]]) {
                     cell = (CommentsCell *)view;
                 }
             }
@@ -519,6 +530,7 @@
         }
     }
     
+    // Reload the table with a nice animation
     [commentsTable reloadRowsAtIndexPaths:rowArray withRowAnimation:UITableViewRowAnimationFade];
 }
 
@@ -539,11 +551,16 @@
     // Set Post-Title Label
     postTitleLabel.text = currentPost.Title;
     
+    // Set frames
     commentsView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - headerContainer.frame.size.height - 20);
     commentsHeader.frame = CGRectMake(0, 0, commentsHeader.frame.size.width, commentsHeader.frame.size.height);
     commentsTable.frame = CGRectMake(0, commentsHeader.frame.size.height, commentsView.frame.size.width, commentsView.frame.size.height - commentsHeader.frame.size.height);
+    
+    // Add to self.view
     [self.view addSubview:commentsView];
     [self.view bringSubviewToFront:commentsView];
+    
+    // Animate everything
     [UIView animateWithDuration:0.3 animations:^{
         [frontPageTable setScrollEnabled:NO];
         [frontPageTable setContentOffset:frontPageTable.contentOffset animated:NO];
@@ -572,10 +589,13 @@
     
     loadingIndicator.alpha = 0;
     [self placeHeaderBarBack];
+    
+    // Animate everything
     [UIView animateWithDuration:0.3 animations:^{
         commentsView.frame = CGRectMake(0, self.view.frame.size.height, commentsView.frame.size.width, frontPageTable.frame.size.height);
         linkView.frame = CGRectMake(0, self.view.frame.size.height, linkView.frame.size.width, linkView.frame.size.height);
     } completion:^(BOOL fin){
+        // Reset header to where it was before clicking Links/Comments
         if (frontPageTable.contentOffset.y >= headerContainer.frame.size.height) {
             [UIView animateWithDuration:0.25 animations:^{
                 headerContainer.frame = CGRectMake(0, -1*headerContainer.frame.size.height, headerContainer.frame.size.width, headerContainer.frame.size.height);
@@ -591,6 +611,7 @@
     }];
 }
 
+// Shows header bar
 -(void)placeHeaderBarBack {
     headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
 }
@@ -619,10 +640,12 @@
 }
 
 -(void)launchLinkView {
+    // Stop comments from moving after clicking
     if ([commentsTable isDragging]) {
         [commentsTable setContentOffset:commentsTable.contentOffset animated:NO];
     }
     
+    // Drop header back in
     [UIView animateWithDuration:0.25 animations:^{
         headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
         commentsView.frame = CGRectMake(0, headerContainer.frame.size.height, commentsView.frame.size.width, commentsView.frame.size.height);
@@ -631,18 +654,22 @@
     // Reset WebView
     [linkWebView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
     
-    // Open that sucka'
+    // Set linkView's frame
     linkView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, [[UIScreen mainScreen] bounds].size.height - headerContainer.frame.size.height - 20);
     linkHeader.frame = CGRectMake(0, 0, linkHeader.frame.size.width, linkHeader.frame.size.height);
     linkWebView.frame = CGRectMake(0, linkHeader.frame.size.height, linkWebView.frame.size.width, linkView.frame.size.height - linkHeader.frame.size.height);
+    
+    // Add linkView and move to front
     [self.view addSubview:linkView];
     [self.view bringSubviewToFront:linkView];
+    
+    // Animate it coming in
     [UIView animateWithDuration:0.3 animations:^{
         headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
         linkView.frame = CGRectMake(0, headerContainer.frame.size.height, linkView.frame.size.width, linkView.frame.size.height);
     }];
     
-    // Determine if using Readability
+    // Determine if using Readability, and load the webpage
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Readability"]) {
         [linkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.readability.com/m?url=%@", currentPost.URLString]]]];
     }

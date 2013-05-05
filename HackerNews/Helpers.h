@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "Comment.h"
 
+// This color is used in LinkButton
 #define kOrangeColor [UIColor colorWithRed:200/255.0f green:97/255.0f blue:41/255.0f alpha:1.0f]
 
 @interface Helpers : NSObject
 
 +(void)makeShadowForView:(UIView *)s withRadius:(float)radius;
-+(BOOL)isViewOnScreen:(UIView *)view;
 +(NSString *)postStringFromDate:(NSDate *)date;
 +(NSDate *)postDateFromString:(NSString *)string;
 +(NSString *)timeAgoStringForDate:(NSDate *)date;

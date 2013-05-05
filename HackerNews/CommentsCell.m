@@ -30,6 +30,7 @@
 
 
 -(void)drawRect:(CGRect)rect {
+    // Add the line that designated nested Comments
     for (int xx = 0; xx < self.commentLevel + 1; xx++) {
         if (xx != 0) {
             UIBezierPath *path = [UIBezierPath bezierPath];

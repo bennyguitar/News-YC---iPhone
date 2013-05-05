@@ -21,21 +21,6 @@
     s.layer.shadowPath = path.CGPath;
 }
 
-
-+(BOOL)isViewOnScreen:(UIView *)view {
-    if ([view superview]==nil) {
-        return NO;
-    }
-    if (view.frame.origin.x < [UIScreen mainScreen].bounds.size.width && view.frame.origin.x >= 0) {
-        return YES;
-    }
-    if (view.frame.origin.y < [UIScreen mainScreen].bounds.size.height && view.frame.origin.y >= 0) {
-        return YES;
-    }
-    
-    return NO;
-}
-
 +(NSString *)postStringFromDate:(NSDate *)date {
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"yyyy-MM-dd HH:mm:ssZ"];
@@ -51,6 +36,8 @@
 
 
 +(NSString *)timeAgoStringForDate:(NSDate *)date {
+    // Data object's TimeCreated property is in UTC
+    // - Change it to local time
     NSTimeZone *currentTimeZone = [NSTimeZone defaultTimeZone];
     NSTimeZone *utcTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     int currentGMTOffset = [currentTimeZone secondsFromGMTForDate:date];
@@ -58,12 +45,9 @@
     NSTimeInterval gmtInterval = currentGMTOffset - gmtOffset;
     NSDate *localDate = [[NSDate alloc] initWithTimeInterval:gmtInterval sinceDate:date];
     
-    
-    
     // Now calculate how long ago it was.
     NSTimeInterval interval = [localDate timeIntervalSinceNow];
     interval = abs(interval);
-    
     NSString *plural = @"";
     
     if (interval < 60) {

@@ -1,6 +1,6 @@
 //
 //  FailedLoadingView.h
-//  RedCup4
+//  
 //
 //  Created by Ben Gordon on 4/3/13.
 //  Copyright (c) 2013 Ben Gordon. All rights reserved.

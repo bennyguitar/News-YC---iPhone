@@ -23,13 +23,15 @@
 @interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate> {
     
     IBOutlet UITableView *navTable;
-    IBOutlet UILabel *errorLabel;
 }
 
+// Deprecated since App version 1.1.1
+// New API does not give these filtering options
+/*
 - (IBAction)changeTypeToTop:(id)sender;
 - (IBAction)changeTypeToNew:(id)sender;
 - (IBAction)changeTypeToAsk:(id)sender;
-
+*/
 
 - (IBAction)didClickShareToFacebook:(id)sender;
 - (IBAction)didClickShareToTwitter:(id)sender;

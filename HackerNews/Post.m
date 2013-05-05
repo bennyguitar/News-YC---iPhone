@@ -15,8 +15,13 @@
 +(Post *)postFromDictionary:(NSDictionary *)dict {
     Post *newPost = [[Post alloc] init];
     
+    // Set Data
     newPost.Username = [dict objectForKey:@"username"];
     newPost.PostID = [dict objectForKey:@"_id"];
+    newPost.Points = [[dict objectForKey:@"points"] intValue];
+    newPost.CommentCount = [[dict objectForKey:@"num_comments"] intValue];
+    newPost.Title = [dict objectForKey:@"title"];
+    newPost.TimeCreated = [Helpers postDateFromString:[dict objectForKey:@"create_ts"]];
     
     // Set URL for Ask HN
     if ([dict objectForKey:@"url"] == [NSNull null]) {
@@ -25,11 +30,6 @@
     else {
         newPost.URLString = [dict objectForKey:@"url"];
     }
-    
-    newPost.Points = [[dict objectForKey:@"points"] intValue];
-    newPost.CommentCount = [[dict objectForKey:@"num_comments"] intValue];
-    newPost.Title = [dict objectForKey:@"title"];
-    newPost.TimeCreated = [Helpers postDateFromString:[dict objectForKey:@"create_ts"]];
     
     // Mark as Read
     newPost.HasRead = [[HNSingleton sharedHNSingleton].hasReadThisArticleDict objectForKey:newPost.PostID] ? YES : NO;

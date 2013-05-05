@@ -27,12 +27,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    [self buildUI];
-}
-
--(void)buildUI {
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,7 +35,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+// Deprecated since App Version 1.1.1
+// New API does not give options for these
+/*
 - (IBAction)changeTypeToTop:(id)sender {
     FilterCell *cell = (FilterCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [cell.filterTopButton setBackgroundColor:[UIColor colorWithRed:200/255.0f green:97/255.0f blue:41/255.0f alpha:1.0]];
@@ -74,6 +70,8 @@
     self.viewDeckController.centerController = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.viewDeckController toggleLeftView];
 }
+*/
+
 
 - (IBAction)didClickShareToFacebook:(id)sender {
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
@@ -103,11 +101,6 @@
     }
     else{
         // No Facebook Setup
-        errorLabel.text = @"No Facebook account!";
-        errorLabel.alpha = 1;
-        [UIView animateWithDuration:1.5 animations:^{
-            errorLabel.alpha = 0;
-        }];
     }
 }
 
@@ -151,11 +144,7 @@
         [self presentViewController:mailViewController animated:YES completion:nil];
     }
     else {
-        errorLabel.text = @"No Email account!";
-        errorLabel.alpha = 1;
-        [UIView animateWithDuration:1.5 animations:^{
-            errorLabel.alpha = 0;
-        }];
+        // No email account
     }
 }
 
@@ -212,6 +201,7 @@
         [[NSUserDefaults standardUserDefaults] setValue:@"Night" forKey:@"Theme"];
     }
     
+    // Change the theme and notify ViewController
     [[HNSingleton sharedHNSingleton] changeTheme];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidChangeTheme" object:nil];
 }
