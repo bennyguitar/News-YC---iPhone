@@ -1,4 +1,4 @@
-News-YC---iPhone
+News/YC for iPhone
 ================
 
 The iPhone version of News/YC, a Hacker News reader and interactive iOS application. 
