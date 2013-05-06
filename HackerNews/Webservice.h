@@ -17,6 +17,7 @@
 -(void)didFetchPosts:(NSArray *)posts;
 -(void)didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch;
 -(void)didLoginWithUser:(User *)user;
+-(void)didVoteWithSuccess:(BOOL)success;
 
 @end
 
@@ -30,5 +31,6 @@
 -(void)getHomepage;
 -(void)getCommentsForPost:(Post *)post launchComments:(BOOL)launch;
 -(void)loginWithUsername:(NSString *)user password:(NSString *)pass;
+-(void)voteUp:(BOOL)up forObject:(id)HNObject;
 
 @end

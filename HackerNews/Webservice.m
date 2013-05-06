@@ -275,6 +275,109 @@
 }
 
 
+#pragma mark - Voting
+-(void)voteUp:(BOOL)up forObject:(id)HNObject {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] init];
+        NSError *error;
+        
+        // Get ID
+        NSString *hnID = @"";
+        if ([HNObject isKindOfClass:[Post class]]) {
+            Post *post = (Post *)HNObject;
+            hnID = post.hnPostID;
+        }
+        else if ([HNObject isKindOfClass:[Comment class]]) {
+            Comment *com = (Comment *)HNObject;
+            hnID = com.hnCommentID;
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [delegate didVoteWithSuccess:NO];
+                return;
+            });
+        }
+        
+        // Create the URL Request
+        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@",hnID]]];
+        [request setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:@[[HNSingleton sharedHNSingleton].SessionCookie]]];
+        
+        // Start the request
+        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        
+        //Handle response
+        //Callback to main thread
+        if (responseData) {
+            NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy];
+            
+            if (responseString.length > 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self voteUp:up withIDString:hnID inHTMLString:responseString];
+                });
+            }
+            else {
+                // Voting failed
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [delegate didVoteWithSuccess:NO];
+                });
+            }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [delegate didLoginWithUser:nil];
+            });
+        }
+    });
+}
+
+
+-(void)voteUp:(BOOL)up withIDString:(NSString *)idString inHTMLString:(NSString *)htmlString {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] init];
+        NSError *error;
+        
+        NSScanner *scanner = [NSScanner scannerWithString:htmlString];
+        NSString *voteURL = @"";
+        NSString *trash = @"";
+        [scanner scanUpToString:[NSString stringWithFormat:@"id=up_%@", idString] intoString:&trash];
+        [scanner scanString:[NSString stringWithFormat:@"id=up_%@ onclick=\"return vote(this)\" href=\"", idString] intoString:&trash];
+        [scanner scanUpToString:@"\"" intoString:&voteURL];
+        
+        // Create the URL Request
+        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://news.ycombinator.com/%@",voteURL]]];
+        [request setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:@[[HNSingleton sharedHNSingleton].SessionCookie]]];
+        
+        // Start the request
+        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        
+        //Handle response
+        //Callback to main thread
+        if (responseData) {
+            NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy];
+            
+            if (responseString.length > 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [delegate didVoteWithSuccess:YES];
+                });
+            }
+            else {
+                // Voting failed
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [delegate didVoteWithSuccess:NO];
+                });
+            }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [delegate didLoginWithUser:nil];
+            });
+        }
+    });
+}
+
+
 ////////////////////////////////////////////////////
 
 #pragma mark - URL Request
@@ -288,6 +391,7 @@
 +(NSMutableURLRequest *)NewJSONRequestWithURL:(NSURL *)url bodyData:(NSData *)bodyData{
     NSMutableURLRequest *Request = [[NSMutableURLRequest alloc] initWithURL:url];
     [Request setHTTPMethod:@"POST"];
+    [Request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [Request setHTTPBody:bodyData];
     [Request setHTTPShouldHandleCookies:YES];
     [Request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];

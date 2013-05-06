@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString *PostID;
 @property (nonatomic, assign) BOOL HasRead;
 @property (nonatomic, retain) NSDate *TimeCreated;
+@property (nonatomic, retain) NSString *hnPostID;
 
 
 +(Post *)postFromDictionary:(NSDictionary *)dict;

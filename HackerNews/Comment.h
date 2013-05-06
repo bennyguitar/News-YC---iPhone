@@ -20,6 +20,7 @@ typedef enum CommentType {
 @property (nonatomic, retain) NSMutableAttributedString *attrText;
 @property (nonatomic, retain) NSString *Username;
 @property (nonatomic, retain) NSString *CommentID;
+@property (nonatomic, retain) NSString *hnCommentID;
 @property (nonatomic, retain) NSString *ParentID;
 @property (nonatomic, assign) int Level;
 @property (nonatomic, retain) NSDate *TimeCreated;

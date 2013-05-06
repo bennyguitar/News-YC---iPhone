@@ -31,8 +31,8 @@
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
     
-    // Login
-    [self loginWithUser:@"user" pass:@"testpass"];
+    // Login Test
+    [self loginWithUser:@"test" pass:@"test"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -135,6 +135,9 @@
         // Handle
         homePagePosts = posts;
         [frontPageTable reloadData];
+        
+        // TEST:
+        [self voteForPost:homePagePosts[0]];
     }
     else {
         // No posts were retrieved. Handle exception.
@@ -180,6 +183,17 @@
     
     [commentsRefresher endRefreshing];
     loadingIndicator.alpha = 0;
+}
+
+#pragma mark - Vote for HNObject
+-(void)voteForPost:(Post *)post {
+    Webservice *service = [[Webservice alloc] init];
+    service.delegate = self;
+    [service voteUp:YES forObject:post];
+}
+
+-(void)didVoteWithSuccess:(BOOL)success {
+    
 }
 
 #pragma mark - Scroll View Delegate

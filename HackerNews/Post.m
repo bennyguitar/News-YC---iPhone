@@ -18,6 +18,7 @@
     // Set Data
     newPost.Username = [dict objectForKey:@"username"];
     newPost.PostID = [dict objectForKey:@"_id"];
+    newPost.hnPostID = [dict objectForKey:@"id"];
     newPost.Points = [[dict objectForKey:@"points"] intValue];
     newPost.CommentCount = [[dict objectForKey:@"num_comments"] intValue];
     newPost.Title = [dict objectForKey:@"title"];

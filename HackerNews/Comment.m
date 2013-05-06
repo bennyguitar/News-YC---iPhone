@@ -32,6 +32,7 @@
     
     // Set Data
     newComment.CommentID = [dict objectForKey:@"_id"];
+    newComment.hnCommentID = [dict objectForKey:@"id"];
     newComment.ParentID = [dict objectForKey:@"parent_sigid"];
     newComment.Username = [dict objectForKey:@"username"];
     newComment.Level = 0;
