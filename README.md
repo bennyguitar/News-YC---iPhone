@@ -78,9 +78,33 @@ These classes make up the data model used by News/YC. Both Post and Comment cont
 
 I have included a User.{h,m} object with the intention of adding user-management functionality as well as submitting/commenting/voting.
 
+```objc
+@interface User : NSObject
+
+// Properties
+@property (nonatomic, retain) NSString *Username;
+@property (nonatomic, assign) int Karma;
+@property (nonatomic, assign) int Age;
+@property (nonatomic, retain) NSString *AboutInfo;
+```
+
 #### HNSingleton.{h,m} ####
 
-This class contains a few properties that manage things on an app-wide scope. Included is an NSDictionary for keeping track of which articles have been read (though I'm thinking about adding this to the NSUserDefaults so it will always stay with the app), and the remnants of version 1.1.1 when I was using a different API to filter the homepage by Top/New/Ask (which I'd love to reincorporate again).
+This class contains a few properties that manage things on an app-wide scope. Included is an NSDictionary for keeping track of which articles have been read (though I'm thinking about adding this to the NSUserDefaults so it will always stay with the app), and the remnants of version 1.1.1 when I was using a different API to filter the homepage by Top/New/Ask (which I'd love to reincorporate again). HNSingleton incorporates a couple methods to change the theme colors and set the SessionKey (more under the break).
+
+```objc
+@interface HNSingleton : NSObject
+
+// Properties
+@property (nonatomic, retain) NSMutableDictionary *hasReadThisArticleDict;
+@property (nonatomic, retain) NSMutableDictionary *themeDict;
+@property (nonatomic, assign) enum fType filter;
+@property (nonatomic, retain) NSHTTPCookie *SessionCookie;
+
+// Methods
+-(void)changeTheme;
+-(void)setSession;
+```
 
 **For Version 2.0**
 
