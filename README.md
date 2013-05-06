@@ -13,6 +13,9 @@ News/YC is a front-page reader for Hacker News (http://news.ycombinator.com), a 
 
 The root ViewController, App Delegate, and HNSingleton are in the top-level directory, while every other class should be self-documented through the folders they are in (Webservice, Data Objects, Utilities, etc.).
 
+* Current iOS SDK: 6.0+
+* Current AppStore Version: 1.2
+
 #### Webservice.{h,m} ####
 
 This class contains all web requests to the API, using a delegated system so ViewController can receive callbacks about the success or failure of each call - as well as the objects (posts/comments) returned.
@@ -27,7 +30,15 @@ Fairly self-explanatory, this method hits the API and pulls the homepage back as
 -(void)getCommentsForPost:(Post *)post launchComments:(BOOL)launch;
 ```
 
-This method returns an NSArray of Comment objects using the delegate method <code>-(void)didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch</code> to callback to ViewController. The launchComments part of this method is for showing the commentsView in ViewController. If YES, this will animate commentsView coming up from the bottom, if NO, this is a pull-to-refresh case where the data was updated and only the table needs to be refreshed. This method will also return <code>nil</code> if there is a database/server retrieval problem so we can handle the exception accordingly.
+This method returns an NSArray of Comment objects using the delegate method <code>-(void)didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch</code> to call back to ViewController. The launchComments part of this method is for showing the commentsView in ViewController. If YES, this will animate commentsView coming up from the bottom, if NO, this is a pull-to-refresh case where the data was updated and only the table needs to be refreshed. This method will also return <code>nil</code> if there is a database/server retrieval problem so we can handle the exception accordingly.
+
+**For Version 2**
+
+```objc
+-(void)loginWithUsername:(NSString *)user password:(NSString *)pass;
+```
+
+This method handles logging in and returns a User object using the delegate method <code>-(void)didLoginWithUser:(User *)user</code> to call back to whatever ViewController implements and makes the call. I'm thinking about putting this method in the HNSingleton class to keep an app-wide scope on the login status (since everything is handled asynchronously) and using NSNotificationCenter when a login/logout occurs.
 
 #### Data Objects - Post.{h,m} and Comment.{h,m} ####
 
@@ -62,6 +73,18 @@ These classes make up the data model used by News/YC. Both Post and Comment cont
 @property (nonatomic, retain) NSMutableArray *Links;
 @property (nonatomic, assign) CommentType CellType;
 ```
+
+**For Version 2.0**
+
+I have included a User.{h,m} object with the intention of adding user-management functionality as well as submitting/commenting/voting.
+
+#### HNSingleton.{h,m} ####
+
+This class contains a few properties that manage things on an app-wide scope. Included is an NSDictionary for keeping track of which articles have been read (though I'm thinking about adding this to the NSUserDefaults so it will always stay with the app), and the remnants of version 1.1.1 when I was using a different API to filter the homepage by Top/New/Ask (which I'd love to reincorporate again).
+
+**For Version 2.0**
+
+This class also includes a NSHTTPCookie object, <code>SessionKey</code> for keeping track of user-authenticated actions such as submitting or voting. A successful login adds the cookie to the persistent cache of cookies that iOS implements device-wide. A check for the cookie inside AppDelegate's launching method adds it to the Singleton. Every authentication-important Webservice call will attach this cookie to the HTTPHeaders before the request is sent.
 
 ## API ##
 
