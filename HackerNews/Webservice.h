@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "Post.h"
 #import "Comment.h"
+#import "User.h"
 
 @protocol WebserviceDelegate
 @optional
 
 -(void)didFetchPosts:(NSArray *)posts;
 -(void)didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch;
+-(void)didLoginWithUser:(User *)user;
 
 @end
 
@@ -27,5 +29,6 @@
 // Methods
 -(void)getHomepage;
 -(void)getCommentsForPost:(Post *)post launchComments:(BOOL)launch;
+-(void)loginWithUsername:(NSString *)user password:(NSString *)pass;
 
 @end

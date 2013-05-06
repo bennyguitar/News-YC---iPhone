@@ -30,12 +30,31 @@
     
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
+    
+    // Login
+    [self loginWithUser:@"test" pass:@"pass"];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - TEST!
+-(void)loginWithUser:(NSString *)user pass:(NSString *)pass {
+    Webservice *service = [[Webservice alloc] init];
+    service.delegate = self;
+    [service loginWithUsername:user password:pass];
+}
+
+-(void)didLoginWithUser:(User *)user {
+    if (user) {
+        
+    }
+    else {
+        
+    }
 }
 
 #pragma mark - UI

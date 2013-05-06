@@ -69,6 +69,9 @@
 		C0ABB6221735C777005EA39C /* FailedLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB6201735C777005EA39C /* FailedLoadingView.m */; };
 		C0ABB6231735C777005EA39C /* FailedLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6211735C777005EA39C /* FailedLoadingView.xib */; };
 		C0ABB6251735C880005EA39C /* loadingFailed-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6241735C880005EA39C /* loadingFailed-01.png */; };
+		C0ABB628173749A0005EA39C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB627173749A0005EA39C /* User.m */; };
+		C0ABB62C1737528D005EA39C /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB62A1737528D005EA39C /* UserViewController.m */; };
+		C0ABB62D1737528D005EA39C /* UserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB62B1737528D005EA39C /* UserViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,6 +159,11 @@
 		C0ABB6201735C777005EA39C /* FailedLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailedLoadingView.m; sourceTree = "<group>"; };
 		C0ABB6211735C777005EA39C /* FailedLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FailedLoadingView.xib; sourceTree = "<group>"; };
 		C0ABB6241735C880005EA39C /* loadingFailed-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingFailed-01.png"; sourceTree = "<group>"; };
+		C0ABB626173749A0005EA39C /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		C0ABB627173749A0005EA39C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		C0ABB6291737528D005EA39C /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
+		C0ABB62A1737528D005EA39C /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
+		C0ABB62B1737528D005EA39C /* UserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +263,8 @@
 				C01EDE0F17315C6700AE97B8 /* Post.m */,
 				C01EDE111731861F00AE97B8 /* Comment.h */,
 				C01EDE121731861F00AE97B8 /* Comment.m */,
+				C0ABB626173749A0005EA39C /* User.h */,
+				C0ABB627173749A0005EA39C /* User.m */,
 			);
 			name = "Data Objects";
 			sourceTree = "<group>";
@@ -314,6 +324,9 @@
 		C01EDE211731A42F00AE97B8 /* Right Deck */ = {
 			isa = PBXGroup;
 			children = (
+				C0ABB6291737528D005EA39C /* UserViewController.h */,
+				C0ABB62A1737528D005EA39C /* UserViewController.m */,
+				C0ABB62B1737528D005EA39C /* UserViewController.xib */,
 			);
 			name = "Right Deck";
 			sourceTree = "<group>";
@@ -464,6 +477,7 @@
 				C01EDEB51733683200AE97B8 /* NavigationDeckViewController.xib in Resources */,
 				C0ABB6231735C777005EA39C /* FailedLoadingView.xib in Resources */,
 				C0ABB6251735C880005EA39C /* loadingFailed-01.png in Resources */,
+				C0ABB62D1737528D005EA39C /* UserViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +508,8 @@
 				C01EDEB01733553A00AE97B8 /* LinkButton.m in Sources */,
 				C01EDEB41733683200AE97B8 /* NavigationDeckViewController.m in Sources */,
 				C0ABB6221735C777005EA39C /* FailedLoadingView.m in Sources */,
+				C0ABB628173749A0005EA39C /* User.m in Sources */,
+				C0ABB62C1737528D005EA39C /* UserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

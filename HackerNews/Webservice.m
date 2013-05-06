@@ -178,6 +178,94 @@
     });
 }
 
+#pragma mark - Login
+-(void)loginWithUsername:(NSString *)user password:(NSString *)pass {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSURLResponse *response;
+        NSError *error;
+        
+        // Create the URL Request
+        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:@"https://news.ycombinator.com/newslogin?whence=news"]];
+        
+        // Start the request
+        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        
+        //Handle response
+        //Callback to main thread
+        if (responseData) {
+            NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy];
+            
+            if (responseString.length > 0) {
+                NSString *fnid = @"", *trash = @"";
+                NSScanner *fnidScan = [NSScanner scannerWithString:responseString];
+                [fnidScan scanUpToString:@"name=\"fnid\" value=\"" intoString:&trash];
+                [fnidScan scanString:@"name=\"fnid\" value=\"" intoString:&trash];
+                [fnidScan scanUpToString:@"\"" intoString:&fnid];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (fnid.length > 0) {
+                        [self makeLoginRequestWithUser:user password:pass fnid:fnid];
+                    }
+                    else {
+                        [delegate didLoginWithUser:nil];
+                    }
+                });
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [delegate didLoginWithUser:nil];
+                });
+            }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [delegate didLoginWithUser:nil];
+            });
+        }
+    });
+}
+
+-(void)makeLoginRequestWithUser:(NSString *)user password:(NSString *)pass fnid:(NSString *)fnid {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSHTTPURLResponse *response;
+        NSError *error;
+        
+        NSString *bodyString = [NSString stringWithFormat:@"fnid=%@&u=%@&p=%@",fnid,user,pass];
+        NSData *bodyData = [bodyString dataUsingEncoding:NSStringEncodingConversionAllowLossy];
+        
+        // Create the URL Request
+        NSMutableURLRequest *request = [Webservice NewJSONRequestWithURL:[NSURL URLWithString:@"https://news.ycombinator.com/y"] bodyData:bodyData];
+        
+        // Start the request
+        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        
+        //Handle response
+        //Callback to main thread
+        if (responseData) {
+            NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy];
+            
+            // Find User cookie
+            NSArray *Cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[NSURL URLWithString:@"https://news.ycombinator.com/y"]];
+            for (NSHTTPCookie *cookie in Cookies) {
+                if ([[cookie name] isEqual:@"user"]) {
+                    
+                }
+            }
+            
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [delegate didLoginWithUser:nil];
+            });
+        }
+    });
+}
+
+
+////////////////////////////////////////////////////
+
 #pragma mark - URL Request
 +(NSMutableURLRequest *)NewGetRequestForURL:(NSURL *)url {
     NSMutableURLRequest *Request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:10];
@@ -185,5 +273,16 @@
     
     return Request;
 }
+
++(NSMutableURLRequest *)NewJSONRequestWithURL:(NSURL *)url bodyData:(NSData *)bodyData{
+    NSMutableURLRequest *Request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [Request setHTTPMethod:@"POST"];
+    [Request setHTTPBody:bodyData];
+    [Request setHTTPShouldHandleCookies:YES];
+    
+    return Request;
+}
+
+////////////////////////////////////////////////////
 
 @end

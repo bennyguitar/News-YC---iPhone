@@ -18,5 +18,6 @@
 @property (strong, nonatomic) ViewController *viewController;
 @property (retain, nonatomic) UIViewController *centerController;
 @property (strong, nonatomic) UIViewController *leftController;
+@property (strong, nonatomic) UIViewController *rightController;
 
 @end

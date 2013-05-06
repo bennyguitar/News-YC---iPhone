@@ -10,7 +10,7 @@
 #import "ViewController.h"
 #import "IIViewDeckController.h"
 #import "NavigationDeckViewController.h"
-
+#import "UserViewController.h"
 
 @implementation AppDelegate
 
@@ -42,6 +42,7 @@
     
     
     self.leftController = [[NavigationDeckViewController alloc] initWithNibName:@"NavigationDeckViewController" bundle:nil];
+    self.rightController = [[UserViewController alloc] initWithNibName:@"UserViewController" bundle:nil];
     ViewController *centerController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     self.centerController = [[UINavigationController alloc] initWithRootViewController:centerController];
     IIViewDeckController* deckController =  [[IIViewDeckController alloc] initWithCenterViewController:self.centerController
