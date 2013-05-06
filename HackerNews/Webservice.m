@@ -7,6 +7,7 @@
 //
 
 #import "Webservice.h"
+#import "HNSingleton.h"
 
 @implementation Webservice
 @synthesize delegate;
@@ -228,14 +229,15 @@
 
 -(void)makeLoginRequestWithUser:(NSString *)user password:(NSString *)pass fnid:(NSString *)fnid {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSHTTPURLResponse *response;
+        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] init];
         NSError *error;
         
         NSString *bodyString = [NSString stringWithFormat:@"fnid=%@&u=%@&p=%@",fnid,user,pass];
-        NSData *bodyData = [bodyString dataUsingEncoding:NSStringEncodingConversionAllowLossy];
+        NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
         
         // Create the URL Request
         NSMutableURLRequest *request = [Webservice NewJSONRequestWithURL:[NSURL URLWithString:@"https://news.ycombinator.com/y"] bodyData:bodyData];
+        [request setHTTPShouldHandleCookies:YES];
         
         // Start the request
         NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
@@ -246,14 +248,28 @@
         if (responseData) {
             NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy];
             
-            // Find User cookie
-            NSArray *Cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:[NSURL URLWithString:@"https://news.ycombinator.com/y"]];
-            for (NSHTTPCookie *cookie in Cookies) {
-                if ([[cookie name] isEqual:@"user"]) {
-                    
-                }
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ contains[c] SELF", responseString];
+            if ([predicate evaluateWithObject:@">Bad login."]) {
+                // Login Failed
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [delegate didLoginWithUser:nil];
+                });
             }
-            
+            else {
+                // Create User
+                
+                // Save Cookie
+                NSArray *cookieArray = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"https://news.ycombinator.com/"]];
+                if (cookieArray.count > 0) {
+                    NSHTTPCookie *cookie = cookieArray[0];
+                    if ([cookie.name isEqualToString:@"user"]) {
+                        [HNSingleton sharedHNSingleton].SessionCookie = cookie.value;
+                    }
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [delegate didLoginWithUser:nil];
+                });
+            }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -278,7 +294,8 @@
     NSMutableURLRequest *Request = [[NSMutableURLRequest alloc] initWithURL:url];
     [Request setHTTPMethod:@"POST"];
     [Request setHTTPBody:bodyData];
-    [Request setHTTPShouldHandleCookies:YES];
+    [Request setHTTPShouldHandleCookies:NO];
+    [Request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
     
     return Request;
 }

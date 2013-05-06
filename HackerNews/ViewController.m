@@ -32,7 +32,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
     
     // Login
-    [self loginWithUser:@"test" pass:@"pass"];
+    [self loginWithUser:@"user" pass:@"testpass"];
 }
 
 - (void)didReceiveMemoryWarning

@@ -40,6 +40,15 @@
     // Set initial filter to Top
     [HNSingleton sharedHNSingleton].filter = fTypeTop;
     
+    // Get Cookie for Login
+    NSArray *cookieArray = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"https://news.ycombinator.com/"]];
+    if (cookieArray.count > 0) {
+        NSHTTPCookie *cookie = cookieArray[0];
+        if ([cookie.name isEqualToString:@"user"]) {
+            [HNSingleton sharedHNSingleton].SessionCookie = cookie.value;
+        }
+    }
+    
     
     self.leftController = [[NavigationDeckViewController alloc] initWithNibName:@"NavigationDeckViewController" bundle:nil];
     self.rightController = [[UserViewController alloc] initWithNibName:@"UserViewController" bundle:nil];
