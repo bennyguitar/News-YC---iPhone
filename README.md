@@ -31,7 +31,7 @@ This method returns an NSArray of Comment objects using the delegate method <cod
 
 #### Data Objects - Post.{h,m} and Comment.{h,m} ####
 
-These classes make up the data model used by News/YC. Both Post and Comment contain special constructor methods based on the JSON objects that return from <code>Webservice.{h,m}</code> calls - going from NSDictionary to objects.
+These classes make up the data model used by News/YC. Both Post and Comment contain special constructor methods based on the JSON objects that return from <code>Webservice.{h,m}</code> calls - going from NSDictionary to objects. Comment has an NSMutableAttributedString property, <code>attrText</code> that isn't used right now, but there are plans in the future to use this to style up comments (more on that in the *Things to Come* section).
 
 ```objc
 @interface Post : NSObject
@@ -87,7 +87,7 @@ For subsequent versions, I'd like to see a couple things happen to make this app
 
 Having a beautiful and easy-to-use user management system is what this app needs. I've included a spot for this already with the right ViewDeck, but have not designed anything. Ideally, a user would login by swiping open the right side and entering their credentials. Then that side would show their karma, about me info (changeable perhaps), date created, and other useful user information. The only problem is that there is zero API support of this functionality and there probably never will be, especially since it seems like PG doesn't really approve of external APIs and brings the hammer down with rate-limiters. That said, I believe that this functionality could be implemented via client-side scraping rather than doing it on a server and serving up JSON for anyone to grab. Of course submitting, commenting and voting would follow from the ability to login.
 
-I'm hoping to basically include only one more class <code>HNUser.{h,m}</code> and all calls/scraping be done in Webservice. I may implement the HNKit (https://github.com/Xuzz/HNKit) code to do this, but there isn't much documentation on it, it doesn't look like it's in ARC, and it seems fairly convoluted.
+I'm hoping to basically include only one more class <code>User.{h,m}</code> and all calls/scraping be done in Webservice. I may implement the HNKit (https://github.com/Xuzz/HNKit) code to do this, but there isn't much documentation on it, it doesn't look like it's in ARC, and it seems fairly convoluted.
 
 **In Code**
 * Comment labels using NSAttributedString (for < html > tags)
