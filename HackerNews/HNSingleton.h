@@ -31,9 +31,10 @@ enum theme {
 @property (nonatomic, retain) NSMutableDictionary *hasReadThisArticleDict;
 @property (nonatomic, retain) NSMutableDictionary *themeDict;
 @property (nonatomic, assign) enum fType filter;
-@property (nonatomic, retain) NSString *SessionCookie;
+@property (nonatomic, retain) NSHTTPCookie *SessionCookie;
 
 +(HNSingleton*)sharedHNSingleton;
 -(void)changeTheme;
+-(void)setSession;
 
 @end

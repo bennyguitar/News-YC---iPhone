@@ -237,7 +237,6 @@
         
         // Create the URL Request
         NSMutableURLRequest *request = [Webservice NewJSONRequestWithURL:[NSURL URLWithString:@"https://news.ycombinator.com/y"] bodyData:bodyData];
-        [request setHTTPShouldHandleCookies:YES];
         
         // Start the request
         NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
@@ -259,13 +258,9 @@
                 // Create User
                 
                 // Save Cookie
-                NSArray *cookieArray = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"https://news.ycombinator.com/"]];
-                if (cookieArray.count > 0) {
-                    NSHTTPCookie *cookie = cookieArray[0];
-                    if ([cookie.name isEqualToString:@"user"]) {
-                        [HNSingleton sharedHNSingleton].SessionCookie = cookie.value;
-                    }
-                }
+                [[HNSingleton sharedHNSingleton] setSession];
+                
+                // Pass User through the delegate
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [delegate didLoginWithUser:nil];
                 });
@@ -294,7 +289,7 @@
     NSMutableURLRequest *Request = [[NSMutableURLRequest alloc] initWithURL:url];
     [Request setHTTPMethod:@"POST"];
     [Request setHTTPBody:bodyData];
-    [Request setHTTPShouldHandleCookies:NO];
+    [Request setHTTPShouldHandleCookies:YES];
     [Request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
     
     return Request;
