@@ -10,4 +10,10 @@
 
 @interface User : NSObject
 
+@property (nonatomic, retain) NSString *Username;
+@property (nonatomic, assign) int Karma;
+@property (nonatomic, assign) int Age;
+@property (nonatomic, retain) NSString *AboutInfo;
+
+
 @end
