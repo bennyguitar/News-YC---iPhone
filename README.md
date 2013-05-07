@@ -119,6 +119,7 @@ News/YC uses the only officially sanctioned API that Hacker News approves of: ht
 News/YC uses the following third party libraries:
 
 * IIViewDeck - https://github.com/Inferis/ViewDeck
+* MYJsonWebservice - https://github.com/MatthewYork/JSON-Webservice-Template
 
 ## Things to Come ##
 
