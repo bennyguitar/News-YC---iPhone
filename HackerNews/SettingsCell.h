@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#define kCellSettingsHeight 180
+#define kCellSettingsLoggedInHeight 210
+
 @interface SettingsCell : UITableViewCell
 
 
@@ -23,5 +26,10 @@
 @property (retain, nonatomic) IBOutlet UIButton *themeHidden;
 @property (retain, nonatomic) IBOutlet UIButton *dayModeButton;
 @property (retain, nonatomic) IBOutlet UILabel *themeLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *logoutButton;
+@property (weak, nonatomic) IBOutlet UILabel *logoutLabel;
+@property (weak, nonatomic) IBOutlet UIButton *logoutHidden;
+
 
 @end

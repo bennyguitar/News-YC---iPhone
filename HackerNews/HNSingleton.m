@@ -91,4 +91,33 @@ static HNSingleton * _sharedHNSingleton = nil;
 }
 
 
+-(void)loginWithUser:(NSString *)user password:(NSString *)pass {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoggingIn" object:nil];
+    Webservice *service = [[Webservice alloc] init];
+    service.delegate = self;
+    [service loginWithUsername:user password:pass];
+}
+
+-(void)didLoginWithUser:(User *)user {
+    if (user) {
+        user.Username = [[NSUserDefaults standardUserDefaults] valueForKey:@"Username"];
+        self.User = user;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
+        [KGStatusBar showSuccessWithStatus:[NSString stringWithFormat:@"%@ Logged In", user.Username]];
+    }
+    else {
+        // Launch failed loading with bad user error
+        [KGStatusBar showErrorWithStatus:@"Login Failed"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
+    }
+}
+
+-(void)logout {
+    self.User = nil;
+    self.SessionCookie = nil;
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
+    [KGStatusBar showWithStatus:@"Logged Out"];
+}
+
 @end

@@ -40,9 +40,13 @@
     // Set initial filter to Top
     [HNSingleton sharedHNSingleton].filter = fTypeTop;
     
+    // Login to previous account
     // Get Cookie for Login
     [[HNSingleton sharedHNSingleton] setSession];
     // If Cookie, fetch User object
+    if ([HNSingleton sharedHNSingleton].SessionCookie && [[[NSUserDefaults standardUserDefaults] valueForKey:@"Password"] length] > 0) {
+        [[HNSingleton sharedHNSingleton] loginWithUser:[[NSUserDefaults standardUserDefaults] valueForKey:@"Username"] password:[[NSUserDefaults standardUserDefaults] valueForKey:@"Password"]];
+    }
     
     self.leftController = [[NavigationDeckViewController alloc] initWithNibName:@"NavigationDeckViewController" bundle:nil];
     self.rightController = [[UserViewController alloc] initWithNibName:@"UserViewController" bundle:nil];
@@ -56,6 +60,7 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

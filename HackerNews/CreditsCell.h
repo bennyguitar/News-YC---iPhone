@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define kCellCreditsHeight 151
+
 @interface CreditsCell : UITableViewCell
 
 @end

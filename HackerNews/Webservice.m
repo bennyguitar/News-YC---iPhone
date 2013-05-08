@@ -255,16 +255,45 @@
                 });
             }
             else {
-                // Create User
+                // Set Defaults
+                [[NSUserDefaults standardUserDefaults] setValue:user forKey:@"Username"];
+                [[NSUserDefaults standardUserDefaults] setValue:pass forKey:@"Password"];
                 
                 // Save Cookie
                 [[HNSingleton sharedHNSingleton] setSession];
                 
                 // Pass User through the delegate
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didLoginWithUser:nil];
+                    [self createUserFromURLString:[NSString stringWithFormat:@"https://news.ycombinator.com/user?id=%@", user]];
                 });
             }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [delegate didLoginWithUser:nil];
+            });
+        }
+    });
+}
+
+-(void)createUserFromURLString:(NSString *)urlString {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] init];
+        NSError *error;
+        
+        // Create the URL Request
+        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:urlString]];
+        [request setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:@[[HNSingleton sharedHNSingleton].SessionCookie]]];
+        
+        // Start the request
+        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        //Handle response
+        //Callback to main thread
+        if (responseData) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [delegate didLoginWithUser:[User userFromHTMLString:[[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy]]];
+            });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -325,7 +354,7 @@
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didLoginWithUser:nil];
+                [delegate didVoteWithSuccess:NO];
             });
         }
     });
@@ -371,7 +400,7 @@
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didLoginWithUser:nil];
+                [delegate didVoteWithSuccess:NO];
             });
         }
     });

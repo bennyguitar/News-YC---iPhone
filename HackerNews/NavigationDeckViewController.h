@@ -17,10 +17,12 @@
 #import "ShareCell.h"
 #import "SettingsCell.h"
 #import "CreditsCell.h"
+#import "ProfileNotLoggedInCell.h"
+#import "ProfileLoggedInCell.h"
 #import "AppDelegate.h"
 #import "Helpers.h"
 
-@interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate> {
+@interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     
     IBOutlet UITableView *navTable;
 }

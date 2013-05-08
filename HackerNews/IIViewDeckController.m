@@ -1139,6 +1139,9 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
 }
 
 - (void)notifyWillCloseSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
+    // Hide Keyboard if it's open
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HideKeyboard" object:nil];
+    
     if (viewDeckSide == IIViewDeckNoSide) return;
     [self notifyAppearanceForSide:viewDeckSide animated:animated from:2 to:1];
 
@@ -1291,6 +1294,10 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
 }
 
 - (BOOL)openSideView:(IIViewDeckSide)side animated:(BOOL)animated duration:(NSTimeInterval)duration completion:(IIViewDeckControllerBlock)completed {
+    
+    // Hide Keyboard if it's open
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HideKeyboard" object:nil];
+    
     // if there's no controller or we're already open, just run the completion and say we're done.
     if (![self controllerForSide:side] || [self isSideOpen:side]) {
         if (completed) completed(self, YES);

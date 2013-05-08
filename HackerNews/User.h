@@ -15,5 +15,7 @@
 @property (nonatomic, assign) int Age;
 @property (nonatomic, retain) NSString *AboutInfo;
 
++(User *)userFromHTMLString:(NSString *)html;
+
 
 @end

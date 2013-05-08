@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "ViewController.h"
+#import "Webservice.h"
+#import "KGStatusBar.h"
+#import "User.h"
 
 enum fType {
     fTypeTop = 0,
@@ -25,16 +28,20 @@ enum theme {
     themeDay = 1
 };
 
-@interface HNSingleton : NSObject {
+@interface HNSingleton : NSObject <WebserviceDelegate> {
 }
 
 @property (nonatomic, retain) NSMutableDictionary *hasReadThisArticleDict;
 @property (nonatomic, retain) NSMutableDictionary *themeDict;
 @property (nonatomic, assign) enum fType filter;
 @property (nonatomic, retain) NSHTTPCookie *SessionCookie;
+@property (nonatomic, retain) User *User;
+
 
 +(HNSingleton*)sharedHNSingleton;
 -(void)changeTheme;
 -(void)setSession;
+-(void)loginWithUser:(NSString *)user password:(NSString *)pass;
+-(void)logout;
 
 @end

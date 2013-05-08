@@ -30,31 +30,13 @@
     
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
-    
-    // Login Test
-    [self loginWithUser:@"test" pass:@"test"];
 }
 
+#pragma mark - Memory
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - TEST!
--(void)loginWithUser:(NSString *)user pass:(NSString *)pass {
-    Webservice *service = [[Webservice alloc] init];
-    service.delegate = self;
-    [service loginWithUsername:user password:pass];
-}
-
--(void)didLoginWithUser:(User *)user {
-    if (user) {
-        
-    }
-    else {
-        
-    }
 }
 
 #pragma mark - UI
@@ -135,9 +117,6 @@
         // Handle
         homePagePosts = posts;
         [frontPageTable reloadData];
-        
-        // TEST:
-        [self voteForPost:homePagePosts[0]];
     }
     else {
         // No posts were retrieved. Handle exception.

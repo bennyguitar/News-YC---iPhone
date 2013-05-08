@@ -72,6 +72,13 @@
 		C0ABB628173749A0005EA39C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB627173749A0005EA39C /* User.m */; };
 		C0ABB62C1737528D005EA39C /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB62A1737528D005EA39C /* UserViewController.m */; };
 		C0ABB62D1737528D005EA39C /* UserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB62B1737528D005EA39C /* UserViewController.xib */; };
+		C0F93FE51739CE1800E47B5E /* ProfileNotLoggedInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F93FE31739CE1800E47B5E /* ProfileNotLoggedInCell.m */; };
+		C0F93FE71739CE2800E47B5E /* ProfileNotLoggedInCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0F93FE61739CE2800E47B5E /* ProfileNotLoggedInCell.xib */; };
+		C0F93FEB1739D4D100E47B5E /* ProfileLoggedInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F93FE91739D4D000E47B5E /* ProfileLoggedInCell.m */; };
+		C0F93FED1739D4DC00E47B5E /* ProfileLoggedInCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0F93FEC1739D4DC00E47B5E /* ProfileLoggedInCell.xib */; };
+		C0F93FF01739D61000E47B5E /* profileKarma-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0F93FEE1739D61000E47B5E /* profileKarma-01.png */; };
+		C0F93FF11739D61000E47B5E /* profileUser-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0F93FEF1739D61000E47B5E /* profileUser-01.png */; };
+		C0F93FF51739DE0000E47B5E /* KGStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F93FF31739DE0000E47B5E /* KGStatusBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -164,6 +171,16 @@
 		C0ABB6291737528D005EA39C /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		C0ABB62A1737528D005EA39C /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
 		C0ABB62B1737528D005EA39C /* UserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserViewController.xib; sourceTree = "<group>"; };
+		C0F93FE21739CE1800E47B5E /* ProfileNotLoggedInCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ProfileNotLoggedInCell.h; sourceTree = "<group>"; };
+		C0F93FE31739CE1800E47B5E /* ProfileNotLoggedInCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileNotLoggedInCell.m; sourceTree = "<group>"; };
+		C0F93FE61739CE2800E47B5E /* ProfileNotLoggedInCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileNotLoggedInCell.xib; sourceTree = "<group>"; };
+		C0F93FE81739D4D000E47B5E /* ProfileLoggedInCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ProfileLoggedInCell.h; sourceTree = "<group>"; };
+		C0F93FE91739D4D000E47B5E /* ProfileLoggedInCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileLoggedInCell.m; sourceTree = "<group>"; };
+		C0F93FEC1739D4DC00E47B5E /* ProfileLoggedInCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileLoggedInCell.xib; sourceTree = "<group>"; };
+		C0F93FEE1739D61000E47B5E /* profileKarma-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profileKarma-01.png"; sourceTree = "<group>"; };
+		C0F93FEF1739D61000E47B5E /* profileUser-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profileUser-01.png"; sourceTree = "<group>"; };
+		C0F93FF21739DE0000E47B5E /* KGStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = KGStatusBar.h; sourceTree = "<group>"; };
+		C0F93FF31739DE0000E47B5E /* KGStatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGStatusBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +299,8 @@
 		C01EDE1B1731A3D500AE97B8 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				C0F93FF21739DE0000E47B5E /* KGStatusBar.h */,
+				C0F93FF31739DE0000E47B5E /* KGStatusBar.m */,
 				C01EDE381731A4BB00AE97B8 /* frontPageCell.h */,
 				C01EDE391731A4BB00AE97B8 /* frontPageCell.m */,
 				C01EDE3A1731A4BB00AE97B8 /* frontPageCell.xib */,
@@ -337,6 +356,9 @@
 				C01EDE231731A44200AE97B8 /* FilterCell.h */,
 				C01EDE241731A44200AE97B8 /* FilterCell.m */,
 				C01EDE251731A44200AE97B8 /* FilterCell.xib */,
+				C0F93FE21739CE1800E47B5E /* ProfileNotLoggedInCell.h */,
+				C0F93FE31739CE1800E47B5E /* ProfileNotLoggedInCell.m */,
+				C0F93FE61739CE2800E47B5E /* ProfileNotLoggedInCell.xib */,
 				C01EDE261731A44200AE97B8 /* ShareCell.h */,
 				C01EDE271731A44200AE97B8 /* ShareCell.m */,
 				C01EDE281731A44200AE97B8 /* ShareCell.xib */,
@@ -346,6 +368,9 @@
 				C01EDE2C1731A44200AE97B8 /* CreditsCell.h */,
 				C01EDE2D1731A44200AE97B8 /* CreditsCell.m */,
 				C01EDE2E1731A44200AE97B8 /* CreditsCell.xib */,
+				C0F93FE81739D4D000E47B5E /* ProfileLoggedInCell.h */,
+				C0F93FE91739D4D000E47B5E /* ProfileLoggedInCell.m */,
+				C0F93FEC1739D4DC00E47B5E /* ProfileLoggedInCell.xib */,
 			);
 			name = "Nav Cells";
 			sourceTree = "<group>";
@@ -362,6 +387,8 @@
 		C01EDE4B1731A7E400AE97B8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C0F93FEE1739D61000E47B5E /* profileKarma-01.png */,
+				C0F93FEF1739D61000E47B5E /* profileUser-01.png */,
 				C01EDE4C1731A84700AE97B8 /* check-01.png */,
 				C01EDE4D1731A84700AE97B8 /* github-01.png */,
 				C0ABB6241735C880005EA39C /* loadingFailed-01.png */,
@@ -478,6 +505,10 @@
 				C0ABB6231735C777005EA39C /* FailedLoadingView.xib in Resources */,
 				C0ABB6251735C880005EA39C /* loadingFailed-01.png in Resources */,
 				C0ABB62D1737528D005EA39C /* UserViewController.xib in Resources */,
+				C0F93FE71739CE2800E47B5E /* ProfileNotLoggedInCell.xib in Resources */,
+				C0F93FED1739D4DC00E47B5E /* ProfileLoggedInCell.xib in Resources */,
+				C0F93FF01739D61000E47B5E /* profileKarma-01.png in Resources */,
+				C0F93FF11739D61000E47B5E /* profileUser-01.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +541,9 @@
 				C0ABB6221735C777005EA39C /* FailedLoadingView.m in Sources */,
 				C0ABB628173749A0005EA39C /* User.m in Sources */,
 				C0ABB62C1737528D005EA39C /* UserViewController.m in Sources */,
+				C0F93FE51739CE1800E47B5E /* ProfileNotLoggedInCell.m in Sources */,
+				C0F93FEB1739D4D100E47B5E /* ProfileLoggedInCell.m in Sources */,
+				C0F93FF51739DE0000E47B5E /* KGStatusBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

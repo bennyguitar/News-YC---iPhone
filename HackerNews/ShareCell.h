@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define kCellShareHeight 112
+
 @interface ShareCell : UITableViewCell
 
 @property (retain, nonatomic) IBOutlet UIButton *fbButton;
