@@ -125,6 +125,7 @@ News/YC uses the following third party libraries:
 
 * IIViewDeck - https://github.com/Inferis/ViewDeck
 * MYJsonWebservice - https://github.com/MatthewYork/JSON-Webservice-Template
+* KGStatusBar - https://github.com/kevingibbon/KGStatusBar
 
 ## Things to Come ##
 
