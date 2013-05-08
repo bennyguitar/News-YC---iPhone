@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #define kCellSettingsHeight 180
-#define kCellSettingsLoggedInHeight 210
+#define kCellSettingsLoggedInHeight 212
 
 @interface SettingsCell : UITableViewCell
 
