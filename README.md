@@ -100,15 +100,20 @@ This class contains a few properties that manage things on an app-wide scope. In
 @property (nonatomic, retain) NSMutableDictionary *themeDict;
 @property (nonatomic, assign) enum fType filter;
 @property (nonatomic, retain) NSHTTPCookie *SessionCookie;
+@property (nonatomic, retain) User *User;
 
 // Methods
 -(void)changeTheme;
 -(void)setSession;
+-(void)loginWithUser:(NSString *)user password:(NSString *)pass;
+-(void)logout;
 ```
 
 **For Version 2.0**
 
 This class also includes a NSHTTPCookie object, <code>SessionKey</code> for keeping track of user-authenticated actions such as submitting or voting. A successful login adds the cookie to the persistent cache of cookies that iOS implements device-wide. A check for the cookie inside AppDelegate's launching method adds it to the Singleton. Every authentication-important Webservice call will attach this cookie to the HTTPHeaders before the request is sent.
+
+Loggin In/Out is another new feature set for a v2.0 release. This HNSingleton class also keeps track of the current User object associated with a login and all of the login functionality. From anywhere in the app, if a login is necessary - a call to <code>[[HNSingleton sharedHNSingleton] loginWithUser:(NSString *)user password:(NSString *)pass</code> is made.
 
 ## API ##
 
