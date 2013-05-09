@@ -11,7 +11,7 @@ News/YC is a front-page reader for Hacker News (http://news.ycombinator.com), a 
 
 ## The Code ##
 
-The root ViewController, App Delegate, and HNSingleton are in the top-level directory, while every other class should be self-documented through the folders they are in (Webservice, Data Objects, Utilities, etc.).
+The root ViewController, App Delegate, and HNSingleton are in the top-level directory, while every other class should be self-documented through the folders they are in (Webservice, Data Objects, Utilities, etc.). There are a number of features that are in this code-base that aren't in the public release version (**1.2**) that is on the iOS App Store right now. I've tried to document these features in sub-sections labeled **Version 2**, and are currently in-progress (things like logging in and voting). Feel free to help out on these features and launch the best HN reader for iOS!
 
 * Current iOS SDK: 6.0+
 * Current AppStore Version: 1.2
@@ -39,6 +39,12 @@ This method returns an NSArray of Comment objects using the delegate method <cod
 ```
 
 This method handles logging in and returns a User object using the delegate method <code>-(void)didLoginWithUser:(User *)user</code> to call back to whatever ViewController implements and makes the call. I'm thinking about putting this method in the HNSingleton class to keep an app-wide scope on the login status (since everything is handled asynchronously) and using NSNotificationCenter when a login/logout occurs.
+
+```objc
+-(void)voteUp:(BOOL)up forObject:(id)HNObject;
+```
+
+This method handles voting for objects. I'm currently working on adding in the UI to handle voting/commenting on stories, and this method will take control of voting on any object (HNObject is just a Post or Comment). The callback to this delegate will be a BOOL, indicating a successful vote or not. However, I don't plan on doing anything UI-wise specifically that will alert the user that it failed (may just be too much information), though I do plan on alerting them if the cookie is bad so they can re-login and attempt again.
 
 #### Data Objects - Post.{h,m} and Comment.{h,m} ####
 
