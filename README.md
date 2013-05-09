@@ -156,3 +156,7 @@ I'm hoping to basically include only one more class <code>User.{h,m}</code> and 
 
 The API returns comment text with different HTML tags inside it including <code>< p >,< i >, and < code ></code> that would be very cool to format in via NSAttributedString. I'm already turning the <code>< p ></code> tags into new lines, but italics are used for emphasis quite a bit in HN comments, and I'd like to have that in here as well.
 
+## License ##
+
+This repository is licensed under the stnadard MIT license. Any third party code that appears in this repository is licensed under the terms the original author laid out and does not transfer to my licensure. Feel free to use whatever you'd like from this.
+
