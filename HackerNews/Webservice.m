@@ -96,6 +96,11 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [delegate didFetchPosts:orderedPostArray];
+                    
+                    // Update Karma for User
+                    if ([HNSingleton sharedHNSingleton].User) {
+                        [self reloadUserFromURLString:[NSString stringWithFormat:@"https://news.ycombinator.com/user?id=%@", [HNSingleton sharedHNSingleton].User.Username]];
+                    }
                 });
             }
             else {
@@ -160,6 +165,11 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [delegate didFetchComments:orderedComments forPostID:post.PostID launchComments:launch];
+                    
+                    // Update Karma for User
+                    if ([HNSingleton sharedHNSingleton].User) {
+                        [self reloadUserFromURLString:[NSString stringWithFormat:@"https://news.ycombinator.com/user?id=%@", [HNSingleton sharedHNSingleton].User.Username]];
+                    }
                 });
             }
             else {
@@ -303,6 +313,34 @@
     });
 }
 
+-(void)reloadUserFromURLString:(NSString *)urlString {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] init];
+        NSError *error;
+        
+        // Create the URL Request
+        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:urlString]];
+        [request setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:@[[HNSingleton sharedHNSingleton].SessionCookie]]];
+        
+        // Start the request
+        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        //Handle response
+        //Callback to main thread
+        if (responseData) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [HNSingleton sharedHNSingleton].User = [User userFromHTMLString:[[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy]];
+                [HNSingleton sharedHNSingleton].User.Username = [[NSUserDefaults standardUserDefaults] valueForKey:@"Username"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
+            });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Failed
+            });
+        }
+    });
+}
 
 #pragma mark - Voting
 -(void)voteUp:(BOOL)up forObject:(id)HNObject {
