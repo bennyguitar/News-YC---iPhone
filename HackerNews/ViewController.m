@@ -8,8 +8,51 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () {
+    // Home Page UI
+    __weak IBOutlet UIView *headerContainer;
+    __weak IBOutlet UITableView *frontPageTable;
+    __weak IBOutlet UIImageView *underHeaderTriangle;
+    __weak IBOutlet TriangleView *headerTriangle;
+    __weak IBOutlet UIActivityIndicatorView *loadingIndicator;
+    UIRefreshControl *frontPageRefresher;
 
+    // Comments Page UI
+    IBOutlet UIView *commentsView;
+    __weak IBOutlet UIView *commentsHeader;
+    __weak IBOutlet UITableView *commentsTable;
+    __weak IBOutlet UILabel *commentPostTitleLabel;
+    UIRefreshControl *commentsRefresher;
+    __weak IBOutlet UILabel *postTitleLabel;
+
+    // Link Page UI
+    __weak IBOutlet UIView *linkHeader;
+    __weak IBOutlet UIWebView *linkWebView;
+    IBOutlet UIView *linkView;
+
+    // External Link View
+    __weak IBOutlet UIWebView *externalLinkWebView;
+    IBOutlet UIView *externalLinkView;
+    __weak IBOutlet UIView *externalLinkHeader;
+    __weak IBOutlet UIActivityIndicatorView *externalActivityIndicator;
+
+    // Data
+    NSArray *homePagePosts;
+    NSArray *organizedCommentsArray;
+    Post *currentPost;
+    float frontPageLastLocation;
+    float commentsLastLocation;
+    int scrollDirection;
+}
+
+// Change Theme
+- (void)colorUI;
+- (IBAction)toggleSideNav:(id)sender;
+
+- (IBAction)didClickCommentsFromLinkView:(id)sender;
+- (IBAction)hideCommentsAndLinkView:(id)sender;
+- (IBAction)didClickLinkViewFromComments:(id)sender;
+- (IBAction)didClickBackToComments:(id)sender;
 @end
 
 @implementation ViewController
@@ -112,7 +155,7 @@
     loadingIndicator.alpha = 1;
 }
 
--(void)didFetchPosts:(NSArray *)posts {
+-(void)webservice:(Webservice *)webservice didFetchPosts:(NSArray *)posts {
     if (posts) {
         // Handle
         homePagePosts = posts;
@@ -147,7 +190,7 @@
     loadingIndicator.alpha = 1;
 }
 
--(void)didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch {
+-(void)webservice:(Webservice *)webservice didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch {
     if (comments) {
         organizedCommentsArray = comments;
         [commentsTable reloadData];
@@ -171,7 +214,7 @@
     [service voteUp:YES forObject:post];
 }
 
--(void)didVoteWithSuccess:(BOOL)success {
+-(void)webservice:(Webservice *)webservice didVoteWithSuccess:(BOOL)success {
     
 }
 
