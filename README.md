@@ -11,7 +11,7 @@ News/YC is a front-page reader for Hacker News (http://news.ycombinator.com), a 
 
 ## The Code ##
 
-The root ViewController, App Delegate, and HNSingleton are in the top-level directory, while every other class should be self-documented through the folders they are in (Webservice, Data Objects, Utilities, etc.). There are a number of features that are in this code-base that aren't in the public release version (**1.2**) that is on the iOS App Store right now. I've tried to document these features in sub-sections labeled **Version 2**, and are currently in-progress (things like logging in and voting). Feel free to help out on these features and launch the best HN reader for iOS!
+The root ViewController, App Delegate, and HNSingleton are in the top-level directory, while every other class should be self-documented through the folders they are in (Webservice, Data Objects, Utilities, etc.). There are a number of features that are in this code-base that aren't in the public release version (1.2) that is on the iOS App Store right now. I've tried to document these features in sub-sections labeled **Version 2**, and are currently in-progress (things like logging in and voting). Feel free to help out on these features and launch the best HN reader for iOS!
 
 * Current iOS SDK: 6.0+
 * Current AppStore Version: 1.2
