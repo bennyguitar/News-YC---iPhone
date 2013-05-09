@@ -158,5 +158,5 @@ The API returns comment text with different HTML tags inside it including <code>
 
 ## License ##
 
-This repository is licensed under the stnadard MIT license. Any third party code that appears in this repository is licensed under the terms the original author laid out and does not transfer to my licensure. Feel free to use whatever you'd like from this.
+This repository is licensed under the standard MIT license. Any third party code that appears in this repository is licensed under the terms the original author laid out and does not transfer to my licensure. Feel free to use whatever you'd like from this.
 
