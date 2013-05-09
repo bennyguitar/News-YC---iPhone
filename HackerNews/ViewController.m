@@ -155,7 +155,7 @@
     loadingIndicator.alpha = 1;
 }
 
--(void)didFetchPosts:(NSArray *)posts {
+-(void)webservice:(Webservice *)webservice didFetchPosts:(NSArray *)posts {
     if (posts) {
         // Handle
         homePagePosts = posts;
@@ -190,7 +190,7 @@
     loadingIndicator.alpha = 1;
 }
 
--(void)didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch {
+-(void)webservice:(Webservice *)webservice didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch {
     if (comments) {
         organizedCommentsArray = comments;
         [commentsTable reloadData];
@@ -214,7 +214,7 @@
     [service voteUp:YES forObject:post];
 }
 
--(void)didVoteWithSuccess:(BOOL)success {
+-(void)webservice:(Webservice *)webservice didVoteWithSuccess:(BOOL)success {
     
 }
 

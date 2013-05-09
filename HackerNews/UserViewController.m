@@ -42,7 +42,7 @@
     [service loginWithUsername:usernameTextField.text password:passwordTextField.text];
 }
 
--(void)didLoginWithUser:(User *)user {
+-(void)webservice:(Webservice *)webservice didLoginWithUser:(User *)user {
     if (user) {
         // Login Worked
         

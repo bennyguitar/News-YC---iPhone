@@ -98,7 +98,7 @@ static HNSingleton * _sharedHNSingleton = nil;
     [service loginWithUsername:user password:pass];
 }
 
--(void)didLoginWithUser:(User *)user {
+-(void)webservice:(Webservice *)webservice didLoginWithUser:(User *)user {
     if (user) {
         user.Username = [[NSUserDefaults standardUserDefaults] valueForKey:@"Username"];
         self.User = user;

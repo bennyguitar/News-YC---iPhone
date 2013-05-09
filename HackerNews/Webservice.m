@@ -37,14 +37,14 @@
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didFetchPosts:nil];
+                    [delegate webservice:self didFetchPosts:nil];
                 });
                 
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didFetchPosts:nil];
+                [delegate webservice:self didFetchPosts:nil];
             });
         }
         
@@ -95,7 +95,7 @@
                 NSArray *orderedPostArray = [self orderPosts:postArray byItemIDs:items];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didFetchPosts:orderedPostArray];
+                    [delegate webservice:self didFetchPosts:orderedPostArray];
                     
                     // Update Karma for User
                     if ([HNSingleton sharedHNSingleton].User) {
@@ -105,14 +105,14 @@
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didFetchPosts:nil];
+                    [delegate webservice:self didFetchPosts:nil];
                 });
                 
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didFetchPosts:nil];
+                [delegate webservice:self didFetchPosts:nil];
             });
         }
         
@@ -164,7 +164,7 @@
                 NSArray *orderedComments = [Comment organizeComments:comments topLevelID:post.PostID];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didFetchComments:orderedComments forPostID:post.PostID launchComments:launch];
+                    [delegate webservice:self didFetchComments:orderedComments forPostID:post.PostID launchComments:launch];
                     
                     // Update Karma for User
                     if ([HNSingleton sharedHNSingleton].User) {
@@ -174,14 +174,14 @@
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didFetchComments:nil forPostID:nil launchComments:NO];
+                    [delegate webservice:self didFetchComments:nil forPostID:nil launchComments:NO];
                 });
                 
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didFetchComments:nil forPostID:nil launchComments:NO];
+                [delegate webservice:self didFetchComments:nil forPostID:nil launchComments:NO];
             });
         }
         
@@ -219,19 +219,19 @@
                         [self makeLoginRequestWithUser:user password:pass fnid:fnid];
                     }
                     else {
-                        [delegate didLoginWithUser:nil];
+                        [delegate webservice:self didLoginWithUser:nil];
                     }
                 });
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didLoginWithUser:nil];
+                    [delegate webservice:self didLoginWithUser:nil];
                 });
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didLoginWithUser:nil];
+                [delegate webservice:self didLoginWithUser:nil];
             });
         }
     });
@@ -261,7 +261,7 @@
             if ([predicate evaluateWithObject:@">Bad login."]) {
                 // Login Failed
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didLoginWithUser:nil];
+                    [delegate webservice:self didLoginWithUser:nil];
                 });
             }
             else {
@@ -280,7 +280,7 @@
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didLoginWithUser:nil];
+                [delegate webservice:self didLoginWithUser:nil];
             });
         }
     });
@@ -302,12 +302,12 @@
         //Callback to main thread
         if (responseData) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didLoginWithUser:[User userFromHTMLString:[[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy]]];
+                [delegate webservice:self didLoginWithUser:[User userFromHTMLString:[[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy]]];
             });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didLoginWithUser:nil];
+                [delegate webservice:self didLoginWithUser:nil];
             });
         }
     });
@@ -360,7 +360,7 @@
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didVoteWithSuccess:NO];
+                [delegate webservice:self didVoteWithSuccess:NO];
                 return;
             });
         }
@@ -386,13 +386,13 @@
             else {
                 // Voting failed
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didVoteWithSuccess:NO];
+                    [delegate webservice:self didVoteWithSuccess:NO];
                 });
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didVoteWithSuccess:NO];
+                [delegate webservice:self didVoteWithSuccess:NO];
             });
         }
     });
@@ -426,19 +426,19 @@
             
             if (responseString.length > 0) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didVoteWithSuccess:YES];
+                    [delegate webservice:self didVoteWithSuccess:YES];
                 });
             }
             else {
                 // Voting failed
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate didVoteWithSuccess:NO];
+                    [delegate webservice:self didVoteWithSuccess:NO];
                 });
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate didVoteWithSuccess:NO];
+                [delegate webservice:self didVoteWithSuccess:NO];
             });
         }
     });
