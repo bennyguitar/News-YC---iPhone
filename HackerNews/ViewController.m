@@ -75,6 +75,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
 }
 
+
 #pragma mark - Memory
 - (void)didReceiveMemoryWarning
 {
