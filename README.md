@@ -3,8 +3,6 @@ News/YC for iPhone
 
 The iPhone version of News/YC, a Hacker News reader and interactive iOS application. 
 
-<a href="https://www.cisimple.com/jobs/kh1isdaal986n3ip9"><img src='https://www.cisimple.com/jobs/kh1isdaal986n3ip9/build_status.png'/></a>
-
 ![ScreenShot](https://raw.github.com/bennyguitar/News-YC---iPhone/master/screens.png)
 
 ## About ##
@@ -17,6 +15,7 @@ The root ViewController, App Delegate, and HNSingleton are in the top-level dire
 
 * Current iOS SDK: 6.0+
 * Current AppStore Version: 1.2
+* <a href="https://www.cisimple.com/jobs/kh1isdaal986n3ip9"><img src='https://www.cisimple.com/jobs/kh1isdaal986n3ip9/build_status.png'/></a>
 
 #### Webservice.{h,m} ####
 
