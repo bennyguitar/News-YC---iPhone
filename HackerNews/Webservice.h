@@ -11,13 +11,15 @@
 #import "Comment.h"
 #import "User.h"
 
+@class Webservice;
+
 @protocol WebserviceDelegate
 @optional
 
--(void)didFetchPosts:(NSArray *)posts;
--(void)didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch;
--(void)didLoginWithUser:(User *)user;
--(void)didVoteWithSuccess:(BOOL)success;
+-(void)webservice:(Webservice *)webservice didFetchPosts:(NSArray *)posts;
+-(void)webservice:(Webservice *)webservice didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch;
+-(void)webservice:(Webservice *)webservice didLoginWithUser:(User *)user;
+-(void)webservice:(Webservice *)webservice didVoteWithSuccess:(BOOL)success;
 
 @end
 
