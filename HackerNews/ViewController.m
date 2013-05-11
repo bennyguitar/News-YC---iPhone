@@ -79,7 +79,8 @@
     [self loadHomepage];
     [self buildUI];
     [self colorUI];
-    
+    [self setScrollViewToScrollToTop:frontPageTable];
+
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
     
@@ -325,7 +326,17 @@
     }
 
 }
+#pragma mark ScrollToTop Management
 
+-(void)setScrollViewToScrollToTop:(UIScrollView*)scrollView{
+
+    externalLinkWebView.scrollView.scrollsToTop = NO;
+    commentsTable.scrollsToTop = NO;
+    linkWebView.scrollView.scrollsToTop = NO;
+    frontPageTable.scrollsToTop = NO;
+
+    scrollView.scrollsToTop = YES;
+}
 
 #pragma mark - TableView Delegate
 -(int)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -715,6 +726,8 @@
     } completion:^(BOOL fin){
         [frontPageTable setScrollEnabled:YES];
     }];
+
+    [self setScrollViewToScrollToTop:commentsTable];
 }
 
 - (IBAction)hideCommentsAndLinkView:(id)sender {
@@ -755,6 +768,8 @@
             }];
         }
     }];
+
+    [self setScrollViewToScrollToTop:frontPageTable];
 }
 
 // Shows header bar
@@ -822,6 +837,8 @@
     else {
         [linkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:currentPost.URLString]]];
     }
+
+    [self setScrollViewToScrollToTop:linkWebView.scrollView];
 }
 
 
@@ -842,6 +859,8 @@
     [UIView animateWithDuration:0.25 animations:^{
         externalLinkView.frame = CGRectMake(0, 0, externalLinkView.frame.size.width, self.view.frame.size.height);
     }];
+
+    [self setScrollViewToScrollToTop:externalLinkWebView.scrollView];
     
 }
 
