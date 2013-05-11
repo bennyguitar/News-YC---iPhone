@@ -375,6 +375,21 @@
             if (post.isOpenForActions) {
                 [Helpers makeShadowForView:cell.bottomBar withRadius:0];
                 cell.postActionsView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"PostActions"];
+                [cell.voteUpButton addTarget:self action:@selector(voteUp:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.voteDownButton addTarget:self action:@selector(voteDown:) forControlEvents:UIControlEventTouchUpInside];
+                
+                if ([HNSingleton sharedHNSingleton].User) {
+                    if ([HNSingleton sharedHNSingleton].User.Karma < 500) {
+                        [cell.voteDownButton setUserInteractionEnabled:NO];
+                        cell.voteDownButton.alpha = 0.3;
+                    }
+                }
+                else {
+                    [cell.voteDownButton setUserInteractionEnabled:NO];
+                    cell.voteDownButton.alpha = 0.3;
+                    [cell.voteUpButton setUserInteractionEnabled:NO];
+                    cell.voteUpButton.alpha = 0.3;
+                }
             }
             
             // Color cell elements
@@ -607,25 +622,36 @@
 #pragma mark - Table Gesture Recognizers
 -(void)longPressFrontPageCell:(UILongPressGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        NSIndexPath *indexPath = [frontPageTable indexPathForRowAtPoint:[recognizer locationInView:frontPageTable]];
-        if (indexPath) {
-            if ([[homePagePosts objectAtIndex:indexPath.row] isOpenForActions]) {
-                [[homePagePosts objectAtIndex:indexPath.row] setIsOpenForActions:NO];
-                [frontPageTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                openFrontPageCells = [@[] mutableCopy];
-            }
-            else {
-                for (NSIndexPath *index in openFrontPageCells) {
-                    Post *post = homePagePosts[index.row];
-                    post.isOpenForActions = NO;
+        if ([HNSingleton sharedHNSingleton].User) {
+            NSIndexPath *indexPath = [frontPageTable indexPathForRowAtPoint:[recognizer locationInView:frontPageTable]];
+            if (indexPath) {
+                if ([[homePagePosts objectAtIndex:indexPath.row] isOpenForActions]) {
+                    [[homePagePosts objectAtIndex:indexPath.row] setIsOpenForActions:NO];
+                    [frontPageTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    openFrontPageCells = [@[] mutableCopy];
                 }
-                [[homePagePosts objectAtIndex:indexPath.row] setIsOpenForActions:YES];
-                [openFrontPageCells addObject:indexPath];
-                [frontPageTable reloadRowsAtIndexPaths:openFrontPageCells withRowAnimation:UITableViewRowAnimationFade];
-                openFrontPageCells = [@[indexPath] mutableCopy];
+                else {
+                    for (NSIndexPath *index in openFrontPageCells) {
+                        Post *post = homePagePosts[index.row];
+                        post.isOpenForActions = NO;
+                    }
+                    [[homePagePosts objectAtIndex:indexPath.row] setIsOpenForActions:YES];
+                    [openFrontPageCells addObject:indexPath];
+                    [frontPageTable reloadRowsAtIndexPaths:openFrontPageCells withRowAnimation:UITableViewRowAnimationFade];
+                    openFrontPageCells = [@[indexPath] mutableCopy];
+                }
             }
         }
     }
+}
+
+#pragma mark - Front Page Voting Actions
+-(void)voteUp:(UIButton *)voteButton {
+    
+}
+
+-(void)voteDown:(UIButton *)voteButton {
+    
 }
 
 #pragma mark - Launch/Hide Comments & Link View
