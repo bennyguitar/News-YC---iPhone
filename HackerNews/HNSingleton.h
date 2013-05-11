@@ -11,6 +11,8 @@
 #import "Webservice.h"
 #import "KGStatusBar.h"
 #import "User.h"
+#import "Post.h"
+#import "Comment.h"
 
 enum fType {
     fTypeTop = 0,
@@ -32,6 +34,7 @@ enum theme {
 }
 
 @property (nonatomic, retain) NSMutableDictionary *hasReadThisArticleDict;
+@property (nonatomic, retain) NSMutableDictionary *votedForDictionary;
 @property (nonatomic, retain) NSMutableDictionary *themeDict;
 @property (nonatomic, assign) enum fType filter;
 @property (nonatomic, retain) NSHTTPCookie *SessionCookie;
@@ -43,5 +46,7 @@ enum theme {
 -(void)setSession;
 -(void)loginWithUser:(NSString *)user password:(NSString *)pass;
 -(void)logout;
+-(void)addToVotedForDictionary:(id)HNObject votedUp:(BOOL)up;
+-(BOOL)objectIsInVoteDict:(id)HNObject;
 
 @end

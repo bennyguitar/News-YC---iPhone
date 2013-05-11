@@ -45,9 +45,16 @@ static HNSingleton * _sharedHNSingleton = nil;
 -(id)init {
 	self = [super init];
 	if (self != nil) {
-		self.hasReadThisArticleDict = [[NSMutableDictionary alloc] initWithCapacity:100];
-        self.themeDict = [[NSMutableDictionary alloc] initWithCapacity:6];
+		self.hasReadThisArticleDict = [@{} mutableCopy];
+        self.themeDict = [@{} mutableCopy];
         self.filter = fTypeTop;
+        
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"VotedFor"]) {
+            self.votedForDictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"VotedFor"];
+        }
+        else {
+            self.votedForDictionary = [@{} mutableCopy];
+        }
 	}
 	
 	return self;
@@ -93,6 +100,8 @@ static HNSingleton * _sharedHNSingleton = nil;
 }
 
 
+#pragma mark - Logging In / Out
+
 -(void)loginWithUser:(NSString *)user password:(NSString *)pass {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"LoggingIn" object:nil];
     Webservice *service = [[Webservice alloc] init];
@@ -120,6 +129,37 @@ static HNSingleton * _sharedHNSingleton = nil;
     [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
     [KGStatusBar showWithStatus:@"Logged Out"];
+}
+
+#pragma mark - Voted For Dict
+
+-(void)addToVotedForDictionary:(id)HNObject votedUp:(BOOL)up {
+    NSString *objID, *direction;
+    if ([HNObject isKindOfClass:[Post class]]) {
+        objID = [(Post *)HNObject PostID];
+    }
+    else {
+        objID = [(Comment *)HNObject CommentID];
+    }
+    
+    direction = up ? @"UP" : @"DOWN";
+    [self.votedForDictionary setValue:direction forKey:objID];
+    [[NSUserDefaults standardUserDefaults] setObject:self.votedForDictionary forKey:@"VotedFor"];
+}
+
+-(BOOL)objectIsInVoteDict:(id)HNObject {
+    NSString *objID;
+    if ([HNObject isKindOfClass:[Post class]]) {
+        objID = [(Post *)HNObject PostID];
+    }
+    else {
+        objID = [(Comment *)HNObject CommentID];
+    }
+    if ([self.votedForDictionary objectForKey:objID]) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end

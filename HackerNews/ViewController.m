@@ -36,6 +36,9 @@
     __weak IBOutlet UIView *externalLinkHeader;
     __weak IBOutlet UIActivityIndicatorView *externalActivityIndicator;
 
+    // Webservice
+    Webservice *HNService;
+    
     // Data
     NSArray *homePagePosts;
     NSArray *organizedCommentsArray;
@@ -62,9 +65,6 @@
 {
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:YES];
-    [self loadHomepage];
-    [self buildUI];
-    [self colorUI];
 	
     // Set Up Data
     homePagePosts = @[];
@@ -72,6 +72,13 @@
     openFrontPageCells = [@[] mutableCopy];
     frontPageLastLocation = 0;
     commentsLastLocation = 0;
+    HNService = [[Webservice alloc] init];
+    HNService.delegate = self;
+    
+    // Run methods
+    [self loadHomepage];
+    [self buildUI];
+    [self colorUI];
     
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
@@ -158,9 +165,7 @@
 
 #pragma mark - Load HomePage
 -(void)loadHomepage {
-    Webservice *service = [[Webservice alloc] init];
-    service.delegate = self;
-    [service getHomepage];
+    [HNService getHomepage];
     loadingIndicator.alpha = 1;
 }
 
@@ -182,9 +187,7 @@
 
 #pragma mark - Load Comments
 -(void)loadCommentsForPost:(Post *)post {
-    Webservice *service = [[Webservice alloc] init];
-    service.delegate = self;
-    [service getCommentsForPost:post launchComments:YES];
+    [HNService getCommentsForPost:post launchComments:YES];
     loadingIndicator.alpha = 1;
     
     // Set current post
@@ -192,9 +195,7 @@
 }
 
 -(void)reloadComments {
-    Webservice *service = [[Webservice alloc] init];
-    service.delegate = self;
-    [service getCommentsForPost:currentPost launchComments:NO];
+    [HNService getCommentsForPost:currentPost launchComments:NO];
     [commentsRefresher beginRefreshing];
     loadingIndicator.alpha = 1;
 }
@@ -218,13 +219,17 @@
 
 #pragma mark - Vote for HNObject
 -(void)voteForPost:(Post *)post {
-    Webservice *service = [[Webservice alloc] init];
-    service.delegate = self;
-    [service voteUp:YES forObject:post];
+    [HNService voteUp:YES forObject:post];
 }
 
--(void)webservice:(Webservice *)webservice didVoteWithSuccess:(BOOL)success {
-    
+-(void)webservice:(Webservice *)webservice didVoteWithSuccess:(BOOL)success forObject:(id)object direction:(BOOL)up {
+    if (success) {
+        [[HNSingleton sharedHNSingleton] addToVotedForDictionary:object votedUp:up];
+        [frontPageTable reloadData];
+    }
+    else {
+        
+    }
 }
 
 #pragma mark - Scroll View Delegate
@@ -370,13 +375,14 @@
             [cell.commentTagButton addTarget:self action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
             [cell.commentBGButton addTarget:self action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
             
-            
             // If PostActions are visible
             if (post.isOpenForActions) {
                 [Helpers makeShadowForView:cell.bottomBar withRadius:0];
                 cell.postActionsView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"PostActions"];
                 [cell.voteUpButton addTarget:self action:@selector(voteUp:) forControlEvents:UIControlEventTouchUpInside];
                 [cell.voteDownButton addTarget:self action:@selector(voteDown:) forControlEvents:UIControlEventTouchUpInside];
+                cell.voteUpButton.tag = indexPath.row;
+                cell.voteDownButton.tag = indexPath.row;
                 
                 if ([HNSingleton sharedHNSingleton].User) {
                     if ([HNSingleton sharedHNSingleton].User.Karma < 500) {
@@ -398,6 +404,23 @@
             cell.scoreLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
             cell.bottomBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
             [cell.commentTagButton setImage:[[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CommentBubble"] forState:UIControlStateNormal];
+            
+            // If it's been voted on
+            if ([[HNSingleton sharedHNSingleton] objectIsInVoteDict:post]) {
+                [cell.scoreLabel setTextColor:kOrangeColor];
+                cell.scoreLabel.alpha = 1;
+                
+                if ([[[[HNSingleton sharedHNSingleton] votedForDictionary] objectForKey:post.PostID] isEqualToString:@"UP"]) {
+                    [cell.voteUpButton setImage:[UIImage imageNamed:@"voteUpOn-01.png"] forState:UIControlStateNormal];
+                    [cell.voteUpButton setUserInteractionEnabled:NO];
+                    [cell.voteDownButton setUserInteractionEnabled:NO];
+                }
+                else {
+                    [cell.voteDownButton setImage:[UIImage imageNamed:@"voteDownOn-01.png"] forState:UIControlStateNormal];
+                    [cell.voteUpButton setUserInteractionEnabled:NO];
+                    [cell.voteDownButton setUserInteractionEnabled:NO];
+                }
+            }
             
             // Show HN Color
             if (cell.titleLabel.text.length >= 9) {
@@ -647,11 +670,15 @@
 
 #pragma mark - Front Page Voting Actions
 -(void)voteUp:(UIButton *)voteButton {
-    
+    if ([HNSingleton sharedHNSingleton].User) {
+        [HNService voteUp:YES forObject:[homePagePosts objectAtIndex:voteButton.tag]];
+    }
 }
 
 -(void)voteDown:(UIButton *)voteButton {
-    
+    if ([HNSingleton sharedHNSingleton].User) {
+        [HNService voteUp:NO forObject:[homePagePosts objectAtIndex:voteButton.tag]];
+    }
 }
 
 #pragma mark - Launch/Hide Comments & Link View

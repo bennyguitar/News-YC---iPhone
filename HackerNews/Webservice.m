@@ -360,7 +360,7 @@
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate webservice:self didVoteWithSuccess:NO];
+                [delegate webservice:self didVoteWithSuccess:NO forObject:nil direction:NO];
                 return;
             });
         }
@@ -380,26 +380,26 @@
             
             if (responseString.length > 0) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self voteUp:up withIDString:hnID inHTMLString:responseString];
+                    [self voteUp:up withIDString:hnID inHTMLString:responseString forObject:HNObject];
                 });
             }
             else {
                 // Voting failed
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate webservice:self didVoteWithSuccess:NO];
+                    [delegate webservice:self didVoteWithSuccess:NO forObject:nil direction:NO];
                 });
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate webservice:self didVoteWithSuccess:NO];
+                [delegate webservice:self didVoteWithSuccess:NO forObject:nil direction:NO];
             });
         }
     });
 }
 
 
--(void)voteUp:(BOOL)up withIDString:(NSString *)idString inHTMLString:(NSString *)htmlString {
+-(void)voteUp:(BOOL)up withIDString:(NSString *)idString inHTMLString:(NSString *)htmlString forObject:(id)object {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] init];
         NSError *error;
@@ -424,21 +424,21 @@
         if (responseData) {
             NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy];
             
-            if (responseString.length > 0) {
+            if (responseString) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate webservice:self didVoteWithSuccess:YES];
+                    [delegate webservice:self didVoteWithSuccess:YES forObject:object direction:up];
                 });
             }
             else {
                 // Voting failed
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate webservice:self didVoteWithSuccess:NO];
+                    [delegate webservice:self didVoteWithSuccess:NO forObject:nil direction:up];
                 });
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate webservice:self didVoteWithSuccess:NO];
+                [delegate webservice:self didVoteWithSuccess:NO forObject:nil direction:up];
             });
         }
     });
