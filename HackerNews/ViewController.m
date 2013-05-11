@@ -321,9 +321,6 @@
 
 -(int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == frontPageTable) {
-        if (homePagePosts.count == 0) {
-            return 1;
-        }
         return homePagePosts.count;
     }
     
@@ -482,7 +479,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == frontPageTable && indexPath.row < [homePagePosts count]) {
+    if (tableView == frontPageTable) {
         // Set Current Post
         currentPost = homePagePosts[indexPath.row];
         
