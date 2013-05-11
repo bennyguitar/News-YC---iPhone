@@ -482,7 +482,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == frontPageTable) {
+    if (tableView == frontPageTable && indexPath.row < [homePagePosts count]) {
         // Set Current Post
         currentPost = homePagePosts[indexPath.row];
         
