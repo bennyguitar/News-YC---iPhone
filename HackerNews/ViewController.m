@@ -523,8 +523,14 @@
             cell.topBarButton.tag = indexPath.row;
             [cell.topBarButton addTarget:self action:@selector(hideNestedCommentsCell:) forControlEvents:UIControlEventTouchDownRepeat];
         }
-        else {
+        else if (commentsRefresher.isRefreshing){
             // No comments
+            cell.username.text = @"";
+            cell.postedTime.text = @"";
+            cell.comment.text = @"";
+            cell.comment.textAlignment = NSTextAlignmentCenter;
+        }
+        else{
             cell.username.text = @"";
             cell.postedTime.text = @"";
             cell.comment.text = @"Ahh! Looks like no comments exist!";
@@ -795,6 +801,16 @@
     linkWebView.delegate = nil;
     [linkWebView stopLoading];
     linkWebView.delegate = self;
+
+    //Empty Current Comments
+    organizedCommentsArray = nil;
+
+    //Start Fetching
+    [self reloadComments];
+
+    //Reload table to remove old comments
+
+    [commentsTable reloadData];
     
     // Launch the comments
     [self launchCommentsView];
