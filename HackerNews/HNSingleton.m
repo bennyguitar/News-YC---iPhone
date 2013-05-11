@@ -135,6 +135,10 @@ static HNSingleton * _sharedHNSingleton = nil;
     [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
     [KGStatusBar showWithStatus:@"Logged Out"];
+    
+    // Set swipe right view
+    AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDel.deckController setRightController:nil];
 }
 
 #pragma mark - Voted For Dict

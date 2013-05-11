@@ -16,6 +16,7 @@
     __weak IBOutlet TriangleView *headerTriangle;
     __weak IBOutlet UIActivityIndicatorView *loadingIndicator;
     UIRefreshControl *frontPageRefresher;
+    __weak IBOutlet UIButton *submitLinkButton;
 
     // Comments Page UI
     IBOutlet UIView *commentsView;
@@ -52,6 +53,7 @@
 // Change Theme
 - (void)colorUI;
 - (IBAction)toggleSideNav:(id)sender;
+- (IBAction)toggleRightNav:(id)sender;
 
 - (IBAction)didClickCommentsFromLinkView:(id)sender;
 - (IBAction)hideCommentsAndLinkView:(id)sender;
@@ -83,6 +85,7 @@
 
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoginOrOut) name:@"DidLoginOrOut" object:nil];
     
     // Add Gesture Recognizers
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFrontPageCell:)];
@@ -161,6 +164,22 @@
 #pragma mark - Toggle Nav
 - (IBAction)toggleSideNav:(id)sender {
     [self.viewDeckController toggleLeftView];
+}
+
+-(IBAction)toggleRightNav:(id)sender {
+    [self.viewDeckController toggleRightView];
+}
+
+#pragma mark - Did Login
+-(void)didLoginOrOut {
+    if ([HNSingleton sharedHNSingleton].User) {
+        loadingIndicator.frame = kLoadingRectSubmit;
+        submitLinkButton.alpha = 1;
+    }
+    else {
+        loadingIndicator.frame = kLoadingRectNoSubmit;
+        submitLinkButton.alpha = 0;
+    }
 }
 
 

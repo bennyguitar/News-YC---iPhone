@@ -84,6 +84,7 @@
 		C0FAA5DF173E737C00ED5F52 /* voteUpOn-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FAA5DB173E737C00ED5F52 /* voteUpOn-01.png */; };
 		C0FAA5E3173ED7C900ED5F52 /* SubmitLinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0FAA5E1173ED7C900ED5F52 /* SubmitLinkViewController.m */; };
 		C0FAA5E4173ED7C900ED5F52 /* SubmitLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0FAA5E2173ED7C900ED5F52 /* SubmitLinkViewController.xib */; };
+		C0FAA5E6173EDD4500ED5F52 /* submitLink-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0FAA5E5173EDD4500ED5F52 /* submitLink-01.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -191,6 +192,7 @@
 		C0FAA5E0173ED7C900ED5F52 /* SubmitLinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitLinkViewController.h; sourceTree = "<group>"; };
 		C0FAA5E1173ED7C900ED5F52 /* SubmitLinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitLinkViewController.m; sourceTree = "<group>"; };
 		C0FAA5E2173ED7C900ED5F52 /* SubmitLinkViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitLinkViewController.xib; sourceTree = "<group>"; };
+		C0FAA5E5173EDD4500ED5F52 /* submitLink-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "submitLink-01.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,6 +399,7 @@
 		C01EDE4B1731A7E400AE97B8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C0FAA5E5173EDD4500ED5F52 /* submitLink-01.png */,
 				C0FAA5D8173E737C00ED5F52 /* voteDownOff-01.png */,
 				C0FAA5D9173E737C00ED5F52 /* voteDownOn-01.png */,
 				C0FAA5DA173E737C00ED5F52 /* voteUpOff-01.png */,
@@ -529,6 +532,7 @@
 				C0FAA5DE173E737C00ED5F52 /* voteUpOff-01.png in Resources */,
 				C0FAA5DF173E737C00ED5F52 /* voteUpOn-01.png in Resources */,
 				C0FAA5E4173ED7C900ED5F52 /* SubmitLinkViewController.xib in Resources */,
+				C0FAA5E6173EDD4500ED5F52 /* submitLink-01.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

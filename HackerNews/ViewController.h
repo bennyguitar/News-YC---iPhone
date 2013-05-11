@@ -19,6 +19,9 @@
 
 #define kPad 10
 
+#define kLoadingRectNoSubmit CGRectMake(291,17,20,20)
+#define kLoadingRectSubmit CGRectMake(249,17,20,20)
+
 @interface ViewController : UIViewController <WebserviceDelegate, UITableViewDataSource, UITableViewDelegate,UIWebViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>
 
 @end
