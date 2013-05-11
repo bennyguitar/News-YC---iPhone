@@ -7,6 +7,7 @@
 //
 
 #import "HNSingleton.h"
+#import "AppDelegate.h"
 
 @implementation HNSingleton
 
@@ -115,6 +116,11 @@ static HNSingleton * _sharedHNSingleton = nil;
         self.User = user;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
         [KGStatusBar showSuccessWithStatus:[NSString stringWithFormat:@"%@ Logged In", user.Username]];
+        
+        // Set swipe right view
+        AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDel.deckController setRightController:[[SubmitLinkViewController alloc] initWithNibName:@"SubmitLinkViewController" bundle:nil]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
     }
     else {
         // Launch failed loading with bad user error

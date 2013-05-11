@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ViewController.h"
+#import "IIViewDeckController.h"
+#import "SubmitLinkViewController.h"
 #import "Webservice.h"
 #import "KGStatusBar.h"
 #import "User.h"

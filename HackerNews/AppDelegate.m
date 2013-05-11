@@ -10,7 +10,7 @@
 #import "ViewController.h"
 #import "IIViewDeckController.h"
 #import "NavigationDeckViewController.h"
-#import "UserViewController.h"
+#import "SubmitLinkViewController.h"
 
 @implementation AppDelegate
 
@@ -49,14 +49,14 @@
     }
     
     self.leftController = [[NavigationDeckViewController alloc] initWithNibName:@"NavigationDeckViewController" bundle:nil];
-    self.rightController = [[UserViewController alloc] initWithNibName:@"UserViewController" bundle:nil];
+    self.rightController = [[SubmitLinkViewController alloc] initWithNibName:@"SubmitLinkViewController" bundle:nil];
     ViewController *centerController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     self.centerController = [[UINavigationController alloc] initWithRootViewController:centerController];
-    IIViewDeckController* deckController =  [[IIViewDeckController alloc] initWithCenterViewController:self.centerController
+    self.deckController =  [[IIViewDeckController alloc] initWithCenterViewController:self.centerController
                                                                                     leftViewController:self.leftController
                                                                                    rightViewController:nil];
     
-    self.window.rootViewController = deckController;
+    self.window.rootViewController = self.deckController;
     [self.window makeKeyAndVisible];
     return YES;
 }
