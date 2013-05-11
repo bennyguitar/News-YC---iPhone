@@ -65,6 +65,7 @@ static HNSingleton * _sharedHNSingleton = nil;
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIImage imageNamed:@"commentbubble-01.png"] forKey:@"CommentBubble"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:53/255.0 green:77/255.0 blue:93/255.0 alpha:1.0] forKey:@"ShowHN"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:47/255.0 green:93/255.0 blue:54/255.0 alpha:1.0] forKey:@"HNJobs"];
+        [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:44/255.0 green:44/255.0 blue:44/255.0 alpha:1.0] forKey:@"PostActions"];
     }
     else {
         NSLog(@"%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"Theme"]);
@@ -77,6 +78,7 @@ static HNSingleton * _sharedHNSingleton = nil;
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIImage imageNamed:@"commentbubbleDark.png"] forKey:@"CommentBubble"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:183/255.0 green:211/255.0 blue:235/255.0 alpha:1.0] forKey:@"ShowHN"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:170/255.0 green:235/255.0 blue:185/255.0 alpha:1.0] forKey:@"HNJobs"];
+        [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:144/255.0 green:144/255.0 blue:144/255.0 alpha:1.0] forKey:@"PostActions"];
     }
 }
 

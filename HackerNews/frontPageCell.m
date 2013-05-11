@@ -8,6 +8,7 @@
 
 #import "frontPageCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "HNSingleton.h"
 
 @implementation frontPageCell
 @synthesize titleLabel, postedTimeLabel, scoreLabel, commentsLabel, authorLabel, commentTagButton, commentBGButton;
@@ -25,7 +26,19 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    [super setSelected:selected animated:NO];
+    [super setSelected:selected animated:YES];
+    if (selected) {
+        UIView *view = [[UIView alloc] init];
+        view.backgroundColor = kOrangeColor;
+        [self setSelectedBackgroundView:view];
+    }
+    else {
+        self.backgroundColor = [UIColor clearColor];
+    }
+}
+
+-(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:NO animated:YES];
 }
 
 @end

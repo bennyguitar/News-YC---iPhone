@@ -73,6 +73,12 @@
     
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
+    
+    // Add Gesture Recognizers
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFrontPageCell:)];
+    longPress.minimumPressDuration = 0.7;
+    longPress.delegate = self;
+    [frontPageTable addGestureRecognizer:longPress];
 }
 
 
@@ -363,6 +369,12 @@
             [cell.commentBGButton addTarget:self action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
             
             
+            // If PostActions are visible
+            if (post.isOpenForActions) {
+                [Helpers makeShadowForView:cell.bottomBar withRadius:0];
+                cell.postActionsView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"PostActions"];
+            }
+            
             // Color cell elements
             cell.titleLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
             cell.postedTimeLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
@@ -387,9 +399,9 @@
             }
             
             // Selected Cell Color
-            UIView *bgView = [[UIView alloc] init];
-            [bgView setBackgroundColor:[UIColor colorWithRed:(122/255.0) green:(59/255.0) blue:(26/255.0) alpha:0.6]];
-            [cell setSelectedBackgroundView:bgView];
+            //UIView *sel = [[UIView alloc] init];
+            //sel.backgroundColor = kOrangeColor;
+            //cell.selectedBackgroundView = sel;
             
             return cell;
         }
@@ -541,7 +553,10 @@
     
     // Front Page Cell Height
     else {
-        return frontPageTable.rowHeight;
+        if ([[homePagePosts objectAtIndex:indexPath.row] isOpenForActions]) {
+            return kFrontPageActionsHeight;
+        }
+        return kFrontPageCellHeight;
     }
 }
 
@@ -587,6 +602,22 @@
     [commentsTable reloadRowsAtIndexPaths:rowArray withRowAnimation:UITableViewRowAnimationFade];
 }
 
+#pragma mark - Table Gesture Recognizers
+-(void)longPressFrontPageCell:(UILongPressGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        NSIndexPath *indexPath = [frontPageTable indexPathForRowAtPoint:[recognizer locationInView:frontPageTable]];
+        if (indexPath) {
+            if ([[homePagePosts objectAtIndex:indexPath.row] isOpenForActions]) {
+                [[homePagePosts objectAtIndex:indexPath.row] setIsOpenForActions:NO];
+                [frontPageTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            else {
+                [[homePagePosts objectAtIndex:indexPath.row] setIsOpenForActions:YES];
+                [frontPageTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+        }
+    }
+}
 
 #pragma mark - Launch/Hide Comments & Link View
 -(void)didClickCommentsFromHomepage:(UIButton *)commentButton {

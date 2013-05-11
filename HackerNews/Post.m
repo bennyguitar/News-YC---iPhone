@@ -23,6 +23,7 @@
     newPost.CommentCount = [[dict objectForKey:@"num_comments"] intValue];
     newPost.Title = [dict objectForKey:@"title"];
     newPost.TimeCreated = [Helpers postDateFromString:[dict objectForKey:@"create_ts"]];
+    newPost.isOpenForActions = NO;
     
     // Set URL for Ask HN
     if ([dict objectForKey:@"url"] == [NSNull null]) {
