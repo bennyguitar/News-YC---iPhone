@@ -39,6 +39,7 @@
     // Data
     NSArray *homePagePosts;
     NSArray *organizedCommentsArray;
+    NSMutableArray *openFrontPageCells;
     Post *currentPost;
     float frontPageLastLocation;
     float commentsLastLocation;
@@ -68,6 +69,7 @@
     // Set Up Data
     homePagePosts = @[];
     organizedCommentsArray = @[];
+    openFrontPageCells = [@[] mutableCopy];
     frontPageLastLocation = 0;
     commentsLastLocation = 0;
     
@@ -610,10 +612,17 @@
             if ([[homePagePosts objectAtIndex:indexPath.row] isOpenForActions]) {
                 [[homePagePosts objectAtIndex:indexPath.row] setIsOpenForActions:NO];
                 [frontPageTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                openFrontPageCells = [@[] mutableCopy];
             }
             else {
+                for (NSIndexPath *index in openFrontPageCells) {
+                    Post *post = homePagePosts[index.row];
+                    post.isOpenForActions = NO;
+                }
                 [[homePagePosts objectAtIndex:indexPath.row] setIsOpenForActions:YES];
-                [frontPageTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [openFrontPageCells addObject:indexPath];
+                [frontPageTable reloadRowsAtIndexPaths:openFrontPageCells withRowAnimation:UITableViewRowAnimationFade];
+                openFrontPageCells = [@[indexPath] mutableCopy];
             }
         }
     }
