@@ -797,6 +797,20 @@
     [self setScrollViewToScrollToTop:frontPageTable];
 }
 
+- (IBAction)showSharePanel:(id)sender {	
+	NSURL *urlToShare = linkWebView.request.URL;
+	NSArray *activityItems = @[ urlToShare ];
+	
+    ARChromeActivity *chromeActivity = [[ARChromeActivity alloc] init];	
+	TUSafariActivity *safariActivity = [[TUSafariActivity alloc] init];
+	NSArray *applicationActivities = @[ safariActivity, chromeActivity ];
+	
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:applicationActivities];
+	activityController.excludedActivityTypes = @[ UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypeMessage, UIActivityTypeMail, UIActivityTypeCopyToPasteboard ];
+	
+    [self presentViewController:activityController animated:YES completion:nil];
+}
+
 // Shows header bar
 -(void)placeHeaderBarBack {
     headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);

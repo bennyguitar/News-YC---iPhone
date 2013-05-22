@@ -16,6 +16,8 @@
 #import "LinkButton.h"
 #import "IIViewDeckController.h"
 #import "FailedLoadingView.h"
+#import "ARChromeActivity.h"
+#import "TUSafariActivity.h"
 
 #define kPad 10
 
