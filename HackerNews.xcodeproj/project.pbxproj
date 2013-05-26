@@ -36,6 +36,7 @@
 		6C2DAB08174C9C2E0069BAE1 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DAAF0174C9C2E0069BAE1 /* TUSafariActivity.m */; };
 		6C2DAB09174C9C2E0069BAE1 /* vi.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6C2DAAF1174C9C2E0069BAE1 /* vi.lproj */; };
 		6C2DAB0A174C9C2E0069BAE1 /* zh_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6C2DAAF2174C9C2E0069BAE1 /* zh_CN.lproj */; };
+		6C7410C61751C09A0027C09C /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C7410C51751C09A0027C09C /* share.png */; };
 		C012E5CC173B09440030924E /* logoutOrange-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C012E5CB173B09440030924E /* logoutOrange-01.png */; };
 		C01EDDE71731553B00AE97B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDDE61731553B00AE97B8 /* UIKit.framework */; };
 		C01EDDE91731553B00AE97B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDDE81731553B00AE97B8 /* Foundation.framework */; };
@@ -148,6 +149,7 @@
 		6C2DAAF0174C9C2E0069BAE1 /* TUSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TUSafariActivity.m; path = TUSafariActivity/TUSafariActivity.m; sourceTree = "<group>"; };
 		6C2DAAF1174C9C2E0069BAE1 /* vi.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = vi.lproj; path = TUSafariActivity/vi.lproj; sourceTree = "<group>"; };
 		6C2DAAF2174C9C2E0069BAE1 /* zh_CN.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = zh_CN.lproj; path = TUSafariActivity/zh_CN.lproj; sourceTree = "<group>"; };
+		6C7410C51751C09A0027C09C /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
 		C012E5CB173B09440030924E /* logoutOrange-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoutOrange-01.png"; sourceTree = "<group>"; };
 		C01EDDE31731553B00AE97B8 /* HackerNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C01EDDE61731553B00AE97B8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -514,6 +516,7 @@
 		C01EDE4B1731A7E400AE97B8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6C7410C51751C09A0027C09C /* share.png */,
 				C0FAA5E5173EDD4500ED5F52 /* submitLink-01.png */,
 				C0FAA5D8173E737C00ED5F52 /* voteDownOff-01.png */,
 				C0FAA5D9173E737C00ED5F52 /* voteDownOn-01.png */,
@@ -675,6 +678,7 @@
 				6C2DAB07174C9C2E0069BAE1 /* sv.lproj in Resources */,
 				6C2DAB09174C9C2E0069BAE1 /* vi.lproj in Resources */,
 				6C2DAB0A174C9C2E0069BAE1 /* zh_CN.lproj in Resources */,
+				6C7410C61751C09A0027C09C /* share.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
