@@ -9,6 +9,7 @@ The iPhone version of News/YC, a Hacker News reader and interactive iOS applicat
 
 News/YC is a front-page reader for Hacker News (http://news.ycombinator.com), a portal for interestingness regarding technology and building things. This app is free, and will forever remain free - and now, starting with version 1.2, is entirely open-sourced (please don't laugh at my code). The app can be found on the iOS App Store here: https://itunes.apple.com/us/app/news-yc/id592893508?ls=1&mt=8
 
+--------------------
 ## The Code ##
 
 The root ViewController, App Delegate, and HNSingleton are in the top-level directory, while every other class should be self-documented through the folders they are in (Webservice, Data Objects, Utilities, etc.). There are a number of features that are in this code-base that aren't in the public release version (1.2) that is on the iOS App Store right now. I've tried to document these features in sub-sections labeled **Version 2**, and are currently in-progress (things like logging in and voting). Feel free to help out on these features and launch the best HN reader for iOS!
