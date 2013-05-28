@@ -18,6 +18,7 @@ The root ViewController, App Delegate, and HNSingleton are in the top-level dire
 * Current AppStore Version: 1.2
 * <a href="https://www.cisimple.com/jobs/kh1isdaal986n3ip9"><img src='https://www.cisimple.com/jobs/kh1isdaal986n3ip9/build_status.png'/></a>
 
+--------------------
 #### Webservice.{h,m} ####
 
 This class contains all web requests to the API, using a delegated system so ViewController can receive callbacks about the success or failure of each call - as well as the objects (posts/comments) returned.
@@ -48,6 +49,7 @@ This method handles logging in and returns a User object using the delegate meth
 
 This method handles voting for objects. I'm currently working on adding in the UI to handle voting/commenting on stories, and this method will take control of voting on any object (HNObject is just a Post or Comment). The callback to this delegate will be a BOOL, indicating a successful vote or not. However, I don't plan on doing anything UI-wise specifically that will alert the user that it failed (may just be too much information), though I do plan on alerting them if the cookie is bad so they can re-login and attempt again.
 
+--------------------
 #### Data Objects - Post.{h,m} and Comment.{h,m} ####
 
 These classes make up the data model used by News/YC. Both Post and Comment contain special constructor methods based on the JSON objects that return from <code>Webservice.{h,m}</code> calls - going from NSDictionary to objects. Comment has an NSMutableAttributedString property, <code>attrText</code> that isn't used right now, but there are plans in the future to use this to style up comments (more on that in the *Things to Come* section).
@@ -96,6 +98,7 @@ I have included a User.{h,m} object with the intention of adding user-management
 @property (nonatomic, retain) NSString *AboutInfo;
 ```
 
+--------------------
 #### HNSingleton.{h,m} ####
 
 This class contains a few properties that manage things on an app-wide scope. Included is an NSDictionary for keeping track of which articles have been read (though I'm thinking about adding this to the NSUserDefaults so it will always stay with the app), and the remnants of version 1.1.1 when I was using a different API to filter the homepage by Top/New/Ask (which I'd love to reincorporate again). HNSingleton incorporates a couple methods to change the theme colors and set the SessionKey (more under the break).
@@ -123,10 +126,12 @@ This class also includes a NSHTTPCookie object, <code>SessionKey</code> for keep
 
 Loggin In/Out is another new feature set for a v2.0 release. This HNSingleton class also keeps track of the current User object associated with a login and all of the login functionality. From anywhere in the app, if a login is necessary - a call to <code>[[HNSingleton sharedHNSingleton] loginWithUser:(NSString *)user password:(NSString *)pass</code> is made.
 
+--------------------
 ## API ##
 
 News/YC uses the only officially sanctioned API that Hacker News approves of: http://hnsearch.com/api. The API calls made by this app are slightly tricky. For the front-page posts, a call is made to http://hnsearch.com/bigrss and then the resulting xml is parsed to grab the unique IDs from each post. Those are then sent as a request to the actual API to get the posts. The comments, unfortunately, return as basically a totally unordered set. I create a linked list out of those, and then I turn it into a flat array based on the nested nature of the comments - so UITableView will render correctly. All of the Comment trickery is done in <code>Comment.m</code>.
 
+--------------------
 ## 3rd Party Libraries ##
 
 News/YC uses the following third party libraries:
@@ -135,6 +140,7 @@ News/YC uses the following third party libraries:
 * MYJsonWebservice - https://github.com/MatthewYork/JSON-Webservice-Template
 * KGStatusBar - https://github.com/kevingibbon/KGStatusBar
 
+--------------------
 ## Things to Come ##
 
 For subsequent versions, I'd like to see a couple things happen to make this app awesome.
@@ -157,6 +163,7 @@ I'm hoping to basically include only one more class <code>User.{h,m}</code> and 
 
 The API returns comment text with different HTML tags inside it including <code>< p >,< i >, and < code ></code> that would be very cool to format in via NSAttributedString. I'm already turning the <code>< p ></code> tags into new lines, but italics are used for emphasis quite a bit in HN comments, and I'd like to have that in here as well.
 
+--------------------
 ## License ##
 
 This repository is licensed under the standard MIT license. Any third party code that appears in this repository is licensed under the terms the original author laid out and does not transfer to my licensure. Feel free to use whatever you'd like from this.
