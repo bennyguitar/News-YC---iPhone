@@ -29,7 +29,7 @@
         //Callback to main thread
         if (responseData) {
             NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy];
-            
+        
             if (responseString.length > 0) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self parseIDsAndGrabPosts:responseString];
@@ -467,5 +467,10 @@
 }
 
 ////////////////////////////////////////////////////
+
+#pragma mark - Logging
+-(void)logData:(NSData *)data {
+    NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSStringEncodingConversionAllowLossy]);
+}
 
 @end
