@@ -107,7 +107,7 @@
             }
             else {
                 // It WORKED!
-                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
                 cell.checkImage.alpha = 1;
                 [UIView animateWithDuration:1.5 animations:^{
                     cell.checkImage.alpha = 0;
@@ -138,7 +138,7 @@
             }
             else {
                 // IT WORKED!
-                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
                 cell.checkImage.alpha = 1;
                 [UIView animateWithDuration:1.5 animations:^{
                     cell.checkImage.alpha = 0;
@@ -173,7 +173,7 @@
 
 #pragma mark - Readability
 -(void)didClickReadability {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 1 : 0) inSection:0]];
     if (cell.readabilityLabel.text.length == 18) {
         [cell.readabilityButton setImage:[UIImage imageNamed:@"nav_readability_on-01.png"] forState:UIControlStateNormal];
         cell.readabilityButton.alpha = 1;
@@ -191,7 +191,7 @@
 
 #pragma mark - Mark As Read
 -(void)didClickMarkAsRead {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 1 : 0) inSection:0]];
     if (cell.markAsReadLabel.text.length == 19) {
         [cell.markAsReadButton setImage:[UIImage imageNamed:@"nav_markasread_on-01.png"] forState:UIControlStateNormal];
         cell.markAsReadButton.alpha = 1;
@@ -210,7 +210,7 @@
 
 #pragma mark - Theme Change
 -(void)didClickChangeTheme {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 1 : 0) inSection:0]];
     if (cell.themeLabel.text.length == 14) {
         [cell.nightModeButton setImage:[UIImage imageNamed:@"nav_daymode_on-01.png"] forState:UIControlStateNormal];
         cell.nightModeButton.alpha = 1;
@@ -232,7 +232,7 @@
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [controller dismissViewControllerAnimated:YES completion:^{
         if (result == MFMailComposeResultSent) {
-            ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+            ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
             cell.checkImage.alpha = 1;
             [UIView animateWithDuration:1.5 animations:^{
                 cell.checkImage.alpha = 0;
@@ -270,7 +270,7 @@
 }
 
 -(void)hideKeyboard {
-    if ([HNSingleton sharedHNSingleton].User == nil) {
+    if ([HNSingleton sharedHNSingleton].User == nil && kProfile) {
         ProfileNotLoggedInCell *cell = (ProfileNotLoggedInCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [cell.usernameTextField resignFirstResponder];
         [cell.passwordTextField resignFirstResponder];
@@ -283,7 +283,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return (kProfile ? 4 : 3);
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -318,7 +318,7 @@
     }
     
     // PROFILE CELL
-    else if (indexPath.row == 0) {
+    else if (indexPath.row == (kProfile ? 0 : 998)) {
         if ([HNSingleton sharedHNSingleton].User) {
             NSString *CellIdentifier = @"ProfileCell";
             ProfileLoggedInCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -363,7 +363,7 @@
     }
 
     // SHARE CELL
-    else if (indexPath.row == 2) {
+    else if (indexPath.row == (kProfile ? 2 : 1)) {
         NSString *CellIdentifier = @"ShareCell";
         ShareCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -382,7 +382,7 @@
     }
     
     // SETTINGS CELL
-    else if (indexPath.row == 1) {
+    else if (indexPath.row == (kProfile ? 1 : 0)) {
         NSString *CellIdentifier = @"SettingsCell";
         SettingsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -433,24 +433,30 @@
         [cell.markAsReadHidden addTarget:self action:@selector(didClickMarkAsRead) forControlEvents:UIControlEventTouchUpInside];
         [cell.nightModeButton addTarget:self action:@selector(didClickChangeTheme) forControlEvents:UIControlEventTouchUpInside];
         [cell.themeHidden addTarget:self action:@selector(didClickChangeTheme) forControlEvents:UIControlEventTouchUpInside];
-        
-        // If a User is Logged In
-        if ([HNSingleton sharedHNSingleton].User) {
-            cell.logoutLabel.text = [NSString stringWithFormat:@"Logout %@", [HNSingleton sharedHNSingleton].User.Username];
-            [cell.logoutButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
-            [cell.logoutHidden addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
+        if (kProfile) {
+            // If a User is Logged In
+            if ([HNSingleton sharedHNSingleton].User) {
+                cell.logoutLabel.text = [NSString stringWithFormat:@"Logout %@", [HNSingleton sharedHNSingleton].User.Username];
+                [cell.logoutButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
+                [cell.logoutHidden addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
+            }
+            else {
+                cell.logoutLabel.hidden = YES;
+                cell.logoutButton.hidden = YES;
+                cell.logoutHidden.hidden = YES;
+            }
         }
         else {
-            cell.logoutLabel.hidden = YES;
             cell.logoutButton.hidden = YES;
             cell.logoutHidden.hidden = YES;
+            cell.logoutLabel.hidden = YES;
         }
         
         return cell;
     }
     
     // SHARE CELL
-    else if (indexPath.row == 3) {
+    else if (indexPath.row == (kProfile ? 3 : 2)) {
         NSString *CellIdentifier = @"CreditsCell";
         CreditsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -472,19 +478,19 @@
     if (indexPath.row == 999) {
         return 102;
     }
-    else if (indexPath.row == 0) {
+    else if (indexPath.row == (kProfile ? 0 : 998)) {
         if ([HNSingleton sharedHNSingleton].User) {
             return kCellProfLoggedInHeight;
         }
         return kCellProfNotLoggedInHeight;
     }
-    else if (indexPath.row == 1) {
+    else if (indexPath.row == (kProfile ? 1 : 0)) {
         if ([HNSingleton sharedHNSingleton].User) {
             return kCellSettingsLoggedInHeight;
         }
         return kCellSettingsHeight;
     }
-    else if (indexPath.row == 2) {
+    else if (indexPath.row == (kProfile ? 2 : 1)) {
         return kCellShareHeight;
     }
     else {

@@ -54,6 +54,9 @@
     text = [text stringByReplacingOccurrencesOfString:@"</i>" withString:@""];
     text = [text stringByReplacingOccurrencesOfString:@"&#38;" withString:@"&"];
     text = [text stringByReplacingOccurrencesOfString:@"&#62;" withString:@">"];
+    text = [text stringByReplacingOccurrencesOfString:@"&#x27;" withString:@"'"];
+    text = [text stringByReplacingOccurrencesOfString:@"&#x2F;" withString:@"/"];
+    text = [text stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
     text = [text stringByReplacingOccurrencesOfString:@"&#60;" withString:@"<"];
     text = [text stringByReplacingOccurrencesOfString:@"<pre><code>" withString:@""];
     text = [text stringByReplacingOccurrencesOfString:@"</code></pre>" withString:@""];

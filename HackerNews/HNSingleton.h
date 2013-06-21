@@ -16,6 +16,9 @@
 #import "Post.h"
 #import "Comment.h"
 
+// This determines whether logging in is allowed or not
+#define kProfile NO
+
 enum fType {
     fTypeTop = 0,
     fTypeNew = 1,

@@ -29,7 +29,7 @@
         //Callback to main thread
         if (responseData) {
             NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy];
-        
+            [self logData:responseData];
             if (responseString.length > 0) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self parseIDsAndGrabPosts:responseString];
@@ -85,7 +85,7 @@
         //Callback to main thread
         if (responseData) {
             NSArray *responseArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
-            
+            [self logData:responseData];
             if (responseArray) {
                 NSMutableArray *postArray = [@[] mutableCopy];
                 for (NSDictionary *dict in responseArray) {
@@ -153,7 +153,7 @@
         // Callback to main thread
         if (responseData) {
            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
-            
+            [self logData:responseData];
             if ([responseDict objectForKey:@"results"]) {
                 NSMutableArray *comments = [@[] mutableCopy];
                 NSArray *commentDicts = [responseDict objectForKey:@"results"];
