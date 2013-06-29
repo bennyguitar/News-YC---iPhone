@@ -30,19 +30,12 @@
 
 +(NSArray *)commentsFromHTML:(NSString *)html {
     // Set Up
-    NSScanner *scanner = [NSScanner scannerWithString:html];
     NSMutableArray *comments = [@[] mutableCopy];
     NSString *trash = @"";
+    NSArray *htmlComponents = [html componentsSeparatedByString:@"<tr><td><table border=0><tr><td><img src=\"s.gif\""];
     
-    // Scan the HTML until Comments begin
-    [scanner scanUpToString:@"<input type=submit value=\"add comment\"></form></td></tr></table><br><br><table border=0><tr><td><table border=0><tr><td>" intoString:&trash];
-    //[scanner scanString:@"<input type=submit value=\"add comment\"></form></td></tr></table><br><br><table border=0><tr><td><table border=0><tr><td>" intoString:&trash];
-    
-    NSLog(@"%@", html);
-    NSLog(@"%@", [NSNumber numberWithBool:scanner.isAtEnd]);
-    
-    // Scan the HTML
-    while (scanner.isAtEnd) {
+    for (int xx = 1; xx < htmlComponents.count; xx++) {
+        NSScanner *scanner = [NSScanner scannerWithString:htmlComponents[xx]];
         Comment *newComment = [[Comment alloc] init];
         NSString *level = @"";
         NSString *user = @"";
@@ -50,7 +43,7 @@
         NSString *timeAgo = @"";
         
         // Get Comment Level
-        [scanner scanString:@"<img src=\"s.gif\" height=1 width=" intoString:&trash];
+        [scanner scanString:@"height=1 width=" intoString:&trash];
         [scanner scanUpToString:@">" intoString:&level];
         newComment.Level = [level intValue] / 40;
         
