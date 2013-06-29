@@ -20,11 +20,65 @@
         self.Username = @"";
         self.CommentID = @"";
         self.ParentID = @"";
+        self.ReplyURL = @"";
         self.Level = 0;
         self.TimeCreated = [NSDate date];
         self.CellType = CommentTypeOpen;
     }
     return self;
+}
+
++(NSArray *)commentsFromHTML:(NSString *)html {
+    // Set Up
+    NSScanner *scanner = [NSScanner scannerWithString:html];
+    NSMutableArray *comments = [@[] mutableCopy];
+    NSString *trash = @"";
+    
+    // Scan the HTML until Comments begin
+    [scanner scanUpToString:@"<input type=submit value=\"add comment\"></form></td></tr></table><br><br><table border=0><tr><td><table border=0><tr><td>" intoString:&trash];
+    //[scanner scanString:@"<input type=submit value=\"add comment\"></form></td></tr></table><br><br><table border=0><tr><td><table border=0><tr><td>" intoString:&trash];
+    
+    NSLog(@"%@", html);
+    NSLog(@"%@", [NSNumber numberWithBool:scanner.isAtEnd]);
+    
+    // Scan the HTML
+    while (scanner.isAtEnd) {
+        Comment *newComment = [[Comment alloc] init];
+        NSString *level = @"";
+        NSString *user = @"";
+        NSString *text = @"";
+        NSString *timeAgo = @"";
+        
+        // Get Comment Level
+        [scanner scanString:@"<img src=\"s.gif\" height=1 width=" intoString:&trash];
+        [scanner scanUpToString:@">" intoString:&level];
+        newComment.Level = [level intValue] / 40;
+        
+        // Get Username
+        [scanner scanUpToString:@"<a href=\"user?id=" intoString:&trash];
+        [scanner scanString:@"<a href=\"user?id=" intoString:&trash];
+        [scanner scanUpToString:@"\">" intoString:&user];
+        newComment.Username = user;
+        
+        // Get Date/Time Label
+        [scanner scanUpToString:@"</a> " intoString:&trash];
+        [scanner scanString:@"</a> " intoString:&trash];
+        [scanner scanUpToString:@" |" intoString:&timeAgo];
+        newComment.TimeAgoString = timeAgo;
+        
+        // Get Comment Text
+        [scanner scanUpToString:@"<font color=#000000>" intoString:&trash];
+        [scanner scanString:@"<font color=#000000>" intoString:&trash];
+        [scanner scanUpToString:@"</font>" intoString:&text];
+        [newComment setUpComment:text];
+        
+        // Get Reply URL
+        
+        // Save Comment
+        [comments addObject:newComment];
+    }
+    
+    return comments;
 }
 
 +(Comment *)commentFromDictionary:(NSDictionary *)dict {
@@ -58,6 +112,8 @@
     text = [text stringByReplacingOccurrencesOfString:@"&#x2F;" withString:@"/"];
     text = [text stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
     text = [text stringByReplacingOccurrencesOfString:@"&#60;" withString:@"<"];
+    text = [text stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+    text = [text stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     text = [text stringByReplacingOccurrencesOfString:@"<pre><code>" withString:@""];
     text = [text stringByReplacingOccurrencesOfString:@"</code></pre>" withString:@""];
     

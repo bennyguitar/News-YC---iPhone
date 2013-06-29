@@ -142,9 +142,10 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSURLResponse *response;
         NSError *error;
-        
+        NSLog(@"%@", post.PostID);
         // Create the URL Request
-        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][discussion.sigid]=%@&limit=100&start=0&sortby=points%%20asc",post.PostID]]];
+        //NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][discussion.sigid]=%@&limit=100&start=0&sortby=points%%20asc",post.PostID]]];
+        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@",post.hnPostID]]];
         
         // Start the request
         NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
@@ -152,19 +153,22 @@
         // Handle response
         // Callback to main thread
         if (responseData) {
-           NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
             [self logData:responseData];
-            if ([responseDict objectForKey:@"results"]) {
-                NSMutableArray *comments = [@[] mutableCopy];
+            NSString *responseHTML = [[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy];
+            
+            if (responseHTML) {
+                NSArray *comments = [Comment commentsFromHTML:responseHTML];
+                /*
                 NSArray *commentDicts = [responseDict objectForKey:@"results"];
                 for (NSDictionary *comment in commentDicts) {
                     [comments addObject:[Comment commentFromDictionary:[comment objectForKey:@"item"]]];
                 }
                 
                 NSArray *orderedComments = [Comment organizeComments:comments topLevelID:post.PostID];
-                
+                */
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate webservice:self didFetchComments:orderedComments forPostID:post.PostID launchComments:launch];
+                    [delegate webservice:self didFetchComments:comments forPostID:post.PostID launchComments:launch];
                     
                     // Update Karma for User
                     if ([HNSingleton sharedHNSingleton].User) {

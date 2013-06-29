@@ -22,7 +22,9 @@ typedef enum CommentType {
 @property (nonatomic, retain) NSString *CommentID;
 @property (nonatomic, retain) NSString *hnCommentID;
 @property (nonatomic, retain) NSString *ParentID;
+@property (nonatomic, retain) NSString *ReplyURL;
 @property (nonatomic, assign) int Level;
+@property (nonatomic, retain) NSString *TimeAgoString;
 @property (nonatomic, retain) NSDate *TimeCreated;
 @property (nonatomic, retain) NSMutableArray *Children;
 @property (nonatomic, retain) NSMutableArray *Links;
@@ -30,5 +32,6 @@ typedef enum CommentType {
 
 +(Comment *)commentFromDictionary:(NSDictionary *)dict;
 +(NSArray *)organizeComments:(NSArray *)comments topLevelID:(NSString *)topLevelID;
++(NSArray *)commentsFromHTML:(NSString *)html;
 
 @end
