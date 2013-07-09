@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1274,7 +1274,6 @@
 						<string key="didClickCommentsFromLinkView:">id</string>
 						<string key="didClickLinkViewFromComments:">id</string>
 						<string key="hideCommentsAndLinkView:">id</string>
-						<string key="showSharePanel:">id</string>
 						<string key="toggleRightNav:">id</string>
 						<string key="toggleSideNav:">id</string>
 					</dictionary>
@@ -1293,10 +1292,6 @@
 						</object>
 						<object class="IBActionInfo" key="hideCommentsAndLinkView:">
 							<string key="name">hideCommentsAndLinkView:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showSharePanel:">
-							<string key="name">showSharePanel:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleRightNav:">

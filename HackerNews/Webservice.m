@@ -152,7 +152,7 @@
         // Handle response
         // Callback to main thread
         if (responseData) {
-           NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
             [self logData:responseData];
             if ([responseDict objectForKey:@"results"]) {
                 NSMutableArray *comments = [@[] mutableCopy];

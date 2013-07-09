@@ -172,6 +172,10 @@
 
 #pragma mark - Did Login
 -(void)didLoginOrOut {
+    /*
+    // Show paper airplane icon to open submit link
+    // in right drawer. I might move this to the
+    // left drawer instead.
     if ([HNSingleton sharedHNSingleton].User) {
         loadingIndicator.frame = kLoadingRectSubmit;
         submitLinkButton.alpha = 1;
@@ -180,6 +184,7 @@
         loadingIndicator.frame = kLoadingRectNoSubmit;
         submitLinkButton.alpha = 0;
     }
+     */
 }
 
 
@@ -513,7 +518,7 @@
             cell.commentLevel = newComment.Level;
             cell.holdingView.frame = CGRectMake(15 * newComment.Level, 0, cell.frame.size.width - (15*newComment.Level), cell.frame.size.height);
             cell.username.text = newComment.Username;
-            cell.postedTime.text = [Helpers timeAgoStringForDate:newComment.TimeCreated];
+            cell.postedTime.text = newComment.TimeAgoString;
             
             // Set Border based on CellType
             if (newComment.CellType == CommentTypeClickClosed) {
