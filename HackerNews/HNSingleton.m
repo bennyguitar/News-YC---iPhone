@@ -117,9 +117,13 @@ static HNSingleton * _sharedHNSingleton = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
         [KGStatusBar showSuccessWithStatus:[NSString stringWithFormat:@"%@ Logged In", user.Username]];
         
+        /*
         // Set swipe right view
         AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDel.deckController setRightController:[[SubmitLinkViewController alloc] initWithNibName:@"SubmitLinkViewController" bundle:nil]];
+         */
+        
+        // Post notification
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
     }
     else {

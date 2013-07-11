@@ -21,35 +21,39 @@
 }
 
 +(void)launchFailedLoadingInView:(UIView *)view {
-    NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"FailedLoadingView" owner:nil options:nil];
-    FailedLoadingView *failedLoadingView = [[FailedLoadingView alloc] init];
-    failedLoadingView = [views objectAtIndex:0];
-    [Helpers makeShadowForView:failedLoadingView withRadius:0];
-    
-    // Add fLV to View
-    failedLoadingView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2 - failedLoadingView.frame.size.width/2, -1*failedLoadingView.frame.size.height, failedLoadingView.frame.size.width, failedLoadingView.frame.size.height);
-    [view addSubview:failedLoadingView];
-    
-    // Animate
-    [FailedLoadingView animateFailedLoading:failedLoadingView];
+    if (![FailedLoadingView isFailedLoadingInView:view]) {
+        NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"FailedLoadingView" owner:nil options:nil];
+        FailedLoadingView *failedLoadingView = [[FailedLoadingView alloc] init];
+        failedLoadingView = [views objectAtIndex:0];
+        [Helpers makeShadowForView:failedLoadingView withRadius:0];
+        
+        // Add fLV to View
+        failedLoadingView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2 - failedLoadingView.frame.size.width/2, -1*failedLoadingView.frame.size.height, failedLoadingView.frame.size.width, failedLoadingView.frame.size.height);
+        [view addSubview:failedLoadingView];
+        
+        // Animate
+        [FailedLoadingView animateFailedLoading:failedLoadingView];
+    }
 }
 
 +(void)launchFailedLoadingInView:(UIView *)view withImage:(UIImage *)image text:(NSString *)text {
-    NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"FailedLoadingView" owner:nil options:nil];
-    FailedLoadingView *failedLoadingView = [[FailedLoadingView alloc] init];
-    failedLoadingView = [views objectAtIndex:0];
-    [Helpers makeShadowForView:failedLoadingView withRadius:0];
-    
-    // Add data
-    failedLoadingView.FailedImage.image = image;
-    failedLoadingView.FailedText.text = text;
-    
-    // Add fLV to View
-    failedLoadingView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2 - failedLoadingView.frame.size.width/2, -1*failedLoadingView.frame.size.height, failedLoadingView.frame.size.width, failedLoadingView.frame.size.height);
-    [view addSubview:failedLoadingView];
-    
-    // Animate
-    [FailedLoadingView animateFailedLoading:failedLoadingView];
+    if (![FailedLoadingView isFailedLoadingInView:view]) {
+        NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"FailedLoadingView" owner:nil options:nil];
+        FailedLoadingView *failedLoadingView = [[FailedLoadingView alloc] init];
+        failedLoadingView = [views objectAtIndex:0];
+        [Helpers makeShadowForView:failedLoadingView withRadius:0];
+        
+        // Add data
+        failedLoadingView.FailedImage.image = image;
+        failedLoadingView.FailedText.text = text;
+        
+        // Add fLV to View
+        failedLoadingView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2 - failedLoadingView.frame.size.width/2, -1*failedLoadingView.frame.size.height, failedLoadingView.frame.size.width, failedLoadingView.frame.size.height);
+        [view addSubview:failedLoadingView];
+        
+        // Animate
+        [FailedLoadingView animateFailedLoading:failedLoadingView];
+    }
 }
 
 +(void)animateFailedLoading:(FailedLoadingView *)failedLoadingView {
@@ -71,10 +75,22 @@
             } completion:^(BOOL fin){
                 [UIView animateWithDuration:0.25 animations:^{
                     failedLoadingView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2 - failedLoadingView.frame.size.width/2, -1*failedLoadingView.frame.size.height, failedLoadingView.frame.size.width, failedLoadingView.frame.size.height);
+                } completion:^(BOOL fin){
+                    [failedLoadingView removeFromSuperview];
                 }];
             }];
         }];
     }];
+}
+
++(BOOL)isFailedLoadingInView:(UIView *)view {
+    for (UIView *subview in view.subviews) {
+        if ([subview isKindOfClass:[FailedLoadingView class]]) {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 /*
