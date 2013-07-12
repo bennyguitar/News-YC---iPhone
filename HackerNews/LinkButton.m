@@ -31,8 +31,8 @@
     newLink.LinkTag = lTag;
     newLink.layer.cornerRadius = 10;
     newLink.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 5);
-    newLink.titleLabel.adjustsFontSizeToFitWidth = YES;
-    newLink.titleLabel.minimumScaleFactor = 0.5;
+    //newLink.titleLabel.adjustsFontSizeToFitWidth = YES;
+    //newLink.titleLabel.minimumScaleFactor = 0.5;
     newLink.titleLabel.numberOfLines = 1;
     [Helpers makeShadowForView:newLink withRadius:10];
     

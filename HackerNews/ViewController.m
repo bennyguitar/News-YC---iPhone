@@ -512,6 +512,12 @@
         
         cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
         
+        // Color cell elements
+        cell.comment.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
+        cell.username.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
+        cell.postedTime.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
+        cell.topBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
+        
         if (organizedCommentsArray.count > 0) {
             // Set Data to UI Elements
             Comment *newComment = [organizedCommentsArray objectAtIndex:indexPath.row];
@@ -529,7 +535,7 @@
             }
             else if (newComment.CellType == CommentTypeOpen) {
                 cell.topBarBorder.alpha = 0;
-                cell.comment.text = newComment.Text;
+                cell.comment.attributedText = newComment.attrText;
                 
                 // Set size of Comment Label
                 CGSize s = [cell.comment.text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(cell.comment.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
@@ -560,12 +566,6 @@
             cell.comment.text = @"Ahh! Looks like no comments exist!";
             cell.comment.textAlignment = NSTextAlignmentCenter;
         }
-        
-        // Color cell elements
-        cell.comment.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
-        cell.username.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
-        cell.postedTime.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
-        cell.topBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
         
         return cell;
     }

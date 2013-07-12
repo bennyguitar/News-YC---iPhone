@@ -110,42 +110,47 @@
     text = [text stringByReplacingOccurrencesOfString:@"<pre><code>" withString:@""];
     text = [text stringByReplacingOccurrencesOfString:@"</code></pre>" withString:@""];
     
-    // Find the links
-    NSArray *linkTextComponents = [text componentsSeparatedByString:@"<a href=\""];
-    NSString *newString = @"";
-    for (int xx = 0; xx < linkTextComponents.count; xx++) {
-        NSString *component = linkTextComponents[xx];
-        if (xx == 0) {
-            // Text before the link should not be touched
-            newString = component;
+    // Get rid of <a> marks
+    text = [self removeAHREFFromText:text];
+    
+    // Set up Attributable String
+    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+    [paragraph setLineBreakMode:NSLineBreakByTruncatingTail];
+    self.attrText = [[NSMutableAttributedString alloc] initWithString:text];
+    [self.attrText addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, text.length)];
+    self.Text = text;
+    
+    
+    // Find the links / add them to attrText and self.Links
+    NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink error:nil];
+    [detector enumerateMatchesInString:text options:kNilOptions range:NSMakeRange(0, text.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        NSLog(@"%@", result);
+        NSLog(@"%@", NSStringFromRange(result.range));
+        [self.Links addObject:[result.URL absoluteString]];
+        [self.attrText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:200/255.0f green:97/255.0f blue:41/255.0f alpha:1.0f] range:result.range];
+    }];
+}
+
+-(NSString *)removeAHREFFromText:(NSString *)text {
+    NSScanner *scanner = [NSScanner scannerWithString:text];
+    [scanner setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@""]];
+    NSString *commentText = @"", *runningString = @"", *trash = @"";
+    while (![scanner isAtEnd]) {
+        if ([[scanner.string substringFromIndex:scanner.scanLocation] rangeOfString:@"<a href"].location != NSNotFound) {
+            [scanner scanUpToString:@"<a href=" intoString:&commentText];
+            runningString = [runningString stringByAppendingString:commentText];
+            [scanner scanString:@"<a href=\"" intoString:&trash];
+            [scanner scanUpToString:@"\"" intoString:&commentText];
+            runningString = [runningString stringByAppendingString:commentText];
+            [scanner scanUpToString:@"</a>" intoString:&trash];
+            [scanner scanString:@"</a>" intoString:&trash];
         }
         else {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ contains[c] SELF", component];
-            if ([predicate evaluateWithObject:@"</a>"]) {
-                // Contains a link
-                // - Scan it into linkString, add to self.Links, and append it to newString
-                NSString *linkString=@"";
-                NSScanner *scanner = [NSScanner scannerWithString:component];
-                [scanner scanUpToString:@"\" rel=" intoString:&linkString];
-                [self.Links addObject:linkString];
-                newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@", linkString]];
-                
-                // Now grab the rest of the comment after the link and add it back to newString
-                NSArray *commentComponents = [component componentsSeparatedByString:@"</a>"];
-                if (commentComponents.count > 1) {
-                    newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@",commentComponents[1]]];
-                }
-            }
-            else {
-                // No Link in this string component, append as is.
-                newString = [newString stringByAppendingString:[NSString stringWithFormat:@" %@", component]];
-            }
+            runningString = [runningString stringByAppendingString:[scanner.string substringFromIndex:scanner.scanLocation]];
+            [scanner setScanLocation:text.length];
         }
     }
-    
-    // Finally set the Comment's text.
-    // - Set to newString if links are found, else set it as is
-    self.Text = linkTextComponents.count > 0 ? newString : text;
+    return runningString;
 }
 
 
