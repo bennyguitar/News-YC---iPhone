@@ -110,6 +110,12 @@
     text = [text stringByReplacingOccurrencesOfString:@"<pre><code>" withString:@""];
     text = [text stringByReplacingOccurrencesOfString:@"</code></pre>" withString:@""];
     
+    /*
+    NSError *error;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<[^<]+?>" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSString *newComment = [regex stringByReplacingMatchesInString:text options:kNilOptions range:NSMakeRange(0, text.length) withTemplate:@""];
+    */
+    
     // Get rid of <a> marks
     text = [self removeAHREFFromText:text];
     
@@ -127,7 +133,7 @@
         NSLog(@"%@", result);
         NSLog(@"%@", NSStringFromRange(result.range));
         [self.Links addObject:[result.URL absoluteString]];
-        [self.attrText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:200/255.0f green:97/255.0f blue:41/255.0f alpha:1.0f] range:result.range];
+        [self.attrText addAttribute:NSForegroundColorAttributeName value:kOrangeColor range:result.range];
     }];
 }
 
