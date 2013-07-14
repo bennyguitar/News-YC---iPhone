@@ -396,105 +396,8 @@
             }
         }
         
-        if (homePagePosts.count > 0) {
-            // There are Stories/Links to Display, set Post
-            Post *post = [homePagePosts objectAtIndex:indexPath.row];
-            
-            // Set data
-            cell.titleLabel.text = post.Title;
-            cell.postedTimeLabel.text = [NSString stringWithFormat:@"%@ by %@", [Helpers timeAgoStringForDate:post.TimeCreated], post.Username];
-            cell.commentsLabel.text = [NSString stringWithFormat:@"%d", post.CommentCount];
-            cell.scoreLabel.text = [NSString stringWithFormat:@"%d Points", post.Points];
-            cell.commentTagButton.tag = indexPath.row;
-            cell.commentBGButton.tag = indexPath.row;
-            [cell.commentTagButton addTarget:self action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
-            [cell.commentBGButton addTarget:self action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
-            
-            // If PostActions are visible
-            if (post.isOpenForActions) {
-                [Helpers makeShadowForView:cell.bottomBar withRadius:0];
-                cell.postActionsView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"PostActions"];
-                [cell.voteUpButton addTarget:self action:@selector(voteUp:) forControlEvents:UIControlEventTouchUpInside];
-                [cell.voteDownButton addTarget:self action:@selector(voteDown:) forControlEvents:UIControlEventTouchUpInside];
-                cell.voteUpButton.tag = indexPath.row;
-                cell.voteDownButton.tag = indexPath.row;
-                
-                if ([HNSingleton sharedHNSingleton].User) {
-                    if ([HNSingleton sharedHNSingleton].User.Karma < 500) {
-                        [cell.voteDownButton setUserInteractionEnabled:NO];
-                        cell.voteDownButton.alpha = 0.3;
-                    }
-                }
-                else {
-                    [cell.voteDownButton setUserInteractionEnabled:NO];
-                    cell.voteDownButton.alpha = 0.3;
-                    [cell.voteUpButton setUserInteractionEnabled:NO];
-                    cell.voteUpButton.alpha = 0.3;
-                }
-            }
-            
-            // Color cell elements
-            cell.titleLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
-            cell.postedTimeLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
-            cell.scoreLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
-            cell.bottomBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
-            [cell.commentTagButton setImage:[[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CommentBubble"] forState:UIControlStateNormal];
-            
-            // If it's been voted on
-            if ([[HNSingleton sharedHNSingleton] objectIsInVoteDict:post]) {
-                [cell.scoreLabel setTextColor:kOrangeColor];
-                cell.scoreLabel.alpha = 1;
-                
-                if ([[[[HNSingleton sharedHNSingleton] votedForDictionary] objectForKey:post.PostID] isEqualToString:@"UP"]) {
-                    [cell.voteUpButton setImage:[UIImage imageNamed:@"voteUpOn-01.png"] forState:UIControlStateNormal];
-                    [cell.voteUpButton setUserInteractionEnabled:NO];
-                    [cell.voteDownButton setUserInteractionEnabled:NO];
-                }
-                else {
-                    [cell.voteDownButton setImage:[UIImage imageNamed:@"voteDownOn-01.png"] forState:UIControlStateNormal];
-                    [cell.voteUpButton setUserInteractionEnabled:NO];
-                    [cell.voteDownButton setUserInteractionEnabled:NO];
-                }
-            }
-            
-            // Show HN Color
-            if (cell.titleLabel.text.length >= 9) {
-                if ([[cell.titleLabel.text substringWithRange:NSMakeRange(0, 9)] isEqualToString:@"Show HN: "]) {
-                    UIView *showHNView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
-                    showHNView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"ShowHN"];
-                    [cell insertSubview:showHNView atIndex:0];
-                }
-            }
-            
-            // Mark as Read
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MarkAsRead"]) {
-                if (post.HasRead) {
-                    cell.titleLabel.alpha = 0.35;
-                }
-            }
-            
-            // Selected Cell Color
-            //UIView *sel = [[UIView alloc] init];
-            //sel.backgroundColor = kOrangeColor;
-            //cell.selectedBackgroundView = sel;
-            
-            return cell;
-        }
-        else {
-            // No Links/Stories to Display!
-            // Hide cell elements
-            cell.bottomBar.alpha = 0;
-            cell.authorLabel.alpha = 0;
-            cell.scoreLabel.alpha = 0;
-            cell.postedTimeLabel.alpha = 0;
-            cell.commentBGButton.alpha = 0;
-            cell.commentTagButton.alpha = 0;
-            cell.commentsLabel.alpha = 0;
-            cell.titleLabel.frame = CGRectMake(5, 5, cell.frame.size.width - 10, cell.frame.size.height - 5);
-            cell.titleLabel.text = @"";
-            cell.titleLabel.textAlignment = NSTextAlignmentCenter;
-            return cell;
-        }
+        cell = [cell setCellWithPost:(homePagePosts.count > 0 ? homePagePosts[indexPath.row] : nil) atIndex:indexPath fromController:self];
+        return cell;
     }
     
     // Comments Cell
@@ -510,62 +413,7 @@
             }
         }
         
-        cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
-        
-        // Color cell elements
-        cell.comment.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
-        cell.username.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
-        cell.postedTime.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
-        cell.topBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
-        
-        if (organizedCommentsArray.count > 0) {
-            // Set Data to UI Elements
-            Comment *newComment = [organizedCommentsArray objectAtIndex:indexPath.row];
-            cell.commentLevel = newComment.Level;
-            cell.holdingView.frame = CGRectMake(15 * newComment.Level, 0, cell.frame.size.width - (15*newComment.Level), cell.frame.size.height);
-            cell.username.text = newComment.Username;
-            cell.postedTime.text = newComment.TimeAgoString;
-            
-            // Set Border based on CellType
-            if (newComment.CellType == CommentTypeClickClosed) {
-                cell.topBarBorder.alpha = 1;
-            }
-            else if (newComment.CellType == CommentTypeHidden) {
-                cell.topBarBorder.alpha = 0;
-            }
-            else if (newComment.CellType == CommentTypeOpen) {
-                cell.topBarBorder.alpha = 0;
-                cell.comment.attributedText = newComment.attrText;
-                
-                // Set size of Comment Label
-                CGSize s = [cell.comment.text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(cell.comment.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-                cell.comment.frame = CGRectMake(cell.comment.frame.origin.x, cell.comment.frame.origin.y, cell.comment.frame.size.width, s.height);
-                
-                // Add Links
-                for (int xx = 0; xx < newComment.Links.count; xx++) {
-                    LinkButton *newLinkButton = [LinkButton newLinkButtonWithTag:indexPath.row linkTag:xx frame:CGRectMake(15*newComment.Level + kPad, cell.comment.frame.size.height + cell.comment.frame.origin.y + xx*kPad + xx*30 + kPad, cell.frame.size.width - (15*newComment.Level + 2*kPad), 30) title:newComment.Links[xx]];
-                    [newLinkButton addTarget:self action:@selector(didClickExternalLinkInComment:) forControlEvents:UIControlEventTouchUpInside];
-                    [cell addSubview:newLinkButton];
-                }
-            }
-            
-            // Set action of topBarButton
-            cell.topBarButton.tag = indexPath.row;
-            [cell.topBarButton addTarget:self action:@selector(hideNestedCommentsCell:) forControlEvents:UIControlEventTouchDownRepeat];
-        }
-        else if (commentsRefresher.isRefreshing){
-            // No comments
-            cell.username.text = @"";
-            cell.postedTime.text = @"";
-            cell.comment.text = @"";
-            cell.comment.textAlignment = NSTextAlignmentCenter;
-        }
-        else{
-            cell.username.text = @"";
-            cell.postedTime.text = @"";
-            cell.comment.text = @"Ahh! Looks like no comments exist!";
-            cell.comment.textAlignment = NSTextAlignmentCenter;
-        }
+        cell = [cell cellForComment:(organizedCommentsArray.count > 0 ? organizedCommentsArray[indexPath.row] : nil) atIndex:indexPath fromController:self];
         
         return cell;
     }
@@ -607,30 +455,8 @@
             }
         }
         
-        if (organizedCommentsArray.count > 0) {
-            Comment *newComment = [organizedCommentsArray objectAtIndex:indexPath.row];
-            
-            // Comment is Open
-            if (newComment.CellType == CommentTypeOpen) {
-                CGSize s = [newComment.Text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(cell.comment.frame.size.width - (newComment.Level*15), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-                
-                return s.height + 45 + (newComment.Links.count*30 + newComment.Links.count*kPad);
-            }
-            
-            // Comment has been Clicked Closed by User
-            else if (newComment.CellType == CommentTypeClickClosed) {
-                return kCommentsHidden;
-            }
-            
-            // Nested comment is hidden
-            else if (newComment.CellType == CommentTypeHidden) {
-                return 0;
-            }
-        }
-        
-        return cell.frame.size.height;
+        return [cell heightForComment:(organizedCommentsArray.count > 0 ? organizedCommentsArray[indexPath.row] : nil)];
     }
-    
     
     // Front Page Cell Height
     else {

@@ -405,7 +405,7 @@
 					<string key="className">CommentsCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="comment">UITextView</string>
+						<string key="comment">UILabel</string>
 						<string key="holdingView">UIView</string>
 						<string key="postedTime">UILabel</string>
 						<string key="topBar">UIImageView</string>
@@ -416,7 +416,7 @@
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="comment">
 							<string key="name">comment</string>
-							<string key="candidateClassName">UITextView</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="holdingView">
 							<string key="name">holdingView</string>

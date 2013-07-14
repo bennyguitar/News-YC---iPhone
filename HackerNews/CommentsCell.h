@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "HNSingleton.h"
+#import "Comment.h"
 
 #define kCommentsHidden 20
+#define kCommentsDefaultH 85
+#define kCommentsDefaultW 307
 
 @interface CommentsCell : UITableViewCell {
     
@@ -23,6 +26,9 @@
 @property (nonatomic, retain) NSString *postTitle;
 @property (weak, nonatomic) IBOutlet UIButton *topBarButton;
 @property (weak, nonatomic) IBOutlet UIView *topBarBorder;
+
+-(CommentsCell *)cellForComment:(Comment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller;
+-(float)heightForComment:(Comment *)newComment;
 
 
 @end
