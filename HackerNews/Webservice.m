@@ -50,131 +50,67 @@
         [items addObject:[idSubString substringWithRange:NSMakeRange(0, 13)]];
     }
     
+    // Make request URL Path
+    NSString *requestPath = @"http://api.thriftdb.com/api.hnsearch.com/items/_bulk/get_multi?ids=";
+    for (NSString *item in items) {
+        requestPath = [requestPath stringByAppendingString:[NSString stringWithFormat:@"%@,", item]];
+    }
     
-    // Send IDs back to HNSearch for Posts
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSURLResponse *response;
-        NSError *error;
-        
-        // Create Request String
-        NSString *requestString = @"http://api.thriftdb.com/api.hnsearch.com/items/_bulk/get_multi?ids=";
-        for (NSString *item in items) {
-            requestString = [requestString stringByAppendingString:[NSString stringWithFormat:@"%@,", item]];
-        }
-        
-        // Create the URL Request
-        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:requestString]];
-        
-        // Start the request
-        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        
-        
-        //Handle response
-        //Callback to main thread
-        if (responseData) {
-            NSArray *responseArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
-            [self logData:responseData];
-            if (responseArray) {
-                NSMutableArray *postArray = [@[] mutableCopy];
-                for (NSDictionary *dict in responseArray) {
-                    [postArray addObject:[Post postFromDictionary:dict]];
+    // Send IDs back to HNSearch for Post JSON
+    HNOperation *operation = [[HNOperation alloc] init];
+    __weak HNOperation *weakOp = operation;
+    [operation setUrlPath:requestPath data:nil completion:^{
+        NSArray *responseArray = [NSJSONSerialization JSONObjectWithData:weakOp.responseData options:NSJSONReadingAllowFragments error:nil];
+        if (responseArray) {
+            NSMutableArray *postArray = [@[] mutableCopy];
+            for (NSDictionary *dict in responseArray) {
+                [postArray addObject:[Post postFromDictionary:dict]];
+            }
+            
+            NSArray *orderedPostArray = [Post orderPosts:postArray byItemIDs:items];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [delegate webservice:self didFetchPosts:orderedPostArray];
+                
+                // Update Karma for User
+                if ([HNSingleton sharedHNSingleton].User) {
+                    [self reloadUserFromURLString:[NSString stringWithFormat:@"https://news.ycombinator.com/user?id=%@", [HNSingleton sharedHNSingleton].User.Username]];
                 }
-                
-                NSArray *orderedPostArray = [self orderPosts:postArray byItemIDs:items];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate webservice:self didFetchPosts:orderedPostArray];
-                    
-                    // Update Karma for User
-                    if ([HNSingleton sharedHNSingleton].User) {
-                        [self reloadUserFromURLString:[NSString stringWithFormat:@"https://news.ycombinator.com/user?id=%@", [HNSingleton sharedHNSingleton].User.Username]];
-                    }
-                });
-            }
-            else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate webservice:self didFetchPosts:nil];
-                });
-                
-            }
+            });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [delegate webservice:self didFetchPosts:nil];
             });
+            
         }
-        
-        
-    });
+    }];
+    [self.HNOperationQueue addOperation:operation];
 }
-
--(NSArray *)orderPosts:(NSMutableArray *)posts byItemIDs:(NSArray *)items {
-    NSMutableArray *orderedPosts = [@[] mutableCopy];
-    
-    for (NSString *itemID in items) {
-        for (Post *post in posts) {
-            if ([post.PostID isEqualToString:itemID]) {
-                [orderedPosts addObject:post];
-                [posts removeObject:post];
-                break;
-            }
-        }
-    }
-    
-    return orderedPosts;
-}
-
 
 #pragma mark - Get Comments
 -(void)getCommentsForPost:(Post *)post launchComments:(BOOL)launch {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSURLResponse *response;
-        NSError *error;
-        
-        // Create the URL Request
-        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.thriftdb.com/api.hnsearch.com/items/_search?filter[fields][discussion.sigid]=%@&limit=100&start=0&sortby=points%%20asc",post.PostID]]];
-        
-        // Start the request
-        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        
-        // Handle response
-        // Callback to main thread
-        if (responseData) {
-            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
-            //[self logData:responseData];
-            if ([responseDict objectForKey:@"results"]) {
-                NSMutableArray *comments = [@[] mutableCopy];
-                NSArray *commentDicts = [responseDict objectForKey:@"results"];
-                for (NSDictionary *comment in commentDicts) {
-                    [comments addObject:[Comment commentFromDictionary:[comment objectForKey:@"item"]]];
+    HNOperation *operation = [[HNOperation alloc] init];
+    __weak HNOperation *weakOp = operation;
+    [operation setUrlPath:[NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@",post.hnPostID] data:nil completion:^{
+        NSString *responseHTML = [[NSString alloc] initWithData:weakOp.responseData encoding:NSStringEncodingConversionAllowLossy];
+        if (responseHTML.length > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [delegate webservice:self didFetchComments:[Comment commentsFromHTML:responseHTML] forPostID:post.PostID launchComments:launch];
+                
+                // Update Karma for User
+                if ([HNSingleton sharedHNSingleton].User) {
+                    [self reloadUserFromURLString:[NSString stringWithFormat:@"https://news.ycombinator.com/user?id=%@", [HNSingleton sharedHNSingleton].User.Username]];
                 }
-                
-                NSArray *orderedComments = [Comment organizeComments:comments topLevelID:post.PostID];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate webservice:self didFetchComments:orderedComments forPostID:post.PostID launchComments:launch];
-                    
-                    // Update Karma for User
-                    if ([HNSingleton sharedHNSingleton].User) {
-                        [self reloadUserFromURLString:[NSString stringWithFormat:@"https://news.ycombinator.com/user?id=%@", [HNSingleton sharedHNSingleton].User.Username]];
-                    }
-                });
-            }
-            else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate webservice:self didFetchComments:nil forPostID:nil launchComments:NO];
-                });
-                
-            }
+            });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [delegate webservice:self didFetchComments:nil forPostID:nil launchComments:NO];
             });
         }
-        
-        
-    });
+    }];
+    [self.HNOperationQueue addOperation:operation];
 }
 
 #pragma mark - Login

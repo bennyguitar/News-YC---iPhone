@@ -23,5 +23,6 @@
 
 
 +(Post *)postFromDictionary:(NSDictionary *)dict;
++(NSArray *)orderPosts:(NSMutableArray *)posts byItemIDs:(NSArray *)items;
 
 @end

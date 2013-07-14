@@ -39,4 +39,21 @@
     return newPost;
 }
 
++(NSArray *)orderPosts:(NSMutableArray *)posts byItemIDs:(NSArray *)items {
+    NSMutableArray *orderedPosts = [@[] mutableCopy];
+    
+    for (NSString *itemID in items) {
+        for (Post *post in posts) {
+            if ([post.PostID isEqualToString:itemID]) {
+                [orderedPosts addObject:post];
+                [posts removeObject:post];
+                break;
+            }
+        }
+    }
+    
+    return orderedPosts;
+}
+
+
 @end

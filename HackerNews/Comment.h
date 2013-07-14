@@ -30,6 +30,8 @@ typedef enum CommentType {
 @property (nonatomic, retain) NSMutableArray *Links;
 @property (nonatomic, assign) CommentType CellType;
 
++(NSArray *)commentsFromHTML:(NSString *)html;
+
 +(Comment *)commentFromDictionary:(NSDictionary *)dict;
 +(NSArray *)organizeComments:(NSArray *)comments topLevelID:(NSString *)topLevelID;
 
