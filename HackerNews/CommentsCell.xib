@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12C60</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
-		<string key="IBDocument.HIToolboxVersion">626.00</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -67,6 +67,7 @@
 										<string key="NSFrame">{{7, 27}, {307, 50}}</string>
 										<reference key="NSSuperview" ref="341866640"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -362,11 +363,6 @@
 						<reference key="parent" ref="341866640"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">39</int>
-						<reference key="object" ref="684822701"/>
-						<reference key="parent" ref="341866640"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">78</int>
 						<reference key="object" ref="92151576"/>
 						<reference key="parent" ref="341866640"/>
@@ -374,6 +370,11 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">80</int>
 						<reference key="object" ref="187392721"/>
+						<reference key="parent" ref="341866640"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">39</int>
+						<reference key="object" ref="684822701"/>
 						<reference key="parent" ref="341866640"/>
 					</object>
 				</array>
@@ -396,7 +397,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">81</int>
+			<int key="maxID">84</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -404,7 +405,7 @@
 					<string key="className">CommentsCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="comment">UILabel</string>
+						<string key="comment">UITextView</string>
 						<string key="holdingView">UIView</string>
 						<string key="postedTime">UILabel</string>
 						<string key="topBar">UIImageView</string>
@@ -415,7 +416,7 @@
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="comment">
 							<string key="name">comment</string>
-							<string key="candidateClassName">UILabel</string>
+							<string key="candidateClassName">UITextView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="holdingView">
 							<string key="name">holdingView</string>

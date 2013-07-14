@@ -26,8 +26,12 @@
 @interface Webservice : NSObject {
     __weak id <WebserviceDelegate> delegate;
 }
-//Delegate
+
+// Delegate
 @property (weak) id <WebserviceDelegate> delegate;
+
+// OperationQueue
+@property (nonatomic, retain) NSOperationQueue *HNOperationQueue;
 
 // Methods
 -(void)getHomepage;

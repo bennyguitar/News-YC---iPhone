@@ -8,48 +8,36 @@
 
 #import "Webservice.h"
 #import "HNSingleton.h"
+#import "HNOperation.h"
 
 @implementation Webservice
 @synthesize delegate;
 
+-(id)init {
+    self = [super init];
+    self.HNOperationQueue = [[NSOperationQueue alloc] init];
+
+    return self;
+}
+
 #pragma mark - Get Homepage
 -(void)getHomepage {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSURLResponse *response;
-        NSError *error;
-        
-        // Create the URL Request
-        NSMutableURLRequest *request = [Webservice NewGetRequestForURL:[NSURL URLWithString:@"https://www.hnsearch.com/bigrss"]];
-        
-        // Start the request
-        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        
-        
-        //Handle response
-        //Callback to main thread
-        if (responseData) {
-            NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy];
-            //[self logData:responseData];
-            if (responseString.length > 0) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self parseIDsAndGrabPosts:responseString];
-                });
-            }
-            else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegate webservice:self didFetchPosts:nil];
-                });
-                
-            }
+    HNOperation *operation = [[HNOperation alloc] init];
+    __weak HNOperation *weakOp = operation;
+    [operation setUrlPath:@"https://www.hnsearch.com/bigrss" data:nil completion:^{
+        NSString *responseString = [[NSString alloc] initWithData:weakOp.responseData encoding:NSStringEncodingConversionAllowLossy];
+        if (responseString.length > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self parseIDsAndGrabPosts:responseString];
+            });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [delegate webservice:self didFetchPosts:nil];
             });
         }
-        
-        
-    });
+    }];
+    [self.HNOperationQueue addOperation:operation];
 }
 
 

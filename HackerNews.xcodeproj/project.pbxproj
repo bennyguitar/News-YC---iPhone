@@ -97,6 +97,7 @@
 		C01EDEB51733683200AE97B8 /* NavigationDeckViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDEB31733683200AE97B8 /* NavigationDeckViewController.xib */; };
 		C01EDEB71733698600AE97B8 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDEB61733698600AE97B8 /* Social.framework */; };
 		C01EDEB91733698D00AE97B8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDEB81733698D00AE97B8 /* MessageUI.framework */; };
+		C053BCD517921E4D00BAB3CC /* HNOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C053BCD417921E4D00BAB3CC /* HNOperation.m */; };
 		C0ABB6221735C777005EA39C /* FailedLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB6201735C777005EA39C /* FailedLoadingView.m */; };
 		C0ABB6231735C777005EA39C /* FailedLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6211735C777005EA39C /* FailedLoadingView.xib */; };
 		C0ABB6251735C880005EA39C /* loadingFailed-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6241735C880005EA39C /* loadingFailed-01.png */; };
@@ -231,6 +232,8 @@
 		C01EDEB31733683200AE97B8 /* NavigationDeckViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationDeckViewController.xib; sourceTree = "<group>"; };
 		C01EDEB61733698600AE97B8 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		C01EDEB81733698D00AE97B8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		C053BCD317921E4D00BAB3CC /* HNOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNOperation.h; sourceTree = "<group>"; };
+		C053BCD417921E4D00BAB3CC /* HNOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNOperation.m; sourceTree = "<group>"; };
 		C0ABB61F1735C777005EA39C /* FailedLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailedLoadingView.h; sourceTree = "<group>"; };
 		C0ABB6201735C777005EA39C /* FailedLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailedLoadingView.m; sourceTree = "<group>"; };
 		C0ABB6211735C777005EA39C /* FailedLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FailedLoadingView.xib; sourceTree = "<group>"; };
@@ -398,6 +401,8 @@
 			children = (
 				C01EDE0A1731557900AE97B8 /* Webservice.h */,
 				C01EDE0B1731557900AE97B8 /* Webservice.m */,
+				C053BCD317921E4D00BAB3CC /* HNOperation.h */,
+				C053BCD417921E4D00BAB3CC /* HNOperation.m */,
 			);
 			name = Webservice;
 			sourceTree = "<group>";
@@ -716,6 +721,7 @@
 				C0FAA5E3173ED7C900ED5F52 /* SubmitLinkViewController.m in Sources */,
 				6C2DAAD3174C977B0069BAE1 /* ARChromeActivity.m in Sources */,
 				6C2DAB08174C9C2E0069BAE1 /* TUSafariActivity.m in Sources */,
+				C053BCD517921E4D00BAB3CC /* HNOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
