@@ -7,6 +7,7 @@
 //
 
 #import "HNOperation.h"
+#import "HNSingleton.h"
 
 @implementation HNOperation
 
@@ -46,6 +47,10 @@
     NSMutableURLRequest *Request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageAllowedInMemoryOnly timeoutInterval:10];
     [Request setHTTPMethod:@"GET"];
     
+    if ([HNSingleton sharedHNSingleton].SessionCookie) {
+        [Request setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:@[[HNSingleton sharedHNSingleton].SessionCookie]]];
+    }
+    
     return Request;
 }
 
@@ -56,6 +61,10 @@
     [Request setHTTPBody:bodyData];
     [Request setHTTPShouldHandleCookies:YES];
     [Request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
+    
+    if ([HNSingleton sharedHNSingleton].SessionCookie) {
+        [Request setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:@[[HNSingleton sharedHNSingleton].SessionCookie]]];
+    }
     
     return Request;
 }

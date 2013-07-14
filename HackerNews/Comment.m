@@ -51,7 +51,7 @@
         [scanner scanUpToString:@"<a href=\"user?id=" intoString:&trash];
         [scanner scanString:@"<a href=\"user?id=" intoString:&trash];
         [scanner scanUpToString:@"\">" intoString:&user];
-        newComment.Username = user;
+        newComment.Username = user.length > 0 ? user : @"[deleted]";
         
         // Get Date/Time Label
         [scanner scanUpToString:@"</a> " intoString:&trash];
@@ -60,8 +60,10 @@
         newComment.TimeAgoString = timeAgo;
         
         // Get Comment Text
-        [scanner scanUpToString:@"<font color=#000000>" intoString:&trash];
-        [scanner scanString:@"<font color=#000000>" intoString:&trash];
+        [scanner scanUpToString:@"<font color=" intoString:&trash];
+        [scanner scanString:@"<font color=" intoString:&trash];
+        [scanner scanUpToString:@">" intoString:&trash];
+        [scanner scanString:@">" intoString:&trash];
         [scanner scanUpToString:@"</font>" intoString:&text];
         [newComment setUpComment:text];
         
@@ -72,25 +74,6 @@
     }
     
     return comments;
-}
-
-+(Comment *)commentFromDictionary:(NSDictionary *)dict {
-    Comment *newComment = [[Comment alloc] init];
-    
-    // Set Data
-    newComment.CommentID = [dict objectForKey:@"_id"];
-    newComment.hnCommentID = [dict objectForKey:@"id"];
-    newComment.ParentID = [dict objectForKey:@"parent_sigid"];
-    newComment.Username = [dict objectForKey:@"username"];
-    newComment.Level = 0;
-    newComment.TimeCreated = [Helpers postDateFromString:[dict objectForKey:@"create_ts"]];
-    
-    // Check if Text is null - if it is, it will be @""
-    if ([dict objectForKey:@"text"] != [NSNull null]) {
-        [newComment setUpComment:[dict objectForKey:@"text"]];
-    }
-    
-    return newComment;
 }
 
 -(void)setUpComment:(NSString *)text {
@@ -110,12 +93,6 @@
     text = [text stringByReplacingOccurrencesOfString:@"<pre><code>" withString:@""];
     text = [text stringByReplacingOccurrencesOfString:@"</code></pre>" withString:@""];
     
-    /*
-    NSError *error;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<[^<]+?>" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSString *newComment = [regex stringByReplacingMatchesInString:text options:kNilOptions range:NSMakeRange(0, text.length) withTemplate:@""];
-    */
-    
     // Get rid of <a> marks
     text = [self removeAHREFFromText:text];
     
@@ -126,12 +103,9 @@
     [self.attrText addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, text.length)];
     self.Text = text;
     
-    
     // Find the links / add them to attrText and self.Links
     NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink error:nil];
     [detector enumerateMatchesInString:text options:kNilOptions range:NSMakeRange(0, text.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-        NSLog(@"%@", result);
-        NSLog(@"%@", NSStringFromRange(result.range));
         [self.Links addObject:[result.URL absoluteString]];
         [self.attrText addAttribute:NSForegroundColorAttributeName value:kOrangeColor range:result.range];
     }];
@@ -157,53 +131,6 @@
         }
     }
     return runningString;
-}
-
-
-+(NSArray *)organizeComments:(NSMutableArray *)comments topLevelID:(NSString *)topLevelID {
-    NSMutableArray *organizedComments = [@[] mutableCopy];
-    NSMutableArray *topLevelComments = [@[] mutableCopy];
-    
-    // 1. Find all Top-Level comments
-    for (Comment *comment in comments) {
-        if ([comment.ParentID isEqualToString:topLevelID]) {
-            [topLevelComments addObject:comment];
-        }
-    }
-    
-    // 2. Add Children to Top-Level
-    for (Comment *comment in topLevelComments) {
-        [Comment addChildrenToComment:comment fromPool:comments];
-    }
-    
-    // 3. Get Levels and add to a single layer Array
-    for (Comment *comment in topLevelComments) {
-        [Comment addLevel:0 toComment:comment forArray:organizedComments];
-    }
-    
-    return organizedComments;
-}
-
-// Recursively adds Children comments to original Comment
-// passed in from the pool of comments.
-+(void)addChildrenToComment:(Comment *)comment fromPool:(NSMutableArray *)pool {
-    for (Comment *poolComment in pool) {
-        if ([poolComment.ParentID isEqualToString:comment.CommentID]) {
-            [comment.Children addObject:poolComment];
-            [Comment addChildrenToComment:poolComment fromPool:pool];
-        }
-    }
-}
-
-// Recursively changes the linked-list of comments
-// into a single-layer array, and keeps the order so nested
-// comments look good (Level property)
-+(void)addLevel:(int)level toComment:(Comment *)comment forArray:(NSMutableArray *)orderedArray {
-    comment.Level = level;
-    [orderedArray addObject:comment];
-    for (Comment *childComment in comment.Children) {
-        [Comment addLevel:level+1 toComment:childComment forArray:orderedArray];
-    }
 }
 
 @end

@@ -32,7 +32,4 @@ typedef enum CommentType {
 
 +(NSArray *)commentsFromHTML:(NSString *)html;
 
-+(Comment *)commentFromDictionary:(NSDictionary *)dict;
-+(NSArray *)organizeComments:(NSArray *)comments topLevelID:(NSString *)topLevelID;
-
 @end
