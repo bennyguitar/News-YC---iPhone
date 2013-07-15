@@ -102,6 +102,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark - UI
 -(void)buildUI {
     // Sizes
@@ -161,6 +162,7 @@
     }];
 }
 
+
 #pragma mark - Toggle Nav
 - (IBAction)toggleSideNav:(id)sender {
     [self.viewDeckController toggleLeftView];
@@ -169,6 +171,7 @@
 -(IBAction)toggleRightNav:(id)sender {
     [self.viewDeckController toggleRightView];
 }
+
 
 #pragma mark - Did Login
 -(void)didLoginOrOut {
@@ -190,57 +193,59 @@
 
 #pragma mark - Load HomePage
 -(void)loadHomepage {
-    [HNService getHomepage];
+    [HNService getHomepageWithSuccess:^(NSArray *posts){
+        homePagePosts = posts;
+        [frontPageTable reloadData];
+        [self endRefreshing:frontPageRefresher];
+    } failure:^{
+        [FailedLoadingView launchFailedLoadingInView:self.view];
+        [self endRefreshing:frontPageRefresher];
+    }];
+    
+    // Start Loading Indicator
     loadingIndicator.alpha = 1;
 }
 
--(void)webservice:(Webservice *)webservice didFetchPosts:(NSArray *)posts {
-    if (posts) {
-        // Handle
-        homePagePosts = posts;
-        [frontPageTable reloadData];
-    }
-    else {
-        // No posts were retrieved. Handle exception.
-        [FailedLoadingView launchFailedLoadingInView:self.view];
-    }
-    
-    // Stop Activity Indicators
-    loadingIndicator.alpha = 0;
-    [frontPageRefresher endRefreshing];
-}
 
 #pragma mark - Load Comments
 -(void)loadCommentsForPost:(Post *)post {
-    [HNService getCommentsForPost:post launchComments:YES];
-    loadingIndicator.alpha = 1;
+    [HNService getCommentsForPost:post success:^(NSArray *comments){
+        currentPost = post;
+        organizedCommentsArray = comments;
+        [commentsTable reloadData];
+        [self launchCommentsView];
+        [self endRefreshing:commentsRefresher];
+    } failure:^{
+        [FailedLoadingView launchFailedLoadingInView:self.view];
+        [self endRefreshing:commentsRefresher];
+    }];
     
-    // Set current post
-    currentPost = post;
+    // Start Loading Indicator
+    loadingIndicator.alpha = 1;
 }
 
 -(void)reloadComments {
-    [HNService getCommentsForPost:currentPost launchComments:NO];
+    [HNService getCommentsForPost:currentPost success:^(NSArray *comments){
+        organizedCommentsArray = comments;
+        [commentsTable reloadData];
+        [self endRefreshing:commentsRefresher];
+    } failure:^{
+        [FailedLoadingView launchFailedLoadingInView:self.view];
+        [self endRefreshing:commentsRefresher];
+    }];
+    
+    // Start Loading Indicator
     [commentsRefresher beginRefreshing];
     loadingIndicator.alpha = 1;
 }
 
--(void)webservice:(Webservice *)webservice didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch {
-    if (comments) {
-        organizedCommentsArray = comments;
-        [commentsTable reloadData];
-        if (launch) {
-            [self launchCommentsView];
-        }
-    }
-    else {
-        // No comments were retrieved. Handle exception.
-        [FailedLoadingView launchFailedLoadingInView:self.view];
-    }
-    
-    [commentsRefresher endRefreshing];
+
+#pragma mark - UIRefreshControl Stuff
+-(void)endRefreshing:(UIRefreshControl *)refresher {
+    [refresher endRefreshing];
     loadingIndicator.alpha = 0;
 }
+
 
 #pragma mark - Vote for HNObject
 -(void)voteForPost:(Post *)post {
@@ -256,6 +261,7 @@
         
     }
 }
+
 
 #pragma mark - Scroll View Delegate
 // This method handles the hiding header bar on frontPageTable scroll
@@ -350,10 +356,10 @@
     }
 
 }
+
+
 #pragma mark ScrollToTop Management
-
 -(void)setScrollViewToScrollToTop:(UIScrollView*)scrollView{
-
     externalLinkWebView.scrollView.scrollsToTop = NO;
     commentsTable.scrollsToTop = NO;
     linkWebView.scrollView.scrollsToTop = NO;
@@ -361,6 +367,7 @@
 
     scrollView.scrollsToTop = YES;
 }
+
 
 #pragma mark - TableView Delegate
 -(int)numberOfSectionsInTableView:(UITableView *)tableView {

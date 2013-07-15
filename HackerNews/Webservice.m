@@ -16,12 +16,13 @@
 -(id)init {
     self = [super init];
     self.HNOperationQueue = [[NSOperationQueue alloc] init];
+    [self.HNOperationQueue setMaxConcurrentOperationCount:5];
 
     return self;
 }
 
 #pragma mark - Get Homepage
--(void)getHomepage {
+-(void)getHomepageWithSuccess:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure {
     HNOperation *operation = [[HNOperation alloc] init];
     __weak HNOperation *weakOp = operation;
     [operation setUrlPath:@"https://www.hnsearch.com/bigrss" data:nil completion:^{
@@ -42,7 +43,7 @@
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self grabPostsFromPath:requestPath items:items];
+                [self grabPostsFromPath:requestPath items:items success:success failure:failure];
             });
         }
         else {
@@ -54,7 +55,7 @@
     [self.HNOperationQueue addOperation:operation];
 }
 
--(void)grabPostsFromPath:(NSString *)path items:(NSArray *)items {
+-(void)grabPostsFromPath:(NSString *)path items:(NSArray *)items success:(GetHomeSuccessBlock)success failure:(GetCommentsFailureBlock)failure {
     HNOperation *operation = [[HNOperation alloc] init];
     __weak HNOperation *weakOp = operation;
     [operation setUrlPath:path data:nil completion:^{
@@ -68,13 +69,13 @@
             NSArray *orderedPostArray = [Post orderPosts:postArray byItemIDs:items];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate webservice:self didFetchPosts:orderedPostArray];
+                success(orderedPostArray);
                 [self reloadUser];
             });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate webservice:self didFetchPosts:nil];
+                failure();
             });
             
         }
@@ -84,20 +85,21 @@
 
 
 #pragma mark - Get Comments
--(void)getCommentsForPost:(Post *)post launchComments:(BOOL)launch {
+-(void)getCommentsForPost:(Post *)post success:(GetCommentsSuccessBlock)success failure:(GetCommentsFailureBlock)failure {
     HNOperation *operation = [[HNOperation alloc] init];
     __weak HNOperation *weakOp = operation;
     [operation setUrlPath:[NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@",post.hnPostID] data:nil completion:^{
         NSString *responseHTML = [[NSString alloc] initWithData:weakOp.responseData encoding:NSStringEncodingConversionAllowLossy];
         if (responseHTML.length > 0) {
+            NSArray *comments = [Comment commentsFromHTML:responseHTML];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate webservice:self didFetchComments:[Comment commentsFromHTML:responseHTML] forPostID:post.PostID launchComments:launch];
+                success(comments);
                 [self reloadUser];
             });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate webservice:self didFetchComments:nil forPostID:nil launchComments:NO];
+                failure();
             });
         }
     }];
@@ -157,9 +159,6 @@
             // Set Defaults
             [[NSUserDefaults standardUserDefaults] setValue:user forKey:@"Username"];
             [[NSUserDefaults standardUserDefaults] setValue:pass forKey:@"Password"];
-            
-            // Save Cookie
-            [[HNSingleton sharedHNSingleton] setSession];
             
             // Pass User through the delegate
             dispatch_async(dispatch_get_main_queue(), ^{
