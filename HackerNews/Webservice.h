@@ -51,5 +51,6 @@ typedef void (^SubmitLinkFailureBlock)();
 -(void)getCommentsForPost:(Post *)post success:(GetCommentsSuccessBlock)success failure:(GetCommentsFailureBlock)failure;
 -(void)loginWithUsername:(NSString *)user password:(NSString *)pass;
 -(void)voteUp:(BOOL)up forObject:(id)HNObject;
+-(void)submitLink:(NSString *)urlPath orText:(NSString *)textPost title:(NSString *)title success:(SubmitLinkSuccessBlock)success failure:(SubmitLinkFailureBlock)failure;
 
 @end

@@ -175,7 +175,6 @@
 
 #pragma mark - Did Login
 -(void)didLoginOrOut {
-    /*
     // Show paper airplane icon to open submit link
     // in right drawer. I might move this to the
     // left drawer instead.
@@ -187,7 +186,6 @@
         loadingIndicator.frame = kLoadingRectNoSubmit;
         submitLinkButton.alpha = 0;
     }
-     */
 }
 
 

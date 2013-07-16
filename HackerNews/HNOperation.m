@@ -20,10 +20,12 @@
     }
 }
 
+
 #pragma mark - Background It
 -(BOOL)isConcurrent {
     return YES;
 }
+
 
 #pragma mark - Run it
 -(void)main {
@@ -41,6 +43,7 @@
     NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] init];
     self.responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 }
+
 
 #pragma mark - URL Request Building
 +(NSMutableURLRequest *)newGetRequestForURL:(NSURL *)url {

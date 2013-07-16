@@ -273,6 +273,63 @@
 }
 
 
+#pragma mark - Submitting a Link
+-(void)submitLink:(NSString *)urlPath orText:(NSString *)textPost title:(NSString *)title success:(SubmitLinkSuccessBlock)success failure:(SubmitLinkFailureBlock)failure {
+    HNOperation *operation = [[HNOperation alloc] init];
+    __weak HNOperation *weakOp = operation;
+    [operation setUrlPath:@"https://news.ycombinator.com/submit" data:nil completion:^{
+        NSString *responseString = [[NSString alloc] initWithData:weakOp.responseData encoding:NSStringEncodingConversionAllowLossy];
+        if ([responseString rangeOfString:@"login"].location == NSNotFound) {
+            NSString *trash = @"", *fnid = @"";
+            NSScanner *scanner = [NSScanner scannerWithString:responseString];
+            [scanner scanUpToString:@"name=\"fnid\" value=\"" intoString:&trash];
+            [scanner scanString:@"name=\"fnid\" value=\"" intoString:&trash];
+            [scanner scanUpToString:@"\"" intoString:&fnid];
+            
+            // Create BodyData
+            NSString *bodyString;
+            if (urlPath.length > 0) {
+                bodyString = [NSString stringWithFormat:@"fnid=%@&u=%@&t=%@&x=\"\"", fnid, urlPath, title];
+            }
+            else {
+                bodyString = [NSString stringWithFormat:@"fnid=%@&u=\"\"&t=%@&x=%@", fnid, title, textPost];
+            }
+            NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+            
+            // Create next Request
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self submitData:bodyData success:success failure:failure];
+            });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failure();
+            });
+        }
+    }];
+    [self.HNOperationQueue addOperation:operation];
+}
+
+-(void)submitData:(NSData *)bodyData success:(SubmitLinkSuccessBlock)success failure:(SubmitLinkFailureBlock)failure {
+    HNOperation *operation = [[HNOperation alloc] init];
+    __weak HNOperation *weakOp = operation;
+    [operation setUrlPath:@"https://news.ycombinator.com/r" data:bodyData completion:^{
+        NSString *responseString = [[NSString alloc] initWithData:weakOp.responseData encoding:NSStringEncodingConversionAllowLossy];
+        if (responseString) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                success();
+            });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failure();
+            });
+        }
+    }];
+    [self.HNOperationQueue addOperation:operation];
+}
+
+
 #pragma mark - Logging
 -(void)logData:(NSData *)data {
     NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSStringEncodingConversionAllowLossy]);

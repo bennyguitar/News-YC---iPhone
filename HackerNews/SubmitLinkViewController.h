@@ -11,6 +11,7 @@
 #import "Webservice.h"
 #import "HNSingleton.h"
 #import "Helpers.h"
+#import "KGStatusBar.h"
 
 @interface SubmitLinkViewController : UIViewController <WebserviceDelegate,UITextFieldDelegate,UITextViewDelegate>
 

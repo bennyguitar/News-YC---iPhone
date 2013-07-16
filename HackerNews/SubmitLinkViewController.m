@@ -36,6 +36,9 @@
     [super viewDidLoad];
     [self buildUI];
     
+    HNService = [[Webservice alloc] init];
+    HNService.delegate = self;
+    
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard) name:@"HideKeyboard" object:nil];
 }
@@ -72,5 +75,10 @@
 
 #pragma mark - Submit
 - (IBAction)didClickSubmitStory:(id)sender {
+    [HNService submitLink:linkTextField.text orText:textTextView.text title:titleTextField.text success:^{
+        [KGStatusBar showSuccessWithStatus:@"Submit Success"];
+    } failure:^{
+        [KGStatusBar showErrorWithStatus:@"Submit Failed. Please try again."];
+    }];
 }
 @end
