@@ -98,6 +98,9 @@
 		C01EDEB71733698600AE97B8 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDEB61733698600AE97B8 /* Social.framework */; };
 		C01EDEB91733698D00AE97B8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDEB81733698D00AE97B8 /* MessageUI.framework */; };
 		C053BCD517921E4D00BAB3CC /* HNOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C053BCD417921E4D00BAB3CC /* HNOperation.m */; };
+		C0814216179795DC00D1BB17 /* Link.m in Sources */ = {isa = PBXBuildFile; fileRef = C0814215179795DC00D1BB17 /* Link.m */; };
+		C08142181797975E00D1BB17 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C08142171797975E00D1BB17 /* CoreText.framework */; };
+		C081421B1797979400D1BB17 /* UILabel+LinkDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = C081421A1797979400D1BB17 /* UILabel+LinkDetection.m */; };
 		C0ABB6221735C777005EA39C /* FailedLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB6201735C777005EA39C /* FailedLoadingView.m */; };
 		C0ABB6231735C777005EA39C /* FailedLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6211735C777005EA39C /* FailedLoadingView.xib */; };
 		C0ABB6251735C880005EA39C /* loadingFailed-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6241735C880005EA39C /* loadingFailed-01.png */; };
@@ -234,6 +237,11 @@
 		C01EDEB81733698D00AE97B8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		C053BCD317921E4D00BAB3CC /* HNOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNOperation.h; sourceTree = "<group>"; };
 		C053BCD417921E4D00BAB3CC /* HNOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNOperation.m; sourceTree = "<group>"; };
+		C0814214179795DC00D1BB17 /* Link.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Link.h; sourceTree = "<group>"; };
+		C0814215179795DC00D1BB17 /* Link.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Link.m; sourceTree = "<group>"; };
+		C08142171797975E00D1BB17 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		C08142191797979400D1BB17 /* UILabel+LinkDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+LinkDetection.h"; sourceTree = "<group>"; };
+		C081421A1797979400D1BB17 /* UILabel+LinkDetection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LinkDetection.m"; sourceTree = "<group>"; };
 		C0ABB61F1735C777005EA39C /* FailedLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailedLoadingView.h; sourceTree = "<group>"; };
 		C0ABB6201735C777005EA39C /* FailedLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailedLoadingView.m; sourceTree = "<group>"; };
 		C0ABB6211735C777005EA39C /* FailedLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FailedLoadingView.xib; sourceTree = "<group>"; };
@@ -265,6 +273,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C08142181797975E00D1BB17 /* CoreText.framework in Frameworks */,
 				C01EDEB91733698D00AE97B8 /* MessageUI.framework in Frameworks */,
 				C01EDEB71733698600AE97B8 /* Social.framework in Frameworks */,
 				C01EDE461731A67C00AE97B8 /* QuartzCore.framework in Frameworks */,
@@ -334,6 +343,7 @@
 		C01EDDDA1731553B00AE97B8 = {
 			isa = PBXGroup;
 			children = (
+				C08142171797975E00D1BB17 /* CoreText.framework */,
 				C01EDEB81733698D00AE97B8 /* MessageUI.framework */,
 				C01EDEB61733698600AE97B8 /* Social.framework */,
 				C01EDE471731A7C400AE97B8 /* icon57.png */,
@@ -416,6 +426,8 @@
 				C01EDE121731861F00AE97B8 /* Comment.m */,
 				C0ABB626173749A0005EA39C /* User.h */,
 				C0ABB627173749A0005EA39C /* User.m */,
+				C0814214179795DC00D1BB17 /* Link.h */,
+				C0814215179795DC00D1BB17 /* Link.m */,
 			);
 			name = "Data Objects";
 			sourceTree = "<group>";
@@ -514,6 +526,8 @@
 			children = (
 				C01EDE7A1731E2A900AE97B8 /* Helpers.h */,
 				C01EDE7B1731E2A900AE97B8 /* Helpers.m */,
+				C08142191797979400D1BB17 /* UILabel+LinkDetection.h */,
+				C081421A1797979400D1BB17 /* UILabel+LinkDetection.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -722,6 +736,8 @@
 				6C2DAAD3174C977B0069BAE1 /* ARChromeActivity.m in Sources */,
 				6C2DAB08174C9C2E0069BAE1 /* TUSafariActivity.m in Sources */,
 				C053BCD517921E4D00BAB3CC /* HNOperation.m in Sources */,
+				C0814216179795DC00D1BB17 /* Link.m in Sources */,
+				C081421B1797979400D1BB17 /* UILabel+LinkDetection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

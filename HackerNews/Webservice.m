@@ -191,7 +191,6 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [HNSingleton sharedHNSingleton].User = [User userFromHTMLString:[[NSString alloc] initWithData:weakOp.responseData encoding:NSStringEncodingConversionAllowLossy]];
                     [HNSingleton sharedHNSingleton].User.Username = [[NSUserDefaults standardUserDefaults] valueForKey:@"Username"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
                 });
             }
             else {

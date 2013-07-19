@@ -32,11 +32,11 @@
         [view addSubview:failedLoadingView];
         
         // Animate
-        [FailedLoadingView animateFailedLoading:failedLoadingView];
+        [FailedLoadingView animateFailedLoading:failedLoadingView duration:3.5];
     }
 }
 
-+(void)launchFailedLoadingInView:(UIView *)view withImage:(UIImage *)image text:(NSString *)text {
++(void)launchFailedLoadingInView:(UIView *)view withImage:(UIImage *)image text:(NSString *)text duration:(float)time {
     if (![FailedLoadingView isFailedLoadingInView:view]) {
         NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"FailedLoadingView" owner:nil options:nil];
         FailedLoadingView *failedLoadingView = [[FailedLoadingView alloc] init];
@@ -52,21 +52,21 @@
         [view addSubview:failedLoadingView];
         
         // Animate
-        [FailedLoadingView animateFailedLoading:failedLoadingView];
+        [FailedLoadingView animateFailedLoading:failedLoadingView duration:time];
     }
 }
 
-+(void)animateFailedLoading:(FailedLoadingView *)failedLoadingView {
++(void)animateFailedLoading:(FailedLoadingView *)failedLoadingView duration:(float)duration {
     // Sequence Animation:
     // 1. Add view to top of Frame
-    // 2. Animate to middle - hold for 3.5s
+    // 2. Animate to middle - hold for duration (3.5s)
     // 3. Bounce downward like a rubber band
     // 4. Launch to off-screen at top of frame
     
     [UIView animateWithDuration:0.25 animations:^{
         failedLoadingView.frame = CGRectMake(failedLoadingView.frame.origin.x, [UIScreen mainScreen].bounds.size.height/2 - failedLoadingView.frame.size.height/2, failedLoadingView.frame.size.width, failedLoadingView.frame.size.height);
     } completion:^(BOOL fin){
-        [UIView animateWithDuration:3.5 animations:^{
+        [UIView animateWithDuration:duration animations:^{
             // Hold for 2.5 seconds
             failedLoadingView.frame = CGRectMake(failedLoadingView.frame.origin.x, failedLoadingView.frame.origin.y - 0.1, failedLoadingView.frame.size.width, failedLoadingView.frame.size.height);
         } completion:^(BOOL fin){

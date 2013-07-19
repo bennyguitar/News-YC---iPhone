@@ -14,6 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *FailedText;
 
 +(void)launchFailedLoadingInView:(UIView *)view;
-+(void)launchFailedLoadingInView:(UIView *)view withImage:(UIImage *)image text:(NSString *)text;
++(void)launchFailedLoadingInView:(UIView *)view withImage:(UIImage *)image text:(NSString *)text duration:(float)time;
 
 @end

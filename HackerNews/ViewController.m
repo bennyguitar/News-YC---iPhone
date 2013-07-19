@@ -92,6 +92,10 @@
     longPress.minimumPressDuration = 0.7;
     longPress.delegate = self;
     [frontPageTable addGestureRecognizer:longPress];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentCellTapGesture:)];
+    tapGesture.delegate = self;
+    [commentsTable addGestureRecognizer:tapGesture];
 }
 
 
@@ -538,6 +542,13 @@
             }
         }
     }
+}
+
+-(void)commentCellTapGesture:(UITapGestureRecognizer *)recognizer {
+    NSIndexPath *indexPath = [commentsTable indexPathForRowAtPoint:[recognizer locationInView:commentsTable]];
+    CommentsCell *cell = (CommentsCell *)[commentsTable cellForRowAtIndexPath:indexPath];
+    CFIndex tapIndex = [cell.comment characterIndexAtPoint:[recognizer locationInView:cell.comment]];
+    NSLog(@"%ld", tapIndex);
 }
 
 #pragma mark - Front Page Voting Actions

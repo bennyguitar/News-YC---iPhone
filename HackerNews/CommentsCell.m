@@ -58,13 +58,16 @@
             // Set size of Comment Label
             CGSize s = [self.comment.text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(self.comment.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
             self.comment.frame = CGRectMake(self.comment.frame.origin.x, self.comment.frame.origin.y, self.comment.frame.size.width, s.height);
+            self.comment.numberOfLines = 0;
             
+            /*
             // Add Links
             for (int xx = 0; xx < newComment.Links.count; xx++) {
                 LinkButton *newLinkButton = [LinkButton newLinkButtonWithTag:indexPath.row linkTag:xx frame:CGRectMake(15*newComment.Level + kPad, self.comment.frame.size.height + self.comment.frame.origin.y + xx*kPad + xx*30 + kPad, self.frame.size.width - (15*newComment.Level + 2*kPad), 30) title:newComment.Links[xx]];
                 [newLinkButton addTarget:controller action:@selector(didClickExternalLinkInComment:) forControlEvents:UIControlEventTouchUpInside];
                 [self addSubview:newLinkButton];
             }
+             */
         }
         
         // Set action of topBarButton
@@ -87,7 +90,7 @@
         // Comment is Open
         if (newComment.CellType == CommentTypeOpen) {
             CGSize s = [newComment.Text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(self.comment.frame.size.width - (newComment.Level*15), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-            return s.height + 45 + (newComment.Links.count*30 + newComment.Links.count*kPad);
+            return s.height + 45/* + (newComment.Links.count*30 + newComment.Links.count*kPad)*/;
         }
         
         // Comment has been Clicked Closed by User

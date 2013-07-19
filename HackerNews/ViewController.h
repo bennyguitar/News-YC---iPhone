@@ -18,6 +18,7 @@
 #import "FailedLoadingView.h"
 #import "ARChromeActivity.h"
 #import "TUSafariActivity.h"
+#import "UILabel+LinkDetection.h"
 
 #define kPad 10
 

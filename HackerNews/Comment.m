@@ -8,6 +8,7 @@
 
 #import "Comment.h"
 #import "Helpers.h"
+#import "Link.h"
 
 @implementation Comment
 
@@ -98,7 +99,7 @@
     
     // Set up Attributable String
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-    [paragraph setLineBreakMode:NSLineBreakByTruncatingTail];
+    [paragraph setLineBreakMode:NSLineBreakByWordWrapping];
     self.attrText = [[NSMutableAttributedString alloc] initWithString:text];
     [self.attrText addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, text.length)];
     self.Text = text;
@@ -106,7 +107,10 @@
     // Find the links / add them to attrText and self.Links
     NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink error:nil];
     [detector enumerateMatchesInString:text options:kNilOptions range:NSMakeRange(0, text.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-        [self.Links addObject:[result.URL absoluteString]];
+        Link *newLink = [[Link alloc] init];
+        newLink.URLRange = result.range;
+        newLink.URL = result.URL;
+        [self.Links addObject:newLink];
         [self.attrText addAttribute:NSForegroundColorAttributeName value:kOrangeColor range:result.range];
     }];
 }
