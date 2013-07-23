@@ -16,7 +16,7 @@
 -(id)init {
     self = [super init];
     self.HNOperationQueue = [[NSOperationQueue alloc] init];
-    [self.HNOperationQueue setMaxConcurrentOperationCount:5];
+    [self.HNOperationQueue setMaxConcurrentOperationCount:10];
 
     return self;
 }
@@ -149,7 +149,7 @@
     [operation setUrlPath:@"https://news.ycombinator.com/y" data:bodyData completion:^{
         NSString *responseString = [[NSString alloc] initWithData:weakOp.responseData encoding:NSStringEncodingConversionAllowLossy];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ contains[c] SELF", responseString];
-        if ([predicate evaluateWithObject:@">Bad login."]) {
+        if ([predicate evaluateWithObject:@"Bad login."]) {
             // Login Failed
             dispatch_async(dispatch_get_main_queue(), ^{
                 [delegate webservice:self didLoginWithUser:nil];

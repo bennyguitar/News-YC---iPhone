@@ -270,7 +270,7 @@
 }
 
 -(void)hideKeyboard {
-    if ([HNSingleton sharedHNSingleton].User == nil && kProfile) {
+    if (![HNSingleton sharedHNSingleton].User && kProfile) {
         ProfileNotLoggedInCell *cell = (ProfileNotLoggedInCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [cell.usernameTextField resignFirstResponder];
         [cell.passwordTextField resignFirstResponder];
