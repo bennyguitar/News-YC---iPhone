@@ -99,7 +99,7 @@
     
     // Set up Attributable String
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-    [paragraph setLineBreakMode:NSLineBreakByWordWrapping];
+    [paragraph setLineBreakMode:NSLineBreakByTruncatingTail];
     self.attrText = [[NSMutableAttributedString alloc] initWithString:text];
     [self.attrText addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, text.length)];
     self.Text = text;
