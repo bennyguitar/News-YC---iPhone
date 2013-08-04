@@ -45,6 +45,7 @@
 						<int key="NSvFlags">288</int>
 						<string key="NSFrame">{{0, 74}, {320, 474}}</string>
 						<reference key="NSSuperview" ref="733575271"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -73,6 +74,7 @@
 								<int key="NSvFlags">266</int>
 								<string key="NSFrame">{{0, 62}, {320, 10}}</string>
 								<reference key="NSSuperview" ref="796749807"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="703195232"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -88,6 +90,7 @@
 								<array class="NSMutableArray" key="NSSubviews"/>
 								<string key="NSFrame">{{0, 40}, {320, 22}}</string>
 								<reference key="NSSuperview" ref="796749807"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="368226594"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -101,6 +104,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{3, 11}, {38, 32}}</string>
 								<reference key="NSSuperview" ref="796749807"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="814766027"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -138,6 +142,7 @@
 								<int key="NSvFlags">293</int>
 								<string key="NSFrame">{{143, 9}, {35, 35}}</string>
 								<reference key="NSSuperview" ref="796749807"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="313682768"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -162,6 +167,7 @@
 								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{291, 17}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="796749807"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="752715180"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -175,6 +181,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{279, 9}, {36, 36}}</string>
 								<reference key="NSSuperview" ref="796749807"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="497902991"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -198,6 +205,7 @@
 						</array>
 						<string key="NSFrameSize">{320, 72}</string>
 						<reference key="NSSuperview" ref="733575271"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="848686658"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -209,6 +217,7 @@
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="796749807"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -1238,6 +1247,7 @@
 						<string key="didClickCommentsFromLinkView:">id</string>
 						<string key="didClickLinkViewFromComments:">id</string>
 						<string key="hideCommentsAndLinkView:">id</string>
+						<string key="showSharePanel:">id</string>
 						<string key="toggleRightNav:">id</string>
 						<string key="toggleSideNav:">id</string>
 					</dictionary>
@@ -1256,6 +1266,10 @@
 						</object>
 						<object class="IBActionInfo" key="hideCommentsAndLinkView:">
 							<string key="name">hideCommentsAndLinkView:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showSharePanel:">
+							<string key="name">showSharePanel:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleRightNav:">
@@ -1370,6 +1384,10 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.InterfaceBuilder3</string>
+			<real value="4600" key="NS.object.0"/>
+		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">

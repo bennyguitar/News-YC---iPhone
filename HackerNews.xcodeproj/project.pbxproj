@@ -45,7 +45,6 @@
 		C01EDDF31731553B00AE97B8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDDF21731553B00AE97B8 /* main.m */; };
 		C01EDDF71731553B00AE97B8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDDF61731553B00AE97B8 /* AppDelegate.m */; };
 		C01EDE001731553B00AE97B8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDDFF1731553B00AE97B8 /* ViewController.m */; };
-		C01EDE031731553B00AE97B8 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE011731553B00AE97B8 /* ViewController.xib */; };
 		C01EDE0C1731557900AE97B8 /* Webservice.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE0B1731557900AE97B8 /* Webservice.m */; };
 		C01EDE1017315C6700AE97B8 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE0F17315C6700AE97B8 /* Post.m */; };
 		C01EDE131731861F00AE97B8 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE121731861F00AE97B8 /* Comment.m */; };
@@ -105,6 +104,7 @@
 		C0ABB6231735C777005EA39C /* FailedLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6211735C777005EA39C /* FailedLoadingView.xib */; };
 		C0ABB6251735C880005EA39C /* loadingFailed-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6241735C880005EA39C /* loadingFailed-01.png */; };
 		C0ABB628173749A0005EA39C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB627173749A0005EA39C /* User.m */; };
+		C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F7D17AED67F00C97F0B /* ViewController.xib */; };
 		C0F93FE51739CE1800E47B5E /* ProfileNotLoggedInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F93FE31739CE1800E47B5E /* ProfileNotLoggedInCell.m */; };
 		C0F93FE71739CE2800E47B5E /* ProfileNotLoggedInCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0F93FE61739CE2800E47B5E /* ProfileNotLoggedInCell.xib */; };
 		C0F93FEB1739D4D100E47B5E /* ProfileLoggedInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F93FE91739D4D000E47B5E /* ProfileLoggedInCell.m */; };
@@ -167,7 +167,6 @@
 		C01EDDF61731553B00AE97B8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C01EDDFE1731553B00AE97B8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C01EDDFF1731553B00AE97B8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		C01EDE021731553B00AE97B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		C01EDE0A1731557900AE97B8 /* Webservice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Webservice.h; sourceTree = "<group>"; };
 		C01EDE0B1731557900AE97B8 /* Webservice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Webservice.m; sourceTree = "<group>"; };
 		C01EDE0E17315C6700AE97B8 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
@@ -248,6 +247,7 @@
 		C0ABB6241735C880005EA39C /* loadingFailed-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingFailed-01.png"; sourceTree = "<group>"; };
 		C0ABB626173749A0005EA39C /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		C0ABB627173749A0005EA39C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		C0EE6F7E17AED67F00C97F0B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		C0F93FE21739CE1800E47B5E /* ProfileNotLoggedInCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = ProfileNotLoggedInCell.h; sourceTree = "<group>"; };
 		C0F93FE31739CE1800E47B5E /* ProfileNotLoggedInCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileNotLoggedInCell.m; sourceTree = "<group>"; };
 		C0F93FE61739CE2800E47B5E /* ProfileNotLoggedInCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileNotLoggedInCell.xib; sourceTree = "<group>"; };
@@ -386,7 +386,7 @@
 				C01EDDF61731553B00AE97B8 /* AppDelegate.m */,
 				C01EDDFE1731553B00AE97B8 /* ViewController.h */,
 				C01EDDFF1731553B00AE97B8 /* ViewController.m */,
-				C01EDE011731553B00AE97B8 /* ViewController.xib */,
+				C0EE6F7D17AED67F00C97F0B /* ViewController.xib */,
 				C01EDE421731A61700AE97B8 /* HNSingleton.h */,
 				C01EDE431731A61700AE97B8 /* HNSingleton.m */,
 				C01EDDED1731553B00AE97B8 /* Supporting Files */,
@@ -624,7 +624,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C01EDDF11731553B00AE97B8 /* InfoPlist.strings in Resources */,
-				C01EDE031731553B00AE97B8 /* ViewController.xib in Resources */,
 				C01EDE301731A44200AE97B8 /* FilterCell.xib in Resources */,
 				C01EDE321731A44200AE97B8 /* ShareCell.xib in Resources */,
 				C01EDE341731A44200AE97B8 /* SettingsCell.xib in Resources */,
@@ -698,6 +697,7 @@
 				6C2DAB09174C9C2E0069BAE1 /* vi.lproj in Resources */,
 				6C2DAB0A174C9C2E0069BAE1 /* zh_CN.lproj in Resources */,
 				6C7410C61751C09A0027C09C /* share.png in Resources */,
+				C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,10 +752,10 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		C01EDE011731553B00AE97B8 /* ViewController.xib */ = {
+		C0EE6F7D17AED67F00C97F0B /* ViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C01EDE021731553B00AE97B8 /* en */,
+				C0EE6F7E17AED67F00C97F0B /* en */,
 			);
 			name = ViewController.xib;
 			sourceTree = "<group>";
