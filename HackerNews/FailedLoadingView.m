@@ -32,7 +32,7 @@
         [view addSubview:failedLoadingView];
         
         // Animate
-        [FailedLoadingView animateFailedLoading:failedLoadingView duration:3.5];
+        [FailedLoadingView animateFailedLoading:failedLoadingView duration:2.5];
     }
 }
 

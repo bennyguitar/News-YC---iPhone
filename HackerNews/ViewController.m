@@ -88,6 +88,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoginOrOut) name:@"DidLoginOrOut" object:nil];
     
     // Add Gesture Recognizers
+    /*
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFrontPageCell:)];
     longPress.minimumPressDuration = 0.7;
     longPress.delegate = self;
@@ -96,6 +97,7 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentCellTapGesture:)];
     tapGesture.delegate = self;
     [commentsTable addGestureRecognizer:tapGesture];
+     */
 }
 
 
@@ -548,7 +550,11 @@
     NSIndexPath *indexPath = [commentsTable indexPathForRowAtPoint:[recognizer locationInView:commentsTable]];
     CommentsCell *cell = (CommentsCell *)[commentsTable cellForRowAtIndexPath:indexPath];
     CFIndex tapIndex = [cell.comment characterIndexAtPoint:[recognizer locationInView:cell.comment]];
+    CGPoint recPoint = [recognizer locationInView:cell.comment];
+    NSLog(@"Label Click: %f", recPoint.y);
     NSLog(@"%ld", tapIndex);
+    CGRect textFrame = [cell.comment textRectForBounds:cell.comment.bounds limitedToNumberOfLines:cell.comment.numberOfLines];
+    NSLog(@"%@ vs. %@", NSStringFromCGRect(cell.comment.frame), NSStringFromCGRect(textFrame));
 }
 
 #pragma mark - Front Page Voting Actions

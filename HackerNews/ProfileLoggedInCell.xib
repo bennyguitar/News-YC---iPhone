@@ -46,7 +46,6 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrameSize">{275, 25}</string>
 								<reference key="NSSuperview" ref="115467408"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="421218409"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -61,7 +60,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{10, 1}, {265, 23}}</string>
 								<reference key="NSSuperview" ref="115467408"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="593796827"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -98,8 +96,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{48, 77}, {207, 23}}</string>
 								<reference key="NSSuperview" ref="115467408"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -135,7 +131,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{10, 35}, {30, 30}}</string>
 								<reference key="NSSuperview" ref="115467408"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="882714756"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -173,7 +168,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{10, 74}, {30, 30}}</string>
 								<reference key="NSSuperview" ref="115467408"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="583115644"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -198,7 +192,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{48, 38}, {207, 23}}</string>
 								<reference key="NSSuperview" ref="115467408"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="561056476"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -224,7 +217,6 @@
 						</array>
 						<string key="NSFrameSize">{275, 131}</string>
 						<reference key="NSSuperview" ref="206117110"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="532438564"/>
 						<string key="NSReuseIdentifierKey">_NS:11</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -240,7 +232,6 @@
 				</array>
 				<string key="NSFrameSize">{275, 132}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="115467408"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -352,37 +343,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">56</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">ProfileLoggedInCell</string>
-					<string key="superclassName">UITableViewCell</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="karmaLabel">UILabel</string>
-						<string key="logoutButton">UIButton</string>
-						<string key="userLabel">UILabel</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="karmaLabel">
-							<string key="name">karmaLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="logoutButton">
-							<string key="name">logoutButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="userLabel">
-							<string key="name">userLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ProfileLoggedInCell.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
