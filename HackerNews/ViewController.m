@@ -747,13 +747,13 @@
 #pragma mark - External Link View
 -(void)didClickExternalLinkInComment:(LinkButton *)linkButton {
     Comment *clickComment = organizedCommentsArray[linkButton.tag];
-    [self launchExternalLinkViewWithLink:clickComment.Links[linkButton.LinkTag]];
+    [self launchExternalLinkViewWithLink:[clickComment.Links[linkButton.LinkTag] URL]];
 }
 
--(void)launchExternalLinkViewWithLink:(NSString *)linkString {
+-(void)launchExternalLinkViewWithLink:(NSURL *)linkUrl {
     // Set up External Link View
     [externalLinkWebView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
-    [externalLinkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:linkString]]];
+    [externalLinkWebView loadRequest:[NSURLRequest requestWithURL:linkUrl]];
     
     // Launch Link View
     externalLinkView.frame = CGRectMake(0, self.view.frame.size.height, externalLinkView.frame.size.width, self.view.frame.size.height);
