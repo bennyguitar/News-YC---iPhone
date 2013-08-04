@@ -105,7 +105,6 @@
 		C0ABB6251735C880005EA39C /* loadingFailed-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6241735C880005EA39C /* loadingFailed-01.png */; };
 		C0ABB628173749A0005EA39C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB627173749A0005EA39C /* User.m */; };
 		C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F7D17AED67F00C97F0B /* ViewController.xib */; };
-		C0EE6F8217AEDF8E00C97F0B /* AddCommentView.h in Sources */ = {isa = PBXBuildFile; fileRef = C0EE6F8017AEDF8E00C97F0B /* AddCommentView.h */; };
 		C0EE6F8317AEDF8E00C97F0B /* AddCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0EE6F8117AEDF8E00C97F0B /* AddCommentView.m */; };
 		C0EE6F8517AEDFCC00C97F0B /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F8417AEDFCC00C97F0B /* AddCommentView.xib */; };
 		C0F93FE51739CE1800E47B5E /* ProfileNotLoggedInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F93FE31739CE1800E47B5E /* ProfileNotLoggedInCell.m */; };
@@ -748,7 +747,6 @@
 				C053BCD517921E4D00BAB3CC /* HNOperation.m in Sources */,
 				C0814216179795DC00D1BB17 /* Link.m in Sources */,
 				C081421B1797979400D1BB17 /* UILabel+LinkDetection.m in Sources */,
-				C0EE6F8217AEDF8E00C97F0B /* AddCommentView.h in Sources */,
 				C0EE6F8317AEDF8E00C97F0B /* AddCommentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
