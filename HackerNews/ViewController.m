@@ -135,6 +135,10 @@
     commentsRefresher.alpha = 0.38;
     [commentsTable addSubview:commentsRefresher];
     
+    commentsHeader.backgroundColor = kOrangeColor;
+    linkHeader.backgroundColor = kOrangeColor;
+    externalLinkHeader.backgroundColor = kOrangeColor;
+    
     // Add Shadows
     NSArray *sArray = @[commentsHeader, headerContainer, linkHeader];
     for (UIView *view in sArray) {
@@ -295,9 +299,24 @@
 
 #pragma mark - Scroll View Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    /*
     if (scrollView == commentsTable) {
+        if (scrollView.contentOffset.y <= 0) {
+            return;
+        }
         
+        scrollDirection = commentsLastLocation < scrollView.contentOffset.y ? scrollDirectionUp : scrollDirectionDown;
+        
+        if (scrollDirection == scrollDirectionUp) {
+            [self.navigationController setNavigationBarHidden:YES animated:YES];
+            commentsLastLocation = scrollView.contentOffset.y;
+        }
+        else {
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
+            commentsLastLocation = scrollView.contentOffset.y;
+        }
     }
+     */
 }
 
 #pragma mark - TableView Delegate
@@ -526,6 +545,7 @@
         commentsView.frame = CGRectMake(0, 0, commentsView.frame.size.width, self.view.frame.size.height);
     } completion:^(BOOL fin){
         [frontPageTable setScrollEnabled:YES];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
     }];
 }
 
@@ -553,24 +573,7 @@
         commentsView.frame = CGRectMake(0, self.view.frame.size.height, commentsView.frame.size.width, frontPageTable.frame.size.height);
         linkView.frame = CGRectMake(0, self.view.frame.size.height, linkView.frame.size.width, linkView.frame.size.height);
     } completion:^(BOOL fin){
-        /*
-        // Reset header to where it was before clicking Links/Comments
-        if (frontPageTable.contentOffset.y >= headerContainer.frame.size.height) {
-            [UIView animateWithDuration:0.25 animations:^{
-                headerContainer.frame = CGRectMake(0, -1*headerContainer.frame.size.height, headerContainer.frame.size.width, headerContainer.frame.size.height);
-                frontPageTable.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, frontPageTable.frame.size.width,self.view.frame.size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y));
-            }];
-        }
-        else {
-            [UIView animateWithDuration:0.25 animations:^{
-                if (frontPageTable.contentOffset.y < 0) {
-                    [frontPageTable setContentOffset:CGPointZero];
-                }
-                headerContainer.frame = CGRectMake(0, -1*frontPageTable.contentOffset.y, headerContainer.frame.size.width, headerContainer.frame.size.height);
-                frontPageTable.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, frontPageTable.frame.size.width,self.view.frame.size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y));
-            }];
-        }
-         */
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }];
 }
 
@@ -652,6 +655,8 @@
     // Animate it coming in
     [UIView animateWithDuration:0.3 animations:^{
         linkView.frame = CGRectMake(0, 0, linkView.frame.size.width, linkView.frame.size.height);
+    } completion:^(BOOL finished) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
     }];
     
     // Determine if using Readability, and load the webpage

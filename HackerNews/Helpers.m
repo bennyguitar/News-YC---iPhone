@@ -8,6 +8,7 @@
 
 #import "Helpers.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AppDelegate.h"
 
 @implementation Helpers
 
@@ -83,9 +84,17 @@
         [navController.navigationBar setTintColor:kOrangeColor];
     }
     
+    // Add Center Image
     UIImageView *mainImage = [[UIImageView alloc] initWithFrame:CGRectMake(navController.navigationBar.frame.size.width/2 - kHeaderImageWidth/2, navController.navigationBar.frame.size.height - kHeaderImageHeight, kHeaderImageWidth, kHeaderImageHeight)];
     mainImage.image = [UIImage imageNamed:@"header_img"];
     [navController.navigationBar addSubview:mainImage];
+    
+    // Add Left Button
+    AppDelegate *del = [[UIApplication sharedApplication] delegate];
+    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [leftButton setImage:[UIImage imageNamed:@"3bar-01"] forState:UIControlStateNormal];
+    [leftButton addTarget:del.deckController action:@selector(toggleLeftView) forControlEvents:UIControlEventTouchUpInside];
+    [navController.navigationBar addSubview:leftButton];
 }
 
 + (void)navigationController:(UINavigationController *)navController addActivityIndicator:(UIActivityIndicatorView **)indicator {
