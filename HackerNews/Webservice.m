@@ -61,7 +61,7 @@
     HNOperation *operation = [[HNOperation alloc] init];
     __weak HNOperation *weakOp = operation;
     [operation setUrlPath:@"https://news.ycombinator.com" data:nil completion:^{
-        NSString *responseString = [[NSString alloc] initWithData:weakOp.responseData encoding:NSStringEncodingConversionAllowLossy];
+        NSString *responseString = [[NSString alloc] initWithData:weakOp.responseData encoding:NSUTF8StringEncoding];
         if (responseString.length > 0) {
             NSArray *posts = [Post parsedFrontPagePostsFromHTML:responseString];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -111,7 +111,7 @@
     HNOperation *operation = [[HNOperation alloc] init];
     __weak HNOperation *weakOp = operation;
     [operation setUrlPath:[NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@",post.hnPostID] data:nil completion:^{
-        NSString *responseHTML = [[NSString alloc] initWithData:weakOp.responseData encoding:NSStringEncodingConversionAllowLossy];
+        NSString *responseHTML = [[NSString alloc] initWithData:weakOp.responseData encoding:NSUTF8StringEncoding];
         if (responseHTML.length > 0) {
             NSArray *comments = [Comment commentsFromHTML:responseHTML];
             dispatch_async(dispatch_get_main_queue(), ^{
