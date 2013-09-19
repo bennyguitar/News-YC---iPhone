@@ -100,6 +100,11 @@
 		C0814216179795DC00D1BB17 /* Link.m in Sources */ = {isa = PBXBuildFile; fileRef = C0814215179795DC00D1BB17 /* Link.m */; };
 		C08142181797975E00D1BB17 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C08142171797975E00D1BB17 /* CoreText.framework */; };
 		C081421B1797979400D1BB17 /* UILabel+LinkDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = C081421A1797979400D1BB17 /* UILabel+LinkDetection.m */; };
+		C0970E4917EA6CF1003FD742 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0970E4817EA6CF1003FD742 /* Images.xcassets */; };
+		C0970E4C17EA6D6E003FD742 /* icon58.png in Resources */ = {isa = PBXBuildFile; fileRef = C0970E4A17EA6D6E003FD742 /* icon58.png */; };
+		C0970E4D17EA6D6E003FD742 /* icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = C0970E4B17EA6D6E003FD742 /* icon120.png */; };
+		C0970E5017EA6DFE003FD742 /* icon29.png in Resources */ = {isa = PBXBuildFile; fileRef = C0970E4E17EA6DFE003FD742 /* icon29.png */; };
+		C0970E5117EA6DFE003FD742 /* icon80.png in Resources */ = {isa = PBXBuildFile; fileRef = C0970E4F17EA6DFE003FD742 /* icon80.png */; };
 		C0ABB6221735C777005EA39C /* FailedLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB6201735C777005EA39C /* FailedLoadingView.m */; };
 		C0ABB6231735C777005EA39C /* FailedLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6211735C777005EA39C /* FailedLoadingView.xib */; };
 		C0ABB6251735C880005EA39C /* loadingFailed-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6241735C880005EA39C /* loadingFailed-01.png */; };
@@ -243,6 +248,11 @@
 		C08142171797975E00D1BB17 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		C08142191797979400D1BB17 /* UILabel+LinkDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+LinkDetection.h"; sourceTree = "<group>"; };
 		C081421A1797979400D1BB17 /* UILabel+LinkDetection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LinkDetection.m"; sourceTree = "<group>"; };
+		C0970E4817EA6CF1003FD742 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C0970E4A17EA6D6E003FD742 /* icon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon58.png; sourceTree = "<group>"; };
+		C0970E4B17EA6D6E003FD742 /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
+		C0970E4E17EA6DFE003FD742 /* icon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon29.png; sourceTree = "<group>"; };
+		C0970E4F17EA6DFE003FD742 /* icon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon80.png; sourceTree = "<group>"; };
 		C0ABB61F1735C777005EA39C /* FailedLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailedLoadingView.h; sourceTree = "<group>"; };
 		C0ABB6201735C777005EA39C /* FailedLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailedLoadingView.m; sourceTree = "<group>"; };
 		C0ABB6211735C777005EA39C /* FailedLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FailedLoadingView.xib; sourceTree = "<group>"; };
@@ -353,6 +363,10 @@
 				C01EDEB61733698600AE97B8 /* Social.framework */,
 				C01EDE471731A7C400AE97B8 /* icon57.png */,
 				C01EDE481731A7C400AE97B8 /* icon114.png */,
+				C0970E4A17EA6D6E003FD742 /* icon58.png */,
+				C0970E4B17EA6D6E003FD742 /* icon120.png */,
+				C0970E4E17EA6DFE003FD742 /* icon29.png */,
+				C0970E4F17EA6DFE003FD742 /* icon80.png */,
 				C01EDE451731A67C00AE97B8 /* QuartzCore.framework */,
 				C01EDDEC1731553B00AE97B8 /* HackerNews */,
 				C01EDDE51731553B00AE97B8 /* Frameworks */,
@@ -394,6 +408,7 @@
 				C0EE6F7D17AED67F00C97F0B /* ViewController.xib */,
 				C01EDE421731A61700AE97B8 /* HNSingleton.h */,
 				C01EDE431731A61700AE97B8 /* HNSingleton.m */,
+				C0970E4817EA6CF1003FD742 /* Images.xcassets */,
 				C01EDDED1731553B00AE97B8 /* Supporting Files */,
 			);
 			path = HackerNews;
@@ -646,12 +661,15 @@
 				C01EDE661731A84800AE97B8 /* commentbubbleDark.png in Resources */,
 				C01EDE671731A84800AE97B8 /* nav_daymode_off-01.png in Resources */,
 				C01EDE681731A84800AE97B8 /* nav_daymode_on-01.png in Resources */,
+				C0970E4C17EA6D6E003FD742 /* icon58.png in Resources */,
 				C01EDE691731A84800AE97B8 /* nav_nightmode_off-01.png in Resources */,
 				C01EDE6A1731A84800AE97B8 /* nav_nightmode_on-01.png in Resources */,
 				C01EDE6B1731A84800AE97B8 /* nav_markasread_off-01.png in Resources */,
+				C0970E4D17EA6D6E003FD742 /* icon120.png in Resources */,
 				C01EDE6C1731A84800AE97B8 /* nav_markasread_on-01.png in Resources */,
 				C01EDE6D1731A84800AE97B8 /* nav_readability_off-01.png in Resources */,
 				C01EDE6E1731A84800AE97B8 /* nav_readability_on-01.png in Resources */,
+				C0970E5117EA6DFE003FD742 /* icon80.png in Resources */,
 				C01EDE6F1731A84800AE97B8 /* topicon.png in Resources */,
 				C01EDE701731A84800AE97B8 /* email-01.png in Resources */,
 				C01EDE711731A84800AE97B8 /* facebook-01.png in Resources */,
@@ -668,6 +686,7 @@
 				C0ABB6251735C880005EA39C /* loadingFailed-01.png in Resources */,
 				C0F93FE71739CE2800E47B5E /* ProfileNotLoggedInCell.xib in Resources */,
 				C0F93FED1739D4DC00E47B5E /* ProfileLoggedInCell.xib in Resources */,
+				C0970E4917EA6CF1003FD742 /* Images.xcassets in Resources */,
 				C0F93FF01739D61000E47B5E /* profileKarma-01.png in Resources */,
 				C0F93FF11739D61000E47B5E /* profileUser-01.png in Resources */,
 				C012E5CC173B09440030924E /* logoutOrange-01.png in Resources */,
@@ -677,6 +696,7 @@
 				C0FAA5DF173E737C00ED5F52 /* voteUpOn-01.png in Resources */,
 				C0FAA5E4173ED7C900ED5F52 /* SubmitLinkViewController.xib in Resources */,
 				C0FAA5E6173EDD4500ED5F52 /* submitLink-01.png in Resources */,
+				C0970E5017EA6DFE003FD742 /* icon29.png in Resources */,
 				6C2DAAD4174C977B0069BAE1 /* ARChromeActivity.png in Resources */,
 				6C2DAAD5174C977B0069BAE1 /* ARChromeActivity@2x.png in Resources */,
 				6C2DAAD6174C977B0069BAE1 /* ARChromeActivity@2x~ipad.png in Resources */,
@@ -832,6 +852,8 @@
 		C01EDE071731553B00AE97B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HackerNews/HackerNews-Prefix.pch";
 				INFOPLIST_FILE = "HackerNews/HackerNews-Info.plist";
@@ -844,6 +866,8 @@
 		C01EDE081731553B00AE97B8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HackerNews/HackerNews-Prefix.pch";
 				INFOPLIST_FILE = "HackerNews/HackerNews-Info.plist";
