@@ -10,7 +10,10 @@
 #import "Comment.h"
 
 // This color is used in LinkButton
-#define kOrangeColor [UIColor colorWithRed:200/255.0f green:97/255.0f blue:41/255.0f alpha:1.0f]
+#define kOrangeColor [UIColor colorWithRed:255/255.0f green:95/255.0f blue:37/255.0f alpha:1.0f]
+
+#define kHeaderImageHeight 44
+#define kHeaderImageWidth 98
 
 @interface Helpers : NSObject
 
@@ -18,5 +21,7 @@
 +(NSString *)postStringFromDate:(NSDate *)date;
 +(NSDate *)postDateFromString:(NSString *)string;
 +(NSString *)timeAgoStringForDate:(NSDate *)date;
++ (void)buildNavBarForController:(UINavigationController *)navController;
++ (void)navigationController:(UINavigationController *)navController addActivityIndicator:(UIActivityIndicatorView **)indicator;
 
 @end

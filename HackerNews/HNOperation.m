@@ -47,7 +47,7 @@
 
 #pragma mark - URL Request Building
 +(NSMutableURLRequest *)newGetRequestForURL:(NSURL *)url {
-    NSMutableURLRequest *Request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageAllowedInMemoryOnly timeoutInterval:10];
+    NSMutableURLRequest *Request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
     [Request setHTTPMethod:@"GET"];
     
     /*
@@ -65,7 +65,7 @@
     [Request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [Request setHTTPBody:bodyData];
     [Request setHTTPShouldHandleCookies:YES];
-    [Request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
+    [Request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
     
     /*
     if ([HNSingleton sharedHNSingleton].SessionCookie) {

@@ -58,13 +58,6 @@
                                                                                     leftViewController:self.leftController
                                                                                    rightViewController:nil];
     
-    // Check for iOS 7 - make status bar like iOS 6
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
-        [application setStatusBarStyle:UIStatusBarStyleLightContent];
-        self.window.clipsToBounds =YES;
-        self.window.frame =  CGRectMake(0,20,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height);
-    }
-    
     self.window.rootViewController = self.deckController;
     [self.window makeKeyAndVisible];
     return YES;

@@ -109,6 +109,7 @@
 		C0ABB6231735C777005EA39C /* FailedLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6211735C777005EA39C /* FailedLoadingView.xib */; };
 		C0ABB6251735C880005EA39C /* loadingFailed-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0ABB6241735C880005EA39C /* loadingFailed-01.png */; };
 		C0ABB628173749A0005EA39C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB627173749A0005EA39C /* User.m */; };
+		C0BFA67F17EA85B70093AAD4 /* header_img.png in Resources */ = {isa = PBXBuildFile; fileRef = C0BFA67E17EA85B70093AAD4 /* header_img.png */; };
 		C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F7D17AED67F00C97F0B /* ViewController.xib */; };
 		C0EE6F8317AEDF8E00C97F0B /* AddCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0EE6F8117AEDF8E00C97F0B /* AddCommentView.m */; };
 		C0EE6F8517AEDFCC00C97F0B /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F8417AEDFCC00C97F0B /* AddCommentView.xib */; };
@@ -259,6 +260,7 @@
 		C0ABB6241735C880005EA39C /* loadingFailed-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingFailed-01.png"; sourceTree = "<group>"; };
 		C0ABB626173749A0005EA39C /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		C0ABB627173749A0005EA39C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		C0BFA67E17EA85B70093AAD4 /* header_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header_img.png; sourceTree = "<group>"; };
 		C0EE6F7E17AED67F00C97F0B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		C0EE6F8017AEDF8E00C97F0B /* AddCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AddCommentView.h; sourceTree = "<group>"; };
 		C0EE6F8117AEDF8E00C97F0B /* AddCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCommentView.m; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 		C01EDE4B1731A7E400AE97B8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C0BFA67E17EA85B70093AAD4 /* header_img.png */,
 				6C7410C51751C09A0027C09C /* share.png */,
 				C0FAA5E5173EDD4500ED5F52 /* submitLink-01.png */,
 				C0FAA5D8173E737C00ED5F52 /* voteDownOff-01.png */,
@@ -623,6 +626,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Benjamin Gordon";
+				TargetAttributes = {
+					C01EDDE21731553B00AE97B8 = {
+						DevelopmentTeam = RMTZ2ZJ8M5;
+					};
+				};
 			};
 			buildConfigurationList = C01EDDDE1731553B00AE97B8 /* Build configuration list for PBXProject "HackerNews" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -727,6 +735,7 @@
 				6C7410C61751C09A0027C09C /* share.png in Resources */,
 				C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */,
 				C0EE6F8517AEDFCC00C97F0B /* AddCommentView.xib in Resources */,
+				C0BFA67F17EA85B70093AAD4 /* header_img.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -854,11 +863,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HackerNews/HackerNews-Prefix.pch";
 				INFOPLIST_FILE = "HackerNews/HackerNews-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -868,11 +880,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HackerNews/HackerNews-Prefix.pch";
 				INFOPLIST_FILE = "HackerNews/HackerNews-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

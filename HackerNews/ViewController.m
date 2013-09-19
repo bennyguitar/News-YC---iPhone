@@ -67,7 +67,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.navigationController setNavigationBarHidden:YES];
+    
+    // Build NavBar
+    [Helpers buildNavBarForController:self.navigationController];
 	
     // Set Up Data
     homePagePosts = @[];
@@ -87,6 +89,10 @@
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoginOrOut) name:@"DidLoginOrOut" object:nil];
+    
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     
     // Add Gesture Recognizers
     /*
@@ -155,16 +161,6 @@
     headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
     frontPageTable.frame = CGRectMake(0, headerContainer.frame.size.height, frontPageTable.frame.size.width, self.view.frame.size.height - headerContainer.frame.size.height);
     [frontPageTable setContentOffset:CGPointZero];
-    
-    NSLog(@"%@", NSStringFromCGRect(headerContainer.frame));
-    NSLog(@"%@", NSStringFromCGRect(frontPageTable.frame));
-    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
-    NSLog(@"%@", NSStringFromCGRect([UIScreen mainScreen].bounds));
-    NSLog(@"%f", frontPageTable.contentOffset.y);
-    
-    AppDelegate *del = [[UIApplication sharedApplication] delegate];
-    NSLog(@"%@", NSStringFromCGRect(del.window.frame));
-    
 }
 
 -(void)didChangeTheme {
@@ -215,13 +211,17 @@
 
 #pragma mark - Load HomePage
 -(void)loadHomepage {
-    [HNService getHomepageWithSuccess:^(NSArray *posts){
+    __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
+    [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
+    [HNService getHomepageWithSuccess:^(NSArray *posts) {
         homePagePosts = posts;
         [frontPageTable reloadData];
         [self endRefreshing:frontPageRefresher];
+        [indicator removeFromSuperview];
     } failure:^{
         [FailedLoadingView launchFailedLoadingInView:self.view];
         [self endRefreshing:frontPageRefresher];
+        [indicator removeFromSuperview];
     }];
     
     // Start Loading Indicator
@@ -231,15 +231,19 @@
 
 #pragma mark - Load Comments
 -(void)loadCommentsForPost:(Post *)post {
+    __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
+    [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
     [HNService getCommentsForPost:post success:^(NSArray *comments){
         currentPost = post;
         organizedCommentsArray = comments;
         [commentsTable reloadData];
         [self launchCommentsView];
         [self endRefreshing:commentsRefresher];
+        [indicator removeFromSuperview];
     } failure:^{
         [FailedLoadingView launchFailedLoadingInView:self.view];
         [self endRefreshing:commentsRefresher];
+        [indicator removeFromSuperview];
     }];
     
     // Start Loading Indicator
@@ -247,13 +251,17 @@
 }
 
 -(void)reloadComments {
+    __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
+    [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
     [HNService getCommentsForPost:currentPost success:^(NSArray *comments){
         organizedCommentsArray = comments;
         [commentsTable reloadData];
         [self endRefreshing:commentsRefresher];
+        [indicator removeFromSuperview];
     } failure:^{
         [FailedLoadingView launchFailedLoadingInView:self.view];
         [self endRefreshing:commentsRefresher];
+        [indicator removeFromSuperview];
     }];
     
     // Start Loading Indicator
@@ -286,99 +294,11 @@
 
 
 #pragma mark - Scroll View Delegate
-// This method handles the hiding header bar on frontPageTable scroll
-// - it checks contentOffset and moves the header bar up/down and
-// - resizes the tableview accordingly.
--(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == frontPageTable) {
-        if (frontPageLastLocation < scrollView.contentOffset.y) {
-            scrollDirection = scrollDirectionUp;
-        }
-        else {
-            scrollDirection = scrollDirectionDown;
-        }
-        
-        if (loadingIndicator.alpha == 1) {
-            headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
-        }
-        else {
-            if (scrollDirection == scrollDirectionUp) {
-                if (scrollView.contentOffset.y <= headerContainer.frame.size.height) {
-                    headerContainer.frame = CGRectMake(0, -1*scrollView.contentOffset.y, headerContainer.frame.size.width, headerContainer.frame.size.height);
-                    scrollView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, scrollView.frame.size.width,self.view.frame.size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y));
-                    frontPageLastLocation = scrollView.contentOffset.y;
-                }
-                // This just ensures you can't fast-scroll, keeping the header off-screen
-                // if the contentOffset is > header.height
-                else if (scrollView.contentOffset.y > headerContainer.frame.size.height && (headerContainer.frame.origin.y != (-1*headerContainer.frame.size.height))) {
-                    headerContainer.frame = CGRectMake(0, -1*headerContainer.frame.size.height, headerContainer.frame.size.width, headerContainer.frame.size.height);
-                    scrollView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, scrollView.frame.size.width,self.view.frame.size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y));
-                }
-            }
-            
-            else {
-                if (scrollView.contentOffset.y <= headerContainer.frame.size.height && scrollView.contentOffset.y >= 0) {
-                    headerContainer.frame = CGRectMake(0, -1*scrollView.contentOffset.y, headerContainer.frame.size.width, headerContainer.frame.size.height);
-                    scrollView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, scrollView.frame.size.width,self.view.frame.size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y));
-                    frontPageLastLocation = scrollView.contentOffset.y;
-                }
-                else if (scrollView.contentOffset.y < 0) {
-                    headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
-                    scrollView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, scrollView.frame.size.width,self.view.frame.size.height - headerContainer.frame.size.height);
-                }
-            }
-            
-        }
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == commentsTable) {
         
     }
-    
-    else if (scrollView == commentsTable) {
-        // The same functionality for commentsTable
-        [self scrollCommentsToHideWithScrollView:commentsTable];
-    }
 }
-
-// This method handles the hiding header bar on commentsTable scroll
-// - it checks contentOffset and moves the header bar up/down and
-// - resizes the tableview accordingly.
--(void)scrollCommentsToHideWithScrollView:(UIScrollView *)scrollView {
-    if (commentsLastLocation < scrollView.contentOffset.y) {
-        scrollDirection = scrollDirectionUp;
-    }
-    else {
-        scrollDirection = scrollDirectionDown;
-    }
-    
-    if (scrollDirection == scrollDirectionUp) {
-        if (scrollView.contentSize.height >= self.view.frame.size.height) {
-            if (scrollView.contentOffset.y <= headerContainer.frame.size.height) {
-                headerContainer.frame = CGRectMake(0, -1*scrollView.contentOffset.y, headerContainer.frame.size.width, headerContainer.frame.size.height);
-                commentsView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, commentsView.frame.size.width,self.view.frame.size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y));
-                commentsLastLocation = scrollView.contentOffset.y;
-            }
-            // This just ensures you can't fast-scroll, keeping the header off-screen
-            // if the contentOffset is > header.height
-            else if (scrollView.contentOffset.y > headerContainer.frame.size.height && (headerContainer.frame.origin.y != (-1*headerContainer.frame.size.height))) {
-                headerContainer.frame = CGRectMake(0, -1*headerContainer.frame.size.height, headerContainer.frame.size.width, headerContainer.frame.size.height);
-                commentsView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, commentsView.frame.size.width,self.view.frame.size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y));
-            }
-        }
-    }
-    
-    else {
-        if (scrollView.contentOffset.y <= headerContainer.frame.size.height && scrollView.contentOffset.y >= 0) {
-            headerContainer.frame = CGRectMake(0, -1*scrollView.contentOffset.y, headerContainer.frame.size.width, headerContainer.frame.size.height);
-            commentsView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, commentsView.frame.size.width,self.view.frame.size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y));
-            commentsLastLocation = scrollView.contentOffset.y;
-        }
-        else if (scrollView.contentOffset.y < 0) {
-            headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
-            commentsView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, commentsView.frame.size.width,self.view.frame.size.height - headerContainer.frame.size.height);
-        }
-    }
-
-}
-
 
 #pragma mark - TableView Delegate
 -(int)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -581,9 +501,6 @@
 -(void)didClickCommentsFromHomepage:(UIButton *)commentButton {
     currentPost = [homePagePosts objectAtIndex:commentButton.tag];
     [self loadCommentsForPost:currentPost];
-    [UIView animateWithDuration:0.25 animations:^{
-        [self placeHeaderBarBack];
-    }];
 }
 
 -(void)launchCommentsView {
@@ -594,7 +511,7 @@
     postTitleLabel.text = currentPost.Title;
     
     // Set frames
-    commentsView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - headerContainer.frame.size.height);
+    commentsView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
     commentsHeader.frame = CGRectMake(0, 0, commentsHeader.frame.size.width, commentsHeader.frame.size.height);
     commentsTable.frame = CGRectMake(0, commentsHeader.frame.size.height, commentsView.frame.size.width, commentsView.frame.size.height - commentsHeader.frame.size.height);
     
@@ -606,8 +523,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         [frontPageTable setScrollEnabled:NO];
         [frontPageTable setContentOffset:frontPageTable.contentOffset animated:NO];
-        headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
-        commentsView.frame = CGRectMake(0, headerContainer.frame.size.height, commentsView.frame.size.width, self.view.frame.size.height - headerContainer.frame.size.height);
+        commentsView.frame = CGRectMake(0, 0, commentsView.frame.size.width, self.view.frame.size.height);
     } completion:^(BOOL fin){
         [frontPageTable setScrollEnabled:YES];
     }];
@@ -637,6 +553,7 @@
         commentsView.frame = CGRectMake(0, self.view.frame.size.height, commentsView.frame.size.width, frontPageTable.frame.size.height);
         linkView.frame = CGRectMake(0, self.view.frame.size.height, linkView.frame.size.width, linkView.frame.size.height);
     } completion:^(BOOL fin){
+        /*
         // Reset header to where it was before clicking Links/Comments
         if (frontPageTable.contentOffset.y >= headerContainer.frame.size.height) {
             [UIView animateWithDuration:0.25 animations:^{
@@ -653,6 +570,7 @@
                 frontPageTable.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, frontPageTable.frame.size.width,self.view.frame.size.height - (headerContainer.frame.size.height + headerContainer.frame.origin.y));
             }];
         }
+         */
     }];
 }
 
@@ -685,8 +603,7 @@
 - (IBAction)didClickCommentsFromLinkView:(id)sender {
     // Drop in Header
     [UIView animateWithDuration:0.25 animations:^{
-        headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
-        linkView.frame = CGRectMake(0, headerContainer.frame.size.height, linkView.frame.size.width, linkView.frame.size.height);
+        linkView.frame = CGRectMake(0, 0, linkView.frame.size.width, linkView.frame.size.height);
     }];
     
     // Stop LinkView from Opening/Loading anymore
@@ -717,14 +634,14 @@
     // Drop header back in
     [UIView animateWithDuration:0.25 animations:^{
         headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
-        commentsView.frame = CGRectMake(0, headerContainer.frame.size.height, commentsView.frame.size.width, commentsView.frame.size.height);
+        commentsView.frame = CGRectMake(0, 0, commentsView.frame.size.width, commentsView.frame.size.height);
     }];
     
     // Reset WebView
     [linkWebView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
     
     // Set linkView's frame
-    linkView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - headerContainer.frame.size.height);
+    linkView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
     linkHeader.frame = CGRectMake(0, 0, linkHeader.frame.size.width, linkHeader.frame.size.height);
     linkWebView.frame = CGRectMake(0, linkHeader.frame.size.height, linkWebView.frame.size.width, linkView.frame.size.height - linkHeader.frame.size.height);
     
@@ -734,8 +651,7 @@
     
     // Animate it coming in
     [UIView animateWithDuration:0.3 animations:^{
-        headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
-        linkView.frame = CGRectMake(0, headerContainer.frame.size.height, linkView.frame.size.width, linkView.frame.size.height);
+        linkView.frame = CGRectMake(0, 0, linkView.frame.size.width, linkView.frame.size.height);
     }];
     
     // Determine if using Readability, and load the webpage
@@ -795,7 +711,7 @@
         loadingIndicator.alpha = 0;
         [UIView animateWithDuration:0.25 animations:^{
             headerContainer.frame = CGRectMake(0, -1*headerContainer.frame.size.height, headerContainer.frame.size.width, headerContainer.frame.size.height);
-            linkView.frame = CGRectMake(0, headerContainer.frame.origin.y + headerContainer.frame.size.height, linkView.frame.size.width,self.view.frame.size.height);
+            linkView.frame = CGRectMake(0, 0, linkView.frame.size.width,self.view.frame.size.height);
         }];
     }
 }
