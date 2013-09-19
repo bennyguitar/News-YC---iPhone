@@ -100,11 +100,11 @@
     longPress.minimumPressDuration = 0.7;
     longPress.delegate = self;
     [frontPageTable addGestureRecognizer:longPress];
+    */
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentCellTapGesture:)];
     tapGesture.delegate = self;
     [commentsTable addGestureRecognizer:tapGesture];
-     */
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -126,13 +126,13 @@
     frontPageRefresher = [[UIRefreshControl alloc] init];
     [frontPageRefresher addTarget:self action:@selector(loadHomepage) forControlEvents:UIControlEventValueChanged];
     frontPageRefresher.tintColor = [UIColor blackColor];
-    frontPageRefresher.alpha = 0.38;
+    frontPageRefresher.alpha = 0.65;
     [frontPageTable addSubview:frontPageRefresher];
     
     commentsRefresher = [[UIRefreshControl alloc] init];
     [commentsRefresher addTarget:self action:@selector(reloadComments) forControlEvents:UIControlEventValueChanged];
     commentsRefresher.tintColor = [UIColor blackColor];
-    commentsRefresher.alpha = 0.38;
+    commentsRefresher.alpha = 0.65;
     [commentsTable addSubview:commentsRefresher];
     
     commentsHeader.backgroundColor = kOrangeColor;
@@ -221,10 +221,12 @@
         homePagePosts = posts;
         [frontPageTable reloadData];
         [self endRefreshing:frontPageRefresher];
+        indicator.alpha = 0;
         [indicator removeFromSuperview];
     } failure:^{
         [FailedLoadingView launchFailedLoadingInView:self.view];
         [self endRefreshing:frontPageRefresher];
+        indicator.alpha = 0;
         [indicator removeFromSuperview];
     }];
     
@@ -244,10 +246,12 @@
         [commentsTable setContentOffset:CGPointZero animated:YES];
         [self launchCommentsView];
         [self endRefreshing:commentsRefresher];
+        indicator.alpha = 0;
         [indicator removeFromSuperview];
     } failure:^{
         [FailedLoadingView launchFailedLoadingInView:self.view];
         [self endRefreshing:commentsRefresher];
+        indicator.alpha = 0;
         [indicator removeFromSuperview];
     }];
     
@@ -262,11 +266,13 @@
         organizedCommentsArray = comments;
         [commentsTable reloadData];
         [self endRefreshing:commentsRefresher];
+        indicator.alpha = 0;
         [indicator removeFromSuperview];
         [commentsTable setContentOffset:CGPointZero animated:YES];
     } failure:^{
         [FailedLoadingView launchFailedLoadingInView:self.view];
         [self endRefreshing:commentsRefresher];
+        indicator.alpha = 0;
         [indicator removeFromSuperview];
     }];
     

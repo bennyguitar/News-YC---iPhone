@@ -111,6 +111,7 @@
 		C0ABB628173749A0005EA39C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C0ABB627173749A0005EA39C /* User.m */; };
 		C0BFA67F17EA85B70093AAD4 /* header_img.png in Resources */ = {isa = PBXBuildFile; fileRef = C0BFA67E17EA85B70093AAD4 /* header_img.png */; };
 		C0BFA68117EA9CE70093AAD4 /* 3bar-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0BFA68017EA9CE70093AAD4 /* 3bar-01.png */; };
+		C0BFA68317EBA9B00093AAD4 /* x-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0BFA68217EBA9B00093AAD4 /* x-01.png */; };
 		C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F7D17AED67F00C97F0B /* ViewController.xib */; };
 		C0EE6F8317AEDF8E00C97F0B /* AddCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0EE6F8117AEDF8E00C97F0B /* AddCommentView.m */; };
 		C0EE6F8517AEDFCC00C97F0B /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F8417AEDFCC00C97F0B /* AddCommentView.xib */; };
@@ -263,6 +264,7 @@
 		C0ABB627173749A0005EA39C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		C0BFA67E17EA85B70093AAD4 /* header_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header_img.png; sourceTree = "<group>"; };
 		C0BFA68017EA9CE70093AAD4 /* 3bar-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3bar-01.png"; sourceTree = "<group>"; };
+		C0BFA68217EBA9B00093AAD4 /* x-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-01.png"; sourceTree = "<group>"; };
 		C0EE6F7E17AED67F00C97F0B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		C0EE6F8017AEDF8E00C97F0B /* AddCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AddCommentView.h; sourceTree = "<group>"; };
 		C0EE6F8117AEDF8E00C97F0B /* AddCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCommentView.m; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 		C01EDE4B1731A7E400AE97B8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C0BFA68217EBA9B00093AAD4 /* x-01.png */,
 				C0BFA68017EA9CE70093AAD4 /* 3bar-01.png */,
 				C0BFA67E17EA85B70093AAD4 /* header_img.png */,
 				6C7410C51751C09A0027C09C /* share.png */,
@@ -722,6 +725,7 @@
 				6C2DAAF9174C9C2E0069BAE1 /* fr.lproj in Resources */,
 				6C2DAAFA174C9C2E0069BAE1 /* it.lproj in Resources */,
 				6C2DAAFB174C9C2E0069BAE1 /* ja.lproj in Resources */,
+				C0BFA68317EBA9B00093AAD4 /* x-01.png in Resources */,
 				6C2DAAFC174C9C2E0069BAE1 /* ko.lproj in Resources */,
 				6C2DAAFD174C9C2E0069BAE1 /* nl.lproj in Resources */,
 				6C2DAAFE174C9C2E0069BAE1 /* no.lproj in Resources */,

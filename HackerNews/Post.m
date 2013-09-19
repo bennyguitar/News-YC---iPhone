@@ -80,6 +80,9 @@
         [scanner scanUpToString:@"<a href=\"" intoString:&trash];
         [scanner scanString:@"<a href=\"" intoString:&trash];
         [scanner scanUpToString:@"\">" intoString:&urlString];
+        if ([urlString rangeOfString:@"http"].location == NSNotFound) {
+            urlString = [@"https://news.ycombinator.com/" stringByAppendingString:urlString];
+        }
         newPost.URLString = urlString;
         
         // Scan Title

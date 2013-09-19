@@ -88,8 +88,8 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="minus-01.png" id="21">
-                            <rect key="frame" x="6" y="25" width="24" height="24"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="x-01.png" id="21">
+                            <rect key="frame" x="8" y="27" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="20">
@@ -184,8 +184,8 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="minus-01.png" id="16">
-                            <rect key="frame" x="6" y="25" width="24" height="24"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="x-01.png" id="16">
+                            <rect key="frame" x="8" y="27" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="share.png" id="155">
@@ -258,8 +258,8 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="minus-01.png" id="131">
-                            <rect key="frame" x="6" y="25" width="24" height="24"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="x-01.png" id="131">
+                            <rect key="frame" x="8" y="27" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         </imageView>
                     </subviews>
@@ -336,9 +336,9 @@
     </objects>
     <resources>
         <image name="menu_b3-01.png" width="30" height="18"/>
-        <image name="minus-01.png" width="40" height="40"/>
         <image name="share.png" width="50" height="50"/>
         <image name="submitLink-01.png" width="100" height="100"/>
         <image name="topicon.png" width="141" height="141"/>
+        <image name="x-01.png" width="60" height="60"/>
     </resources>
 </document>

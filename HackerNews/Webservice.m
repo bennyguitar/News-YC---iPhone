@@ -64,7 +64,9 @@
         NSString *responseString = [[NSString alloc] initWithData:weakOp.responseData encoding:NSStringEncodingConversionAllowLossy];
         if (responseString.length > 0) {
             NSArray *posts = [Post parsedFrontPagePostsFromHTML:responseString];
-            success(posts);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                success(posts);
+            });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
