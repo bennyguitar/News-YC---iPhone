@@ -36,6 +36,11 @@
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"MarkAsRead"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MarkAsRead"];
     }
+
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:0 diskCapacity:0 diskPath:nil];
+    [NSURLCache setSharedURLCache:sharedCache];
+    sharedCache = nil;
     
     // Set initial filter to Top
     [HNSingleton sharedHNSingleton].filter = fTypeTop;

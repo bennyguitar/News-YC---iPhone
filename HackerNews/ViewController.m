@@ -241,6 +241,7 @@
         currentPost = post;
         organizedCommentsArray = comments;
         [commentsTable reloadData];
+        [commentsTable setContentOffset:CGPointZero animated:YES];
         [self launchCommentsView];
         [self endRefreshing:commentsRefresher];
         [indicator removeFromSuperview];
@@ -262,6 +263,7 @@
         [commentsTable reloadData];
         [self endRefreshing:commentsRefresher];
         [indicator removeFromSuperview];
+        [commentsTable setContentOffset:CGPointZero animated:YES];
     } failure:^{
         [FailedLoadingView launchFailedLoadingInView:self.view];
         [self endRefreshing:commentsRefresher];
@@ -523,9 +525,6 @@
 }
 
 -(void)launchCommentsView {
-    // Scroll to Top
-    [commentsTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    
     // Set Post-Title Label
     postTitleLabel.text = currentPost.Title;
     
@@ -537,6 +536,9 @@
     // Add to self.view
     [self.view addSubview:commentsView];
     [self.view bringSubviewToFront:commentsView];
+    
+    // Scroll to Top
+    [commentsTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     
     // Animate everything
     [UIView animateWithDuration:0.3 animations:^{

@@ -25,6 +25,7 @@
 @interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     
     IBOutlet UITableView *navTable;
+    __weak IBOutlet UIView *headerBar;
 }
 
 // Deprecated since App version 1.1.1

@@ -18,11 +18,13 @@
 @property (nonatomic, retain) NSString *PostID;
 @property (nonatomic, assign) BOOL HasRead;
 @property (nonatomic, retain) NSDate *TimeCreated;
+@property (nonatomic, retain) NSString *TimeCreatedString;
 @property (nonatomic, retain) NSString *hnPostID;
 @property (nonatomic, assign) BOOL isOpenForActions;
 
 
 +(Post *)postFromDictionary:(NSDictionary *)dict;
 +(NSArray *)orderPosts:(NSMutableArray *)posts byItemIDs:(NSArray *)items;
++ (NSArray *)parsedFrontPagePostsFromHTML:(NSString *)htmlString;
 
 @end

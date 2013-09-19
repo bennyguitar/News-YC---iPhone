@@ -22,6 +22,7 @@
 }
 
 #pragma mark - Get Homepage
+/*
 -(void)getHomepageWithSuccess:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure {
     HNOperation *operation = [[HNOperation alloc] init];
     __weak HNOperation *weakOp = operation;
@@ -45,6 +46,25 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self grabPostsFromPath:requestPath items:items success:success failure:failure];
             });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failure();
+            });
+        }
+    }];
+    [self.HNOperationQueue addOperation:operation];
+}
+ */
+
+-(void)getHomepageWithSuccess:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure {
+    HNOperation *operation = [[HNOperation alloc] init];
+    __weak HNOperation *weakOp = operation;
+    [operation setUrlPath:@"https://news.ycombinator.com" data:nil completion:^{
+        NSString *responseString = [[NSString alloc] initWithData:weakOp.responseData encoding:NSStringEncodingConversionAllowLossy];
+        if (responseString.length > 0) {
+            NSArray *posts = [Post parsedFrontPagePostsFromHTML:responseString];
+            success(posts);
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{

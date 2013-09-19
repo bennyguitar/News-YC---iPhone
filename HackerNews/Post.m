@@ -55,5 +55,83 @@
     return orderedPosts;
 }
 
++ (NSArray *)parsedFrontPagePostsFromHTML:(NSString *)htmlString {
+    // Set up
+    NSArray *htmlComponents = [htmlString componentsSeparatedByString:@"<tr><td align=right valign=top class=\"title\">"];
+    NSMutableArray *postArray = [NSMutableArray array];
+    
+    // Scan through components and build posts
+    for (int xx = 1; xx < htmlComponents.count; xx++) {
+        // Create new Post
+        Post *newPost = [[Post alloc] init];
+        
+        // Set Up for Scanning
+        NSScanner *scanner = [[NSScanner alloc] initWithString:htmlComponents[xx]];
+        NSString *trash = @"";
+        NSString *urlString = @"";
+        NSString *title = @"";
+        NSString *hoursAgo = @"";
+        NSString *comments = @"";
+        NSString *author = @"";
+        NSString *points = @"";
+        NSString *postId = @"";
+        
+        // Scan URL
+        [scanner scanUpToString:@"<a href=\"" intoString:&trash];
+        [scanner scanString:@"<a href=\"" intoString:&trash];
+        [scanner scanUpToString:@"\">" intoString:&urlString];
+        newPost.URLString = urlString;
+        
+        // Scan Title
+        [scanner scanString:@"\">" intoString:&trash];
+        [scanner scanUpToString:@"</a>" intoString:&title];
+        newPost.Title = title;
+        
+        // Scan Points
+        [scanner scanUpToString:@"<span id=score_" intoString:&trash];
+        [scanner scanUpToString:@">" intoString:&trash];
+        [scanner scanString:@">" intoString:&trash];
+        [scanner scanUpToString:@" points" intoString:&points];
+        newPost.Points = [points intValue];
+        
+        // Scan Author
+        [scanner scanUpToString:@"<a href=\"user?id=" intoString:&trash];
+        [scanner scanUpToString:@">" intoString:&trash];
+        [scanner scanString:@">" intoString:&trash];
+        [scanner scanUpToString:@"</a> " intoString:&author];
+        newPost.Username = author;
+        
+        // Scan Time Ago
+        [scanner scanString:@"</a> " intoString:&trash];
+        [scanner scanUpToString:@"ago" intoString:&hoursAgo];
+        hoursAgo = [hoursAgo stringByAppendingString:@"ago"];
+        newPost.TimeCreatedString = hoursAgo;
+        newPost.TimeCreated = nil;
+        
+        // Scan Number of Comments
+        [scanner scanUpToString:@"<a href=\"item?id=" intoString:&trash];
+        [scanner scanString:@"<a href=\"item?id=" intoString:&trash];
+        [scanner scanUpToString:@"\">" intoString:&postId];
+        [scanner scanString:@"\">" intoString:&trash];
+        [scanner scanUpToString:@"</a>" intoString:&comments];
+        newPost.PostID = postId;
+        newPost.hnPostID = postId;
+        if ([comments isEqualToString:@"discuss"]) {
+            newPost.CommentCount = 0;
+        }
+        else {
+            NSScanner *cScan = [[NSScanner alloc] initWithString:comments];
+            NSString *cCount = @"";
+            [cScan scanUpToString:@" " intoString:&cCount];
+            newPost.CommentCount = [cCount intValue];
+        }
+        
+        
+        [postArray addObject:newPost];
+    }
+    
+    return postArray;
+}
+
 
 @end

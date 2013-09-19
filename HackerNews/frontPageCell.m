@@ -46,7 +46,8 @@
     if (post) {
         // Set data
         self.titleLabel.text = post.Title;
-        self.postedTimeLabel.text = [NSString stringWithFormat:@"%@ by %@", [Helpers timeAgoStringForDate:post.TimeCreated], post.Username];
+        NSString *timeAgo = post.TimeCreated ? [Helpers timeAgoStringForDate:post.TimeCreated] : post.TimeCreatedString;
+        self.postedTimeLabel.text = [NSString stringWithFormat:@"%@ by %@", timeAgo, post.Username];
         self.commentsLabel.text = [NSString stringWithFormat:@"%d", post.CommentCount];
         self.scoreLabel.text = [NSString stringWithFormat:@"%d Points", post.Points];
         self.commentTagButton.tag = indexPath.row;

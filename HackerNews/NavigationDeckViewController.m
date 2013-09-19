@@ -30,6 +30,9 @@
     //Disabling scrollToTop not to interfere with main view's scrollToTop
     [navTable setScrollsToTop:NO];
     
+    // Set HeaderBar Color
+    //headerBar.backgroundColor = [UIColor colorWithWhite:0.35 alpha:1.0];
+    
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoginOrOut) name:@"DidLoginOrOut" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard) name:@"HideKeyboard" object:nil];
