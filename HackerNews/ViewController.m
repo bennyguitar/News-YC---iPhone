@@ -49,6 +49,7 @@
     float frontPageLastLocation;
     float commentsLastLocation;
     int scrollDirection;
+    NSString *filterString;
 }
 
 // Change Theme
@@ -63,6 +64,36 @@
 @end
 
 @implementation ViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filterType:(FilterType)type
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        switch (type) {
+            case FilterTypeTop:
+                filterString = @"";
+                break;
+            case FilterTypeAsk:
+                filterString = @"ask";
+                break;
+            case FilterTypeNew:
+                filterString = @"newest";
+                break;
+            case FilterTypeJobs:
+                filterString = @"jobs";
+                break;
+            case FilterTypeBest:
+                filterString = @"best";
+                break;
+                
+            default:
+                filterString = @"";
+                break;
+        }
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad
 {
@@ -217,12 +248,13 @@
 -(void)loadHomepage {
     __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
     [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
-    [HNService getHomepageWithSuccess:^(NSArray *posts) {
+    [HNService getHomepageWithFilter:filterString success:^(NSArray *posts) {
         homePagePosts = [posts mutableCopy];
         [frontPageTable reloadData];
         [self endRefreshing:frontPageRefresher];
         indicator.alpha = 0;
         [indicator removeFromSuperview];
+        [HNService unlockFNIDLoading];
     } failure:^{
         [FailedLoadingView launchFailedLoadingInView:self.view];
         [self endRefreshing:frontPageRefresher];
@@ -306,7 +338,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == frontPageTable) {
         // Use current fnid to grab latest posts
-        if ([[frontPageTable indexPathsForVisibleRows].lastObject row] == homePagePosts.count -1 && HNService.isLoadingFromFNID == NO) {
+        if ([[frontPageTable indexPathsForVisibleRows].lastObject row] == homePagePosts.count - 3 && HNService.isLoadingFromFNID == NO) {
             __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
             [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
             [HNService getHomepageFromFnid:[HNSingleton sharedHNSingleton].CurrentFNID withSuccess:^(NSArray *posts) {

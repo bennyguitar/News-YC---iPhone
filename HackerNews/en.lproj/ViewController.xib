@@ -247,9 +247,10 @@
                                 <action selector="didClickBackToComments:" destination="-1" eventType="touchUpInside" id="135"/>
                             </connections>
                         </button>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="white" id="142">
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="142">
                             <rect key="frame" x="295" y="27" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <color key="color" white="0.20419606849999999" alpha="1" colorSpace="calibratedWhite"/>
                         </activityIndicatorView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Back to Comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="132">
                             <rect key="frame" x="91" y="20" width="141" height="34"/>

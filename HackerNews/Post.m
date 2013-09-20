@@ -94,7 +94,7 @@
         [scanner scanUpToString:@"<span id=score_" intoString:&trash];
         [scanner scanUpToString:@">" intoString:&trash];
         [scanner scanString:@">" intoString:&trash];
-        [scanner scanUpToString:@" points" intoString:&points];
+        [scanner scanUpToString:@" point" intoString:&points];
         newPost.Points = [points intValue];
         
         // Scan Author

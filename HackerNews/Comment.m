@@ -91,6 +91,7 @@
     text = [text stringByReplacingOccurrencesOfString:@"&#60;" withString:@"<"];
     text = [text stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
     text = [text stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+    text = [text stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
     text = [text stringByReplacingOccurrencesOfString:@"<pre><code>" withString:@""];
     text = [text stringByReplacingOccurrencesOfString:@"</code></pre>" withString:@""];
     

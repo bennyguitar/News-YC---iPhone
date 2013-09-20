@@ -58,10 +58,10 @@
 }
  */
 
--(void)getHomepageWithSuccess:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure {
+-(void)getHomepageWithFilter:(NSString *)filter success:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure {
     HNOperation *operation = [[HNOperation alloc] init];
     __weak HNOperation *weakOp = operation;
-    [operation setUrlPath:@"https://news.ycombinator.com" data:nil completion:^{
+    [operation setUrlPath:[NSString stringWithFormat:@"https://news.ycombinator.com/%@", filter] data:nil completion:^{
         NSString *responseString = [[NSString alloc] initWithData:weakOp.responseData encoding:NSUTF8StringEncoding];
         if (responseString.length > 0) {
             NSArray *posts = [Post parsedFrontPagePostsFromHTML:responseString];
@@ -81,6 +81,12 @@
 -(void)getHomepageFromFnid:(NSString *)fnid withSuccess:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure {
     if (!self.isLoadingFromFNID) {
         self.isLoadingFromFNID = YES;
+        
+        if (fnid.length == 0) {
+            success(@[]);
+            return;
+        }
+        
         HNOperation *operation = [[HNOperation alloc] init];
         __weak HNOperation *weakOp = operation;
         [operation setUrlPath:[NSString stringWithFormat:@"https://news.ycombinator.com/%@", [fnid stringByReplacingOccurrencesOfString:@"/" withString:@""]] data:nil completion:^{

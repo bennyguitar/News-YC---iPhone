@@ -49,7 +49,7 @@
         NSString *timeAgo = post.TimeCreated ? [Helpers timeAgoStringForDate:post.TimeCreated] : post.TimeCreatedString;
         self.postedTimeLabel.text = [NSString stringWithFormat:@"%@ by %@", timeAgo, post.Username];
         self.commentsLabel.text = [NSString stringWithFormat:@"%d", post.CommentCount];
-        self.scoreLabel.text = [NSString stringWithFormat:@"%d Points", post.Points];
+        self.scoreLabel.text = [NSString stringWithFormat:@"%d Point%@", post.Points, post.Points == 1 ? @"" : @"s"];
         self.commentTagButton.tag = indexPath.row;
         self.commentBGButton.tag = indexPath.row;
         [self.commentTagButton addTarget:controller action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
@@ -118,6 +118,9 @@
             [self insertSubview:jobsView atIndex:0];
             self.scoreLabel.text = @"HN Jobs";
             self.postedTimeLabel.text = @"";
+            self.commentBGButton.hidden = YES;
+            self.commentTagButton.hidden = YES;
+            self.commentsLabel.hidden = YES;
         }
         
         // Mark as Read
