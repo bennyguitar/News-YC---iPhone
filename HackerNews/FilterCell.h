@@ -9,14 +9,23 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+#define kFilterCellHeight 128
+
+@class ViewController;
+
+@protocol FilterCellDelegate <NSObject>
+- (void)filterHomePageWithType:(int)type;
+@end
+
 @interface FilterCell : UITableViewCell
 
-@property (retain, nonatomic) IBOutlet UIButton *filterTopButton;
-@property (retain, nonatomic) IBOutlet UIButton *filterNewButton;
-@property (retain, nonatomic) IBOutlet UIButton *filterAskButton;
-@property (retain, nonatomic) IBOutlet UIImageView *filterNewOverlay;
-@property (retain, nonatomic) IBOutlet UIImageView *filterTopOverlay;
-@property (retain, nonatomic) IBOutlet UIImageView *filterAskOverlay;
+@property (weak, nonatomic) IBOutlet UIButton *topButton;
+@property (weak, nonatomic) IBOutlet UIButton *askButton;
+@property (weak, nonatomic) IBOutlet UIButton *newestButton;
+@property (weak, nonatomic) IBOutlet UIButton *jobsButton;
+@property (weak, nonatomic) IBOutlet UIButton *bestButton;
+@property (weak) id <FilterCellDelegate> delegate;
 
+- (void)setUpCellForActiveFilter:(int)filter delegate:(id)vcDelegate;
 
 @end

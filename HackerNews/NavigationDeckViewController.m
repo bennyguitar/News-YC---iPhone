@@ -45,6 +45,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)filterHomePageWithType:(int)type {
+    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil filterType:type];
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [del.deckController setCenterController:[[UINavigationController alloc] initWithRootViewController:vc]];
+    [self.viewDeckController toggleLeftView];
+}
+
 // Deprecated since App Version 1.1.1
 // New API does not give options for these
 /*
@@ -110,7 +117,7 @@
             }
             else {
                 // It WORKED!
-                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
+                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 3 : 2) inSection:0]];
                 cell.checkImage.alpha = 1;
                 [UIView animateWithDuration:1.5 animations:^{
                     cell.checkImage.alpha = 0;
@@ -141,7 +148,7 @@
             }
             else {
                 // IT WORKED!
-                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
+                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 3 : 2) inSection:0]];
                 cell.checkImage.alpha = 1;
                 [UIView animateWithDuration:1.5 animations:^{
                     cell.checkImage.alpha = 0;
@@ -176,7 +183,7 @@
 
 #pragma mark - Readability
 -(void)didClickReadability {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 1 : 0) inSection:0]];
+    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
     if (cell.readabilityLabel.text.length == 18) {
         [cell.readabilityButton setImage:[UIImage imageNamed:@"nav_readability_on-01.png"] forState:UIControlStateNormal];
         cell.readabilityButton.alpha = 1;
@@ -194,7 +201,7 @@
 
 #pragma mark - Mark As Read
 -(void)didClickMarkAsRead {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 1 : 0) inSection:0]];
+    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
     if (cell.markAsReadLabel.text.length == 19) {
         [cell.markAsReadButton setImage:[UIImage imageNamed:@"nav_markasread_on-01.png"] forState:UIControlStateNormal];
         cell.markAsReadButton.alpha = 1;
@@ -213,7 +220,7 @@
 
 #pragma mark - Theme Change
 -(void)didClickChangeTheme {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 1 : 0) inSection:0]];
+    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
     if (cell.themeLabel.text.length == 14) {
         [cell.nightModeButton setImage:[UIImage imageNamed:@"nav_daymode_on-01.png"] forState:UIControlStateNormal];
         cell.nightModeButton.alpha = 1;
@@ -235,7 +242,7 @@
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [controller dismissViewControllerAnimated:YES completion:^{
         if (result == MFMailComposeResultSent) {
-            ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
+            ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 3 : 2) inSection:0]];
             cell.checkImage.alpha = 1;
             [UIView animateWithDuration:1.5 animations:^{
                 cell.checkImage.alpha = 0;
@@ -286,12 +293,12 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (kProfile ? 4 : 3);
+    return (kProfile ? 5 : 4);
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // FILTER CELL
-    if (indexPath.row == 999) {
+    if (indexPath.row == kProfile ? 1 : 0) {
         NSString *CellIdentifier = @"FilterCell";
         FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -302,20 +309,11 @@
                 }
             }
         }
-        [cell.filterTopButton addTarget:self action:@selector(changeTypeToTop:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.filterNewButton addTarget:self action:@selector(changeTypeToNew:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.filterAskButton addTarget:self action:@selector(changeTypeToAsk:) forControlEvents:UIControlEventTouchUpInside];
         
-        // Build UI
-        NSArray *bArray = @[cell.filterTopButton,cell.filterNewButton, cell.filterAskButton];
-        for (UIButton *b in bArray) {
-            b.layer.cornerRadius = 10;
-            [Helpers makeShadowForView:b withRadius:10];
-        }
-        
-        cell.filterTopOverlay.layer.cornerRadius = 7;
-        cell.filterNewOverlay.layer.cornerRadius = 7;
-        cell.filterAskOverlay.layer.cornerRadius = 7;
+        AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        UINavigationController *navVC = (UINavigationController *)del.deckController.centerController;
+        ViewController *vc = (ViewController *)[navVC viewControllers][0];
+        [cell setUpCellForActiveFilter:vc.filterType delegate:self];
         
         return cell;
     }
@@ -366,7 +364,7 @@
     }
 
     // SHARE CELL
-    else if (indexPath.row == (kProfile ? 2 : 1)) {
+    else if (indexPath.row == (kProfile ? 3 : 2)) {
         NSString *CellIdentifier = @"ShareCell";
         ShareCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -385,7 +383,7 @@
     }
     
     // SETTINGS CELL
-    else if (indexPath.row == (kProfile ? 1 : 0)) {
+    else if (indexPath.row == (kProfile ? 2 : 1)) {
         NSString *CellIdentifier = @"SettingsCell";
         SettingsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -458,8 +456,8 @@
         return cell;
     }
     
-    // SHARE CELL
-    else if (indexPath.row == (kProfile ? 3 : 2)) {
+    // CREDITS CELL
+    else if (indexPath.row == (kProfile ? 4 : 3)) {
         NSString *CellIdentifier = @"CreditsCell";
         CreditsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -478,8 +476,8 @@
 }
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 999) {
-        return 102;
+    if (indexPath.row == kProfile ? 1 : 0) {
+        return kFilterCellHeight;
     }
     else if (indexPath.row == (kProfile ? 0 : 998)) {
         if ([HNSingleton sharedHNSingleton].User) {
@@ -487,13 +485,13 @@
         }
         return kCellProfNotLoggedInHeight;
     }
-    else if (indexPath.row == (kProfile ? 1 : 0)) {
+    else if (indexPath.row == (kProfile ? 2 : 1)) {
         if ([HNSingleton sharedHNSingleton].User) {
             return kCellSettingsLoggedInHeight;
         }
         return kCellSettingsHeight;
     }
-    else if (indexPath.row == (kProfile ? 2 : 1)) {
+    else if (indexPath.row == (kProfile ? 3 : 2)) {
         return kCellShareHeight;
     }
     else {

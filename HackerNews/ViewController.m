@@ -69,6 +69,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.filterType = type;
         switch (type) {
             case FilterTypeTop:
                 filterString = @"";
@@ -85,9 +86,9 @@
             case FilterTypeBest:
                 filterString = @"best";
                 break;
-                
             default:
                 filterString = @"";
+                self.filterType = 0;
                 break;
         }
     }
@@ -140,6 +141,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self setSizes];
+    NSLog(@"%@", NSStringFromCGRect(frontPageTable.frame));
 }
 
 
@@ -193,8 +195,7 @@
 
 -(void)setSizes {
     // Sizes
-    headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
-    frontPageTable.frame = CGRectMake(0, headerContainer.frame.size.height, frontPageTable.frame.size.width, self.view.frame.size.height - headerContainer.frame.size.height);
+    frontPageTable.frame = CGRectMake(0, 0, frontPageTable.frame.size.width, self.view.frame.size.height);
     [frontPageTable setContentOffset:CGPointZero];
 }
 

@@ -7,35 +7,40 @@
 //
 
 #import "FilterCell.h"
+#import "ViewController.h"
+#import "AppDelegate.h"
 
 @implementation FilterCell
+@synthesize delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        [self buildUI];
     }
     return self;
 }
 
 -(void)buildUI {
-    NSArray *bArray = @[self.filterTopButton,self.filterNewButton, self.filterAskButton];
-    for (UIButton *b in bArray) {
-        b.layer.cornerRadius = 10;
-        b.layer.shadowColor = [UIColor blackColor].CGColor;
-        b.layer.shadowOpacity = 0.4f;
-        b.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
-        b.layer.shadowRadius = 2.75f;
-        b.layer.masksToBounds = NO;
-        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:b.bounds cornerRadius:10];
-        b.layer.shadowPath = path.CGPath;
+
+}
+
+- (void)setUpCellForActiveFilter:(int)filter delegate:(id)vcDelegate {
+    NSArray *buttons = @[self.topButton, self.askButton, self.newestButton, self.jobsButton, self.bestButton];
+    if (vcDelegate) {
+        delegate = (id <FilterCellDelegate>)vcDelegate;
     }
     
-    self.filterTopOverlay.layer.cornerRadius = 7;
-    self.filterNewOverlay.layer.cornerRadius = 7;
-    self.filterAskOverlay.layer.cornerRadius = 7;
+    for (UIButton *button in buttons) {
+        [button setTitleColor:(button.tag == filter ? kOrangeColor : [UIColor colorWithWhite:0.5 alpha:1.0]) forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(didClickFilterButton:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+- (void)didClickFilterButton:(UIButton *)button {
+    [delegate filterHomePageWithType:button.tag];
+    [self setUpCellForActiveFilter:button.tag delegate:nil];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -37,4 +37,6 @@ typedef NS_ENUM(NSInteger, FilterType) {
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filterType:(FilterType)type;
 
+@property (nonatomic, assign) FilterType filterType;
+
 @end
