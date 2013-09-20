@@ -68,11 +68,11 @@ static HNSingleton * _sharedHNSingleton = nil;
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.92 alpha:1.0] forKey:@"MainFont"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.98 alpha:1.0] forKey:@"SubFont"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.25 alpha:1.0] forKey:@"BottomBar"];
-        [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.33 alpha:1.0] forKey:@"Separator"];
+        [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.45 alpha:1.0] forKey:@"Separator"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.17 alpha:1.0] forKey:@"TableTriangle"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIImage imageNamed:@"commentbubble-01.png"] forKey:@"CommentBubble"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:149/255.0 green:78/255.0 blue:48/255.0 alpha:1.0] forKey:@"ShowHN"];
-        [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:47/255.0 green:93/255.0 blue:54/255.0 alpha:1.0] forKey:@"HNJobs"];
+        [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:60/255.0 green:120/255.0 blue:71/255.0 alpha:1.0] forKey:@"HNJobs"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:44/255.0 green:44/255.0 blue:44/255.0 alpha:1.0] forKey:@"PostActions"];
     }
     else {
@@ -81,7 +81,7 @@ static HNSingleton * _sharedHNSingleton = nil;
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.4 alpha:1.0] forKey:@"MainFont"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.20 alpha:1.0] forKey:@"SubFont"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.75 alpha:1.0] forKey:@"BottomBar"];
-        [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.70 alpha:1.0] forKey:@"Separator"];
+        [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.5 alpha:1.0] forKey:@"Separator"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithWhite:0.89 alpha:1.0] forKey:@"TableTriangle"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIImage imageNamed:@"commentbubbleDark.png"] forKey:@"CommentBubble"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:252/255.0 green:163/255.0 blue:131/255.0 alpha:1.0] forKey:@"ShowHN"];

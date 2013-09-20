@@ -111,6 +111,15 @@
             }
         }
         
+        // Jobs Color
+        if (post.isJobPost) {
+            UIView *jobsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+            jobsView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"HNJobs"];
+            [self insertSubview:jobsView atIndex:0];
+            self.scoreLabel.text = @"HN Jobs";
+            self.postedTimeLabel.text = @"";
+        }
+        
         // Mark as Read
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MarkAsRead"]) {
             if (post.HasRead) {

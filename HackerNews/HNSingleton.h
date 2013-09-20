@@ -44,6 +44,7 @@ enum theme {
 @property (nonatomic, assign) enum fType filter;
 @property (nonatomic, retain) NSHTTPCookie *SessionCookie;
 @property (nonatomic, retain) User *User;
+@property (nonatomic, retain) NSString *CurrentFNID;
 
 
 +(HNSingleton*)sharedHNSingleton;

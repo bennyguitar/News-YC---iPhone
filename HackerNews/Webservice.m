@@ -17,6 +17,7 @@
     self = [super init];
     self.HNOperationQueue = [[NSOperationQueue alloc] init];
     [self.HNOperationQueue setMaxConcurrentOperationCount:10];
+    self.isLoadingFromFNID = NO;
 
     return self;
 }
@@ -75,6 +76,31 @@
         }
     }];
     [self.HNOperationQueue addOperation:operation];
+}
+
+-(void)getHomepageFromFnid:(NSString *)fnid withSuccess:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure {
+    if (!self.isLoadingFromFNID) {
+        self.isLoadingFromFNID = YES;
+        HNOperation *operation = [[HNOperation alloc] init];
+        __weak HNOperation *weakOp = operation;
+        [operation setUrlPath:[NSString stringWithFormat:@"https://news.ycombinator.com/%@", [fnid stringByReplacingOccurrencesOfString:@"/" withString:@""]] data:nil completion:^{
+            NSString *responseString = [[NSString alloc] initWithData:weakOp.responseData encoding:NSUTF8StringEncoding];
+            if (responseString.length > 0) {
+                NSArray *posts = [Post parsedFrontPagePostsFromHTML:responseString];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    success(posts);
+                    self.isLoadingFromFNID = NO;
+                });
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    failure();
+                    self.isLoadingFromFNID = NO;
+                });
+            }
+        }];
+        [self.HNOperationQueue addOperation:operation];
+    }
 }
 
 -(void)grabPostsFromPath:(NSString *)path items:(NSArray *)items success:(GetHomeSuccessBlock)success failure:(GetCommentsFailureBlock)failure {
@@ -348,6 +374,15 @@
         }
     }];
     [self.HNOperationQueue addOperation:operation];
+}
+
+#pragma mark - Lock FNID
+- (void)lockFNIDLoading {
+    self.isLoadingFromFNID = YES;
+}
+
+- (void)unlockFNIDLoading {
+    self.isLoadingFromFNID = NO;
 }
 
 

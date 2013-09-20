@@ -42,7 +42,7 @@
     Webservice *HNService;
     
     // Data
-    NSArray *homePagePosts;
+    NSMutableArray *homePagePosts;
     NSArray *organizedCommentsArray;
     NSMutableArray *openFrontPageCells;
     Post *currentPost;
@@ -72,7 +72,7 @@
     [Helpers buildNavBarForController:self.navigationController];
 	
     // Set Up Data
-    homePagePosts = @[];
+    homePagePosts = [@[] mutableCopy];
     organizedCommentsArray = @[];
     openFrontPageCells = [@[] mutableCopy];
     frontPageLastLocation = 0;
@@ -218,7 +218,7 @@
     __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
     [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
     [HNService getHomepageWithSuccess:^(NSArray *posts) {
-        homePagePosts = posts;
+        homePagePosts = [posts mutableCopy];
         [frontPageTable reloadData];
         [self endRefreshing:frontPageRefresher];
         indicator.alpha = 0;
@@ -229,9 +229,6 @@
         indicator.alpha = 0;
         [indicator removeFromSuperview];
     }];
-    
-    // Start Loading Indicator
-    loadingIndicator.alpha = 1;
 }
 
 
@@ -307,24 +304,29 @@
 
 #pragma mark - Scroll View Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    /*
-    if (scrollView == commentsTable) {
-        if (scrollView.contentOffset.y <= 0) {
-            return;
-        }
-        
-        scrollDirection = commentsLastLocation < scrollView.contentOffset.y ? scrollDirectionUp : scrollDirectionDown;
-        
-        if (scrollDirection == scrollDirectionUp) {
-            [self.navigationController setNavigationBarHidden:YES animated:YES];
-            commentsLastLocation = scrollView.contentOffset.y;
-        }
-        else {
-            [self.navigationController setNavigationBarHidden:NO animated:YES];
-            commentsLastLocation = scrollView.contentOffset.y;
+    if (scrollView == frontPageTable) {
+        // Use current fnid to grab latest posts
+        if ([[frontPageTable indexPathsForVisibleRows].lastObject row] == homePagePosts.count -1 && HNService.isLoadingFromFNID == NO) {
+            __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
+            [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
+            [HNService getHomepageFromFnid:[HNSingleton sharedHNSingleton].CurrentFNID withSuccess:^(NSArray *posts) {
+                indicator.alpha = 0;
+                [indicator removeFromSuperview];
+                if (posts.count > 0) {
+                    [homePagePosts addObjectsFromArray:posts];
+                    [frontPageTable reloadData];
+                }
+                else {
+                    [HNService lockFNIDLoading];
+                }
+            } failure:^{
+                [FailedLoadingView launchFailedLoadingInView:self.view];
+                [HNService lockFNIDLoading];
+                indicator.alpha = 0;
+                [indicator removeFromSuperview];
+            }];
         }
     }
-     */
 }
 
 #pragma mark - TableView Delegate

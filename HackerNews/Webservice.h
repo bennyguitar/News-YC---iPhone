@@ -46,11 +46,17 @@ typedef void (^SubmitLinkFailureBlock)();
 // OperationQueue
 @property (nonatomic, retain) NSOperationQueue *HNOperationQueue;
 
+// IsLoadingFnid
+@property (nonatomic, assign) BOOL isLoadingFromFNID;
+
 // Methods
 -(void)getHomepageWithSuccess:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure;
+-(void)getHomepageFromFnid:(NSString *)fnid withSuccess:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure;
 -(void)getCommentsForPost:(Post *)post success:(GetCommentsSuccessBlock)success failure:(GetCommentsFailureBlock)failure;
 -(void)loginWithUsername:(NSString *)user password:(NSString *)pass;
 -(void)voteUp:(BOOL)up forObject:(id)HNObject;
 -(void)submitLink:(NSString *)urlPath orText:(NSString *)textPost title:(NSString *)title success:(SubmitLinkSuccessBlock)success failure:(SubmitLinkFailureBlock)failure;
+- (void)lockFNIDLoading;
+- (void)unlockFNIDLoading;
 
 @end

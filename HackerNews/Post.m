@@ -129,6 +129,19 @@
             newPost.CommentCount = [cCount intValue];
         }
         
+        // Check if Jobs Post
+        if ([newPost.PostID isEqualToString:@""] && newPost.Points == 0 && [hoursAgo isEqualToString:@"ago"]) {
+            newPost.isJobPost = YES;
+        }
+        
+        // Grab FNID if last
+        if (xx == htmlComponents.count - 1) {
+            [scanner scanUpToString:@"<td class=\"title\"><a href=\"" intoString:&trash];
+            NSString *fnid = @"";
+            [scanner scanString:@"<td class=\"title\"><a href=\"" intoString:&trash];
+            [scanner scanUpToString:@"\"" intoString:&fnid];
+            [HNSingleton sharedHNSingleton].CurrentFNID = fnid;
+        }
         
         [postArray addObject:newPost];
     }

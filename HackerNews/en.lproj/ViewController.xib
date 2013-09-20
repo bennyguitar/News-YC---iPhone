@@ -89,7 +89,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="x-01.png" id="21">
-                            <rect key="frame" x="8" y="27" width="20" height="20"/>
+                            <rect key="frame" x="8" y="28" width="17" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="20">
@@ -185,7 +185,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="x-01.png" id="16">
-                            <rect key="frame" x="8" y="27" width="20" height="20"/>
+                            <rect key="frame" x="8" y="28" width="17" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="share.png" id="155">
@@ -259,7 +259,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="x-01.png" id="131">
-                            <rect key="frame" x="8" y="27" width="20" height="20"/>
+                            <rect key="frame" x="8" y="28" width="17" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         </imageView>
                     </subviews>

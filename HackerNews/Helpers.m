@@ -100,7 +100,7 @@
 + (void)navigationController:(UINavigationController *)navController addActivityIndicator:(UIActivityIndicatorView **)indicator {
     [*indicator setFrame:CGRectMake(navController.navigationBar.frame.size.width - 30, navController.navigationBar.frame.size.height/2 - 10, 20, 20)];
     [*indicator startAnimating];
-    [*indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+    [*indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     [navController.navigationBar addSubview:*indicator];
 }
 

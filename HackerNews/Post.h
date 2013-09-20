@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSString *TimeCreatedString;
 @property (nonatomic, retain) NSString *hnPostID;
 @property (nonatomic, assign) BOOL isOpenForActions;
+@property (nonatomic, assign) BOOL isJobPost;
 
 
 +(Post *)postFromDictionary:(NSDictionary *)dict;
