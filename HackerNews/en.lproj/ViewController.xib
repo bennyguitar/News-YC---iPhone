@@ -120,9 +120,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <webView contentMode="scaleToFill" scalesPageToFit="YES" id="11">
-                    <rect key="frame" x="0.0" y="54" width="320" height="514"/>
+                    <rect key="frame" x="-9" y="62" width="320" height="514"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.66830708660000004" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
                     <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="141"/>
@@ -208,6 +209,7 @@
                     <rect key="frame" x="0.0" y="55" width="320" height="513"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.66830708660000004" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
                     <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="144"/>
@@ -340,6 +342,8 @@
         <image name="share.png" width="50" height="50"/>
         <image name="submitLink-01.png" width="100" height="100"/>
         <image name="topicon.png" width="141" height="141"/>
+        <image name="x-01.png" width="60" height="60"/>
+        <image name="x-01.png" width="60" height="60"/>
         <image name="x-01.png" width="60" height="60"/>
     </resources>
 </document>
