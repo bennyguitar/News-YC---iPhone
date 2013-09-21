@@ -132,16 +132,18 @@
     longPress.minimumPressDuration = 0.7;
     longPress.delegate = self;
     [frontPageTable addGestureRecognizer:longPress];
-    */
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentCellTapGesture:)];
-    tapGesture.delegate = self;
-    [commentsTable addGestureRecognizer:tapGesture];
+     */
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [self setSizes];
     NSLog(@"%@", NSStringFromCGRect(frontPageTable.frame));
+}
+
+
+#pragma mark - TTTAttributedLabelDelegate
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    [self launchExternalLinkViewWithLink:url];
 }
 
 
@@ -414,6 +416,8 @@
         }
         
         cell = [cell cellForComment:(organizedCommentsArray.count > 0 ? organizedCommentsArray[indexPath.row] : nil) atIndex:indexPath fromController:self];
+        [cell.comment setDelegate:self];
+        //cell.comment.delegate = self;
         
         return cell;
     }
@@ -535,16 +539,6 @@
     }
 }
 
--(void)commentCellTapGesture:(UITapGestureRecognizer *)recognizer {
-    NSIndexPath *indexPath = [commentsTable indexPathForRowAtPoint:[recognizer locationInView:commentsTable]];
-    CommentsCell *cell = (CommentsCell *)[commentsTable cellForRowAtIndexPath:indexPath];
-    CFIndex tapIndex = [cell.comment characterIndexAtPoint:[recognizer locationInView:cell.comment]];
-    CGPoint recPoint = [recognizer locationInView:cell.comment];
-    NSLog(@"Label Click: %f", recPoint.y);
-    NSLog(@"%ld", tapIndex);
-    CGRect textFrame = [cell.comment textRectForBounds:cell.comment.bounds limitedToNumberOfLines:cell.comment.numberOfLines];
-    NSLog(@"%@ vs. %@", NSStringFromCGRect(cell.comment.frame), NSStringFromCGRect(textFrame));
-}
 
 #pragma mark - Front Page Voting Actions
 -(void)voteUp:(UIButton *)voteButton {

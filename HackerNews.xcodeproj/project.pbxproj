@@ -99,7 +99,6 @@
 		C053BCD517921E4D00BAB3CC /* HNOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C053BCD417921E4D00BAB3CC /* HNOperation.m */; };
 		C0814216179795DC00D1BB17 /* Link.m in Sources */ = {isa = PBXBuildFile; fileRef = C0814215179795DC00D1BB17 /* Link.m */; };
 		C08142181797975E00D1BB17 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C08142171797975E00D1BB17 /* CoreText.framework */; };
-		C081421B1797979400D1BB17 /* UILabel+LinkDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = C081421A1797979400D1BB17 /* UILabel+LinkDetection.m */; };
 		C0970E4917EA6CF1003FD742 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0970E4817EA6CF1003FD742 /* Images.xcassets */; };
 		C0970E4C17EA6D6E003FD742 /* icon58.png in Resources */ = {isa = PBXBuildFile; fileRef = C0970E4A17EA6D6E003FD742 /* icon58.png */; };
 		C0970E4D17EA6D6E003FD742 /* icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = C0970E4B17EA6D6E003FD742 /* icon120.png */; };
@@ -113,6 +112,7 @@
 		C0BFA68117EA9CE70093AAD4 /* 3bar-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0BFA68017EA9CE70093AAD4 /* 3bar-01.png */; };
 		C0BFA68317EBA9B00093AAD4 /* x-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0BFA68217EBA9B00093AAD4 /* x-01.png */; };
 		C0D074E017EE07EB000CAAC3 /* bigCheck-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */; };
+		C0D074E317EE2627000CAAC3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */; };
 		C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F7D17AED67F00C97F0B /* ViewController.xib */; };
 		C0EE6F8317AEDF8E00C97F0B /* AddCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0EE6F8117AEDF8E00C97F0B /* AddCommentView.m */; };
 		C0EE6F8517AEDFCC00C97F0B /* AddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F8417AEDFCC00C97F0B /* AddCommentView.xib */; };
@@ -250,8 +250,6 @@
 		C0814214179795DC00D1BB17 /* Link.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Link.h; sourceTree = "<group>"; };
 		C0814215179795DC00D1BB17 /* Link.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Link.m; sourceTree = "<group>"; };
 		C08142171797975E00D1BB17 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		C08142191797979400D1BB17 /* UILabel+LinkDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+LinkDetection.h"; sourceTree = "<group>"; };
-		C081421A1797979400D1BB17 /* UILabel+LinkDetection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LinkDetection.m"; sourceTree = "<group>"; };
 		C0970E4817EA6CF1003FD742 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C0970E4A17EA6D6E003FD742 /* icon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon58.png; sourceTree = "<group>"; };
 		C0970E4B17EA6D6E003FD742 /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
@@ -267,6 +265,8 @@
 		C0BFA68017EA9CE70093AAD4 /* 3bar-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3bar-01.png"; sourceTree = "<group>"; };
 		C0BFA68217EBA9B00093AAD4 /* x-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-01.png"; sourceTree = "<group>"; };
 		C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigCheck-01.png"; sourceTree = "<group>"; };
+		C0D074E117EE2627000CAAC3 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		C0EE6F7E17AED67F00C97F0B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		C0EE6F8017AEDF8E00C97F0B /* AddCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AddCommentView.h; sourceTree = "<group>"; };
 		C0EE6F8117AEDF8E00C97F0B /* AddCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCommentView.m; sourceTree = "<group>"; };
@@ -555,10 +555,10 @@
 		C01EDE371731A48500AE97B8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C0D074E117EE2627000CAAC3 /* TTTAttributedLabel.h */,
+				C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */,
 				C01EDE7A1731E2A900AE97B8 /* Helpers.h */,
 				C01EDE7B1731E2A900AE97B8 /* Helpers.m */,
-				C08142191797979400D1BB17 /* UILabel+LinkDetection.h */,
-				C081421A1797979400D1BB17 /* UILabel+LinkDetection.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -761,6 +761,7 @@
 				C01EDDF31731553B00AE97B8 /* main.m in Sources */,
 				C01EDDF71731553B00AE97B8 /* AppDelegate.m in Sources */,
 				C01EDE001731553B00AE97B8 /* ViewController.m in Sources */,
+				C0D074E317EE2627000CAAC3 /* TTTAttributedLabel.m in Sources */,
 				C01EDE0C1731557900AE97B8 /* Webservice.m in Sources */,
 				C01EDE1017315C6700AE97B8 /* Post.m in Sources */,
 				C01EDE131731861F00AE97B8 /* Comment.m in Sources */,
@@ -787,7 +788,6 @@
 				6C2DAB08174C9C2E0069BAE1 /* TUSafariActivity.m in Sources */,
 				C053BCD517921E4D00BAB3CC /* HNOperation.m in Sources */,
 				C0814216179795DC00D1BB17 /* Link.m in Sources */,
-				C081421B1797979400D1BB17 /* UILabel+LinkDetection.m in Sources */,
 				C0EE6F8317AEDF8E00C97F0B /* AddCommentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

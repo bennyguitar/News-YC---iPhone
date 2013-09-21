@@ -103,7 +103,6 @@
     [paragraph setLineBreakMode:NSLineBreakByTruncatingTail];
     self.attrText = [[NSMutableAttributedString alloc] initWithString:text];
     [self.attrText addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, text.length)];
-    self.Text = text;
     
     // Find the links / add them to attrText and self.Links
     NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink error:nil];
@@ -114,6 +113,8 @@
         [self.Links addObject:newLink];
         [self.attrText addAttribute:NSForegroundColorAttributeName value:kOrangeColor range:result.range];
     }];
+    
+    self.Text = [self.attrText string];
 }
 
 -(NSString *)removeAHREFFromText:(NSString *)text {

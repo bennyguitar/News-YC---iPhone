@@ -24,7 +24,23 @@
 // THE SOFTWARE.
 
 #import "UILabel+LinkDetection.h"
-#import <CoreText/CoreText.h>
+
+static inline NSAttributedString * NSAttributedStringBySettingColorFromContext(NSAttributedString *attributedString, UIColor *color) {
+    if (!color) {
+        return attributedString;
+    }
+    
+    NSMutableAttributedString *mutableAttributedString = [attributedString mutableCopy];
+    [mutableAttributedString enumerateAttribute:(NSString *)kCTForegroundColorFromContextAttributeName inRange:NSMakeRange(0, [mutableAttributedString length]) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+        BOOL usesColorFromContext = (BOOL)value;
+        if (usesColorFromContext) {
+            [mutableAttributedString setAttributes:[NSDictionary dictionaryWithObject:color forKey:(NSString *)kCTForegroundColorAttributeName] range:range];
+            [mutableAttributedString removeAttribute:(NSString *)kCTForegroundColorFromContextAttributeName range:range];
+        }
+    }];
+    
+    return mutableAttributedString;
+}
 
 @implementation UILabel (LinkDetection)
 
@@ -32,9 +48,8 @@
     if (!CGRectContainsPoint(self.bounds, p)) {
         return NSNotFound;
     }
-
+    
     CGRect textRect = [self textRectForBounds:self.bounds limitedToNumberOfLines:self.numberOfLines];
-    //CGRect textRect = self.frame;
     if (!CGRectContainsPoint(textRect, p)) {
         return NSNotFound;
     }
@@ -46,14 +61,13 @@
     
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathAddRect(path, NULL, textRect);
-    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)self.attributedText);
-    CTFrameRef frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, [self.attributedText length]), path, NULL);
+    NSAttributedString *attrString = NSAttributedStringBySettingColorFromContext(self.attributedText, self.textColor);
+    CTFrameRef frame = CTFramesetterCreateFrame(CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attrString), CFRangeMake(0, self.attributedText.length), path, NULL);
     if (frame == NULL) {
         CFRelease(path);
         return NSNotFound;
     }
     
-    NSLog(@"%d", self.numberOfLines);
     CFArrayRef lines = CTFrameGetLines(frame);
     NSInteger numberOfLines = self.numberOfLines > 0 ? MIN(self.numberOfLines, CFArrayGetCount(lines)) : CFArrayGetCount(lines);
     if (numberOfLines == 0) {
@@ -67,8 +81,6 @@
     CGPoint lineOrigins[numberOfLines];
     CTFrameGetLineOrigins(frame, CFRangeMake(0, numberOfLines), lineOrigins);
     
-    
-    
     for (CFIndex lineIndex = 0; lineIndex < numberOfLines; lineIndex++) {
         CGPoint lineOrigin = lineOrigins[lineIndex];
         CTLineRef line = CFArrayGetValueAtIndex(lines, lineIndex);
@@ -76,7 +88,6 @@
         // Get bounding information of line
         CGFloat ascent = 0.0f, descent = 0.0f, leading = 0.0f;
         CGFloat width = CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
-        width = self.frame.size.width;
         CGFloat yMin = floor(lineOrigin.y - descent);
         CGFloat yMax = ceil(lineOrigin.y + ascent);
         

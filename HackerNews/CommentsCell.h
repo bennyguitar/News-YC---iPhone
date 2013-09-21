@@ -9,17 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "HNSingleton.h"
 #import "Comment.h"
+#import "TTTAttributedLabel.h"
+#import "LinkLabel.h"
 
 #define kCommentsHidden 20
 #define kCommentsDefaultH 85
 #define kCommentsDefaultW 307
 
-@interface CommentsCell : UITableViewCell {
+@interface CommentsCell : UITableViewCell <TTTAttributedLabelDelegate> {
     
 }
 @property (retain, nonatomic) IBOutlet UILabel *username;
 @property (retain, nonatomic) IBOutlet UILabel *postedTime;
-@property (retain, nonatomic) IBOutlet UILabel *comment;
+@property (retain, nonatomic) IBOutlet TTTAttributedLabel *comment;
 @property (retain, nonatomic) IBOutlet UIView *holdingView;
 @property (retain, nonatomic) IBOutlet UIImageView *topBar;
 @property (nonatomic, assign) int commentLevel;

@@ -13,10 +13,6 @@
 
 @class ViewController;
 
-@protocol FilterCellDelegate <NSObject>
-- (void)filterHomePageWithType:(int)type;
-@end
-
 @interface FilterCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *topButton;

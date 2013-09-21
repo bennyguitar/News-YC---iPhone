@@ -24,6 +24,7 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import <CoreText/CoreText.h>
 
 @interface UILabel (LinkDetection)
 

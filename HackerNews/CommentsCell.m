@@ -9,6 +9,8 @@
 #import "CommentsCell.h"
 #import "Link.h"
 #import <QuartzCore/QuartzCore.h>
+#import "TTTAttributedLabel.h"
+#import "LinkLabel.h"
 
 @implementation CommentsCell
 
@@ -41,9 +43,9 @@
     if (newComment) {
         // Set Data to UI Elements
         self.commentLevel = newComment.Level;
-        self.holdingView.frame = CGRectMake(15 * newComment.Level, 0, self.frame.size.width - (15*newComment.Level), self.frame.size.height);
         self.username.text = newComment.Username;
         self.postedTime.text = newComment.TimeAgoString;
+        self.holdingView.frame = CGRectMake(15 * newComment.Level, 0, self.frame.size.width - (15*newComment.Level), self.frame.size.height);
         
         // Set Border based on CellType
         if (newComment.CellType == CommentTypeClickClosed) {
@@ -54,19 +56,31 @@
         }
         else if (newComment.CellType == CommentTypeOpen) {
             self.topBarBorder.alpha = 0;
-            self.comment.attributedText = newComment.attrText;
+            [self.comment setAttributedText:newComment.attrText];
             
-            // Set size of Comment Label
-            CGSize s = [self.comment.text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(self.comment.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-            self.comment.frame = CGRectMake(self.comment.frame.origin.x, self.comment.frame.origin.y, self.comment.frame.size.width, s.height);
+            // Set Attributed Text
+            [self.comment setText:newComment.Text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+                for (Link *link in newComment.Links) {
+                    [mutableAttributedString addAttribute:NSForegroundColorAttributeName value:kOrangeColor range:link.URLRange];
+                    [mutableAttributedString addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleNone) range:link.URLRange];
+                }
+                return mutableAttributedString;
+            }];
+            
+            // Set line height
+            [self.comment setLineHeightMultiple:1.0];
+            self.comment.leading = 1.0;
             self.comment.numberOfLines = 0;
             
             
-            // Add Links
-            for (int xx = 0; xx < newComment.Links.count; xx++) {
-                LinkButton *newLinkButton = [LinkButton newLinkButtonWithTag:indexPath.row linkTag:xx frame:CGRectMake(15*newComment.Level + kPad, self.comment.frame.size.height + self.comment.frame.origin.y + xx*kPad + xx*30 + kPad, self.frame.size.width - (15*newComment.Level + 2*kPad), 30) title:[newComment.Links[xx] URL].absoluteString];
-                [newLinkButton addTarget:controller action:@selector(didClickExternalLinkInComment:) forControlEvents:UIControlEventTouchUpInside];
-                [self addSubview:newLinkButton];
+            // Set size of Comment Label
+            CGSize labelSize = CGSizeMake(307 - (newComment.Level*15), 0);
+            labelSize = [self.comment sizeThatFits:labelSize];
+            self.comment.frame = CGRectMake(self.comment.frame.origin.x, self.comment.frame.origin.y, labelSize.width, labelSize.height);
+
+            // Add links
+            for (Link *link in newComment.Links) {
+                [self.comment addLinkToURL:link.URL withRange:link.URLRange];
             }
         }
         
@@ -89,8 +103,11 @@
     if (newComment) {
         // Comment is Open
         if (newComment.CellType == CommentTypeOpen) {
-            CGSize s = [newComment.Text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(self.comment.frame.size.width - (newComment.Level*15), MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-            return s.height + 45 + (newComment.Links.count*30 + newComment.Links.count*kPad);
+            self.comment.text = newComment.Text;
+            // Set size of Comment Label
+            CGSize labelSize = CGSizeMake(307 - (newComment.Level*15), 0);
+            labelSize = [self.comment sizeThatFits:labelSize];
+            return labelSize.height + 45/* + (newComment.Links.count*30 + newComment.Links.count*kPad)*/;
         }
         
         // Comment has been Clicked Closed by User
@@ -106,6 +123,7 @@
     // No Comments
     return kCommentsDefaultH;
 }
+
 
 
 -(void)drawRect:(CGRect)rect {
