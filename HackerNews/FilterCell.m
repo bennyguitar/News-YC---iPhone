@@ -11,7 +11,6 @@
 #import "AppDelegate.h"
 
 @implementation FilterCell
-@synthesize delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -26,21 +25,24 @@
 
 }
 
-- (void)setUpCellForActiveFilter:(int)filter delegate:(id)vcDelegate {
+- (void)setUpCellForActiveFilter {
     NSArray *buttons = @[self.topButton, self.askButton, self.newestButton, self.jobsButton, self.bestButton];
-    if (vcDelegate) {
-        delegate = (id <FilterCellDelegate>)vcDelegate;
-    }
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    UINavigationController *navVC = (UINavigationController *)del.deckController.centerController;
+    ViewController *vc = (ViewController *)[navVC viewControllers][0];
     
     for (UIButton *button in buttons) {
-        [button setTitleColor:(button.tag == filter ? kOrangeColor : [UIColor colorWithWhite:0.5 alpha:1.0]) forState:UIControlStateNormal];
+        [button setTitleColor:(button.tag == vc.filterType ? kOrangeColor : [UIColor colorWithWhite:0.5 alpha:1.0]) forState:UIControlStateNormal];
         [button addTarget:self action:@selector(didClickFilterButton:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
 - (void)didClickFilterButton:(UIButton *)button {
-    [delegate filterHomePageWithType:button.tag];
-    [self setUpCellForActiveFilter:button.tag delegate:nil];
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil filterType:button.tag];
+    [del.deckController setCenterController:[[UINavigationController alloc] initWithRootViewController:vc]];
+    [del.deckController toggleLeftView];
+    [self setUpCellForActiveFilter];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -20,7 +20,7 @@
                 <view contentMode="scaleToFill" id="Duz-w8-6o3">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.20419606854838709" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.30405745967741937" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" id="50">
                     <rect key="frame" x="0.0" y="20" width="320" height="548"/>

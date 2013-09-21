@@ -31,5 +31,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *logoutLabel;
 @property (weak, nonatomic) IBOutlet UIButton *logoutHidden;
 
+@property (nonatomic, assign) BOOL Readability;
+@property (nonatomic, assign) BOOL MarkAsRead;
+@property (nonatomic, assign) BOOL NightMode;
+
 
 @end

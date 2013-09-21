@@ -24,8 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *newestButton;
 @property (weak, nonatomic) IBOutlet UIButton *jobsButton;
 @property (weak, nonatomic) IBOutlet UIButton *bestButton;
-@property (weak) id <FilterCellDelegate> delegate;
 
-- (void)setUpCellForActiveFilter:(int)filter delegate:(id)vcDelegate;
+
+- (void)setUpCellForActiveFilter;
 
 @end

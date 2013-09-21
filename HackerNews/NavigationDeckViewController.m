@@ -45,50 +45,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)filterHomePageWithType:(int)type {
-    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil filterType:type];
-    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [del.deckController setCenterController:[[UINavigationController alloc] initWithRootViewController:vc]];
-    [self.viewDeckController toggleLeftView];
-}
-
-// Deprecated since App Version 1.1.1
-// New API does not give options for these
-/*
-- (IBAction)changeTypeToTop:(id)sender {
-    FilterCell *cell = (FilterCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    [cell.filterTopButton setBackgroundColor:[UIColor colorWithRed:200/255.0f green:97/255.0f blue:41/255.0f alpha:1.0]];
-    [cell.filterNewButton setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
-    [cell.filterAskButton setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
-    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:[NSBundle mainBundle]];
-    [HNSingleton sharedHNSingleton].filter = fTypeTop;
-    self.viewDeckController.centerController = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self.viewDeckController toggleLeftView];
-}
-
-- (IBAction)changeTypeToNew:(id)sender {
-    FilterCell *cell = (FilterCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    [cell.filterNewButton setBackgroundColor:[UIColor colorWithRed:200/255.0f green:97/255.0f blue:41/255.0f alpha:1.0]];
-    [cell.filterTopButton setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
-    [cell.filterAskButton setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
-    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:[NSBundle mainBundle]];
-    [HNSingleton sharedHNSingleton].filter = fTypeNew;
-    self.viewDeckController.centerController = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self.viewDeckController toggleLeftView];
-}
-
-- (IBAction)changeTypeToAsk:(id)sender {
-    FilterCell *cell = (FilterCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    [cell.filterTopButton setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
-    [cell.filterNewButton setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
-    [cell.filterAskButton setBackgroundColor:[UIColor colorWithRed:200/255.0f green:97/255.0f blue:41/255.0f alpha:1.0]];
-    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:[NSBundle mainBundle]];
-    [HNSingleton sharedHNSingleton].filter = fTypeAsk;
-    self.viewDeckController.centerController = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self.viewDeckController toggleLeftView];
-}
-*/
-
 #pragma mark - Did Login Notification
 -(void)didLoginOrOut {
     [navTable reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0],[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
@@ -117,11 +73,8 @@
             }
             else {
                 // It WORKED!
-                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 3 : 2) inSection:0]];
-                cell.checkImage.alpha = 1;
-                [UIView animateWithDuration:1.5 animations:^{
-                    cell.checkImage.alpha = 0;
-                }];
+                [self.viewDeckController toggleLeftView];
+                [FailedLoadingView launchFailedLoadingInView:self.viewDeckController.centerController.view withImage:[UIImage imageNamed:@"bigCheck-01"] text:@"Successfully shared to Facebook!" duration:1.4];
             }
             
             [controller dismissViewControllerAnimated:YES completion:Nil];
@@ -148,11 +101,8 @@
             }
             else {
                 // IT WORKED!
-                ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 3 : 2) inSection:0]];
-                cell.checkImage.alpha = 1;
-                [UIView animateWithDuration:1.5 animations:^{
-                    cell.checkImage.alpha = 0;
-                }];
+                [self.viewDeckController toggleLeftView];
+                [FailedLoadingView launchFailedLoadingInView:self.viewDeckController.centerController.view withImage:[UIImage imageNamed:@"bigCheck-01"] text:@"Successfully shared to Twitter!" duration:1.4];
             }
             
             [controller dismissViewControllerAnimated:YES completion:Nil];
@@ -179,6 +129,15 @@
     else {
         // No email account
     }
+}
+
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [controller dismissViewControllerAnimated:YES completion:^{
+        if (result == MFMailComposeResultSent) {
+            [self.viewDeckController toggleLeftView];
+            [FailedLoadingView launchFailedLoadingInView:self.viewDeckController.centerController.view withImage:[UIImage imageNamed:@"bigCheck-01"] text:@"Successfully shared through Email!" duration:1.4];
+        }
+    }];
 }
 
 #pragma mark - Readability
@@ -237,18 +196,6 @@
     // Change the theme and notify ViewController
     [[HNSingleton sharedHNSingleton] changeTheme];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidChangeTheme" object:nil];
-}
-
--(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
-    [controller dismissViewControllerAnimated:YES completion:^{
-        if (result == MFMailComposeResultSent) {
-            ShareCell *cell = (ShareCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 3 : 2) inSection:0]];
-            cell.checkImage.alpha = 1;
-            [UIView animateWithDuration:1.5 animations:^{
-                cell.checkImage.alpha = 0;
-            }];
-        }
-    }];
 }
 
 
@@ -310,10 +257,7 @@
             }
         }
         
-        AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        UINavigationController *navVC = (UINavigationController *)del.deckController.centerController;
-        ViewController *vc = (ViewController *)[navVC viewControllers][0];
-        [cell setUpCellForActiveFilter:vc.filterType delegate:self];
+        [cell setUpCellForActiveFilter];
         
         return cell;
     }
