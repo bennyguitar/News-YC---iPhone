@@ -29,11 +29,54 @@
     return self;
 }
 
-+(NSArray *)commentsFromHTML:(NSString *)html {
++(NSArray *)commentsFromHTML:(NSString *)html askHN:(BOOL)askHN jobs:(BOOL)HNJobs {
     // Set Up
     NSMutableArray *comments = [@[] mutableCopy];
     NSString *trash = @"";
     NSArray *htmlComponents = [html componentsSeparatedByString:@"<tr><td><table border=0><tr><td><img src=\"s.gif\""];
+    
+    if (askHN) {
+        // Grab AskHN Post
+        NSScanner *scanner = [NSScanner scannerWithString:htmlComponents[0]];
+        NSString *trash = @"", *text = @"", *user = @"", *timeAgo = @"";
+        [scanner scanUpToString:@"<a href=\"user?id=" intoString:&trash];
+        [scanner scanString:@"<a href=\"user?id=" intoString:&trash];
+        [scanner scanUpToString:@"\">" intoString:&user];
+        [scanner scanUpToString:@"</a> " intoString:&trash];
+        [scanner scanString:@"</a> " intoString:&trash];
+        [scanner scanUpToString:@"ago" intoString:&timeAgo];
+        timeAgo = [timeAgo stringByAppendingString:@"ago"];
+        [scanner scanUpToString:@"</tr><tr><td></td><td>" intoString:&trash];
+        [scanner scanString:@"</tr><tr><td></td><td>" intoString:&trash];
+        [scanner scanUpToString:@"</td>" intoString:&text];
+        
+        // Create special comment for it
+        Comment *newComment = [[Comment alloc] init];
+        newComment.Level = 0;
+        newComment.Username = user;
+        newComment.TimeAgoString = timeAgo;
+        [newComment setUpComment:text];
+        newComment.isAskHN = YES;
+        newComment.CellType = CommentTypeOpen;
+        [comments addObject:newComment];
+    }
+    
+    if (HNJobs) {
+        // Grab AskHN Post
+        NSScanner *scanner = [NSScanner scannerWithString:htmlComponents[0]];
+        NSString *trash = @"", *text = @"";
+        [scanner scanUpToString:@"</tr><tr><td></td><td>" intoString:&trash];
+        [scanner scanString:@"</tr><tr><td></td><td>" intoString:&trash];
+        [scanner scanUpToString:@"</td>" intoString:&text];
+        
+        // Create special comment for it
+        Comment *newComment = [[Comment alloc] init];
+        newComment.Level = 0;
+        [newComment setUpComment:text];
+        newComment.isHNJobs = YES;
+        newComment.CellType = CommentTypeOpen;
+        [comments addObject:newComment];
+    }
     
     for (int xx = 1; xx < htmlComponents.count; xx++) {
         NSScanner *scanner = [NSScanner scannerWithString:htmlComponents[xx]];

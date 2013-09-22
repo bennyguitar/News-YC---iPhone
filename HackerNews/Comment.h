@@ -29,7 +29,9 @@ typedef enum CommentType {
 @property (nonatomic, retain) NSMutableArray *Children;
 @property (nonatomic, retain) NSMutableArray *Links;
 @property (nonatomic, assign) CommentType CellType;
+@property (nonatomic, assign) BOOL isAskHN;
+@property (nonatomic, assign) BOOL isHNJobs;
 
-+(NSArray *)commentsFromHTML:(NSString *)html;
++(NSArray *)commentsFromHTML:(NSString *)html askHN:(BOOL)askHN jobs:(BOOL)HNJobs;
 
 @end

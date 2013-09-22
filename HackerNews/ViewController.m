@@ -433,15 +433,20 @@
         [[HNSingleton sharedHNSingleton].hasReadThisArticleDict setValue:@"YES" forKey:currentPost.PostID];
         
         // Launch LinkView
-        [self launchLinkView];
+        if (currentPost.isAskHN) {
+            [self loadCommentsForPost:currentPost];
+        }
+        else {
+            if (currentPost.isJobPost && [currentPost.URLString rangeOfString:@"http"].location == NSNotFound) {
+                [self loadCommentsForPost:currentPost];
+            }
+            else {
+                [self launchLinkView];
+            }
+        }
         
         // Reload table so Mark As Read will show up
         [frontPageTable reloadData];
-        
-        // Show header if it's offscreen
-        [UIView animateWithDuration:0.25 animations:^{
-            [self placeHeaderBarBack];
-        }];
     }
 }
 

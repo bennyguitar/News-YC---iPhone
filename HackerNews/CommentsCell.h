@@ -11,14 +11,17 @@
 #import "Comment.h"
 #import "TTTAttributedLabel.h"
 #import "LinkLabel.h"
+#import "triangleView.h"
 
 #define kCommentsHidden 20
 #define kCommentsDefaultH 85
 #define kCommentsDefaultW 307
+#define kCommentDefaultAddition 45
+#define kCommentAskHNAddition 56
 
 @interface CommentsCell : UITableViewCell <TTTAttributedLabelDelegate> {
-    
 }
+
 @property (retain, nonatomic) IBOutlet UILabel *username;
 @property (retain, nonatomic) IBOutlet UILabel *postedTime;
 @property (retain, nonatomic) IBOutlet TTTAttributedLabel *comment;

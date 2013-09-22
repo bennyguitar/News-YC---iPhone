@@ -80,9 +80,6 @@
         [scanner scanUpToString:@"<a href=\"" intoString:&trash];
         [scanner scanString:@"<a href=\"" intoString:&trash];
         [scanner scanUpToString:@"\">" intoString:&urlString];
-        if ([urlString rangeOfString:@"http"].location == NSNotFound) {
-            urlString = [@"https://news.ycombinator.com/" stringByAppendingString:urlString];
-        }
         newPost.URLString = urlString;
         
         // Scan Title
@@ -130,8 +127,17 @@
         }
         
         // Check if Jobs Post
-        if ([newPost.PostID isEqualToString:@""] && newPost.Points == 0 && [hoursAgo isEqualToString:@"ago"]) {
+        if (newPost.PostID.length == 0 && newPost.Points == 0 && [hoursAgo isEqualToString:@"ago"]) {
             newPost.isJobPost = YES;
+            if ([urlString rangeOfString:@"http"].location == NSNotFound) {
+                newPost.hnPostID = [urlString stringByReplacingOccurrencesOfString:@"item?id=" withString:@""];
+            }
+        }
+        
+        // Check if Ask HN
+        if ([urlString rangeOfString:@"http"].location == NSNotFound && newPost.PostID.length > 0) {
+            newPost.isAskHN = YES;
+            urlString = [@"https://news.ycombinator.com/" stringByAppendingString:urlString];
         }
         
         // Grab FNID if last

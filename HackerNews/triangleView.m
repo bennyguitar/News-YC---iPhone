@@ -36,7 +36,7 @@
     UIBezierPath *triangle = [UIBezierPath bezierPath];
     [self.color setFill];
     [triangle moveToPoint:CGPointMake(x - 10, self.frame.size.height)];
-    [triangle addLineToPoint:CGPointMake(x, self.frame.size.height - 10)];
+    [triangle addLineToPoint:CGPointMake(x, 0)];
     [triangle addLineToPoint:CGPointMake(x + 10, self.frame.size.height)];
     [triangle addLineToPoint:CGPointMake(x - 10, self.frame.size.height)];
     [triangle fill];

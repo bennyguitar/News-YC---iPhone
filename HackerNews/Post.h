@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSString *hnPostID;
 @property (nonatomic, assign) BOOL isOpenForActions;
 @property (nonatomic, assign) BOOL isJobPost;
+@property (nonatomic, assign) BOOL isAskHN;
 
 
 +(Post *)postFromDictionary:(NSDictionary *)dict;

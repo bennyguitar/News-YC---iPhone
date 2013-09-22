@@ -145,7 +145,7 @@
     [operation setUrlPath:[NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@",post.hnPostID] data:nil completion:^{
         NSString *responseHTML = [[NSString alloc] initWithData:weakOp.responseData encoding:NSUTF8StringEncoding];
         if (responseHTML.length > 0) {
-            NSArray *comments = [Comment commentsFromHTML:responseHTML];
+            NSArray *comments = [Comment commentsFromHTML:responseHTML askHN:post.isAskHN jobs:post.isJobPost];
             dispatch_async(dispatch_get_main_queue(), ^{
                 success(comments);
                 [self reloadUser];
