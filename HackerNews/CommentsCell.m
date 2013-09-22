@@ -65,12 +65,10 @@
             [self.comment setAttributedText:newComment.attrText];
             
             // Set Attributed Text
-            __block UIColor *textColor = self.comment.textColor;
             [self.comment setText:newComment.Text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
                 for (Link *link in newComment.Links) {
                     if (newComment.isHNJobs || newComment.isAskHN) {
                         [mutableAttributedString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:link.URLRange];
-                        [mutableAttributedString addAttribute:NSForegroundColorAttributeName value:textColor range:link.URLRange];
                     }
                     else {
                         [mutableAttributedString addAttribute:NSForegroundColorAttributeName value:kOrangeColor range:link.URLRange];

@@ -607,8 +607,8 @@
         [commentsTable setContentOffset:CGPointZero animated:NO];
     }
     
-    loadingIndicator.alpha = 0;
-    [self placeHeaderBarBack];
+    // End editing inside the webView
+    [self.view endEditing:YES];
     
     // Animate everything
     [UIView animateWithDuration:0.3 animations:^{
@@ -731,6 +731,7 @@
 }
 
 -(void)hideExternalLinkView {
+    [self.view endEditing:YES];
     [UIView animateWithDuration:0.25 animations:^{
         externalLinkView.frame = CGRectMake(0, self.view.frame.size.height, externalLinkView.frame.size.width, self.view.frame.size.height);
     }];
