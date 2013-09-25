@@ -24,16 +24,22 @@ The root ViewController, App Delegate, and HNSingleton are in the top-level dire
 This class contains all web requests to the API, using a delegated system so ViewController can receive callbacks about the success or failure of each call - as well as the objects (posts/comments) returned.
 
 ```objc
--(void)getHomepage;
+-(void)getHomepageWithFilter:(NSString *)filter success:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure;
 ```
 
-Fairly self-explanatory, this method hits the API and pulls the homepage back as Post objects, then calls the delegate method <code>-(void)didFetchPosts:(NSArray *)posts</code> to return objects back to ViewController. If no posts are retrieved, or there is a database/server error, <code>nil</code> is returned through the delegate method. ViewController checks off of this for exceptions and displays the posts accordingly.
+Fairly self-explanatory, this method hits the API and pulls the homepage back as Post objects, then calls the success block to return objects back to ViewController. If no posts are retrieved, or there is a database/server error, the failure block is called. The filter parameter is passed in based on a FilterType enum that is for fetching the Top/Ask/New/Jobs/Best posts.
 
 ```objc
--(void)getCommentsForPost:(Post *)post launchComments:(BOOL)launch;
+-(void)getHomepageFromFnid:(NSString *)fnid withSuccess:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure;
 ```
 
-This method returns an NSArray of Comment objects using the delegate method <code>-(void)didFetchComments:(NSArray *)comments forPostID:(NSString *)postID launchComments:(BOOL)launch</code> to call back to ViewController. The launchComments part of this method is for showing the commentsView in ViewController. If YES, this will animate commentsView coming up from the bottom, if NO, this is a pull-to-refresh case where the data was updated and only the table needs to be refreshed. This method will also return <code>nil</code> if there is a database/server retrieval problem so we can handle the exception accordingly.
+As you scroll down the homepage, once you are 3 cells from the bottom, it attempts to load the next batch of posts, or what is equivalent to hitting "more" at the bottom of the HN homepage. When any GetHomepage method returns, and Posts are created, the FNID that tells the server where to get posts next is kept in the Singleton. This is passed in to this method as a parameter, and when it returns, more Post objects are generated (as well as a new FNID) and returned in the success block.
+
+```objc
+-(void)getCommentsForPost:(Post *)post success:(GetCommentsSuccessBlock)success failure:(GetCommentsFailureBlock)failure;
+```
+
+This method returns an NSArray of Comment objects, for a given Post object, in the success block if it works.
 
 **For Version 2**
 
@@ -66,6 +72,13 @@ These classes make up the data model used by News/YC. Both Post and Comment cont
 @property (nonatomic, retain) NSString *PostID;
 @property (nonatomic, assign) BOOL HasRead;
 @property (nonatomic, retain) NSDate *TimeCreated;
+@property (nonatomic, retain) NSString *TimeCreatedString;
+@property (nonatomic, retain) NSString *hnPostID;
+@property (nonatomic, assign) BOOL isOpenForActions;
+@property (nonatomic, assign) BOOL isJobPost;
+@property (nonatomic, assign) BOOL isAskHN;
+
++ (NSArray *)parsedFrontPagePostsFromHTML:(NSString *)htmlString;
 ```
 
 ```objc
@@ -76,12 +89,19 @@ These classes make up the data model used by News/YC. Both Post and Comment cont
 @property (nonatomic, retain) NSMutableAttributedString *attrText;
 @property (nonatomic, retain) NSString *Username;
 @property (nonatomic, retain) NSString *CommentID;
+@property (nonatomic, retain) NSString *hnCommentID;
 @property (nonatomic, retain) NSString *ParentID;
+@property (nonatomic, retain) NSString *TimeAgoString;
+@property (nonatomic, retain) NSString *ReplyURL;
 @property (nonatomic, assign) int Level;
 @property (nonatomic, retain) NSDate *TimeCreated;
 @property (nonatomic, retain) NSMutableArray *Children;
 @property (nonatomic, retain) NSMutableArray *Links;
 @property (nonatomic, assign) CommentType CellType;
+@property (nonatomic, assign) BOOL isAskHN;
+@property (nonatomic, assign) BOOL isHNJobs;
+
++(NSArray *)commentsFromHTML:(NSString *)html askHN:(BOOL)askHN jobs:(BOOL)HNJobs;
 ```
 
 **For Version 2.0**
@@ -103,15 +123,19 @@ I have included a User.{h,m} object with the intention of adding user-management
 
 This class contains a few properties that manage things on an app-wide scope. Included is an NSDictionary for keeping track of which articles have been read (though I'm thinking about adding this to the NSUserDefaults so it will always stay with the app), and the remnants of version 1.1.1 when I was using a different API to filter the homepage by Top/New/Ask (which I'd love to reincorporate again). HNSingleton incorporates a couple methods to change the theme colors and set the SessionKey (more under the break).
 
+**As of Version 2.0**: It now includes the CurrentFNID property that grabs the next set of homepage posts in batches.
+
 ```objc
 @interface HNSingleton : NSObject
 
 // Properties
 @property (nonatomic, retain) NSMutableDictionary *hasReadThisArticleDict;
+@property (nonatomic, retain) NSMutableDictionary *votedForDictionary;
 @property (nonatomic, retain) NSMutableDictionary *themeDict;
 @property (nonatomic, assign) enum fType filter;
 @property (nonatomic, retain) NSHTTPCookie *SessionCookie;
 @property (nonatomic, retain) User *User;
+@property (nonatomic, retain) NSString *CurrentFNID;
 
 // Methods
 -(void)changeTheme;
