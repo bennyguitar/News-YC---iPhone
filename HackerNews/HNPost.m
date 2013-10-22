@@ -105,7 +105,7 @@
             NSString *Fnid = @"";
             [scanner scanString:@"<td class=\"title\"><a href=\"" intoString:&trash];
             [scanner scanUpToString:@"\"" intoString:&Fnid];
-            *fnid = Fnid;
+            *fnid = [Fnid stringByReplacingOccurrencesOfString:@"/" withString:@""];
         }
         
         [postArray addObject:newPost];

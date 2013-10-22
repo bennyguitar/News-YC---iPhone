@@ -321,6 +321,7 @@
     if (scrollView == frontPageTable) {
         // Use current fnid to grab latest posts
         if ([[frontPageTable indexPathsForVisibleRows].lastObject row] == homePagePosts.count - 3 && self.isLoadingFromFNID == NO) {
+            self.isLoadingFromFNID = YES;
             __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
             [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
             
@@ -331,6 +332,7 @@
                     if (posts.count > 0) {
                         [homePagePosts addObjectsFromArray:posts];
                         [frontPageTable reloadData];
+                        self.isLoadingFromFNID = NO;
                     }
                     else {
                         // Lock loading from FNID so it doesn't slam HN servers
