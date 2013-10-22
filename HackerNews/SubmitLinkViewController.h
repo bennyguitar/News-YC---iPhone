@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "Webservice.h"
 #import "HNSingleton.h"
 #import "Helpers.h"
 #import "KGStatusBar.h"
+#import "libHN.h"
 
-@interface SubmitLinkViewController : UIViewController <WebserviceDelegate,UITextFieldDelegate,UITextViewDelegate>
+@interface SubmitLinkViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
 
 @end

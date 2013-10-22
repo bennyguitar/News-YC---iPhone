@@ -21,6 +21,7 @@
 #import "ProfileLoggedInCell.h"
 #import "AppDelegate.h"
 #import "Helpers.h"
+#import "libHN.h"
 
 @interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     

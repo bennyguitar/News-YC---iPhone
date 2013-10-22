@@ -46,16 +46,7 @@ static HNSingleton * _sharedHNSingleton = nil;
 -(id)init {
 	self = [super init];
 	if (self != nil) {
-		self.hasReadThisArticleDict = [@{} mutableCopy];
         self.themeDict = [@{} mutableCopy];
-        self.filter = fTypeTop;
-        
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"VotedFor"]) {
-            self.votedForDictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"VotedFor"];
-        }
-        else {
-            self.votedForDictionary = [@{} mutableCopy];
-        }
 	}
 	
 	return self;
@@ -92,93 +83,6 @@ static HNSingleton * _sharedHNSingleton = nil;
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:128/255.0 green:178/255.0 blue:141/255.0 alpha:1.0] forKey:@"HNJobsBottom"];
         [[HNSingleton sharedHNSingleton].themeDict setValue:[UIColor colorWithRed:144/255.0 green:144/255.0 blue:144/255.0 alpha:1.0] forKey:@"PostActions"];
     }
-}
-
--(void)setSession {
-    NSArray *cookieArray = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"https://news.ycombinator.com/"]];
-    if (cookieArray.count > 0) {
-        NSHTTPCookie *cookie = cookieArray[0];
-        if ([cookie.name isEqualToString:@"user"]) {
-            [HNSingleton sharedHNSingleton].SessionCookie = cookie;
-        }
-    }
-}
-
-
-#pragma mark - Logging In / Out
-
--(void)loginWithUser:(NSString *)user password:(NSString *)pass {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoggingIn" object:nil];
-    Webservice *service = [[Webservice alloc] init];
-    service.delegate = self;
-    [service loginWithUsername:user password:pass];
-}
-
--(void)webservice:(Webservice *)webservice didLoginWithUser:(User *)user {
-    if (user) {
-        user.Username = [[NSUserDefaults standardUserDefaults] valueForKey:@"Username"];
-        self.User = user;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
-        [KGStatusBar showSuccessWithStatus:[NSString stringWithFormat:@"%@ Logged In", user.Username]];
-        
-        // Set the session
-        [self setSession];
-        
-        // Set swipe right view
-        AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDel.deckController setRightController:[[SubmitLinkViewController alloc] initWithNibName:@"SubmitLinkViewController" bundle:nil]];
-        
-        // Post notification
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
-    }
-    else {
-        // Launch failed loading with bad user error
-        [KGStatusBar showErrorWithStatus:@"Login Failed"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
-    }
-}
-
--(void)logout {
-    self.User = nil;
-    self.SessionCookie = nil;
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
-    [KGStatusBar showWithStatus:@"Logged Out"];
-    
-    // Set swipe right view
-    AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDel.deckController setRightController:nil];
-}
-
-#pragma mark - Voted For Dict
-
--(void)addToVotedForDictionary:(id)HNObject votedUp:(BOOL)up {
-    NSString *objID, *direction;
-    if ([HNObject isKindOfClass:[Post class]]) {
-        objID = [(Post *)HNObject PostID];
-    }
-    else {
-        objID = [(Comment *)HNObject CommentID];
-    }
-    
-    direction = up ? @"UP" : @"DOWN";
-    [self.votedForDictionary setValue:direction forKey:objID];
-    [[NSUserDefaults standardUserDefaults] setObject:self.votedForDictionary forKey:@"VotedFor"];
-}
-
--(BOOL)objectIsInVoteDict:(id)HNObject {
-    NSString *objID;
-    if ([HNObject isKindOfClass:[Post class]]) {
-        objID = [(Post *)HNObject PostID];
-    }
-    else {
-        objID = [(Comment *)HNObject CommentID];
-    }
-    if ([self.votedForDictionary objectForKey:objID]) {
-        return YES;
-    }
-    
-    return NO;
 }
 
 @end

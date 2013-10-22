@@ -37,26 +37,21 @@
     IBOutlet UIView *externalLinkView;
     __weak IBOutlet UIView *externalLinkHeader;
     __weak IBOutlet UIActivityIndicatorView *externalActivityIndicator;
-
-    // Webservice
-    Webservice *HNService;
     
     // Data
     NSMutableArray *homePagePosts;
     NSArray *organizedCommentsArray;
     NSMutableArray *openFrontPageCells;
-    Post *currentPost;
+    HNPost *currentPost;
     float frontPageLastLocation;
     float commentsLastLocation;
     int scrollDirection;
-    NSString *filterString;
 }
 
 // Change Theme
 - (void)colorUI;
 - (IBAction)toggleSideNav:(id)sender;
 - (IBAction)toggleRightNav:(id)sender;
-
 - (IBAction)didClickCommentsFromLinkView:(id)sender;
 - (IBAction)hideCommentsAndLinkView:(id)sender;
 - (IBAction)didClickLinkViewFromComments:(id)sender;
@@ -65,32 +60,11 @@
 
 @implementation ViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filterType:(FilterType)type
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filterType:(PostFilterType)type
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.filterType = type;
-        switch (type) {
-            case FilterTypeTop:
-                filterString = @"";
-                break;
-            case FilterTypeAsk:
-                filterString = @"ask";
-                break;
-            case FilterTypeNew:
-                filterString = @"newest";
-                break;
-            case FilterTypeJobs:
-                filterString = @"jobs";
-                break;
-            case FilterTypeBest:
-                filterString = @"best";
-                break;
-            default:
-                filterString = @"";
-                self.filterType = 0;
-                break;
-        }
     }
     return self;
 }
@@ -109,8 +83,6 @@
     openFrontPageCells = [@[] mutableCopy];
     frontPageLastLocation = 0;
     commentsLastLocation = 0;
-    HNService = [[Webservice alloc] init];
-    HNService.delegate = self;
     
     // Run methods
     [self loadHomepage];
@@ -236,7 +208,7 @@
     // Show paper airplane icon to open submit link
     // in right drawer. I might move this to the
     // left drawer instead.
-    if ([HNSingleton sharedHNSingleton].User) {
+    if ([HNManager sharedManager].SessionUser) {
         loadingIndicator.frame = kLoadingRectSubmit;
         submitLinkButton.alpha = 1;
     }
@@ -249,63 +221,78 @@
 
 #pragma mark - Load HomePage
 -(void)loadHomepage {
+    // Add activity indicator
     __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
     [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
-    [HNService getHomepageWithFilter:filterString success:^(NSArray *posts) {
-        homePagePosts = [posts mutableCopy];
-        [frontPageTable reloadData];
-        [self endRefreshing:frontPageRefresher];
-        indicator.alpha = 0;
-        [indicator removeFromSuperview];
-        [HNService unlockFNIDLoading];
-    } failure:^{
-        [FailedLoadingView launchFailedLoadingInView:self.view];
-        [self endRefreshing:frontPageRefresher];
-        indicator.alpha = 0;
-        [indicator removeFromSuperview];
+    
+    // Load Posts
+    [[HNManager sharedManager] loadPostsWithFilter:self.filterType completion:^(NSArray *posts) {
+        if (posts) {
+            homePagePosts = [posts mutableCopy];
+            [frontPageTable reloadData];
+            [self endRefreshing:frontPageRefresher];
+            indicator.alpha = 0;
+            [indicator removeFromSuperview];
+            // unlock FNID loading
+        }
+        else {
+            [FailedLoadingView launchFailedLoadingInView:self.view];
+            [self endRefreshing:frontPageRefresher];
+            indicator.alpha = 0;
+            [indicator removeFromSuperview];
+        }
     }];
 }
 
 
 #pragma mark - Load Comments
--(void)loadCommentsForPost:(Post *)post {
+-(void)loadCommentsForPost:(HNPost *)post {
+    // Activity Indicator
     __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
     [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
-    [HNService getCommentsForPost:post success:^(NSArray *comments){
-        currentPost = post;
-        organizedCommentsArray = comments;
-        [commentsTable reloadData];
-        [commentsTable setContentOffset:CGPointZero animated:YES];
-        [self launchCommentsView];
-        [self endRefreshing:commentsRefresher];
-        indicator.alpha = 0;
-        [indicator removeFromSuperview];
-    } failure:^{
-        [FailedLoadingView launchFailedLoadingInView:self.view];
-        [self endRefreshing:commentsRefresher];
-        indicator.alpha = 0;
-        [indicator removeFromSuperview];
-    }];
     
-    // Start Loading Indicator
-    loadingIndicator.alpha = 1;
+    // Load Comments
+    [[HNManager sharedManager] loadCommentsFromPost:post completion:^(NSArray *comments) {
+        if (comments) {
+            currentPost = post;
+            organizedCommentsArray = comments;
+            [commentsTable reloadData];
+            [commentsTable setContentOffset:CGPointZero animated:YES];
+            [self launchCommentsView];
+            [self endRefreshing:commentsRefresher];
+            indicator.alpha = 0;
+            [indicator removeFromSuperview];
+        }
+        else {
+            [FailedLoadingView launchFailedLoadingInView:self.view];
+            [self endRefreshing:commentsRefresher];
+            indicator.alpha = 0;
+            [indicator removeFromSuperview];
+        }
+    }];
 }
 
 -(void)reloadComments {
+    // Activity Indicator
     __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
     [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
-    [HNService getCommentsForPost:currentPost success:^(NSArray *comments){
-        organizedCommentsArray = comments;
-        [commentsTable reloadData];
-        [self endRefreshing:commentsRefresher];
-        indicator.alpha = 0;
-        [indicator removeFromSuperview];
-        [commentsTable setContentOffset:CGPointZero animated:YES];
-    } failure:^{
-        [FailedLoadingView launchFailedLoadingInView:self.view];
-        [self endRefreshing:commentsRefresher];
-        indicator.alpha = 0;
-        [indicator removeFromSuperview];
+    
+    // Comments
+    [[HNManager sharedManager] loadCommentsFromPost:currentPost completion:^(NSArray *comments) {
+        if (comments) {
+            organizedCommentsArray = comments;
+            [commentsTable reloadData];
+            [self endRefreshing:commentsRefresher];
+            indicator.alpha = 0;
+            [indicator removeFromSuperview];
+            [commentsTable setContentOffset:CGPointZero animated:YES];
+        }
+        else {
+            [FailedLoadingView launchFailedLoadingInView:self.view];
+            [self endRefreshing:commentsRefresher];
+            indicator.alpha = 0;
+            [indicator removeFromSuperview];
+        }
     }];
     
     // Start Loading Indicator
@@ -322,18 +309,10 @@
 
 
 #pragma mark - Vote for HNObject
--(void)voteForPost:(Post *)post {
-    [HNService voteUp:YES forObject:post];
-}
-
--(void)webservice:(Webservice *)webservice didVoteWithSuccess:(BOOL)success forObject:(id)object direction:(BOOL)up {
-    if (success) {
-        [[HNSingleton sharedHNSingleton] addToVotedForDictionary:object votedUp:up];
-        [frontPageTable reloadData];
-    }
-    else {
-        
-    }
+-(void)voteForPost:(HNPost *)post {
+    [[HNManager sharedManager] voteOnPostOrComment:post direction:VoteDirectionUp completion:^(BOOL success) {
+        NSLog(@"%d", success);
+    }];
 }
 
 
@@ -341,24 +320,30 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == frontPageTable) {
         // Use current fnid to grab latest posts
-        if ([[frontPageTable indexPathsForVisibleRows].lastObject row] == homePagePosts.count - 3 && HNService.isLoadingFromFNID == NO) {
+        if ([[frontPageTable indexPathsForVisibleRows].lastObject row] == homePagePosts.count - 3 && self.isLoadingFromFNID == NO) {
             __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
             [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
-            [HNService getHomepageFromFnid:[HNSingleton sharedHNSingleton].CurrentFNID withSuccess:^(NSArray *posts) {
-                indicator.alpha = 0;
-                [indicator removeFromSuperview];
-                if (posts.count > 0) {
-                    [homePagePosts addObjectsFromArray:posts];
-                    [frontPageTable reloadData];
+            
+            [[HNManager sharedManager] loadPostsWithFNID:[[HNManager sharedManager] postFNID] completion:^(NSArray *posts) {
+                if (posts) {
+                    indicator.alpha = 0;
+                    [indicator removeFromSuperview];
+                    if (posts.count > 0) {
+                        [homePagePosts addObjectsFromArray:posts];
+                        [frontPageTable reloadData];
+                    }
+                    else {
+                        // Lock loading from FNID so it doesn't slam HN servers
+                        self.isLoadingFromFNID = YES;
+                    }
                 }
                 else {
-                    [HNService lockFNIDLoading];
+                    // Loading from FNID realllllly failed
+                    [FailedLoadingView launchFailedLoadingInView:self.view];
+                    self.isLoadingFromFNID = YES;
+                    indicator.alpha = 0;
+                    [indicator removeFromSuperview];
                 }
-            } failure:^{
-                [FailedLoadingView launchFailedLoadingInView:self.view];
-                [HNService lockFNIDLoading];
-                indicator.alpha = 0;
-                [indicator removeFromSuperview];
             }];
         }
     }
@@ -429,15 +414,14 @@
         currentPost = homePagePosts[indexPath.row];
         
         // Mark As Read
-        currentPost.HasRead = YES;
-        [[HNSingleton sharedHNSingleton].hasReadThisArticleDict setValue:@"YES" forKey:currentPost.PostID];
+        [[HNManager sharedManager] setMarkAsReadForPost:currentPost];
         
         // Launch LinkView
-        if (currentPost.isAskHN) {
+        if (currentPost.Type == PostTypeAskHN) {
             [self loadCommentsForPost:currentPost];
         }
         else {
-            if (currentPost.isJobPost && [currentPost.URLString rangeOfString:@"http"].location == NSNotFound) {
+            if (currentPost.Type == PostTypeJobs && [currentPost.UrlString rangeOfString:@"http"].location == NSNotFound) {
                 [self loadCommentsForPost:currentPost];
             }
             else {
@@ -468,19 +452,15 @@
     }
     
     // Front Page Cell Height
-    else {
-        if ([[homePagePosts objectAtIndex:indexPath.row] isOpenForActions]) {
-            return kFrontPageActionsHeight;
-        }
-        return kFrontPageCellHeight;
-    }
+    return kFrontPageCellHeight;
 }
 
 -(void)hideNestedCommentsCell:(UIButton *)commentButton {
     NSMutableArray *rowArray = [@[] mutableCopy];
-    Comment *clickComment = organizedCommentsArray[commentButton.tag];
+    //HNComment *clickComment = organizedCommentsArray[commentButton.tag];
     
     // Close Comment and make hidden all nested Comments
+    /*
     if (clickComment.CellType == CommentTypeOpen) {
         clickComment.CellType = CommentTypeClickClosed;
         [rowArray addObject:[NSIndexPath indexPathForRow:commentButton.tag inSection:0]];
@@ -513,12 +493,14 @@
             }
         }
     }
+     */
     
     // Reload the table with a nice animation
     [commentsTable reloadRowsAtIndexPaths:rowArray withRowAnimation:UITableViewRowAnimationFade];
 }
 
 #pragma mark - Table Gesture Recognizers
+/*
 -(void)longPressFrontPageCell:(UILongPressGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         if ([HNSingleton sharedHNSingleton].User) {
@@ -543,9 +525,10 @@
         }
     }
 }
-
+*/
 
 #pragma mark - Front Page Voting Actions
+/*
 -(void)voteUp:(UIButton *)voteButton {
     if ([HNSingleton sharedHNSingleton].User) {
         [HNService voteUp:YES forObject:[homePagePosts objectAtIndex:voteButton.tag]];
@@ -557,6 +540,7 @@
         [HNService voteUp:NO forObject:[homePagePosts objectAtIndex:voteButton.tag]];
     }
 }
+ */
 
 #pragma mark - Launch/Hide Comments & Link View
 -(void)didClickCommentsFromHomepage:(UIButton *)commentButton {
@@ -639,8 +623,7 @@
 }
 
 - (IBAction)didClickLinkViewFromComments:(id)sender {
-    currentPost.HasRead = YES;
-    [[HNSingleton sharedHNSingleton].hasReadThisArticleDict setValue:@"YES" forKey:currentPost.PostID];
+    [[HNManager sharedManager] setMarkAsReadForPost:currentPost];
     [self launchLinkView];
     [frontPageTable reloadData];
 }
@@ -703,20 +686,15 @@
     
     // Determine if using Readability, and load the webpage
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Readability"]) {
-        [linkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.readability.com/m?url=%@", currentPost.URLString]]]];
+        [linkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.readability.com/m?url=%@", currentPost.UrlString]]]];
     }
     else {
-        [linkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:currentPost.URLString]]];
+        [linkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:currentPost.UrlString]]];
     }
 }
 
 
 #pragma mark - External Link View
--(void)didClickExternalLinkInComment:(LinkButton *)linkButton {
-    Comment *clickComment = organizedCommentsArray[linkButton.tag];
-    [self launchExternalLinkViewWithLink:[clickComment.Links[linkButton.LinkTag] URL]];
-}
-
 -(void)launchExternalLinkViewWithLink:(NSURL *)linkUrl {
     // Set up External Link View
     [externalLinkWebView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];

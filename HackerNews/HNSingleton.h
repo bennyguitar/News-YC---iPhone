@@ -10,20 +10,13 @@
 #import "ViewController.h"
 #import "IIViewDeckController.h"
 #import "SubmitLinkViewController.h"
-#import "Webservice.h"
 #import "KGStatusBar.h"
-#import "User.h"
-#import "Post.h"
-#import "Comment.h"
+
+// libHN
+#import "libHN.h"
 
 // This determines whether logging in is allowed or not
 #define kProfile NO
-
-enum fType {
-    fTypeTop = 0,
-    fTypeNew = 1,
-    fTypeAsk = 2
-};
 
 enum sDirection {
     scrollDirectionUp = 0,
@@ -35,24 +28,12 @@ enum theme {
     themeDay = 1
 };
 
-@interface HNSingleton : NSObject <WebserviceDelegate> {
+@interface HNSingleton : NSObject {
 }
 
-@property (nonatomic, retain) NSMutableDictionary *hasReadThisArticleDict;
-@property (nonatomic, retain) NSMutableDictionary *votedForDictionary;
 @property (nonatomic, retain) NSMutableDictionary *themeDict;
-@property (nonatomic, assign) enum fType filter;
-@property (nonatomic, retain) NSHTTPCookie *SessionCookie;
-@property (nonatomic, retain) User *User;
-@property (nonatomic, retain) NSString *CurrentFNID;
-
 
 +(HNSingleton*)sharedHNSingleton;
 -(void)changeTheme;
--(void)setSession;
--(void)loginWithUser:(NSString *)user password:(NSString *)pass;
--(void)logout;
--(void)addToVotedForDictionary:(id)HNObject votedUp:(BOOL)up;
--(BOOL)objectIsInVoteDict:(id)HNObject;
 
 @end

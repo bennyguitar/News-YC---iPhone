@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HNComment.h"
 #import "HNSingleton.h"
-#import "Comment.h"
 #import "TTTAttributedLabel.h"
 #import "LinkLabel.h"
 #import "triangleView.h"
@@ -32,8 +32,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *topBarButton;
 @property (weak, nonatomic) IBOutlet UIView *topBarBorder;
 
--(CommentsCell *)cellForComment:(Comment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller;
--(float)heightForComment:(Comment *)newComment;
+-(CommentsCell *)cellForComment:(HNComment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller;
+-(float)heightForComment:(HNComment *)newComment;
 
 
 @end

@@ -9,7 +9,6 @@
 #import "SubmitLinkViewController.h"
 
 @interface SubmitLinkViewController () {
-    Webservice *HNService;
     __weak IBOutlet UITextField *titleTextField;
     __weak IBOutlet UITextField *linkTextField;
     __weak IBOutlet UITextView *textTextView;
@@ -35,9 +34,6 @@
 {
     [super viewDidLoad];
     [self buildUI];
-    
-    HNService = [[Webservice alloc] init];
-    HNService.delegate = self;
     
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard) name:@"HideKeyboard" object:nil];
@@ -75,10 +71,13 @@
 
 #pragma mark - Submit
 - (IBAction)didClickSubmitStory:(id)sender {
-    [HNService submitLink:linkTextField.text orText:textTextView.text title:titleTextField.text success:^{
-        [KGStatusBar showSuccessWithStatus:@"Submit Success"];
-    } failure:^{
-        [KGStatusBar showErrorWithStatus:@"Submit Failed. Please try again."];
+    [[HNManager sharedManager] submitPostWithTitle:titleTextField.text link:linkTextField.text text:textTextView.text completion:^(BOOL success) {
+        if (success) {
+            [KGStatusBar showSuccessWithStatus:@"Submit Success"];
+        }
+        else {
+            [KGStatusBar showErrorWithStatus:@"Submit Failed. Please try again."];
+        }
     }];
 }
 @end

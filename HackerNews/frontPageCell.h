@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Post.h"
+#import "HNPost.h"
 
 #define kFrontPageCellHeight 96
 #define kFrontPageActionsHeight 148
@@ -27,6 +27,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *voteDownButton;
 @property (weak, nonatomic) IBOutlet UIView *postActionsView;
 
--(frontPageCell *)setCellWithPost:(Post *)post atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller;
+-(frontPageCell *)setCellWithPost:(HNPost *)post atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller;
 
 @end

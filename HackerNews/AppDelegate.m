@@ -11,6 +11,7 @@
 #import "IIViewDeckController.h"
 #import "NavigationDeckViewController.h"
 #import "SubmitLinkViewController.h"
+#import "HNManager.h"
 
 @implementation AppDelegate
 
@@ -18,6 +19,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    // Start HNManager Session
+    [[HNManager sharedManager] startSession];
     
     // Check Theme
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"Theme"]) {
@@ -42,22 +46,10 @@
     [NSURLCache setSharedURLCache:sharedCache];
     sharedCache = nil;
     
-    // Set initial filter to Top
-    [HNSingleton sharedHNSingleton].filter = fTypeTop;
-    
-    // Login to previous account
-    if (kProfile) {
-        // Get Cookie for Login
-        [[HNSingleton sharedHNSingleton] setSession];
-        // If Cookie, fetch User object
-        if ([HNSingleton sharedHNSingleton].SessionCookie && [[[NSUserDefaults standardUserDefaults] valueForKey:@"Password"] length] > 0) {
-            [[HNSingleton sharedHNSingleton] loginWithUser:[[NSUserDefaults standardUserDefaults] valueForKey:@"Username"] password:[[NSUserDefaults standardUserDefaults] valueForKey:@"Password"]];
-        }
-    }
-    
+    // Set View Controllers
     self.leftController = [[NavigationDeckViewController alloc] initWithNibName:@"NavigationDeckViewController" bundle:nil];
     self.rightController = [[SubmitLinkViewController alloc] initWithNibName:@"SubmitLinkViewController" bundle:nil];
-    ViewController *centerController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil filterType:FilterTypeTop];
+    ViewController *centerController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil filterType:PostFilterTypeTop];
     self.centerController = [[UINavigationController alloc] initWithRootViewController:centerController];
     self.deckController =  [[IIViewDeckController alloc] initWithCenterViewController:self.centerController
                                                                                     leftViewController:self.leftController

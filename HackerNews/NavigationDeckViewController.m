@@ -203,14 +203,16 @@
 -(void)login {
     ProfileNotLoggedInCell *cell = (ProfileNotLoggedInCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if (cell.passwordTextField.text.length > 0 && cell.usernameTextField.text.length > 0) {
-        [[HNSingleton sharedHNSingleton] loginWithUser:cell.usernameTextField.text password:cell.passwordTextField.text];
+        [[HNManager sharedManager] loginWithUsername:cell.usernameTextField.text password:cell.passwordTextField.text completion:^(HNUser *user) {
+            //
+        }];
     }
     [cell.usernameTextField resignFirstResponder];
     [cell.passwordTextField resignFirstResponder];
 }
 
 -(void)logout {
-    [[HNSingleton sharedHNSingleton] logout];
+    [[HNManager sharedManager] logout];
 }
 
 
@@ -227,7 +229,7 @@
 }
 
 -(void)hideKeyboard {
-    if (![HNSingleton sharedHNSingleton].User && kProfile) {
+    if (![HNManager sharedManager].SessionUser && kProfile) {
         ProfileNotLoggedInCell *cell = (ProfileNotLoggedInCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         [cell.usernameTextField resignFirstResponder];
         [cell.passwordTextField resignFirstResponder];
@@ -264,7 +266,7 @@
     
     // PROFILE CELL
     else if (indexPath.row == (kProfile ? 0 : 998)) {
-        if ([HNSingleton sharedHNSingleton].User) {
+        if ([HNManager sharedManager].SessionUser) {
             NSString *CellIdentifier = @"ProfileCell";
             ProfileLoggedInCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
@@ -276,8 +278,8 @@
                 }
             }
             
-            cell.userLabel.text = [HNSingleton sharedHNSingleton].User.Username;
-            cell.karmaLabel.text = [NSString stringWithFormat:@"%d Karma", [HNSingleton sharedHNSingleton].User.Karma];
+            cell.userLabel.text = [HNManager sharedManager].SessionUser.Username;
+            cell.karmaLabel.text = [NSString stringWithFormat:@"%d Karma", [HNManager sharedManager].SessionUser.Karma];
             
             return cell;
         }
@@ -380,8 +382,8 @@
         [cell.themeHidden addTarget:self action:@selector(didClickChangeTheme) forControlEvents:UIControlEventTouchUpInside];
         if (kProfile) {
             // If a User is Logged In
-            if ([HNSingleton sharedHNSingleton].User) {
-                cell.logoutLabel.text = [NSString stringWithFormat:@"Logout %@", [HNSingleton sharedHNSingleton].User.Username];
+            if ([HNManager sharedManager].SessionUser) {
+                cell.logoutLabel.text = [NSString stringWithFormat:@"Logout %@", [HNManager sharedManager].SessionUser.Username];
                 [cell.logoutButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
                 [cell.logoutHidden addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
             }
@@ -424,13 +426,13 @@
         return kFilterCellHeight;
     }
     else if (indexPath.row == (kProfile ? 0 : 998)) {
-        if ([HNSingleton sharedHNSingleton].User) {
+        if ([HNManager sharedManager].SessionUser.Username) {
             return kCellProfLoggedInHeight;
         }
         return kCellProfNotLoggedInHeight;
     }
     else if (indexPath.row == (kProfile ? 2 : 1)) {
-        if ([HNSingleton sharedHNSingleton].User) {
+        if ([HNManager sharedManager].SessionUser.Username) {
             return kCellSettingsLoggedInHeight;
         }
         return kCellSettingsHeight;

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Webservice.h"
 #import "TriangleView.h"
 #import "HNSingleton.h"
 #import "frontPageCell.h"
@@ -20,23 +19,19 @@
 #import "TUSafariActivity.h"
 #import "TTTAttributedLabel.h"
 
+// libHN
+#import "libHN.h"
+
 #define kPad 10
 
 #define kLoadingRectNoSubmit CGRectMake(291,17,20,20)
 #define kLoadingRectSubmit CGRectMake(249,17,20,20)
 
-typedef NS_ENUM(NSInteger, FilterType) {
-    FilterTypeTop,
-    FilterTypeAsk,
-    FilterTypeNew,
-    FilterTypeJobs,
-    FilterTypeBest
-};
+@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,UIWebViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,TTTAttributedLabelDelegate>
 
-@interface ViewController : UIViewController <WebserviceDelegate, UITableViewDataSource, UITableViewDelegate,UIWebViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,TTTAttributedLabelDelegate>
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filterType:(PostFilterType)type;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filterType:(FilterType)type;
-
-@property (nonatomic, assign) FilterType filterType;
+@property (nonatomic, assign) PostFilterType filterType;
+@property (nonatomic, assign) BOOL isLoadingFromFNID;
 
 @end
