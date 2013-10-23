@@ -13,8 +13,14 @@ typedef NS_ENUM(NSInteger, SubmitHNType) {
     SubmitHNTypeComment
 };
 
-@interface SubmitHNViewController : UIViewController
+@interface SubmitHNViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
 
+// Init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil type:(SubmitHNType)type hnObject:(id)hnObject;
+
+// Actions
+- (IBAction)didSelectSubmitPost:(id)sender;
+- (IBAction)didSelectDoneEditing:(id)sender;
+- (IBAction)didSelectSubmitComment:(id)sender;
 
 @end

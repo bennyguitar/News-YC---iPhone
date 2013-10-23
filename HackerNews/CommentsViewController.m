@@ -43,8 +43,12 @@
     
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadComments) name:@"DidSubmitNewComment" object:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    //[self loadComments];
+}
 
 #pragma mark - UI
 - (void)buildUI {

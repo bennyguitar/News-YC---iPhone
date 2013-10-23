@@ -10,6 +10,7 @@
 #import "CommentsViewController.h"
 #import "AppDelegate.h"
 #import "LinksViewController.h"
+#import "SubmitHNViewController.h"
 
 @interface ViewController () {
     // Home Page UI
@@ -72,7 +73,7 @@
     [super viewDidLoad];
     
     // Build NavBar
-    [Helpers buildNavigationController:self leftImage:YES rightImage:([[HNManager sharedManager] userIsLoggedIn] ? [UIImage imageNamed:@"submit_button-01"] : nil) rightAction:([[HNManager sharedManager] userIsLoggedIn] ? @selector(didClickSubmitLink) : nil)];
+    [self buildNavBar];
 	
     // Set Up Data
     homePagePosts = [@[] mutableCopy];
@@ -102,6 +103,11 @@
     longPress.delegate = self;
     [frontPageTable addGestureRecognizer:longPress];
      */
+}
+
+- (void)buildNavBar {
+    // Build NavBar
+    [Helpers buildNavigationController:self leftImage:YES rightImage:([[HNManager sharedManager] userIsLoggedIn] ? [UIImage imageNamed:@"submit_button-01"] : nil) rightAction:([[HNManager sharedManager] userIsLoggedIn] ? @selector(didClickSubmitLink) : nil)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -176,23 +182,14 @@
 
 #pragma mark - Submit Link
 - (void)didClickSubmitLink {
-    
+    SubmitHNViewController *vc = [[SubmitHNViewController alloc] initWithNibName:@"SubmitHNViewController" bundle:nil type:SubmitHNTypePost hnObject:nil];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
 #pragma mark - Did Login
 -(void)didLoginOrOut {
-    // Show paper airplane icon to open submit link
-    // in right drawer. I might move this to the
-    // left drawer instead.
-    if ([HNManager sharedManager].SessionUser) {
-        loadingIndicator.frame = kLoadingRectSubmit;
-        submitLinkButton.alpha = 1;
-    }
-    else {
-        loadingIndicator.frame = kLoadingRectNoSubmit;
-        submitLinkButton.alpha = 0;
-    }
+    [self buildNavBar];
 }
 
 
