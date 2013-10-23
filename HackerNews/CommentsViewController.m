@@ -8,6 +8,7 @@
 
 #import "CommentsViewController.h"
 #import "LinksViewController.h"
+#import "SubmitHNViewController.h"
 #import "HNSingleton.h"
 #import "Helpers.h"
 
@@ -93,7 +94,8 @@
 
 #pragma mark - Submit Comment
 - (void)didClickSubmitComment {
-    
+    SubmitHNViewController *vc = [[SubmitHNViewController alloc] initWithNibName:@"SubmitHNViewController" bundle:nil type:SubmitHNTypeComment hnObject:self.Post];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

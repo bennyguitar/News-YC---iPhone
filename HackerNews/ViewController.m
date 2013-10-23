@@ -52,12 +52,7 @@
 
 // Change Theme
 - (void)colorUI;
-- (IBAction)toggleSideNav:(id)sender;
-- (IBAction)toggleRightNav:(id)sender;
-- (IBAction)didClickCommentsFromLinkView:(id)sender;
-- (IBAction)hideCommentsAndLinkView:(id)sender;
-- (IBAction)didClickLinkViewFromComments:(id)sender;
-- (IBAction)didClickBackToComments:(id)sender;
+
 @end
 
 @implementation ViewController

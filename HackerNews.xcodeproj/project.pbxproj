@@ -113,6 +113,8 @@
 		C0CC4E8D1817550F00D39DC5 /* comment_button-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E8A1817550F00D39DC5 /* comment_button-01.png */; };
 		C0CC4E8E1817550F00D39DC5 /* share_button-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E8B1817550F00D39DC5 /* share_button-01.png */; };
 		C0CC4E8F1817550F00D39DC5 /* submit_button-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E8C1817550F00D39DC5 /* submit_button-01.png */; };
+		C0CC4E9618176CBC00D39DC5 /* SubmitHNViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CC4E9418176CBC00D39DC5 /* SubmitHNViewController.m */; };
+		C0CC4E9718176CBC00D39DC5 /* SubmitHNViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E9518176CBC00D39DC5 /* SubmitHNViewController.xib */; };
 		C0D074E017EE07EB000CAAC3 /* bigCheck-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */; };
 		C0D074E317EE2627000CAAC3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */; };
 		C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F7D17AED67F00C97F0B /* ViewController.xib */; };
@@ -272,6 +274,9 @@
 		C0CC4E8A1817550F00D39DC5 /* comment_button-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_button-01.png"; sourceTree = "<group>"; };
 		C0CC4E8B1817550F00D39DC5 /* share_button-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_button-01.png"; sourceTree = "<group>"; };
 		C0CC4E8C1817550F00D39DC5 /* submit_button-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "submit_button-01.png"; sourceTree = "<group>"; };
+		C0CC4E9318176CBC00D39DC5 /* SubmitHNViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitHNViewController.h; sourceTree = "<group>"; };
+		C0CC4E9418176CBC00D39DC5 /* SubmitHNViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitHNViewController.m; sourceTree = "<group>"; };
+		C0CC4E9518176CBC00D39DC5 /* SubmitHNViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitHNViewController.xib; sourceTree = "<group>"; };
 		C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigCheck-01.png"; sourceTree = "<group>"; };
 		C0D074E117EE2627000CAAC3 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
@@ -423,6 +428,7 @@
 		C01EDDEC1731553B00AE97B8 /* HackerNews */ = {
 			isa = PBXGroup;
 			children = (
+				C0CC4E9018176C7300D39DC5 /* Singleton */,
 				C0CC4E7C1816D71E00D39DC5 /* Controllers */,
 				C0FB762C1803B14800BDA142 /* libHN */,
 				6C2DAACC174C971E0069BAE1 /* ShareActivities */,
@@ -431,11 +437,6 @@
 				C01EDE141731A3B900AE97B8 /* Sliding Deck (Nav/Share) */,
 				C01EDDF51731553B00AE97B8 /* AppDelegate.h */,
 				C01EDDF61731553B00AE97B8 /* AppDelegate.m */,
-				C01EDDFE1731553B00AE97B8 /* ViewController.h */,
-				C01EDDFF1731553B00AE97B8 /* ViewController.m */,
-				C0EE6F7D17AED67F00C97F0B /* ViewController.xib */,
-				C01EDE421731A61700AE97B8 /* HNSingleton.h */,
-				C01EDE431731A61700AE97B8 /* HNSingleton.m */,
 				C0970E4817EA6CF1003FD742 /* Images.xcassets */,
 				C01EDDED1731553B00AE97B8 /* Supporting Files */,
 			);
@@ -607,6 +608,7 @@
 		C0CC4E7C1816D71E00D39DC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C0CC4E9218176C9700D39DC5 /* Submit */,
 				C0CC4E7F1816D72F00D39DC5 /* Links */,
 				C0CC4E7E1816D72800D39DC5 /* Comments */,
 				C0CC4E7D1816D72300D39DC5 /* Root */,
@@ -617,6 +619,9 @@
 		C0CC4E7D1816D72300D39DC5 /* Root */ = {
 			isa = PBXGroup;
 			children = (
+				C01EDDFE1731553B00AE97B8 /* ViewController.h */,
+				C01EDDFF1731553B00AE97B8 /* ViewController.m */,
+				C0EE6F7D17AED67F00C97F0B /* ViewController.xib */,
 			);
 			name = Root;
 			sourceTree = "<group>";
@@ -639,6 +644,25 @@
 				C0CC4E871816E18F00D39DC5 /* LinksViewController.xib */,
 			);
 			name = Links;
+			sourceTree = "<group>";
+		};
+		C0CC4E9018176C7300D39DC5 /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				C01EDE421731A61700AE97B8 /* HNSingleton.h */,
+				C01EDE431731A61700AE97B8 /* HNSingleton.m */,
+			);
+			name = Singleton;
+			sourceTree = "<group>";
+		};
+		C0CC4E9218176C9700D39DC5 /* Submit */ = {
+			isa = PBXGroup;
+			children = (
+				C0CC4E9318176CBC00D39DC5 /* SubmitHNViewController.h */,
+				C0CC4E9418176CBC00D39DC5 /* SubmitHNViewController.m */,
+				C0CC4E9518176CBC00D39DC5 /* SubmitHNViewController.xib */,
+			);
+			name = Submit;
 			sourceTree = "<group>";
 		};
 		C0FB762C1803B14800BDA142 /* libHN */ = {
@@ -755,6 +779,7 @@
 				C01EDE301731A44200AE97B8 /* FilterCell.xib in Resources */,
 				C0CC4E8E1817550F00D39DC5 /* share_button-01.png in Resources */,
 				C01EDE321731A44200AE97B8 /* ShareCell.xib in Resources */,
+				C0CC4E9718176CBC00D39DC5 /* SubmitHNViewController.xib in Resources */,
 				C01EDE341731A44200AE97B8 /* SettingsCell.xib in Resources */,
 				C01EDE361731A44200AE97B8 /* CreditsCell.xib in Resources */,
 				C01EDE3C1731A4BB00AE97B8 /* frontPageCell.xib in Resources */,
@@ -859,6 +884,7 @@
 				C0D074E317EE2627000CAAC3 /* TTTAttributedLabel.m in Sources */,
 				C01EDE191731A3CA00AE97B8 /* IIViewDeckController.m in Sources */,
 				C01EDE1A1731A3CA00AE97B8 /* IIWrapController.m in Sources */,
+				C0CC4E9618176CBC00D39DC5 /* SubmitHNViewController.m in Sources */,
 				C01EDE1E1731A3E500AE97B8 /* triangleView.m in Sources */,
 				C0FB76391803B18200BDA142 /* HNPost.m in Sources */,
 				C01EDE2F1731A44200AE97B8 /* FilterCell.m in Sources */,
