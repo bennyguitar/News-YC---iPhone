@@ -22,6 +22,7 @@ typedef void (^SuccessfulLoginBlock) (HNUser *user);
 @property (nonatomic, retain) NSHTTPCookie *SessionCookie;
 @property (nonatomic, retain) HNUser *SessionUser;
 @property (nonatomic, retain) NSMutableDictionary *MarkAsReadDictionary;
+@property (nonatomic, retain) NSMutableDictionary *VotedOnDictionary;
 
 #pragma mark - Singleton Manager
 + (HNManager *)sharedManager;
@@ -47,5 +48,9 @@ typedef void (^SuccessfulLoginBlock) (HNUser *user);
 #pragma mark - Mark as Read
 - (BOOL)hasUserReadPost:(HNPost *)post;
 - (void)setMarkAsReadForPost:(HNPost *)post;
+
+#pragma mark - Voted On
+- (BOOL)hasVotedOnObject:(id)hnObject;
+- (void)addHNObjectToVotedOnDictionary:(id)hnObject direction:(VoteDirection)direction;
 
 @end

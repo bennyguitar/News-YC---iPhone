@@ -10,6 +10,7 @@
 #import "LinksViewController.h"
 #import "SubmitHNViewController.h"
 #import "HNSingleton.h"
+#import "KGStatusBar.h"
 #import "Helpers.h"
 
 @interface CommentsViewController ()
@@ -53,6 +54,10 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     //[self loadComments];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    self.Comments = nil;
 }
 
 #pragma mark - UI
@@ -242,6 +247,26 @@
     NSArray *activityItems = @[[self.Comments[index] Text]];
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
     [self presentViewController:activityController animated:YES completion:nil];
+}
+
+- (void)didClickUpvoteCommentAtIndex:(int)index {
+    [self voteOnComment:self.Comments[index] direction:VoteDirectionUp];
+}
+
+- (void)didClickDownvoteCommentAtIndex:(int)index {
+    [self voteOnComment:self.Comments[index] direction:VoteDirectionDown];
+}
+
+- (void)voteOnComment:(HNComment *)comment direction:(VoteDirection)direction {
+    [[HNManager sharedManager] voteOnPostOrComment:comment direction:direction completion:^(BOOL success) {
+        if (success) {
+            [KGStatusBar showWithStatus:@"Voting Success"];
+            [[HNManager sharedManager] addHNObjectToVotedOnDictionary:comment direction:direction];
+        }
+        else {
+            [KGStatusBar showWithStatus:@"Failed Voting"];
+        }
+    }];
 }
 
 @end

@@ -203,4 +203,15 @@ static HNManager * _sharedManager = nil;
     [self.MarkAsReadDictionary setObject:@YES forKey:post.PostId];
 }
 
+#pragma mark - Voted On Dictionary
+- (BOOL)hasVotedOnObject:(id)hnObject {
+    NSString *votedOnId = [hnObject isKindOfClass:[HNPost class]] ? [(HNPost *)hnObject PostId] : [(HNComment *)hnObject CommentId];
+    return self.VotedOnDictionary[votedOnId] ? YES : NO;
+}
+
+- (void)addHNObjectToVotedOnDictionary:(id)hnObject direction:(VoteDirection)direction {
+    NSString *votedOnId = [hnObject isKindOfClass:[HNPost class]] ? [(HNPost *)hnObject PostId] : [(HNComment *)hnObject CommentId];
+    [self.VotedOnDictionary setObject:@(direction) forKey:votedOnId];
+}
+
 @end

@@ -14,41 +14,10 @@
 
 @interface ViewController () {
     // Home Page UI
-    __weak IBOutlet UIView *headerContainer;
     __weak IBOutlet UITableView *frontPageTable;
-    __weak IBOutlet UIImageView *underHeaderTriangle;
-    __weak IBOutlet TriangleView *headerTriangle;
-    __weak IBOutlet UIActivityIndicatorView *loadingIndicator;
-    UIRefreshControl *frontPageRefresher;
-    __weak IBOutlet UIButton *submitLinkButton;
-
-    // Comments Page UI
-    IBOutlet UIView *commentsView;
-    __weak IBOutlet UIView *commentsHeader;
-    __weak IBOutlet UITableView *commentsTable;
-    __weak IBOutlet UILabel *commentPostTitleLabel;
-    UIRefreshControl *commentsRefresher;
-    __weak IBOutlet UILabel *postTitleLabel;
-
-    // Link Page UI
-    __weak IBOutlet UIView *linkHeader;
-    __weak IBOutlet UIWebView *linkWebView;
-    IBOutlet UIView *linkView;
-
-    // External Link View
-    __weak IBOutlet UIWebView *externalLinkWebView;
-    IBOutlet UIView *externalLinkView;
-    __weak IBOutlet UIView *externalLinkHeader;
-    __weak IBOutlet UIActivityIndicatorView *externalActivityIndicator;
-    
-    // Data
+    UIRefreshControl *frontPageRefresher;    // Data
     NSMutableArray *homePagePosts;
-    NSArray *organizedCommentsArray;
-    NSMutableArray *openFrontPageCells;
     HNPost *currentPost;
-    float frontPageLastLocation;
-    float commentsLastLocation;
-    int scrollDirection;
 }
 
 // Change Theme
@@ -77,10 +46,6 @@
 	
     // Set Up Data
     homePagePosts = [@[] mutableCopy];
-    organizedCommentsArray = @[];
-    openFrontPageCells = [@[] mutableCopy];
-    frontPageLastLocation = 0;
-    commentsLastLocation = 0;
     
     // Run methods
     [self loadHomepage];
@@ -139,9 +104,6 @@
     self.view.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
     frontPageTable.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
     frontPageTable.separatorColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"Separator"];
-    
-    // Redraw View
-    [self.view setNeedsDisplay];
 }
 
 -(void)setSizes {
@@ -156,15 +118,12 @@
     // Reload tables, and set their alphas to 1
     
     frontPageTable.alpha = 0;
-    commentsTable.alpha = 0;
     [UIView animateWithDuration:0.2 animations:^{
         [self colorUI];
     } completion:^(BOOL fin){
         [frontPageTable reloadData];
-        [commentsTable reloadData];
         [UIView animateWithDuration:0.2 animations:^{
             frontPageTable.alpha = 1;
-            commentsTable.alpha = 1;
         }];
     }];
 }
@@ -231,7 +190,6 @@
 #pragma mark - UIRefreshControl Stuff
 -(void)endRefreshing:(UIRefreshControl *)refresher {
     [refresher endRefreshing];
-    loadingIndicator.alpha = 0;
 }
 
 
@@ -285,18 +243,7 @@
 }
 
 -(int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == frontPageTable) {
-        return homePagePosts.count;
-    }
-    
-    else {
-        if (organizedCommentsArray.count > 0) {
-            return organizedCommentsArray.count;
-        }
-        else {
-            return 1;
-        }
-    }
+    return homePagePosts.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
