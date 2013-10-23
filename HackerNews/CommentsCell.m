@@ -26,9 +26,13 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    [super setSelected:selected animated:animated];
+    [super setSelected:NO animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:NO animated:animated];
 }
 
 -(CommentsCell *)cellForComment:(HNComment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller {
@@ -94,6 +98,7 @@
             self.username.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == CommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
             self.holdingView.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == CommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
             self.comment.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == CommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
+            self.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == CommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
             
             // Triangle
             TriangleView *triangle = [[TriangleView alloc] initWithFrame:CGRectMake(0, self.comment.frame.origin.y + labelSize.height + 10, self.frame.size.width, 6)];
@@ -114,6 +119,10 @@
             
             // Holding View
             self.holdingView.frame = CGRectMake(self.holdingView.frame.origin.x, self.holdingView.frame.origin.y, self.holdingView.frame.size.width, separator.frame.origin.y + separator.frame.size.height);
+            if ([self respondsToSelector:@selector(contentView)]) {
+                self.contentView.frame = self.holdingView.frame;
+            }
+            self.frame = self.holdingView.frame;
         }
         
         // Set action of topBarButton
@@ -125,7 +134,7 @@
         self.username.text = @"";
         self.postedTime.text = @"";
         self.comment.text = @"Ahh! Looks like no comments exist!";
-        self.comment.textAlignment = NSTextAlignmentCenter;
+        [self.comment setTextAlignment:NSTextAlignmentCenter];
     }
     
     return self;

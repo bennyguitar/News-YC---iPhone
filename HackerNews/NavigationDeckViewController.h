@@ -23,23 +23,11 @@
 #import "Helpers.h"
 #import "libHN.h"
 
-@interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
+@interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,NavShareCellDelegate,NavSettingsDelegate,NavProfileLoginDelegate> {
     
     IBOutlet UITableView *navTable;
     __weak IBOutlet UIView *headerBar;
 }
-
-// Deprecated since App version 1.1.1
-// New API does not give these filtering options
-/*
-- (IBAction)changeTypeToTop:(id)sender;
-- (IBAction)changeTypeToNew:(id)sender;
-- (IBAction)changeTypeToAsk:(id)sender;
-*/
-
-- (IBAction)didClickShareToFacebook:(id)sender;
-- (IBAction)didClickShareToTwitter:(id)sender;
-- (IBAction)didClickShareToEmail:(id)sender;
 
 
 

@@ -10,9 +10,19 @@
 
 #define kCellProfNotLoggedInHeight 180
 
+@protocol NavProfileLoginDelegate <NSObject>
+
+- (void)didClickLoginWithUsername:(NSString *)user password:(NSString *)password;
+
+@end
+
 @interface ProfileNotLoggedInCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak) id <NavProfileLoginDelegate> delegate;
+
+- (void)setActionsAndDelegate:(id)del;
+- (void)didClickLogin;
 
 @end

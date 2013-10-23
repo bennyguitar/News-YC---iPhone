@@ -106,6 +106,13 @@
 		C0BFA68117EA9CE70093AAD4 /* 3bar-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0BFA68017EA9CE70093AAD4 /* 3bar-01.png */; };
 		C0BFA68317EBA9B00093AAD4 /* x-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0BFA68217EBA9B00093AAD4 /* x-01.png */; };
 		C0CC4E7B1816B30E00D39DC5 /* HNWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CC4E791816B30E00D39DC5 /* HNWebService.m */; };
+		C0CC4E831816D76100D39DC5 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CC4E811816D76100D39DC5 /* CommentsViewController.m */; };
+		C0CC4E841816D76100D39DC5 /* CommentsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E821816D76100D39DC5 /* CommentsViewController.xib */; };
+		C0CC4E881816E18F00D39DC5 /* LinksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CC4E861816E18F00D39DC5 /* LinksViewController.m */; };
+		C0CC4E891816E18F00D39DC5 /* LinksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E871816E18F00D39DC5 /* LinksViewController.xib */; };
+		C0CC4E8D1817550F00D39DC5 /* comment_button-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E8A1817550F00D39DC5 /* comment_button-01.png */; };
+		C0CC4E8E1817550F00D39DC5 /* share_button-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E8B1817550F00D39DC5 /* share_button-01.png */; };
+		C0CC4E8F1817550F00D39DC5 /* submit_button-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E8C1817550F00D39DC5 /* submit_button-01.png */; };
 		C0D074E017EE07EB000CAAC3 /* bigCheck-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */; };
 		C0D074E317EE2627000CAAC3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */; };
 		C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F7D17AED67F00C97F0B /* ViewController.xib */; };
@@ -256,6 +263,15 @@
 		C0CC4E781816B30E00D39DC5 /* HNWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNWebService.h; sourceTree = "<group>"; };
 		C0CC4E791816B30E00D39DC5 /* HNWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNWebService.m; sourceTree = "<group>"; };
 		C0CC4E7A1816B30E00D39DC5 /* libHN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libHN.h; sourceTree = "<group>"; };
+		C0CC4E801816D76100D39DC5 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
+		C0CC4E811816D76100D39DC5 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
+		C0CC4E821816D76100D39DC5 /* CommentsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsViewController.xib; sourceTree = "<group>"; };
+		C0CC4E851816E18F00D39DC5 /* LinksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinksViewController.h; sourceTree = "<group>"; };
+		C0CC4E861816E18F00D39DC5 /* LinksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinksViewController.m; sourceTree = "<group>"; };
+		C0CC4E871816E18F00D39DC5 /* LinksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LinksViewController.xib; sourceTree = "<group>"; };
+		C0CC4E8A1817550F00D39DC5 /* comment_button-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_button-01.png"; sourceTree = "<group>"; };
+		C0CC4E8B1817550F00D39DC5 /* share_button-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_button-01.png"; sourceTree = "<group>"; };
+		C0CC4E8C1817550F00D39DC5 /* submit_button-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "submit_button-01.png"; sourceTree = "<group>"; };
 		C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigCheck-01.png"; sourceTree = "<group>"; };
 		C0D074E117EE2627000CAAC3 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
@@ -407,6 +423,7 @@
 		C01EDDEC1731553B00AE97B8 /* HackerNews */ = {
 			isa = PBXGroup;
 			children = (
+				C0CC4E7C1816D71E00D39DC5 /* Controllers */,
 				C0FB762C1803B14800BDA142 /* libHN */,
 				6C2DAACC174C971E0069BAE1 /* ShareActivities */,
 				C01EDE371731A48500AE97B8 /* Utilities */,
@@ -543,6 +560,9 @@
 		C01EDE4B1731A7E400AE97B8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C0CC4E8A1817550F00D39DC5 /* comment_button-01.png */,
+				C0CC4E8B1817550F00D39DC5 /* share_button-01.png */,
+				C0CC4E8C1817550F00D39DC5 /* submit_button-01.png */,
 				C0BFA68217EBA9B00093AAD4 /* x-01.png */,
 				C0BFA68017EA9CE70093AAD4 /* 3bar-01.png */,
 				C0BFA67E17EA85B70093AAD4 /* header_img.png */,
@@ -582,6 +602,43 @@
 				C01EDE621731A84800AE97B8 /* Default-568h@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		C0CC4E7C1816D71E00D39DC5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C0CC4E7F1816D72F00D39DC5 /* Links */,
+				C0CC4E7E1816D72800D39DC5 /* Comments */,
+				C0CC4E7D1816D72300D39DC5 /* Root */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		C0CC4E7D1816D72300D39DC5 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Root;
+			sourceTree = "<group>";
+		};
+		C0CC4E7E1816D72800D39DC5 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				C0CC4E801816D76100D39DC5 /* CommentsViewController.h */,
+				C0CC4E811816D76100D39DC5 /* CommentsViewController.m */,
+				C0CC4E821816D76100D39DC5 /* CommentsViewController.xib */,
+			);
+			name = Comments;
+			sourceTree = "<group>";
+		};
+		C0CC4E7F1816D72F00D39DC5 /* Links */ = {
+			isa = PBXGroup;
+			children = (
+				C0CC4E851816E18F00D39DC5 /* LinksViewController.h */,
+				C0CC4E861816E18F00D39DC5 /* LinksViewController.m */,
+				C0CC4E871816E18F00D39DC5 /* LinksViewController.xib */,
+			);
+			name = Links;
 			sourceTree = "<group>";
 		};
 		C0FB762C1803B14800BDA142 /* libHN */ = {
@@ -696,6 +753,7 @@
 			files = (
 				C01EDDF11731553B00AE97B8 /* InfoPlist.strings in Resources */,
 				C01EDE301731A44200AE97B8 /* FilterCell.xib in Resources */,
+				C0CC4E8E1817550F00D39DC5 /* share_button-01.png in Resources */,
 				C01EDE321731A44200AE97B8 /* ShareCell.xib in Resources */,
 				C01EDE341731A44200AE97B8 /* SettingsCell.xib in Resources */,
 				C01EDE361731A44200AE97B8 /* CreditsCell.xib in Resources */,
@@ -706,6 +764,7 @@
 				C01EDE631731A84800AE97B8 /* check-01.png in Resources */,
 				C01EDE641731A84800AE97B8 /* github-01.png in Resources */,
 				C01EDE651731A84800AE97B8 /* website-01.png in Resources */,
+				C0CC4E8D1817550F00D39DC5 /* comment_button-01.png in Resources */,
 				C01EDE661731A84800AE97B8 /* commentbubbleDark.png in Resources */,
 				C01EDE671731A84800AE97B8 /* nav_daymode_off-01.png in Resources */,
 				C01EDE681731A84800AE97B8 /* nav_daymode_on-01.png in Resources */,
@@ -714,6 +773,7 @@
 				C01EDE6A1731A84800AE97B8 /* nav_nightmode_on-01.png in Resources */,
 				C01EDE6B1731A84800AE97B8 /* nav_markasread_off-01.png in Resources */,
 				C0970E4D17EA6D6E003FD742 /* icon120.png in Resources */,
+				C0CC4E891816E18F00D39DC5 /* LinksViewController.xib in Resources */,
 				C01EDE6C1731A84800AE97B8 /* nav_markasread_on-01.png in Resources */,
 				C01EDE6D1731A84800AE97B8 /* nav_readability_off-01.png in Resources */,
 				C01EDE6E1731A84800AE97B8 /* nav_readability_on-01.png in Resources */,
@@ -761,7 +821,9 @@
 				6C2DAAFA174C9C2E0069BAE1 /* it.lproj in Resources */,
 				6C2DAAFB174C9C2E0069BAE1 /* ja.lproj in Resources */,
 				C0BFA68317EBA9B00093AAD4 /* x-01.png in Resources */,
+				C0CC4E8F1817550F00D39DC5 /* submit_button-01.png in Resources */,
 				6C2DAAFC174C9C2E0069BAE1 /* ko.lproj in Resources */,
+				C0CC4E841816D76100D39DC5 /* CommentsViewController.xib in Resources */,
 				6C2DAAFD174C9C2E0069BAE1 /* nl.lproj in Resources */,
 				6C2DAAFE174C9C2E0069BAE1 /* no.lproj in Resources */,
 				6C2DAAFF174C9C2E0069BAE1 /* pl.lproj in Resources */,
@@ -791,7 +853,9 @@
 			files = (
 				C01EDDF31731553B00AE97B8 /* main.m in Sources */,
 				C01EDDF71731553B00AE97B8 /* AppDelegate.m in Sources */,
+				C0CC4E831816D76100D39DC5 /* CommentsViewController.m in Sources */,
 				C01EDE001731553B00AE97B8 /* ViewController.m in Sources */,
+				C0CC4E881816E18F00D39DC5 /* LinksViewController.m in Sources */,
 				C0D074E317EE2627000CAAC3 /* TTTAttributedLabel.m in Sources */,
 				C01EDE191731A3CA00AE97B8 /* IIViewDeckController.m in Sources */,
 				C01EDE1A1731A3CA00AE97B8 /* IIWrapController.m in Sources */,

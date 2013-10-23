@@ -16,7 +16,7 @@
 #import "libHN.h"
 
 // This determines whether logging in is allowed or not
-#define kProfile NO
+#define kProfile YES
 
 enum sDirection {
     scrollDirectionUp = 0,

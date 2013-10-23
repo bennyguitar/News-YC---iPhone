@@ -83,6 +83,13 @@
 
 #pragma mark - Load Posts with FNID
 - (void)loadPostsWithFNID:(NSString *)fnid completion:(GetPostsCompletion)completion {
+    if (!fnid || fnid.length == 0) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(@[]);
+        });
+        return;
+    }
+    
     // Create URL Path
     NSString *urlPath = [NSString stringWithFormat:@"%@%@", kBaseURLAddress, fnid];
     

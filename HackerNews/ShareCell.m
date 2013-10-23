@@ -19,6 +19,34 @@
     return self;
 }
 
+#pragma mark - Set Content
+- (void)setActionsForDelegate:(id)del {
+    self.delegate = del;
+    [self.twitterButton addTarget:self action:@selector(setActionForTwitter) forControlEvents:UIControlEventTouchUpInside];
+    [self.fbButton addTarget:self action:@selector(setActionForFacebook) forControlEvents:UIControlEventTouchUpInside];
+    [self.emailButton addTarget:self action:@selector(setActionForEmail) forControlEvents:UIControlEventTouchUpInside];
+}
+
+
+#pragma mark - Actions
+- (void)setActionForTwitter {
+    if ([self.delegate respondsToSelector:@selector(didClickShareToTwitter)]) {
+        [self.delegate didClickShareToTwitter];
+    }
+}
+
+- (void)setActionForFacebook {
+    if ([self.delegate respondsToSelector:@selector(didClickShareToFacebook)]) {
+        [self.delegate didClickShareToFacebook];
+    }
+}
+
+- (void)setActionForEmail {
+    if ([self.delegate respondsToSelector:@selector(didClickShareToEmail)]) {
+        [self.delegate didClickShareToEmail];
+    }
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];

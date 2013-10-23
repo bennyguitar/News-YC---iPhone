@@ -23,8 +23,8 @@
         // Grab AskHN Post
         NSScanner *scanner = [NSScanner scannerWithString:htmlComponents[0]];
         NSString *trash = @"", *text = @"", *user = @"", *timeAgo = @"";
-        [scanner scanUpToString:@"<a href=\"user?id=" intoString:&trash];
-        [scanner scanString:@"<a href=\"user?id=" intoString:&trash];
+        [scanner scanUpToString:@"by <a href=\"user?id=" intoString:&trash];
+        [scanner scanString:@"by <a href=\"user?id=" intoString:&trash];
         [scanner scanUpToString:@"\">" intoString:&user];
         [scanner scanUpToString:@"</a> " intoString:&trash];
         [scanner scanString:@"</a> " intoString:&trash];
@@ -33,6 +33,11 @@
         [scanner scanUpToString:@"</tr><tr><td></td><td>" intoString:&trash];
         [scanner scanString:@"</tr><tr><td></td><td>" intoString:&trash];
         [scanner scanUpToString:@"</td>" intoString:&text];
+        
+        // Get rid of special text crap
+        if ([text rangeOfString:@"<form method=post"].location != NSNotFound) {
+            text = @"";
+        }
         
         // Create special comment for it
         HNComment *newComment = [[HNComment alloc] init];

@@ -47,7 +47,7 @@
 
 #pragma mark - Did Login Notification
 -(void)didLoginOrOut {
-    [navTable reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0],[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    [navTable reloadData];
 }
 
 -(void)loggingIn {
@@ -61,8 +61,8 @@
     [cell addSubview:blackView];
 }
 
-#pragma mark - Share to Social
-- (IBAction)didClickShareToFacebook:(id)sender {
+#pragma mark - Share to Social Delegates
+- (void)didClickShareToFacebook {
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
@@ -90,7 +90,7 @@
     }
 }
 
-- (IBAction)didClickShareToTwitter:(id)sender {
+- (void)didClickShareToTwitter {
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
         
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
@@ -118,7 +118,8 @@
     }
 }
 
-- (IBAction)didClickShareToEmail:(id)sender {
+
+- (void)didClickShareToEmail {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
         mailViewController.mailComposeDelegate = self;
@@ -140,101 +141,55 @@
     }];
 }
 
-#pragma mark - Readability
--(void)didClickReadability {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
-    if (cell.readabilityLabel.text.length == 18) {
-        [cell.readabilityButton setImage:[UIImage imageNamed:@"nav_readability_on-01.png"] forState:UIControlStateNormal];
-        cell.readabilityButton.alpha = 1;
-        cell.readabilityLabel.text = @"Readability is ON";
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Readability"];
-    }
-    else {
-        [cell.readabilityButton setImage:[UIImage imageNamed:@"nav_readability_off-01.png"] forState:UIControlStateNormal];
-        cell.readabilityButton.alpha = 0.5;
-        cell.readabilityLabel.text = @"Readability is OFF";
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Readability"];
-    }
-    
+
+#pragma mark - Settings Cell Delegate
+- (void)didClickReadability:(BOOL)active {
+    // Did change Readablity
+    NSNotification *notification = [[NSNotification alloc] initWithName:@"Readability" object:nil userInfo:@{@"Readability":@(active)}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Readability" object:notification];
 }
 
-#pragma mark - Mark As Read
--(void)didClickMarkAsRead {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
-    if (cell.markAsReadLabel.text.length == 19) {
-        [cell.markAsReadButton setImage:[UIImage imageNamed:@"nav_markasread_on-01.png"] forState:UIControlStateNormal];
-        cell.markAsReadButton.alpha = 1;
-        cell.markAsReadLabel.text = @"Mark as Read is ON";
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MarkAsRead"];
-    }
-    else {
-        [cell.markAsReadButton setImage:[UIImage imageNamed:@"nav_markasread_off-01.png"] forState:UIControlStateNormal];
-        cell.markAsReadButton.alpha = 0.5;
-        cell.markAsReadLabel.text = @"Mark as Read is OFF";
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"MarkAsRead"];
-    }
-    
+- (void)didClickMarkAsRead:(BOOL)active {
+    //
 }
 
-
-#pragma mark - Theme Change
--(void)didClickChangeTheme {
-    SettingsCell *cell = (SettingsCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:(kProfile ? 2 : 1) inSection:0]];
-    if (cell.themeLabel.text.length == 14) {
-        [cell.nightModeButton setImage:[UIImage imageNamed:@"nav_daymode_on-01.png"] forState:UIControlStateNormal];
-        cell.nightModeButton.alpha = 1;
-        cell.themeLabel.text = @"Theme is DAY";
-        [[NSUserDefaults standardUserDefaults] setValue:@"Day" forKey:@"Theme"];
-    }
-    else {
-        [cell.nightModeButton setImage:[UIImage imageNamed:@"nav_nightmode_on-01.png"] forState:UIControlStateNormal];
-        cell.nightModeButton.alpha = 1;
-        cell.themeLabel.text = @"Theme is NIGHT";
-        [[NSUserDefaults standardUserDefaults] setValue:@"Night" forKey:@"Theme"];
-    }
-    
-    // Change the theme and notify ViewController
+- (void)didClickChangeTheme:(BOOL)nightMode {
     [[HNSingleton sharedHNSingleton] changeTheme];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidChangeTheme" object:nil];
 }
 
-
-#pragma mark - Profile Login
--(void)login {
-    ProfileNotLoggedInCell *cell = (ProfileNotLoggedInCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    if (cell.passwordTextField.text.length > 0 && cell.usernameTextField.text.length > 0) {
-        [[HNManager sharedManager] loginWithUsername:cell.usernameTextField.text password:cell.passwordTextField.text completion:^(HNUser *user) {
-            //
-        }];
-    }
-    [cell.usernameTextField resignFirstResponder];
-    [cell.passwordTextField resignFirstResponder];
+- (void)didClickLogout {
+    [[HNManager sharedManager] logout];
+    [navTable reloadData];
 }
 
--(void)logout {
-    [[HNManager sharedManager] logout];
+
+#pragma mark - Login Delegate
+- (void)didClickLoginWithUsername:(NSString *)user password:(NSString *)password {
+    [[HNManager sharedManager] loginWithUsername:user password:password completion:^(HNUser *user) {
+        [navTable reloadData];
+    }];
 }
 
 
 #pragma mark - UITextFieldDelegate
--(BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     ProfileNotLoggedInCell *cell = (ProfileNotLoggedInCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if (textField == cell.usernameTextField) {
         [cell.passwordTextField becomeFirstResponder];
     }
     else {
-        [self login];
+        [cell endEditing:YES];
+        [cell didClickLogin];
     }
+    
     return YES;
 }
 
--(void)hideKeyboard {
-    if (![HNManager sharedManager].SessionUser && kProfile) {
-        ProfileNotLoggedInCell *cell = (ProfileNotLoggedInCell *)[navTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [cell.usernameTextField resignFirstResponder];
-        [cell.passwordTextField resignFirstResponder];
-    }
+- (void)hideKeyboard {
+    [self.view endEditing:YES];
 }
+
 
 #pragma mark - TableView
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -299,11 +254,7 @@
                 cell.usernameTextField.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"Username"];
             }
             
-            cell.usernameTextField.delegate = self;
-            cell.passwordTextField.delegate = self;
-            [cell.loginButton addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
-            cell.loginButton.layer.cornerRadius = 10;
-            [Helpers makeShadowForView:cell.loginButton withRadius:10];
+            [cell setActionsAndDelegate:self];
             
             return cell;
         }
@@ -321,9 +272,8 @@
                 }
             }
         }
-        [cell.fbButton addTarget:self action:@selector(didClickShareToFacebook:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.twitterButton addTarget:self action:@selector(didClickShareToTwitter:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.emailButton addTarget:self action:@selector(didClickShareToEmail:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [cell setActionsForDelegate:self];
         
         return cell;
     }
@@ -341,63 +291,7 @@
             }
         }
 
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Readability"]) {
-            [cell.readabilityButton setImage:[UIImage imageNamed:@"nav_readability_on-01.png"] forState:UIControlStateNormal];
-            cell.readabilityButton.alpha = 1;
-            cell.readabilityLabel.text = @"Readability is ON";
-        }
-        else {
-            [cell.readabilityButton setImage:[UIImage imageNamed:@"nav_readability_off-01.png"] forState:UIControlStateNormal];
-            cell.readabilityButton.alpha = 0.5;
-            cell.readabilityLabel.text = @"Readability is OFF";
-        }
-        
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"MarkAsRead"]) {
-            [cell.markAsReadButton setImage:[UIImage imageNamed:@"nav_markasread_on-01.png"] forState:UIControlStateNormal];
-            cell.markAsReadButton.alpha = 1;
-            cell.markAsReadLabel.text = @"Mark as Read is ON";
-        }
-        else {
-            [cell.markAsReadButton setImage:[UIImage imageNamed:@"nav_markasread_off-01.png"] forState:UIControlStateNormal];
-            cell.markAsReadButton.alpha = 0.5;
-            cell.markAsReadLabel.text = @"Mark as Read is OFF";
-        }
-        
-        if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"Theme"] isEqualToString:@"Night"]) {
-            [cell.nightModeButton setImage:[UIImage imageNamed:@"nav_nightmode_on-01.png"] forState:UIControlStateNormal];
-            cell.nightModeButton.alpha = 1;
-            cell.themeLabel.text = @"Theme is NIGHT";
-        }
-        else {
-            [cell.nightModeButton setImage:[UIImage imageNamed:@"nav_daymode_on-01.png"] forState:UIControlStateNormal];
-            cell.nightModeButton.alpha = 1;
-            cell.themeLabel.text = @"Theme is DAY";
-        }
-        
-        [cell.readabilityButton addTarget:self action:@selector(didClickReadability) forControlEvents:UIControlEventTouchUpInside];
-        [cell.readabilityHidden addTarget:self action:@selector(didClickReadability) forControlEvents:UIControlEventTouchUpInside];
-        [cell.markAsReadButton addTarget:self action:@selector(didClickMarkAsRead) forControlEvents:UIControlEventTouchUpInside];
-        [cell.markAsReadHidden addTarget:self action:@selector(didClickMarkAsRead) forControlEvents:UIControlEventTouchUpInside];
-        [cell.nightModeButton addTarget:self action:@selector(didClickChangeTheme) forControlEvents:UIControlEventTouchUpInside];
-        [cell.themeHidden addTarget:self action:@selector(didClickChangeTheme) forControlEvents:UIControlEventTouchUpInside];
-        if (kProfile) {
-            // If a User is Logged In
-            if ([HNManager sharedManager].SessionUser) {
-                cell.logoutLabel.text = [NSString stringWithFormat:@"Logout %@", [HNManager sharedManager].SessionUser.Username];
-                [cell.logoutButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
-                [cell.logoutHidden addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
-            }
-            else {
-                cell.logoutLabel.hidden = YES;
-                cell.logoutButton.hidden = YES;
-                cell.logoutHidden.hidden = YES;
-            }
-        }
-        else {
-            cell.logoutButton.hidden = YES;
-            cell.logoutHidden.hidden = YES;
-            cell.logoutLabel.hidden = YES;
-        }
+        [cell addActionsToDelegate:self];
         
         return cell;
     }

@@ -11,6 +11,16 @@
 #define kCellSettingsHeight 180
 #define kCellSettingsLoggedInHeight 212
 
+@protocol NavSettingsDelegate <NSObject>
+
+- (void)didClickReadability:(BOOL)active;
+- (void)didClickMarkAsRead:(BOOL)active;
+- (void)didClickChangeTheme:(BOOL)nightMode;
+- (void)didClickLogout;
+
+@end
+
+
 @interface SettingsCell : UITableViewCell
 
 
@@ -35,5 +45,9 @@
 @property (nonatomic, assign) BOOL MarkAsRead;
 @property (nonatomic, assign) BOOL NightMode;
 
+@property (weak) id <NavSettingsDelegate> delegate;
+
+
+- (void)addActionsToDelegate:(id)del;
 
 @end

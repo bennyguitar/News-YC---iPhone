@@ -7,7 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "CommentsViewController.h"
 #import "AppDelegate.h"
+#import "LinksViewController.h"
 
 @interface ViewController () {
     // Home Page UI
@@ -75,7 +77,7 @@
     [super viewDidLoad];
     
     // Build NavBar
-    [Helpers buildNavBarForController:self.navigationController];
+    [Helpers buildNavigationController:self leftImage:YES rightImage:([[HNManager sharedManager] userIsLoggedIn] ? [UIImage imageNamed:@"submit_button-01"] : nil) rightAction:([[HNManager sharedManager] userIsLoggedIn] ? @selector(didClickSubmitLink) : nil)];
 	
     // Set Up Data
     homePagePosts = [@[] mutableCopy];
@@ -113,12 +115,6 @@
 }
 
 
-#pragma mark - TTTAttributedLabelDelegate
-- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
-    [self launchExternalLinkViewWithLink:url];
-}
-
-
 #pragma mark - Memory
 - (void)didReceiveMemoryWarning
 {
@@ -135,22 +131,6 @@
     frontPageRefresher.tintColor = [UIColor blackColor];
     frontPageRefresher.alpha = 0.65;
     [frontPageTable addSubview:frontPageRefresher];
-    
-    commentsRefresher = [[UIRefreshControl alloc] init];
-    [commentsRefresher addTarget:self action:@selector(reloadComments) forControlEvents:UIControlEventValueChanged];
-    commentsRefresher.tintColor = [UIColor blackColor];
-    commentsRefresher.alpha = 0.65;
-    [commentsTable addSubview:commentsRefresher];
-    
-    commentsHeader.backgroundColor = kOrangeColor;
-    linkHeader.backgroundColor = kOrangeColor;
-    externalLinkHeader.backgroundColor = kOrangeColor;
-    
-    // Add Shadows
-    NSArray *sArray = @[commentsHeader, headerContainer, linkHeader];
-    for (UIView *view in sArray) {
-        [Helpers makeShadowForView:view withRadius:0];
-    }
 }
 
 -(void)colorUI {
@@ -158,10 +138,6 @@
     self.view.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
     frontPageTable.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
     frontPageTable.separatorColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"Separator"];
-    commentsTable.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
-    underHeaderTriangle.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"TableTriangle"];
-    headerTriangle.color = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"TableTriangle"];
-    [headerTriangle drawTriangleAtXPosition:self.view.frame.size.width/2];
     
     // Redraw View
     [self.view setNeedsDisplay];
@@ -170,7 +146,7 @@
 -(void)setSizes {
     // Sizes
     frontPageTable.frame = CGRectMake(0, 0, frontPageTable.frame.size.width, self.view.frame.size.height);
-    [frontPageTable setContentOffset:CGPointZero];
+    //[frontPageTable setContentOffset:CGPointZero];
 }
 
 -(void)didChangeTheme {
@@ -203,6 +179,12 @@
 }
 
 
+#pragma mark - Submit Link
+- (void)didClickSubmitLink {
+    
+}
+
+
 #pragma mark - Did Login
 -(void)didLoginOrOut {
     // Show paper airplane icon to open submit link
@@ -221,9 +203,12 @@
 
 #pragma mark - Load HomePage
 -(void)loadHomepage {
+    // Clear fnid
+    [[HNManager sharedManager] setPostFNID:nil];
+    
     // Add activity indicator
     __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
-    [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
+    [Helpers navigationController:self addActivityIndicator:&indicator];
     
     // Load Posts
     [[HNManager sharedManager] loadPostsWithFilter:self.filterType completion:^(NSArray *posts) {
@@ -233,7 +218,6 @@
             [self endRefreshing:frontPageRefresher];
             indicator.alpha = 0;
             [indicator removeFromSuperview];
-            // unlock FNID loading
         }
         else {
             [FailedLoadingView launchFailedLoadingInView:self.view];
@@ -247,6 +231,7 @@
 
 #pragma mark - Load Comments
 -(void)loadCommentsForPost:(HNPost *)post {
+    /*
     // Activity Indicator
     __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
     [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
@@ -270,34 +255,10 @@
             [indicator removeFromSuperview];
         }
     }];
-}
-
--(void)reloadComments {
-    // Activity Indicator
-    __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
-    [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
+     */
     
-    // Comments
-    [[HNManager sharedManager] loadCommentsFromPost:currentPost completion:^(NSArray *comments) {
-        if (comments) {
-            organizedCommentsArray = comments;
-            [commentsTable reloadData];
-            [self endRefreshing:commentsRefresher];
-            indicator.alpha = 0;
-            [indicator removeFromSuperview];
-            [commentsTable setContentOffset:CGPointZero animated:YES];
-        }
-        else {
-            [FailedLoadingView launchFailedLoadingInView:self.view];
-            [self endRefreshing:commentsRefresher];
-            indicator.alpha = 0;
-            [indicator removeFromSuperview];
-        }
-    }];
-    
-    // Start Loading Indicator
-    [commentsRefresher beginRefreshing];
-    loadingIndicator.alpha = 1;
+    CommentsViewController *vc = [[CommentsViewController alloc] initWithNibName:@"CommentsViewController" bundle:nil post:post];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
@@ -323,8 +284,9 @@
         if ([[frontPageTable indexPathsForVisibleRows].lastObject row] == homePagePosts.count - 3 && self.isLoadingFromFNID == NO) {
             self.isLoadingFromFNID = YES;
             __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
-            [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
+            [Helpers navigationController:self addActivityIndicator:&indicator];
             
+            NSLog(@"%@", [HNManager sharedManager].postFNID);
             [[HNManager sharedManager] loadPostsWithFNID:[[HNManager sharedManager] postFNID] completion:^(NSArray *posts) {
                 if (posts) {
                     indicator.alpha = 0;
@@ -427,7 +389,9 @@
                 [self loadCommentsForPost:currentPost];
             }
             else {
-                [self launchLinkView];
+                NSURL *linkUrl = [NSURL URLWithString:currentPost.UrlString];
+                LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:linkUrl];
+                [self.navigationController pushViewController:vc animated:YES];
             }
         }
         
@@ -617,108 +581,6 @@
 	//activityController.excludedActivityTypes = @[ UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypeMessage, UIActivityTypeMail, UIActivityTypeCopyToPasteboard ];
 	
     [self presentViewController:activityController animated:YES completion:nil];
-}
-
-// Shows header bar
--(void)placeHeaderBarBack {
-    headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
-}
-
-- (IBAction)didClickLinkViewFromComments:(id)sender {
-    [[HNManager sharedManager] setMarkAsReadForPost:currentPost];
-    [self launchLinkView];
-    [frontPageTable reloadData];
-}
-
-- (IBAction)didClickCommentsFromLinkView:(id)sender {
-    // Drop in Header
-    [UIView animateWithDuration:0.25 animations:^{
-        linkView.frame = CGRectMake(0, 0, linkView.frame.size.width, linkView.frame.size.height);
-    }];
-    
-    // Stop LinkView from Opening/Loading anymore
-    linkWebView.delegate = nil;
-    [linkWebView stopLoading];
-    linkWebView.delegate = self;
-
-    //Empty Current Comments
-    organizedCommentsArray = nil;
-
-    //Start Fetching
-    [self reloadComments];
-
-    //Reload table to remove old comments
-
-    [commentsTable reloadData];
-    
-    // Launch the comments
-    [self launchCommentsView];
-}
-
--(void)launchLinkView {
-    // Stop comments from moving after clicking
-    if ([commentsTable isDragging]) {
-        [commentsTable setContentOffset:commentsTable.contentOffset animated:NO];
-    }
-    
-    // Drop header back in
-    [UIView animateWithDuration:0.25 animations:^{
-        headerContainer.frame = CGRectMake(0, 0, headerContainer.frame.size.width, headerContainer.frame.size.height);
-        commentsView.frame = CGRectMake(0, 0, commentsView.frame.size.width, commentsView.frame.size.height);
-    }];
-    
-    // Reset WebView
-    [linkWebView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
-    
-    // Set linkView's frame
-    linkView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-    linkHeader.frame = CGRectMake(0, 0, linkHeader.frame.size.width, linkHeader.frame.size.height);
-    linkWebView.frame = CGRectMake(0, linkHeader.frame.size.height, linkWebView.frame.size.width, linkView.frame.size.height - linkHeader.frame.size.height);
-    
-    // Add linkView and move to front
-    [self.view addSubview:linkView];
-    [self.view bringSubviewToFront:linkView];
-    
-    // Animate it coming in
-    [UIView animateWithDuration:0.3 animations:^{
-        linkView.frame = CGRectMake(0, 0, linkView.frame.size.width, linkView.frame.size.height);
-    } completion:^(BOOL finished) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    }];
-    
-    // Determine if using Readability, and load the webpage
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Readability"]) {
-        [linkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.readability.com/m?url=%@", currentPost.UrlString]]]];
-    }
-    else {
-        [linkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:currentPost.UrlString]]];
-    }
-}
-
-
-#pragma mark - External Link View
--(void)launchExternalLinkViewWithLink:(NSURL *)linkUrl {
-    // Set up External Link View
-    [externalLinkWebView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
-    [externalLinkWebView loadRequest:[NSURLRequest requestWithURL:linkUrl]];
-    
-    // Launch Link View
-    externalLinkView.frame = CGRectMake(0, self.view.frame.size.height, externalLinkView.frame.size.width, self.view.frame.size.height);
-    [self.view addSubview:externalLinkView];
-    [UIView animateWithDuration:0.25 animations:^{
-        externalLinkView.frame = CGRectMake(0, 0, externalLinkView.frame.size.width, self.view.frame.size.height);
-    }];
-}
-
--(void)hideExternalLinkView {
-    [self.view endEditing:YES];
-    [UIView animateWithDuration:0.25 animations:^{
-        externalLinkView.frame = CGRectMake(0, self.view.frame.size.height, externalLinkView.frame.size.width, self.view.frame.size.height);
-    }];
-}
-
-- (IBAction)didClickBackToComments:(id)sender {
-    [self hideExternalLinkView];
 }
 
 #pragma mark - WebView Delegate

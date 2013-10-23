@@ -24,11 +24,11 @@
     [[HNManager sharedManager] startSession];
     
     // Check Theme
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"Theme"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"]) {
         [[HNSingleton sharedHNSingleton] changeTheme];
     }
     else {
-        [[NSUserDefaults standardUserDefaults] setValue:@"Night" forKey:@"Theme"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NightMode"];
         [[HNSingleton sharedHNSingleton] changeTheme];
     }
     

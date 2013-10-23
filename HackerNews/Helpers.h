@@ -21,7 +21,8 @@
 +(NSString *)postStringFromDate:(NSDate *)date;
 +(NSDate *)postDateFromString:(NSString *)string;
 +(NSString *)timeAgoStringForDate:(NSDate *)date;
-+ (void)buildNavBarForController:(UINavigationController *)navController;
-+ (void)navigationController:(UINavigationController *)navController addActivityIndicator:(UIActivityIndicatorView **)indicator;
++ (void)buildNavBarForController:(UINavigationController *)navController leftImage:(BOOL)leftImage;
++ (void)buildNavigationController:(UIViewController *)controller leftImage:(BOOL)leftImage rightImage:(UIImage *)rImage rightAction:(SEL)rAction;
++ (void)navigationController:(UIViewController *)controller addActivityIndicator:(UIActivityIndicatorView **)indicator;
 
 @end

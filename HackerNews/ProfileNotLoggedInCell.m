@@ -19,6 +19,30 @@
     return self;
 }
 
+#pragma mark - Set Content
+- (void)setActionsAndDelegate:(id)del {
+    self.delegate = del;
+    self.usernameTextField.delegate = del;
+    self.passwordTextField.delegate = del;
+    [self.loginButton addTarget:self action:@selector(didClickLogin) forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark - Set Actions
+- (void)didClickLogin {
+    // Black View
+    UIView *bView = [[UIView alloc] initWithFrame:CGRectMake(0, 25, self.frame.size.width, self.frame.size.height - 25)];
+    bView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.75];
+    [self addSubview:bView];
+    [self.usernameTextField setUserInteractionEnabled:NO];
+    [self.passwordTextField setUserInteractionEnabled:NO];
+    [self.loginButton setUserInteractionEnabled:NO];
+    
+    if ([self.delegate respondsToSelector:@selector(didClickLoginWithUsername:password:)]) {
+        [self.delegate didClickLoginWithUsername:self.usernameTextField.text password:self.passwordTextField.text];
+    }
+}
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
