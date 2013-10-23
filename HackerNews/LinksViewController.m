@@ -7,8 +7,8 @@
 //
 
 #import "LinksViewController.h"
+#import "CommentsViewController.h"
 #import "Helpers.h"
-#import "HNManager.h"
 #import "ARChromeActivity.h"
 #import "TUSafariActivity.h"
 
@@ -18,15 +18,17 @@
 @property (nonatomic, weak) UIActivityIndicatorView *indicator;
 @property (nonatomic, retain) UIButton *shareButton;
 @property (nonatomic, assign) BOOL Readability;
+@property (nonatomic, retain) HNPost *Post;
 @end
 
 @implementation LinksViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil url:(NSURL *)url
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil url:(NSURL *)url post:(HNPost *)post
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.Url = url;
+        self.Post = post;
     }
     return self;
 }
@@ -42,7 +44,9 @@
     self.Readability = [[NSUserDefaults standardUserDefaults] boolForKey:@"Readability"];
     
     // Build Nav
-    [Helpers buildNavigationController:self leftImage:NO rightImage:[UIImage imageNamed:@"share_button-01"] rightAction:@selector(didClickShare)];
+    NSArray *images = @[[UIImage imageNamed:@"share_button-01"]];
+    NSArray *actions = @[@"didClickShare"];
+    [Helpers buildNavigationController:self leftImage:NO rightImages:images rightActions:actions];
     
     // Load Link
     [self loadWebViewWithUrl:self.Url];
@@ -74,11 +78,15 @@
 	NSArray *applicationActivities = @[ safariActivity, chromeActivity ];
 	
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:applicationActivities];
-	//activityController.excludedActivityTypes = @[ UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypeMessage, UIActivityTypeMail, UIActivityTypeCopyToPasteboard ];
-	
     [self presentViewController:activityController animated:YES completion:nil];
 }
 
+- (void)didClickComment {
+    if (self.Post) {
+        CommentsViewController *vc = [[CommentsViewController alloc] initWithNibName:@"CommentsViewController" bundle:nil post:self.Post];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
 
 #pragma mark - Change Readability
 - (void)didChangeReadability:(NSNotification *)notification {

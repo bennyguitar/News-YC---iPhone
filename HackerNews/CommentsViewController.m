@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIView *LoadingCommentsView;
 @property (weak, nonatomic) IBOutlet UITableView *CommentsTableView;
 @property (nonatomic, retain) UIRefreshControl *refreshControl;
+@property (nonatomic, retain) NSNumber *AuxiliaryClickIndex;
 
 @end
 
@@ -31,6 +32,7 @@
         // Custom initialization
         self.Post = post;
         self.Comments = @[];
+        self.AuxiliaryClickIndex = nil;
     }
     return self;
 }
@@ -38,6 +40,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.AuxiliaryClickIndex = nil;
+    
     [self buildUI];
     [self loadComments];
     
@@ -54,7 +59,7 @@
 - (void)buildUI {
     // Build Nav
     BOOL userIsLoggedIn = [[HNManager sharedManager] userIsLoggedIn];
-    [Helpers buildNavigationController:self leftImage:NO rightImage:(userIsLoggedIn ? [UIImage imageNamed:@"comment_button-01"] : nil) rightAction:(userIsLoggedIn ? @selector(didClickSubmitComment) : nil)];
+    [Helpers buildNavigationController:self leftImage:NO rightImages:(userIsLoggedIn ? @[[UIImage imageNamed:@"comment_button-01"]] : nil) rightActions:(userIsLoggedIn ? @[@"didClickSubmitComment"] : nil)];
     
     // Set TableView and LoadingView
     self.CommentsTableView.alpha = 0;
@@ -160,7 +165,8 @@
     }
     
     // Set Content
-    cell = [cell cellForComment:(self.Comments.count > 0 ? self.Comments[indexPath.row] : nil) atIndex:indexPath fromController:self];
+    
+    cell = [cell cellForComment:(self.Comments.count > 0 ? self.Comments[indexPath.row] : nil) atIndex:indexPath fromController:self showAuxiliary:(self.AuxiliaryClickIndex && (indexPath.row == [self.AuxiliaryClickIndex intValue]) ? YES : NO)];
     [cell.comment setDelegate:self];
     
     return cell;
@@ -178,15 +184,64 @@
         }
     }
     
-    return [cell heightForComment:(self.Comments.count > 0 ? self.Comments[indexPath.row] : nil)];
+    return [cell heightForComment:(self.Comments.count > 0 ? self.Comments[indexPath.row] : nil) isAuxiliary:(self.AuxiliaryClickIndex && (indexPath.row == [self.AuxiliaryClickIndex intValue]) ? YES : NO)];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([[HNManager sharedManager] userIsLoggedIn]) {
+        /*
+        if (self.AuxiliaryClickIndex) {
+            if (self.AuxiliaryClickIndex.intValue == indexPath.row) {
+                self.AuxiliaryClickIndex = nil;
+            }
+            else {
+                self.AuxiliaryClickIndex = @(indexPath.row);
+            }
+        }
+        else {
+            self.AuxiliaryClickIndex = @(indexPath.row);
+        }
+        [self.CommentsTableView reloadData];
+        */
+        
+        NSIndexPath *oldIndexPath;
+        if (self.AuxiliaryClickIndex) {
+            int oldIndex = self.AuxiliaryClickIndex.intValue;
+            oldIndexPath = [NSIndexPath indexPathForRow:oldIndex inSection:0];
+            if (indexPath.row == oldIndex) {
+                self.AuxiliaryClickIndex = nil;
+            }
+            else {
+                self.AuxiliaryClickIndex = @(indexPath.row);
+            }
+        }
+        else {
+            self.AuxiliaryClickIndex = @(indexPath.row);
+        }
+        
+        NSArray *indexPathsToReload = (oldIndexPath && (oldIndexPath.row != indexPath.row)) ? @[indexPath,oldIndexPath] : @[indexPath];
+        [self.CommentsTableView reloadRowsAtIndexPaths:indexPathsToReload withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
 
 #pragma mark - TTTAttributedLabelDelegate
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
-    LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:url];
+    LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:url post:nil];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+
+#pragma mark - Comment Cell Delegate
+- (void)didClickReplyToCommentAtIndex:(int)index {
+    SubmitHNViewController *vc = [[SubmitHNViewController alloc] initWithNibName:@"SubmitHNViewController" bundle:nil type:SubmitHNTypeComment hnObject:self.Comments[index]];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)didClickShareCommentAtIndex:(int)index {
+    NSArray *activityItems = @[[self.Comments[index] Text]];
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    [self presentViewController:activityController animated:YES completion:nil];
+}
 
 @end

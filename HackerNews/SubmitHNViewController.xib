@@ -127,7 +127,7 @@
                     </connections>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Bte-sc-mTo">
-                    <rect key="frame" x="20" y="528" width="280" height="40"/>
+                    <rect key="frame" x="20" y="523" width="280" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <state key="normal" title="Submit">

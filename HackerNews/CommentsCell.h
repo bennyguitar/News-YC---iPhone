@@ -18,10 +18,21 @@
 #define kCommentsDefaultW 307
 #define kCommentDefaultAddition 45
 #define kCommentAskHNAddition 56
+#define kCommentAuxiliaryHeight 44
+
+@protocol CommentCellDelegate <NSObject>
+
+- (void)didClickShareCommentAtIndex:(int)index;
+- (void)didClickReplyToCommentAtIndex:(int)index;
+- (void)didClickUpvoteCommentAtIndex:(int)index;
+- (void)didClickDownvoteCommentAtIndex:(int)index;
+
+@end
 
 @interface CommentsCell : UITableViewCell <TTTAttributedLabelDelegate> {
 }
 
+@property (nonatomic, assign) int Index;
 @property (retain, nonatomic) IBOutlet UILabel *username;
 @property (retain, nonatomic) IBOutlet UILabel *postedTime;
 @property (retain, nonatomic) IBOutlet TTTAttributedLabel *comment;
@@ -31,9 +42,18 @@
 @property (nonatomic, retain) NSString *postTitle;
 @property (weak, nonatomic) IBOutlet UIButton *topBarButton;
 @property (weak, nonatomic) IBOutlet UIView *topBarBorder;
+@property (nonatomic, assign) BOOL isClicked;
+@property (weak, nonatomic) IBOutlet UIView *auxiliaryView;
+@property (weak, nonatomic) IBOutlet UIButton *auxiliaryShareButton;
+@property (weak, nonatomic) IBOutlet UIButton *auxiliaryCommentButton;
+@property (weak, nonatomic) IBOutlet UIButton *auxiliaryUpvoteButton;
+@property (weak, nonatomic) IBOutlet UIButton *auxiliaryDownvoteButton;
+@property (weak, nonatomic) IBOutlet UIView *auxiliarySeparator;
 
--(CommentsCell *)cellForComment:(HNComment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller;
--(float)heightForComment:(HNComment *)newComment;
+@property (weak) id <CommentCellDelegate> delegate;
+
+-(CommentsCell *)cellForComment:(HNComment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller showAuxiliary:(BOOL)auxiliary;
+-(float)heightForComment:(HNComment *)newComment isAuxiliary:(BOOL)auxiliary;
 
 
 @end

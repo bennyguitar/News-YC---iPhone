@@ -22,7 +22,11 @@
 +(NSDate *)postDateFromString:(NSString *)string;
 +(NSString *)timeAgoStringForDate:(NSDate *)date;
 + (void)buildNavBarForController:(UINavigationController *)navController leftImage:(BOOL)leftImage;
-+ (void)buildNavigationController:(UIViewController *)controller leftImage:(BOOL)leftImage rightImage:(UIImage *)rImage rightAction:(SEL)rAction;
++ (void)buildNavigationController:(UIViewController *)controller leftImage:(BOOL)leftImage rightImages:(NSArray *)rImages rightActions:(NSArray *)rActions;
 + (void)navigationController:(UIViewController *)controller addActivityIndicator:(UIActivityIndicatorView **)indicator;
 
+@end
+
+@interface NavBarButtonItem : UIBarButtonItem
+- (void)setFrameForHeight:(float)height;
 @end

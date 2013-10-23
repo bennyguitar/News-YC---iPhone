@@ -66,7 +66,7 @@
                                                object:nil];
     
     // Build Nav
-    [Helpers buildNavigationController:self leftImage:NO rightImage:nil rightAction:nil];
+    [Helpers buildNavigationController:self leftImage:NO rightImages:nil rightActions:nil];
     
     // Color UI
     [self colorUI];
@@ -192,6 +192,7 @@
 #pragma mark - Submit Post
 - (IBAction)didSelectSubmitPost:(id)sender {
     [self hideKeyboard];
+    [self submitPost];
 }
 
 - (void)submitPost {

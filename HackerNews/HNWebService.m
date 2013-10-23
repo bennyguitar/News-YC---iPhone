@@ -687,8 +687,9 @@
 #pragma mark - URL Request Building
 +(NSMutableURLRequest *)newGetRequestForURL:(NSURL *)url cookie:(NSHTTPCookie *)cookie {
     NSMutableURLRequest *Request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
-    [Request setHTTPShouldHandleCookies:YES];
+    [Request setHTTPShouldHandleCookies:NO];
     [Request setHTTPMethod:@"GET"];
+    [Request setAllHTTPHeaderFields:@{}];
     
     if (cookie) {
         NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:@[cookie]];
@@ -706,6 +707,7 @@
     [Request setHTTPBody:bodyData];
     [Request setHTTPShouldHandleCookies:YES];
     [Request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+    [Request setAllHTTPHeaderFields:@{}];
     
     if (cookie) {
         NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:@[cookie]];

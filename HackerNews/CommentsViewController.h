@@ -10,7 +10,7 @@
 #import "libHN.h"
 #import "CommentsCell.h"
 
-@interface CommentsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,TTTAttributedLabelDelegate>
+@interface CommentsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,TTTAttributedLabelDelegate,CommentCellDelegate>
 
 // Init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil post:(HNPost *)post;

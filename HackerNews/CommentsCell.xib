@@ -72,6 +72,12 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="auxiliaryCommentButton" destination="wad-6u-K82" id="HI7-Ik-cCC"/>
+                <outlet property="auxiliaryDownvoteButton" destination="OfR-MK-96Z" id="0ID-i4-FoF"/>
+                <outlet property="auxiliarySeparator" destination="L1q-HO-Lqo" id="8Vd-MI-q16"/>
+                <outlet property="auxiliaryShareButton" destination="Jgw-Cu-Y4e" id="k5F-qC-11n"/>
+                <outlet property="auxiliaryUpvoteButton" destination="GSS-Hx-HkY" id="754-yi-xd2"/>
+                <outlet property="auxiliaryView" destination="A0W-CB-aIt" id="vvk-7c-3c5"/>
                 <outlet property="comment" destination="39" id="70"/>
                 <outlet property="holdingView" destination="71" id="72"/>
                 <outlet property="postedTime" destination="42" id="69"/>
@@ -81,5 +87,56 @@
                 <outlet property="username" destination="40" id="68"/>
             </connections>
         </tableViewCell>
+        <view contentMode="scaleToFill" id="A0W-CB-aIt">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="L1q-HO-Lqo" userLabel="Separator">
+                    <rect key="frame" x="0.0" y="43" width="320" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.77740675403225812" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wad-6u-K82">
+                    <rect key="frame" x="100" y="1" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="comment_button-01.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jgw-Cu-Y4e">
+                    <rect key="frame" x="20" y="2" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="share_button-01.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GSS-Hx-HkY">
+                    <rect key="frame" x="180" y="1" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="upvote-01.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OfR-MK-96Z">
+                    <rect key="frame" x="260" y="2" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="downvote-01.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="0.38823533059999998" blue="0.14509804549999999" alpha="1" colorSpace="deviceRGB"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
     </objects>
+    <resources>
+        <image name="comment_button-01.png" width="80" height="80"/>
+        <image name="downvote-01.png" width="80" height="80"/>
+        <image name="share_button-01.png" width="80" height="80"/>
+        <image name="upvote-01.png" width="80" height="80"/>
+    </resources>
 </document>

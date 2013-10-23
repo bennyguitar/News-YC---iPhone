@@ -115,6 +115,8 @@
 		C0CC4E8F1817550F00D39DC5 /* submit_button-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E8C1817550F00D39DC5 /* submit_button-01.png */; };
 		C0CC4E9618176CBC00D39DC5 /* SubmitHNViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CC4E9418176CBC00D39DC5 /* SubmitHNViewController.m */; };
 		C0CC4E9718176CBC00D39DC5 /* SubmitHNViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E9518176CBC00D39DC5 /* SubmitHNViewController.xib */; };
+		C0CC4E9A1818752600D39DC5 /* downvote-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E981818752600D39DC5 /* downvote-01.png */; };
+		C0CC4E9B1818752600D39DC5 /* upvote-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E991818752600D39DC5 /* upvote-01.png */; };
 		C0D074E017EE07EB000CAAC3 /* bigCheck-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */; };
 		C0D074E317EE2627000CAAC3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */; };
 		C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F7D17AED67F00C97F0B /* ViewController.xib */; };
@@ -277,6 +279,8 @@
 		C0CC4E9318176CBC00D39DC5 /* SubmitHNViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitHNViewController.h; sourceTree = "<group>"; };
 		C0CC4E9418176CBC00D39DC5 /* SubmitHNViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitHNViewController.m; sourceTree = "<group>"; };
 		C0CC4E9518176CBC00D39DC5 /* SubmitHNViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitHNViewController.xib; sourceTree = "<group>"; };
+		C0CC4E981818752600D39DC5 /* downvote-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downvote-01.png"; sourceTree = "<group>"; };
+		C0CC4E991818752600D39DC5 /* upvote-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upvote-01.png"; sourceTree = "<group>"; };
 		C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigCheck-01.png"; sourceTree = "<group>"; };
 		C0D074E117EE2627000CAAC3 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
@@ -561,6 +565,8 @@
 		C01EDE4B1731A7E400AE97B8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C0CC4E981818752600D39DC5 /* downvote-01.png */,
+				C0CC4E991818752600D39DC5 /* upvote-01.png */,
 				C0CC4E8A1817550F00D39DC5 /* comment_button-01.png */,
 				C0CC4E8B1817550F00D39DC5 /* share_button-01.png */,
 				C0CC4E8C1817550F00D39DC5 /* submit_button-01.png */,
@@ -793,6 +799,7 @@
 				C01EDE661731A84800AE97B8 /* commentbubbleDark.png in Resources */,
 				C01EDE671731A84800AE97B8 /* nav_daymode_off-01.png in Resources */,
 				C01EDE681731A84800AE97B8 /* nav_daymode_on-01.png in Resources */,
+				C0CC4E9A1818752600D39DC5 /* downvote-01.png in Resources */,
 				C0970E4C17EA6D6E003FD742 /* icon58.png in Resources */,
 				C01EDE691731A84800AE97B8 /* nav_nightmode_off-01.png in Resources */,
 				C01EDE6A1731A84800AE97B8 /* nav_nightmode_on-01.png in Resources */,
@@ -802,6 +809,7 @@
 				C01EDE6C1731A84800AE97B8 /* nav_markasread_on-01.png in Resources */,
 				C01EDE6D1731A84800AE97B8 /* nav_readability_off-01.png in Resources */,
 				C01EDE6E1731A84800AE97B8 /* nav_readability_on-01.png in Resources */,
+				C0CC4E9B1818752600D39DC5 /* upvote-01.png in Resources */,
 				C0970E5117EA6DFE003FD742 /* icon80.png in Resources */,
 				C01EDE6F1731A84800AE97B8 /* topicon.png in Resources */,
 				C01EDE701731A84800AE97B8 /* email-01.png in Resources */,

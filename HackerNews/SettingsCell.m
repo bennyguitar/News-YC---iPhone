@@ -34,6 +34,8 @@
         self.logoutButton.hidden = YES;
         self.logoutHidden.hidden = YES;
         self.logoutLabel.hidden = YES;
+        self.logoutLabel.text = [NSString stringWithFormat:@"Logout %@", [HNManager sharedManager].SessionUser.Username];
+        //self.logoutLabel.text = @"Logout";
     }
     
     // Set Images

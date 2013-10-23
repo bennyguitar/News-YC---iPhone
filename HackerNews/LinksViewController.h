@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HNManager.h"
 
 @interface LinksViewController : UIViewController <UIWebViewDelegate>
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil url:(NSURL *)url;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil url:(NSURL *)url post:(HNPost *)post;
 
 @end

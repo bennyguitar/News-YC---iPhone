@@ -107,7 +107,7 @@
 
 - (void)buildNavBar {
     // Build NavBar
-    [Helpers buildNavigationController:self leftImage:YES rightImage:([[HNManager sharedManager] userIsLoggedIn] ? [UIImage imageNamed:@"submit_button-01"] : nil) rightAction:([[HNManager sharedManager] userIsLoggedIn] ? @selector(didClickSubmitLink) : nil)];
+    [Helpers buildNavigationController:self leftImage:YES rightImages:([[HNManager sharedManager] userIsLoggedIn] ? @[[UIImage imageNamed:@"submit_button-01"]] : nil) rightActions:([[HNManager sharedManager] userIsLoggedIn] ? @[@"didClickSubmitLink"] : nil)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -223,32 +223,6 @@
 
 #pragma mark - Load Comments
 -(void)loadCommentsForPost:(HNPost *)post {
-    /*
-    // Activity Indicator
-    __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
-    [Helpers navigationController:self.navigationController addActivityIndicator:&indicator];
-    
-    // Load Comments
-    [[HNManager sharedManager] loadCommentsFromPost:post completion:^(NSArray *comments) {
-        if (comments) {
-            currentPost = post;
-            organizedCommentsArray = comments;
-            [commentsTable reloadData];
-            [commentsTable setContentOffset:CGPointZero animated:YES];
-            [self launchCommentsView];
-            [self endRefreshing:commentsRefresher];
-            indicator.alpha = 0;
-            [indicator removeFromSuperview];
-        }
-        else {
-            [FailedLoadingView launchFailedLoadingInView:self.view];
-            [self endRefreshing:commentsRefresher];
-            indicator.alpha = 0;
-            [indicator removeFromSuperview];
-        }
-    }];
-     */
-    
     CommentsViewController *vc = [[CommentsViewController alloc] initWithNibName:@"CommentsViewController" bundle:nil post:post];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -327,41 +301,19 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // Front Page
-    if (tableView == frontPageTable) {
-        NSString *CellIdentifier = @"frontPageCell";
-        frontPageCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"frontPageCell" owner:nil options:nil];
-            for (UIView *view in views) {
-                if([view isKindOfClass:[UITableViewCell class]]) {
-                    cell = (frontPageCell *)view;
-                }
+    NSString *CellIdentifier = @"frontPageCell";
+    frontPageCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"frontPageCell" owner:nil options:nil];
+        for (UIView *view in views) {
+            if([view isKindOfClass:[UITableViewCell class]]) {
+                cell = (frontPageCell *)view;
             }
         }
-        
-        cell = [cell setCellWithPost:(homePagePosts.count > 0 ? homePagePosts[indexPath.row] : nil) atIndex:indexPath fromController:self];
-        return cell;
     }
     
-    // Comments Cell
-    else  {
-        NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %d", indexPath.row];
-        CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:nil options:nil];
-            for (UIView *view in views) {
-                if([view isKindOfClass:[UITableViewCell class]]) {
-                    cell = (CommentsCell *)view;
-                }
-            }
-        }
-        
-        cell = [cell cellForComment:(organizedCommentsArray.count > 0 ? organizedCommentsArray[indexPath.row] : nil) atIndex:indexPath fromController:self];
-        [cell.comment setDelegate:self];
-        //cell.comment.delegate = self;
-        
-        return cell;
-    }
+    cell = [cell setCellWithPost:(homePagePosts.count > 0 ? homePagePosts[indexPath.row] : nil) atIndex:indexPath fromController:self];
+    return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -382,7 +334,7 @@
             }
             else {
                 NSURL *linkUrl = [NSURL URLWithString:currentPost.UrlString];
-                LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:linkUrl];
+                LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:linkUrl post:currentPost];
                 [self.navigationController pushViewController:vc animated:YES];
             }
         }
@@ -393,209 +345,14 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Comment Cell Height
-    if (tableView == commentsTable) {
-        NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %d", indexPath.row];
-        CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:nil options:nil];
-            for (UIView *view in views) {
-                if([view isKindOfClass:[UITableViewCell class]]) {
-                    cell = (CommentsCell *)view;
-                }
-            }
-        }
-        
-        return [cell heightForComment:(organizedCommentsArray.count > 0 ? organizedCommentsArray[indexPath.row] : nil)];
-    }
-    
     // Front Page Cell Height
     return kFrontPageCellHeight;
 }
-
--(void)hideNestedCommentsCell:(UIButton *)commentButton {
-    NSMutableArray *rowArray = [@[] mutableCopy];
-    //HNComment *clickComment = organizedCommentsArray[commentButton.tag];
-    
-    // Close Comment and make hidden all nested Comments
-    /*
-    if (clickComment.CellType == CommentTypeOpen) {
-        clickComment.CellType = CommentTypeClickClosed;
-        [rowArray addObject:[NSIndexPath indexPathForRow:commentButton.tag inSection:0]];
-        
-        for (int xx = commentButton.tag + 1; xx < organizedCommentsArray.count; xx++) {
-            Comment *newComment = organizedCommentsArray[xx];
-            if (newComment.Level > clickComment.Level) {
-                newComment.CellType = CommentTypeHidden;
-                [rowArray addObject:[NSIndexPath indexPathForRow:xx inSection:0]];
-            }
-            else {
-                break;
-            }
-        }
-    }
-    
-    // Open Comment and all nested Comments
-    else {
-        clickComment.CellType = CommentTypeOpen;
-        [rowArray addObject:[NSIndexPath indexPathForRow:commentButton.tag inSection:0]];
-        
-        for (int xx = commentButton.tag + 1; xx < organizedCommentsArray.count; xx++) {
-            Comment *newComment = organizedCommentsArray[xx];
-            if (newComment.Level > clickComment.Level) {
-                newComment.CellType = CommentTypeOpen;
-                [rowArray addObject:[NSIndexPath indexPathForRow:xx inSection:0]];
-            }
-            else {
-                break;
-            }
-        }
-    }
-     */
-    
-    // Reload the table with a nice animation
-    [commentsTable reloadRowsAtIndexPaths:rowArray withRowAnimation:UITableViewRowAnimationFade];
-}
-
-#pragma mark - Table Gesture Recognizers
-/*
--(void)longPressFrontPageCell:(UILongPressGestureRecognizer *)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        if ([HNSingleton sharedHNSingleton].User) {
-            NSIndexPath *indexPath = [frontPageTable indexPathForRowAtPoint:[recognizer locationInView:frontPageTable]];
-            if (indexPath) {
-                if ([[homePagePosts objectAtIndex:indexPath.row] isOpenForActions]) {
-                    [[homePagePosts objectAtIndex:indexPath.row] setIsOpenForActions:NO];
-                    [frontPageTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                    openFrontPageCells = [@[] mutableCopy];
-                }
-                else {
-                    for (NSIndexPath *index in openFrontPageCells) {
-                        Post *post = homePagePosts[index.row];
-                        post.isOpenForActions = NO;
-                    }
-                    [[homePagePosts objectAtIndex:indexPath.row] setIsOpenForActions:YES];
-                    [openFrontPageCells addObject:indexPath];
-                    [frontPageTable reloadRowsAtIndexPaths:openFrontPageCells withRowAnimation:UITableViewRowAnimationFade];
-                    openFrontPageCells = [@[indexPath] mutableCopy];
-                }
-            }
-        }
-    }
-}
-*/
-
-#pragma mark - Front Page Voting Actions
-/*
--(void)voteUp:(UIButton *)voteButton {
-    if ([HNSingleton sharedHNSingleton].User) {
-        [HNService voteUp:YES forObject:[homePagePosts objectAtIndex:voteButton.tag]];
-    }
-}
-
--(void)voteDown:(UIButton *)voteButton {
-    if ([HNSingleton sharedHNSingleton].User) {
-        [HNService voteUp:NO forObject:[homePagePosts objectAtIndex:voteButton.tag]];
-    }
-}
- */
 
 #pragma mark - Launch/Hide Comments & Link View
 -(void)didClickCommentsFromHomepage:(UIButton *)commentButton {
     currentPost = [homePagePosts objectAtIndex:commentButton.tag];
     [self loadCommentsForPost:currentPost];
-}
-
--(void)launchCommentsView {
-    // Set Post-Title Label
-    postTitleLabel.text = currentPost.Title;
-    
-    // Set frames
-    commentsView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-    commentsHeader.frame = CGRectMake(0, 0, commentsHeader.frame.size.width, commentsHeader.frame.size.height);
-    commentsTable.frame = CGRectMake(0, commentsHeader.frame.size.height, commentsView.frame.size.width, commentsView.frame.size.height - commentsHeader.frame.size.height);
-    
-    // Add to self.view
-    [self.view addSubview:commentsView];
-    [self.view bringSubviewToFront:commentsView];
-    
-    // Scroll to Top
-    [commentsTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    
-    // Animate everything
-    [UIView animateWithDuration:0.3 animations:^{
-        [frontPageTable setScrollEnabled:NO];
-        [frontPageTable setContentOffset:frontPageTable.contentOffset animated:NO];
-        commentsView.frame = CGRectMake(0, 0, commentsView.frame.size.width, self.view.frame.size.height);
-    } completion:^(BOOL fin){
-        [frontPageTable setScrollEnabled:YES];
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    }];
-}
-
-- (IBAction)hideCommentsAndLinkView:(id)sender {
-    // Stop the linkWebView from loading
-    // - Wrapped in the delegate-killer to prevent any
-    // - animations from happening after.
-    linkWebView.delegate = nil;
-    [linkWebView stopLoading];
-    linkWebView.delegate = self;
-    
-    // These make sure the comments don't re-open after closing
-    if ([commentsTable isDragging]) {
-        [commentsTable setContentOffset:commentsTable.contentOffset animated:NO];
-    }
-    if (commentsTable.contentOffset.y < 0  || commentsTable.contentSize.height <= self.view.frame.size.height){
-        [commentsTable setContentOffset:CGPointZero animated:NO];
-    }
-    
-    // End editing inside the webView
-    [self.view endEditing:YES];
-    
-    // Animate everything
-    [UIView animateWithDuration:0.3 animations:^{
-        commentsView.frame = CGRectMake(0, self.view.frame.size.height, commentsView.frame.size.width, frontPageTable.frame.size.height);
-        linkView.frame = CGRectMake(0, self.view.frame.size.height, linkView.frame.size.width, linkView.frame.size.height);
-    } completion:^(BOOL fin){
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }];
-}
-
-- (IBAction)showSharePanel:(id)sender {	
-	NSURL *urlToShare = linkWebView.request.URL;
-	NSArray *activityItems = @[ urlToShare ];
-	
-    ARChromeActivity *chromeActivity = [[ARChromeActivity alloc] init];	
-	TUSafariActivity *safariActivity = [[TUSafariActivity alloc] init];
-	NSArray *applicationActivities = @[ safariActivity, chromeActivity ];
-	
-    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:applicationActivities];
-	//activityController.excludedActivityTypes = @[ UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypeMessage, UIActivityTypeMail, UIActivityTypeCopyToPasteboard ];
-	
-    [self presentViewController:activityController animated:YES completion:nil];
-}
-
-#pragma mark - WebView Delegate
--(void)webViewDidStartLoad:(UIWebView *)webView {
-    if (webView == externalLinkWebView) {
-        externalActivityIndicator.alpha = 1;
-    }
-    else {
-        loadingIndicator.alpha = 1;
-    }
-}
-
--(void)webViewDidFinishLoad:(UIWebView *)webView {
-    if (webView == externalLinkWebView) {
-        externalActivityIndicator.alpha = 0;
-    }
-    else {
-        loadingIndicator.alpha = 0;
-        [UIView animateWithDuration:0.25 animations:^{
-            headerContainer.frame = CGRectMake(0, -1*headerContainer.frame.size.height, headerContainer.frame.size.width, headerContainer.frame.size.height);
-            linkView.frame = CGRectMake(0, 0, linkView.frame.size.width,self.view.frame.size.height);
-        }];
-    }
 }
 
 @end

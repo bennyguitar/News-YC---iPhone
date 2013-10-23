@@ -99,7 +99,7 @@
     }
 }
 
-+ (void)buildNavigationController:(UIViewController *)controller leftImage:(BOOL)leftImage rightImage:(UIImage *)rImage rightAction:(SEL)rAction {
++ (void)buildNavigationController:(UIViewController *)controller leftImage:(BOOL)leftImage rightImages:(NSArray *)rImages rightActions:(NSArray *)rActions {
     // Change tint
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
         controller.navigationController.navigationBar.barTintColor = kOrangeColor; /* iOS 7 */
@@ -135,28 +135,45 @@
         menuButton.frame = CGRectMake(0, 0, iconSize, iconSize);
         [menuButton setImage:[UIImage imageNamed:@"3bar-01"] forState:UIControlStateNormal];
         [menuButton addTarget:appDelegate.deckController action:@selector(toggleLeftView) forControlEvents:UIControlEventTouchUpInside];
+        [menuButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [menuButton setContentEdgeInsets:UIEdgeInsetsMake(0, -14, 0, 8)];
         UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithCustomView:menuButton];
         [controller.navigationItem setLeftBarButtonItem:menuItem];
     }
     
-    if (rImage && rAction) {
-        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        rightButton.frame = CGRectMake(0, 0, iconSize, iconSize);
-        [rightButton setImage:rImage forState:UIControlStateNormal];
-        [rightButton addTarget:controller action:rAction forControlEvents:UIControlEventTouchUpInside];
-        rightButton.alpha = 0.5;
-        UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
-        [controller.navigationItem setRightBarButtonItem:menuItem];
+    if (rImages && rActions) {
+        NSMutableArray *barButtonItems = [NSMutableArray array];
+        for (int xx = 0; xx < rImages.count; xx++) {
+            UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            rightButton.frame = CGRectMake(0, 0, iconSize, iconSize);
+            [rightButton setImage:rImages[xx] forState:UIControlStateNormal];
+            [rightButton addTarget:controller action:NSSelectorFromString(rActions[xx]) forControlEvents:UIControlEventTouchUpInside];
+            [rightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+            [rightButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, -10)];
+            rightButton.alpha = 0.5;
+            UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+            [barButtonItems addObject:menuItem];
+        }
+        [controller.navigationItem setRightBarButtonItems:barButtonItems];
     }
 }
 
 + (void)navigationController:(UIViewController *)controller addActivityIndicator:(UIActivityIndicatorView **)indicator {
-    BOOL rightItem = controller.navigationItem.rightBarButtonItems.count > 0;
-    
-    [*indicator setFrame:CGRectMake(controller.navigationController.navigationBar.frame.size.width - (rightItem ? 80 : 30), controller.navigationController.navigationBar.frame.size.height/2 - 10, 20, 20)];
+    float origin = controller.navigationItem.rightBarButtonItems.count*40+30;
+    [*indicator setFrame:CGRectMake(controller.navigationController.navigationBar.frame.size.width - origin, controller.navigationController.navigationBar.frame.size.height/2 - 10, 20, 20)];
     [*indicator startAnimating];
     [*indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     [controller.navigationController.navigationBar addSubview:*indicator];
+}
+
+@end
+
+
+
+@implementation NavBarButtonItem
+
+- (void)setFrameForHeight:(float)height {
+    self.customView.frame = CGRectMake(5, (height-35)/2, 35, 35);
 }
 
 @end
