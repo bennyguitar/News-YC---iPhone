@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, PostType) {
 @property (nonatomic, assign) int CommentCount;
 @property (nonatomic, retain) NSString *PostId;
 @property (nonatomic, retain) NSString *TimeCreatedString;
+@property (nonatomic, retain) NSString *UpvoteURLAddition;
 
 #pragma mark - Methods
 + (NSArray *)parsedPostsFromHTML:(NSString *)html FNID:(NSString **)fnid;

@@ -27,6 +27,8 @@ typedef NS_ENUM(NSInteger, CommentType) {
 @property (nonatomic, retain) NSString *ReplyURLString;
 @property (nonatomic, assign) int Level;
 @property (nonatomic, retain) NSArray *Links;
+@property (nonatomic, retain) NSString *UpvoteURLAddition;
+@property (nonatomic, retain) NSString *DownvoteURLAddition;
 
 #pragma mark - Methods
 + (NSArray *)parsedCommentsFromHTML:(NSString *)html forPost:(HNPost *)post;

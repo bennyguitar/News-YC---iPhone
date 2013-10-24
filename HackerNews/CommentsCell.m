@@ -129,19 +129,20 @@
             [self.auxiliaryCommentButton addTarget:self action:@selector(didClickComment) forControlEvents:UIControlEventTouchUpInside];
             
             // Set upvotes and downvotes
-            if ([[HNManager sharedManager] hasVotedOnObject:newComment]) {
-                [self setUserCannotVoteOnObject];
-            }
-            else {
+            if (newComment.UpvoteURLAddition && ![[HNManager sharedManager] hasVotedOnObject:newComment]) {
                 [self.auxiliaryUpvoteButton addTarget:self action:@selector(didClickUpvote) forControlEvents:UIControlEventTouchUpInside];
                 
-                if ([HNManager sharedManager].SessionUser.Karma >= 500 && newComment.Type != CommentTypeAskHN) {
+                if (newComment.DownvoteURLAddition) {
                     [self.auxiliaryDownvoteButton addTarget:self action:@selector(didClickDownvote) forControlEvents:UIControlEventTouchUpInside];
                 }
                 else {
                     [self.auxiliaryDownvoteButton setUserInteractionEnabled:NO];
                     self.auxiliaryDownvoteButton.alpha = 0.25;
                 }
+            }
+            else {
+                // Cannot Vote on Object!
+                [self setUserCannotVoteOnObject];
             }
         }
         

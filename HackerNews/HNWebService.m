@@ -54,7 +54,7 @@
     // Load the Posts
     HNOperation *operation = [[HNOperation alloc] init];
     __block HNOperation *blockOperation = operation;
-    [operation setUrlPath:urlPath data:nil cookie:nil completion:^{
+    [operation setUrlPath:urlPath data:nil cookie:[HNManager sharedManager].SessionCookie completion:^{
         if (blockOperation.responseData) {
             NSString *html = [[NSString alloc] initWithData:blockOperation.responseData encoding:NSUTF8StringEncoding];
             NSString *fnid = @"";
@@ -96,7 +96,7 @@
     // Load the Posts
     HNOperation *operation = [[HNOperation alloc] init];
     __block HNOperation *blockOperation = operation;
-    [operation setUrlPath:urlPath data:nil cookie:nil completion:^{
+    [operation setUrlPath:urlPath data:nil cookie:[HNManager sharedManager].SessionCookie completion:^{
         if (blockOperation.responseData) {
             NSString *html = [[NSString alloc] initWithData:blockOperation.responseData encoding:NSUTF8StringEncoding];
             NSString *fnid = @"";
@@ -131,7 +131,7 @@
     // Load the Comments
     HNOperation *operation = [[HNOperation alloc] init];
     __block HNOperation *blockOperation = operation;
-    [operation setUrlPath:urlPath data:nil cookie:nil completion:^{
+    [operation setUrlPath:urlPath data:nil cookie:[HNManager sharedManager].SessionCookie completion:^{
         if (blockOperation.responseData) {
             NSString *html = [[NSString alloc] initWithData:blockOperation.responseData encoding:NSUTF8StringEncoding];
             NSArray *comments = [HNComment parsedCommentsFromHTML:html forPost:post];
@@ -534,70 +534,28 @@
         return;
     }
     
-    // Get itemId
-    NSString *itemId;
+    // Get urlAddition
+    NSString *urlAddition;
     if ([hnObject isKindOfClass:[HNPost class]]) {
         if (direction == VoteDirectionDown) {
             // You can't downvote a Post
             completion(NO);
             return;
         }
-        itemId = [(HNPost *)hnObject PostId];
+        urlAddition = [(HNPost *)hnObject UpvoteURLAddition];
     }
     else {
-        itemId = [(HNComment *)hnObject CommentId];
+        urlAddition = direction == VoteDirectionUp ? [(HNComment *)hnObject UpvoteURLAddition] : [(HNComment *)hnObject DownvoteURLAddition];
+    }
+    
+    // if urlAddition is nil, return
+    if (!urlAddition) {
+        completion(NO);
+        return;
     }
     
     // Make the url path
-    NSString *urlPath = [NSString stringWithFormat:@"%@reply?id=%@", kBaseURLAddress, itemId];
-    
-    // Start the Operation
-    HNOperation *operation = [[HNOperation alloc] init];
-    __block HNOperation *blockOperation = operation;
-    [operation setUrlPath:urlPath data:nil cookie:[[HNManager sharedManager] SessionCookie] completion:^{
-        if (blockOperation.responseData) {
-            NSString *html = [[NSString alloc] initWithData:blockOperation.responseData encoding:NSUTF8StringEncoding];
-            if ([html rangeOfString:@"grayarrow.gif"].location != NSNotFound) {
-                NSString *trash = @"", *voteURL = @"";
-                NSScanner *scanner = [NSScanner scannerWithString:html];
-                [scanner scanUpToString:@"onclick=\"return vote(this)\"" intoString:&trash];
-                [scanner scanUpToString:@"href=\"" intoString:&trash];
-                [scanner scanString:@"href=\"" intoString:&trash];
-                [scanner scanUpToString:@"\"" intoString:&voteURL];
-                
-                if (voteURL.length > 0) {
-                    // Create BodyData
-                    NSString *urlString = [voteURL stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-                    
-                    // Create next Request
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self part2VoteWithUrlPath:urlString completion:completion];
-                    });
-                }
-                else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(NO);
-                    });
-                }
-            }
-            else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(NO);
-                });
-            }
-        }
-        else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion(NO);
-            });
-        }
-    }];
-    [self.HNQueue addOperation:operation];
-}
-
-- (void)part2VoteWithUrlPath:(NSString *)path completion:(BooleanSuccessBlock)completion {
-    // Make the url path
-    NSString *urlPath = [NSString stringWithFormat:@"%@%@", kBaseURLAddress, path];
+    NSString *urlPath = [[NSString stringWithFormat:@"%@%@", kBaseURLAddress, urlAddition] stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
     
     // Start the Operation
     HNOperation *operation = [[HNOperation alloc] init];

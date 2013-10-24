@@ -76,11 +76,30 @@
         NSString *timeAgo = @"";
         NSString *reply = @"";
         NSString *commentId = @"";
+        NSString *upvoteString = @"";
+        NSString *downvoteString = @"";
         
         // Get Comment Level
         [scanner scanString:@"height=1 width=" intoString:&trash];
         [scanner scanUpToString:@">" intoString:&level];
         newComment.Level = [level intValue] / 40;
+        
+        // If Logged In - Grab Voting Strings
+        if ([htmlComponents[xx] rangeOfString:@"grayarrow.gif"].location != NSNotFound) {
+            // Scan Upvote String
+            [scanner scanUpToString:@"href=\"" intoString:&trash];
+            [scanner scanString:@"href=\"" intoString:&trash];
+            [scanner scanUpToString:@"whence" intoString:&upvoteString];
+            newComment.UpvoteURLAddition = [upvoteString stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+            
+            // Check for downvote String
+            if ([htmlComponents[xx] rangeOfString:@"dir=down"].location != NSNotFound) {
+                [scanner scanUpToString:@"href=\"" intoString:&trash];
+                [scanner scanString:@"href=\"" intoString:&trash];
+                [scanner scanUpToString:@"whence" intoString:&downvoteString];
+                newComment.DownvoteURLAddition = [downvoteString stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+            }
+        }
         
         // Get Username
         [scanner scanUpToString:@"<a href=\"user?id=" intoString:&trash];
