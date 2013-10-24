@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *CommentsTableView;
 @property (nonatomic, retain) UIRefreshControl *refreshControl;
 @property (nonatomic, retain) NSNumber *AuxiliaryClickIndex;
+@property (nonatomic, retain) NSMutableDictionary *CommentCellHeightDictionary;
 
 @end
 
@@ -57,7 +58,8 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    self.Comments = nil;
+    //self.Comments = nil;
+    [[HNManager sharedManager] cancelAllRequests];
 }
 
 #pragma mark - UI
@@ -158,7 +160,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %d", indexPath.row];
+    NSString *CellIdentifier = [NSString stringWithFormat:@"CommentCell %d", indexPath.row];
     CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:nil options:nil];
@@ -178,18 +180,16 @@
 }
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %d", indexPath.row];
-    CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:nil options:nil];
-        for (UIView *view in views) {
-            if([view isKindOfClass:[UITableViewCell class]]) {
-                cell = (CommentsCell *)view;
-            }
-        }
+    BOOL auxiliary = self.AuxiliaryClickIndex && (indexPath.row == [self.AuxiliaryClickIndex intValue]);
+    NSString *dictId = [NSString stringWithFormat:@"%d%@",indexPath.row,auxiliary ? @"A" : @""];
+    if (self.CommentCellHeightDictionary[dictId]) {
+        return [self.CommentCellHeightDictionary[dictId] floatValue];
     }
     
-    return [cell heightForComment:(self.Comments.count > 0 ? self.Comments[indexPath.row] : nil) isAuxiliary:(self.AuxiliaryClickIndex && (indexPath.row == [self.AuxiliaryClickIndex intValue]) ? YES : NO)];
+    HNComment *comment = indexPath.row < self.Comments.count ? self.Comments[indexPath.row] : nil;
+    float cellHeight = [CommentsCell heightForComment:comment isAuxiliary:auxiliary];
+    [self.CommentCellHeightDictionary setObject:@(cellHeight) forKey:dictId];
+    return cellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

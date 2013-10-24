@@ -55,6 +55,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     self.indicator.alpha = 0;
     [self.indicator removeFromSuperview];
+    [[HNManager sharedManager] cancelAllRequests];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

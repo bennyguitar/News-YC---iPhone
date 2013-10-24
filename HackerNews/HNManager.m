@@ -214,4 +214,9 @@ static HNManager * _sharedManager = nil;
     [self.VotedOnDictionary setObject:@(direction) forKey:votedOnId];
 }
 
+#pragma mark - Cancel Requests
+- (void)cancelAllRequests {
+    [self.Service cancelAllRequests];
+}
+
 @end

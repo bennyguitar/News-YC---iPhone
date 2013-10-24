@@ -80,6 +80,10 @@
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [[HNManager sharedManager] cancelAllRequests];
+}
+
 
 #pragma mark - UI
 - (void)colorUI {

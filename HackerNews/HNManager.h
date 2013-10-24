@@ -53,4 +53,7 @@ typedef void (^SuccessfulLoginBlock) (HNUser *user);
 - (BOOL)hasVotedOnObject:(id)hnObject;
 - (void)addHNObjectToVotedOnDictionary:(id)hnObject direction:(VoteDirection)direction;
 
+#pragma mark - Cancel All WebRequests
+- (void)cancelAllRequests;
+
 @end

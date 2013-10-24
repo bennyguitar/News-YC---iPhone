@@ -37,6 +37,7 @@
 
 -(CommentsCell *)cellForComment:(HNComment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller showAuxiliary:(BOOL)auxiliary {
     self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
+    self.separatorInset = UIEdgeInsetsZero;
     
     // Color cell elements
     self.comment.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
@@ -66,29 +67,14 @@
         
         // Set Attributed Text
         [self.comment setText:newComment.Text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-            for (HNCommentLink *link in newComment.Links) {
-                if (newComment.Type == CommentTypeJobs || newComment.Type == CommentTypeAskHN) {
-                    [mutableAttributedString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:link.UrlRange];
-                }
-                else {
-                    [mutableAttributedString addAttribute:NSForegroundColorAttributeName value:kOrangeColor range:link.UrlRange];
-                    [mutableAttributedString addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleNone) range:link.UrlRange];
-                }
-            }
+            mutableAttributedString = [[CommentsCell attributedStringForComment:newComment] mutableCopy];
             return mutableAttributedString;
         }];
         
-        // Set line height
-        [self.comment setLineHeightMultiple:1.0];
-        self.comment.leading = 1.0;
-        self.comment.numberOfLines = 0;
-        
-        
         // Set size of Comment Label
-        CGSize labelSize = CGSizeMake(307 - (newComment.Level*15), 0);
-        labelSize = [self.comment sizeThatFits:labelSize];
-        self.comment.frame = CGRectMake(self.comment.frame.origin.x, self.comment.frame.origin.y, labelSize.width, labelSize.height);
-        self.holdingView.frame = CGRectMake(self.holdingView.frame.origin.x, self.holdingView.frame.origin.y, self.holdingView.frame.size.width, labelSize.height + kCommentDefaultAddition);
+        CGSize labelSize = CGSizeMake(307 - (newComment.Level*15), [CommentsCell heightForAttributedString:[CommentsCell attributedStringForComment:newComment] inSize:CGSizeMake(307 - (newComment.Level*15), MAXFLOAT)]);
+        self.comment.frame = CGRectMake(self.comment.frame.origin.x, self.comment.frame.origin.y, ceilf(labelSize.width), ceilf(labelSize.height));
+        self.holdingView.frame = CGRectMake(self.holdingView.frame.origin.x, self.holdingView.frame.origin.y, self.holdingView.frame.size.width, self.comment.frame.size.height + kCommentDefaultAddition);
         
         // Add links
         for (HNCommentLink *link in newComment.Links) {
@@ -144,7 +130,7 @@
             [self.auxiliaryUpvoteButton addTarget:self action:@selector(didClickUpvote) forControlEvents:UIControlEventTouchUpInside];
             
             // Downvote
-            if ([HNManager sharedManager].SessionUser.Karma >= 500) {
+            if ([HNManager sharedManager].SessionUser.Karma >= 500 && newComment.Type != CommentTypeAskHN) {
                 [self.auxiliaryDownvoteButton addTarget:self action:@selector(didClickDownvote) forControlEvents:UIControlEventTouchUpInside];
             }
             else {
@@ -186,6 +172,68 @@
     return kCommentsDefaultH;
 }
 
+
++ (float)heightForComment:(HNComment *)newComment isAuxiliary:(BOOL)auxiliary {
+    if (newComment) {
+        return [CommentsCell heightForAttributedString:[CommentsCell attributedStringForComment:newComment] inSize:CGSizeMake(307 - (newComment.Level*15), MAXFLOAT)] + (newComment.Type == CommentTypeAskHN || newComment.Type == CommentTypeJobs ? kCommentAskHNAddition : kCommentDefaultAddition) + (auxiliary ? kCommentAuxiliaryHeight : 0);
+    }
+    
+    // No Comments
+    return kCommentsDefaultH;
+}
+
++ (NSAttributedString *)attributedStringForComment:(HNComment *)newComment {
+    NSMutableAttributedString *mutableAttributedString = [[NSMutableAttributedString alloc] initWithString:newComment.Text];
+    
+    // Background Color
+    [mutableAttributedString addAttribute:NSBackgroundColorAttributeName value:[[HNSingleton sharedHNSingleton] themeDict][@"CellBG"] range:NSMakeRange(0, newComment.Text.length)];
+    
+    // Font Color
+    [mutableAttributedString addAttribute:NSForegroundColorAttributeName value:[[HNSingleton sharedHNSingleton] themeDict][@"MainFont"] range:NSMakeRange(0, newComment.Text.length)];
+    
+    // Paragraph Style
+    NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
+    pStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    pStyle.tailIndent = 0;
+    pStyle.headIndent = 0;
+    pStyle.paragraphSpacing = 0.0;
+    pStyle.lineSpacing = 0.0;
+    pStyle.lineHeightMultiple = 0.0;
+    pStyle.minimumLineHeight = 16;
+    pStyle.maximumLineHeight = 16;
+    [mutableAttributedString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, newComment.Text.length)];
+    
+    // Font
+    [mutableAttributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, newComment.Text.length)];
+    
+    // Add Links
+    for (HNCommentLink *link in newComment.Links) {
+        if (newComment.Type == CommentTypeJobs || newComment.Type == CommentTypeAskHN) {
+            [mutableAttributedString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:link.UrlRange];
+        }
+        else {
+            [mutableAttributedString addAttribute:NSForegroundColorAttributeName value:kOrangeColor range:link.UrlRange];
+            [mutableAttributedString addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleNone) range:link.UrlRange];
+        }
+    }
+    
+    return mutableAttributedString;
+}
+
++ (float)heightForAttributedString:(NSAttributedString *)attributedString inSize:(CGSize)size {
+    return ceilf([attributedString boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height);
+}
+
++ (NSDictionary *)attributesForComment:(HNComment *)comment {
+    NSMutableDictionary *attributes = [@{} mutableCopy];
+    [attributes setObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    [attributes setObject:[UIFont systemFontOfSize:14] forKey:NSFontAttributeName];
+    NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
+    pStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    [attributes setObject:pStyle forKey:NSParagraphStyleAttributeName];
+    
+    return attributes;
+}
 
 
 -(void)drawRect:(CGRect)rect {

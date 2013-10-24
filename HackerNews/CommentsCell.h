@@ -54,6 +54,6 @@
 
 -(CommentsCell *)cellForComment:(HNComment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller showAuxiliary:(BOOL)auxiliary;
 -(float)heightForComment:(HNComment *)newComment isAuxiliary:(BOOL)auxiliary;
-
++ (float)heightForComment:(HNComment *)newComment isAuxiliary:(BOOL)auxiliary;
 
 @end

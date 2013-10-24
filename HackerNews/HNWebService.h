@@ -59,6 +59,8 @@ typedef void (^SubmitCommentSuccessBlock) (BOOL success);
 - (void)voteOnHNObject:(id)hnObject direction:(VoteDirection)direction completion:(BooleanSuccessBlock)completion;
 // Get Submissions for User
 - (void)fetchSubmissionsForUser:(NSString *)user completion:(GetPostsCompletion)completion;
+// Cancel Requests
+- (void)cancelAllRequests;
 
 @end
 

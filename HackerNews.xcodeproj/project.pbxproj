@@ -117,6 +117,8 @@
 		C0CC4E9718176CBC00D39DC5 /* SubmitHNViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E9518176CBC00D39DC5 /* SubmitHNViewController.xib */; };
 		C0CC4E9A1818752600D39DC5 /* downvote-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E981818752600D39DC5 /* downvote-01.png */; };
 		C0CC4E9B1818752600D39DC5 /* upvote-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E991818752600D39DC5 /* upvote-01.png */; };
+		C0CC4E9E1818AC7F00D39DC5 /* CommentAuxiliaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CC4E9D1818AC7F00D39DC5 /* CommentAuxiliaryView.m */; };
+		C0CC4EA01818AC9300D39DC5 /* CommentAuxiliaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E9F1818AC9300D39DC5 /* CommentAuxiliaryView.xib */; };
 		C0D074E017EE07EB000CAAC3 /* bigCheck-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */; };
 		C0D074E317EE2627000CAAC3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */; };
 		C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F7D17AED67F00C97F0B /* ViewController.xib */; };
@@ -281,6 +283,9 @@
 		C0CC4E9518176CBC00D39DC5 /* SubmitHNViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitHNViewController.xib; sourceTree = "<group>"; };
 		C0CC4E981818752600D39DC5 /* downvote-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downvote-01.png"; sourceTree = "<group>"; };
 		C0CC4E991818752600D39DC5 /* upvote-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upvote-01.png"; sourceTree = "<group>"; };
+		C0CC4E9C1818AC7F00D39DC5 /* CommentAuxiliaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentAuxiliaryView.h; sourceTree = "<group>"; };
+		C0CC4E9D1818AC7F00D39DC5 /* CommentAuxiliaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentAuxiliaryView.m; sourceTree = "<group>"; };
+		C0CC4E9F1818AC9300D39DC5 /* CommentAuxiliaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentAuxiliaryView.xib; sourceTree = "<group>"; };
 		C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigCheck-01.png"; sourceTree = "<group>"; };
 		C0D074E117EE2627000CAAC3 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
@@ -490,6 +495,9 @@
 				C0EE6F8017AEDF8E00C97F0B /* AddCommentView.h */,
 				C0EE6F8117AEDF8E00C97F0B /* AddCommentView.m */,
 				C0EE6F8417AEDFCC00C97F0B /* AddCommentView.xib */,
+				C0CC4E9C1818AC7F00D39DC5 /* CommentAuxiliaryView.h */,
+				C0CC4E9D1818AC7F00D39DC5 /* CommentAuxiliaryView.m */,
+				C0CC4E9F1818AC9300D39DC5 /* CommentAuxiliaryView.xib */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -814,6 +822,7 @@
 				C01EDE6F1731A84800AE97B8 /* topicon.png in Resources */,
 				C01EDE701731A84800AE97B8 /* email-01.png in Resources */,
 				C01EDE711731A84800AE97B8 /* facebook-01.png in Resources */,
+				C0CC4EA01818AC9300D39DC5 /* CommentAuxiliaryView.xib in Resources */,
 				C01EDE721731A84800AE97B8 /* twitter-01.png in Resources */,
 				C01EDE731731A84800AE97B8 /* menu_b3-01.png in Resources */,
 				C01EDE741731A84800AE97B8 /* menu_b3-01@2x.png in Resources */,
@@ -907,6 +916,7 @@
 				C0FB763A1803B18200BDA142 /* HNComment.m in Sources */,
 				C01EDE7C1731E2A900AE97B8 /* Helpers.m in Sources */,
 				C01EDEB01733553A00AE97B8 /* LinkButton.m in Sources */,
+				C0CC4E9E1818AC7F00D39DC5 /* CommentAuxiliaryView.m in Sources */,
 				C01EDEB41733683200AE97B8 /* NavigationDeckViewController.m in Sources */,
 				C0ABB6221735C777005EA39C /* FailedLoadingView.m in Sources */,
 				C0F93FE51739CE1800E47B5E /* ProfileNotLoggedInCell.m in Sources */,
