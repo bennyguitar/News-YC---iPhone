@@ -44,11 +44,12 @@
         // Scan URL
         [scanner scanUpToString:@"<a href=\"" intoString:&trash];
         [scanner scanString:@"<a href=\"" intoString:&trash];
-        [scanner scanUpToString:@"\">" intoString:&urlString];
+        [scanner scanUpToString:@"\"" intoString:&urlString];
         newPost.UrlString = urlString;
         
         // Scan Title
-        [scanner scanString:@"\">" intoString:&trash];
+        [scanner scanUpToString:@">" intoString:&trash];
+        [scanner scanString:@">" intoString:&trash];
         [scanner scanUpToString:@"</a>" intoString:&title];
         newPost.Title = title;
         
