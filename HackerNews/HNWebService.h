@@ -45,7 +45,7 @@ typedef void (^SubmitCommentSuccessBlock) (BOOL success);
 // Methods
 // Get Posts
 - (void)loadPostsWithFilter:(PostFilterType)filter completion:(GetPostsCompletion)completion;
-- (void)loadPostsWithFNID:(NSString *)fnid completion:(GetPostsCompletion)completion;
+- (void)loadPostsWithUrlAddition:(NSString *)urlAddition completion:(GetPostsCompletion)completion;
 // Get Comments
 - (void)loadCommentsFromPost:(HNPost *)post completion:(GetCommentsCompletion)completion;
 // Login/Out

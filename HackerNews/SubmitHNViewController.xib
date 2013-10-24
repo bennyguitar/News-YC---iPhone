@@ -8,10 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubmitHNViewController">
             <connections>
                 <outlet property="CommentDoneEditing" destination="4nk-s5-ZTo" id="R2A-NM-mcz"/>
-                <outlet property="CommentSubmitButton" destination="Bte-sc-mTo" id="oBw-fN-aFo"/>
                 <outlet property="CommentTextView" destination="Bf3-sR-8to" id="nNO-Rh-OL7"/>
                 <outlet property="CommentView" destination="Wak-oy-RQn" id="BN0-iP-9mX"/>
-                <outlet property="SubmitButton" destination="kuu-IN-dov" id="fZc-ae-DnE"/>
                 <outlet property="SubmitDoneEditingButton" destination="yLp-x5-QHA" id="X40-9J-BPv"/>
                 <outlet property="SubmitHeaderLabel" destination="k9R-kM-lTO" id="h9G-Oh-2sW"/>
                 <outlet property="SubmitLinkTextField" destination="Tam-A1-liv" id="Ncy-64-IkN"/>
@@ -38,7 +36,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.84192288306451613" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" returnKeyType="next"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" returnKeyType="done"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="O4I-MK-GYC"/>
                     </connections>
@@ -55,13 +53,13 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.84192288309999996" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" returnKeyType="next"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" returnKeyType="done"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="R5U-Cq-x5h"/>
                     </connections>
                 </textField>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="b6Z-E5-pa3">
-                    <rect key="frame" x="20" y="147" width="280" height="368"/>
+                    <rect key="frame" x="20" y="147" width="280" height="401"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -70,18 +68,6 @@
                         <outlet property="delegate" destination="-1" id="HKA-UU-9c5"/>
                     </connections>
                 </textView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kuu-IN-dov">
-                    <rect key="frame" x="20" y="523" width="280" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <state key="normal" title="Submit">
-                        <color key="titleColor" red="1" green="0.38823533059999998" blue="0.14509804549999999" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="didSelectSubmitPost:" destination="-1" eventType="touchUpInside" id="9GM-Lo-qgw"/>
-                    </connections>
-                </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ONy-Jl-U3i">
                     <rect key="frame" x="139" y="122" width="42" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -117,7 +103,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Bf3-sR-8to">
-                    <rect key="frame" x="20" y="49" width="280" height="471"/>
+                    <rect key="frame" x="20" y="49" width="280" height="499"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -126,18 +112,6 @@
                         <outlet property="delegate" destination="-1" id="qAD-y2-Y1U"/>
                     </connections>
                 </textView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Bte-sc-mTo">
-                    <rect key="frame" x="20" y="523" width="280" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <state key="normal" title="Submit">
-                        <color key="titleColor" red="1" green="0.38823533059999998" blue="0.14509804549999999" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="didSelectSubmitComment:" destination="-1" eventType="touchUpInside" id="1XN-Bb-U27"/>
-                    </connections>
-                </button>
                 <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4nk-s5-ZTo">
                     <rect key="frame" x="211" y="16" width="89" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>

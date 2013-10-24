@@ -127,15 +127,21 @@
             // Set Actions
             [self.auxiliaryShareButton addTarget:self action:@selector(didClickShare) forControlEvents:UIControlEventTouchUpInside];
             [self.auxiliaryCommentButton addTarget:self action:@selector(didClickComment) forControlEvents:UIControlEventTouchUpInside];
-            [self.auxiliaryUpvoteButton addTarget:self action:@selector(didClickUpvote) forControlEvents:UIControlEventTouchUpInside];
             
-            // Downvote
-            if ([HNManager sharedManager].SessionUser.Karma >= 500 && newComment.Type != CommentTypeAskHN) {
-                [self.auxiliaryDownvoteButton addTarget:self action:@selector(didClickDownvote) forControlEvents:UIControlEventTouchUpInside];
+            // Set upvotes and downvotes
+            if ([[HNManager sharedManager] hasVotedOnObject:newComment]) {
+                [self setUserCannotVoteOnObject];
             }
             else {
-                [self.auxiliaryDownvoteButton setUserInteractionEnabled:NO];
-                self.auxiliaryDownvoteButton.alpha = 0.25;
+                [self.auxiliaryUpvoteButton addTarget:self action:@selector(didClickUpvote) forControlEvents:UIControlEventTouchUpInside];
+                
+                if ([HNManager sharedManager].SessionUser.Karma >= 500 && newComment.Type != CommentTypeAskHN) {
+                    [self.auxiliaryDownvoteButton addTarget:self action:@selector(didClickDownvote) forControlEvents:UIControlEventTouchUpInside];
+                }
+                else {
+                    [self.auxiliaryDownvoteButton setUserInteractionEnabled:NO];
+                    self.auxiliaryDownvoteButton.alpha = 0.25;
+                }
             }
         }
         
@@ -156,6 +162,13 @@
     }
     
     return self;
+}
+
+- (void)setUserCannotVoteOnObject {
+    [self.auxiliaryUpvoteButton setUserInteractionEnabled:NO];
+    [self.auxiliaryDownvoteButton setUserInteractionEnabled:NO];
+    self.auxiliaryUpvoteButton.alpha = 0.25;
+    self.auxiliaryDownvoteButton.alpha = 0.25;
 }
 
 -(float)heightForComment:(HNComment *)newComment isAuxiliary:(BOOL)auxiliary {
@@ -265,12 +278,14 @@
 
 - (void)didClickUpvote {
     if ([self.delegate respondsToSelector:@selector(didClickUpvoteCommentAtIndex:)]) {
+        [self setUserCannotVoteOnObject];
         [self.delegate didClickUpvoteCommentAtIndex:self.Index];
     }
 }
 
 - (void)didClickDownvote {
     if ([self.delegate respondsToSelector:@selector(didClickDownvoteCommentAtIndex:)]) {
+        [self setUserCannotVoteOnObject];
         [self.delegate didClickDownvoteCommentAtIndex:self.Index];
     }
 }

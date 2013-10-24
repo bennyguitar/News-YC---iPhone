@@ -155,7 +155,7 @@
 #pragma mark - Load HomePage
 -(void)loadHomepage {
     // Clear fnid
-    [[HNManager sharedManager] setPostFNID:nil];
+    [[HNManager sharedManager] setPostUrlAddition:nil];
     
     // Add activity indicator
     __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
@@ -210,8 +210,8 @@
             __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
             [Helpers navigationController:self addActivityIndicator:&indicator];
             
-            NSLog(@"%@", [HNManager sharedManager].postFNID);
-            [[HNManager sharedManager] loadPostsWithFNID:[[HNManager sharedManager] postFNID] completion:^(NSArray *posts) {
+            // Load Posts
+            [[HNManager sharedManager] loadPostsWithUrlAddition:[[HNManager sharedManager] postUrlAddition] completion:^(NSArray *posts) {
                 if (posts) {
                     indicator.alpha = 0;
                     [indicator removeFromSuperview];

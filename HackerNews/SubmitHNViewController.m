@@ -66,7 +66,7 @@
                                                object:nil];
     
     // Build Nav
-    [Helpers buildNavigationController:self leftImage:NO rightImages:nil rightActions:nil];
+    [Helpers buildNavigationController:self leftImage:NO rightImages:@[@"Submit"] rightActions:@[@"didPressSubmit"]];
     
     // Color UI
     [self colorUI];
@@ -193,12 +193,18 @@
     }
 }
 
-#pragma mark - Submit Post
-- (IBAction)didSelectSubmitPost:(id)sender {
+#pragma mark - Submit
+- (void)didPressSubmit {
     [self hideKeyboard];
-    [self submitPost];
+    if (self.HNObject) {
+        [self submitComment];
+    }
+    else {
+        [self submitPost];
+    }
 }
 
+#pragma mark - Submit Post
 - (void)submitPost {
     NSString *title = self.SubmitTitleTextField.text;
     NSString *link = self.SubmitLinkTextField.text.length > 0 ? self.SubmitLinkTextField.text : nil;
@@ -218,11 +224,6 @@
 
 
 #pragma mark - Submit Comment
-- (IBAction)didSelectSubmitComment:(id)sender {
-    [self hideKeyboard];
-    [self submitComment];
-}
-
 - (void)submitComment {
     [self.CommentSubmitButton setUserInteractionEnabled:NO];
     [[HNManager sharedManager] replyToPostOrComment:self.HNObject withText:self.CommentTextView.text completion:^(BOOL success) {

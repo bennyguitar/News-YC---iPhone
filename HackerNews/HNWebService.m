@@ -60,7 +60,7 @@
             NSString *fnid = @"";
             NSArray *posts = [HNPost parsedPostsFromHTML:html FNID:&fnid];
             if (posts) {
-                [[HNManager sharedManager] setPostFNID:fnid];
+                [[HNManager sharedManager] setPostUrlAddition:fnid];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completion(posts);
                 });
@@ -82,8 +82,8 @@
 
 
 #pragma mark - Load Posts with FNID
-- (void)loadPostsWithFNID:(NSString *)fnid completion:(GetPostsCompletion)completion {
-    if (!fnid || fnid.length == 0) {
+- (void)loadPostsWithUrlAddition:(NSString *)urlAddition completion:(GetPostsCompletion)completion {
+    if (!urlAddition || urlAddition.length == 0) {
         dispatch_async(dispatch_get_main_queue(), ^{
             completion(@[]);
         });
@@ -91,7 +91,7 @@
     }
     
     // Create URL Path
-    NSString *urlPath = [NSString stringWithFormat:@"%@%@", kBaseURLAddress, fnid];
+    NSString *urlPath = [NSString stringWithFormat:@"%@%@", kBaseURLAddress, urlAddition];
     
     // Load the Posts
     HNOperation *operation = [[HNOperation alloc] init];
@@ -102,7 +102,7 @@
             NSString *fnid = @"";
             NSArray *posts = [HNPost parsedPostsFromHTML:html FNID:&fnid];
             if (posts) {
-                [[HNManager sharedManager] setPostFNID:fnid];
+                [[HNManager sharedManager] setPostUrlAddition:fnid];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completion(posts);
                 });
@@ -219,9 +219,16 @@
             NSString *responseString = [[NSString alloc] initWithData:blockOperation.responseData encoding:NSUTF8StringEncoding];
             if (responseString) {
                 if ([responseString rangeOfString:@">Bad login."].location == NSNotFound && [responseString rangeOfString:@"Unknown or expired link."].location == NSNotFound) {
+                    
+                    NSString *trash=@"", *karma=@"";
+                    NSScanner *scanner = [NSScanner scannerWithString:responseString];
+                    [scanner scanUpToString:@"/a>&nbsp;(" intoString:&trash];
+                    [scanner scanString:@"/a>&nbsp;(" intoString:&trash];
+                    [scanner scanUpToString:@")" intoString:&karma];
+                    
                     // Login Succeded
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self getLoggedInUser:user completion:completion];
+                        [self getLoggedInUser:user karma:[karma intValue] completion:completion];
                     });
                 }
                 else {
@@ -246,7 +253,7 @@
     [self.HNQueue addOperation:operation];
 }
 
-- (void)getLoggedInUser:(NSString *)user completion:(LoginCompletion)completion {
+- (void)getLoggedInUser:(NSString *)user karma:(int)karma completion:(LoginCompletion)completion {
     // And finally we attempt to create the User
     // Build URL String
     NSString *urlPath = [NSString stringWithFormat:@"%@user?id=%@", kBaseURLAddress, user];
@@ -267,7 +274,7 @@
                 else {
                     hnUser = [[HNUser alloc] init];
                     hnUser.Username = user;
-                    hnUser.Karma = 0;
+                    hnUser.Karma = karma ? karma : 0;
                 }
                 
                 Cookie = [HNManager getHNCookie];
@@ -316,11 +323,14 @@
             if (html) {
                 if ([html rangeOfString:@"<a href=\"logout"].location != NSNotFound) {
                     NSScanner *scanner = [[NSScanner alloc] initWithString:html];
-                    NSString *trash = @"", *userString = @"";
+                    NSString *trash = @"", *userString = @"", *karma=@"";
                     [scanner scanUpToString:@"<a href=\"threads?id=" intoString:&trash];
                     [scanner scanString:@"<a href=\"threads?id=" intoString:&trash];
                     [scanner scanUpToString:@"\">" intoString:&userString];
-                    [self getLoggedInUser:userString completion:completion];
+                    [scanner scanUpToString:@"&nbsp;(" intoString:&trash];
+                    [scanner scanString:@"&nbsp;(" intoString:&trash];
+                    [scanner scanUpToString:@")" intoString:&karma];
+                    [self getLoggedInUser:userString karma:[karma intValue] completion:completion];
                 }
                 else {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -637,7 +647,7 @@
             else {
                 NSString *fnid = @"";
                 NSArray *posts = [HNPost parsedPostsFromHTML:html FNID:&fnid];
-                [[HNManager sharedManager] setUserSubmissionFNID:fnid];
+                [[HNManager sharedManager] setUserSubmissionUrlAddition:fnid];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completion(posts);
                 });

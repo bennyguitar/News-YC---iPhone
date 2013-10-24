@@ -17,8 +17,8 @@ typedef void (^SuccessfulLoginBlock) (HNUser *user);
 
 #pragma mark - Properties
 @property (nonatomic, retain) HNWebService *Service;
-@property (nonatomic, retain) NSString *postFNID;
-@property (nonatomic, retain) NSString *userSubmissionFNID;
+@property (nonatomic, retain) NSString *postUrlAddition;
+@property (nonatomic, retain) NSString *userSubmissionUrlAddition;
 @property (nonatomic, retain) NSHTTPCookie *SessionCookie;
 @property (nonatomic, retain) HNUser *SessionUser;
 @property (nonatomic, retain) NSMutableDictionary *MarkAsReadDictionary;
@@ -35,7 +35,7 @@ typedef void (^SuccessfulLoginBlock) (HNUser *user);
 - (void)loginWithUsername:(NSString *)user password:(NSString *)pass completion:(SuccessfulLoginBlock)completion;
 - (void)logout;
 - (void)loadPostsWithFilter:(PostFilterType)filter completion:(GetPostsCompletion)completion;
-- (void)loadPostsWithFNID:(NSString *)fnid completion:(GetPostsCompletion)completion;
+- (void)loadPostsWithUrlAddition:(NSString *)urlAddition completion:(GetPostsCompletion)completion;
 - (void)loadCommentsFromPost:(HNPost *)post completion:(GetCommentsCompletion)completion;
 - (void)submitPostWithTitle:(NSString *)title link:(NSString *)link text:(NSString *)text completion:(BooleanSuccessBlock)completion;
 - (void)replyToPostOrComment:(id)hnObject withText:(NSString *)text completion:(BooleanSuccessBlock)completion;

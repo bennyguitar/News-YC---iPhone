@@ -144,15 +144,24 @@
     if (rImages && rActions) {
         NSMutableArray *barButtonItems = [NSMutableArray array];
         for (int xx = 0; xx < rImages.count; xx++) {
-            UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            rightButton.frame = CGRectMake(0, 0, iconSize, iconSize);
-            [rightButton setImage:rImages[xx] forState:UIControlStateNormal];
-            [rightButton addTarget:controller action:NSSelectorFromString(rActions[xx]) forControlEvents:UIControlEventTouchUpInside];
-            [rightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-            [rightButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, -10)];
-            rightButton.alpha = 0.5;
-            UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
-            [barButtonItems addObject:menuItem];
+            UIBarButtonItem *menuItem;
+            if ([rImages[xx] isKindOfClass:[UIImage class]]) {
+                UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                rightButton.frame = CGRectMake(0, 0, iconSize, iconSize);
+                [rightButton setImage:rImages[xx] forState:UIControlStateNormal];
+                [rightButton addTarget:controller action:NSSelectorFromString(rActions[xx]) forControlEvents:UIControlEventTouchUpInside];
+                [rightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+                [rightButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, -10)];
+                rightButton.alpha = 0.5;
+                menuItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+            }
+            else if ([rImages[xx] isKindOfClass:[NSString class]]) {
+                menuItem = [[UIBarButtonItem alloc] initWithTitle:rImages[xx] style:UIBarButtonItemStylePlain target:controller action:NSSelectorFromString(rActions[xx])];
+            }
+            
+            if (menuItem) {
+                [barButtonItems addObject:menuItem];
+            }
         }
         [controller.navigationItem setRightBarButtonItems:barButtonItems];
     }

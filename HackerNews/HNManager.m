@@ -38,6 +38,7 @@ static HNManager * _sharedManager = nil;
         // Set up Webservice
         self.Service = [[HNWebService alloc] init];
         self.MarkAsReadDictionary = [NSMutableDictionary dictionary];
+        self.VotedOnDictionary = [NSMutableDictionary dictionary];
 	}
 	return self;
 }
@@ -116,8 +117,8 @@ static HNManager * _sharedManager = nil;
     [self.Service loadPostsWithFilter:filter completion:completion];
 }
 
-- (void)loadPostsWithFNID:(NSString *)fnid completion:(GetPostsCompletion)completion {
-    [self.Service loadPostsWithFNID:fnid completion:completion];
+- (void)loadPostsWithUrlAddition:(NSString *)urlAddition completion:(GetPostsCompletion)completion {
+    [self.Service loadPostsWithUrlAddition:urlAddition completion:completion];
 }
 
 - (void)loadCommentsFromPost:(HNPost *)post completion:(GetCommentsCompletion)completion {
@@ -206,7 +207,7 @@ static HNManager * _sharedManager = nil;
 #pragma mark - Voted On Dictionary
 - (BOOL)hasVotedOnObject:(id)hnObject {
     NSString *votedOnId = [hnObject isKindOfClass:[HNPost class]] ? [(HNPost *)hnObject PostId] : [(HNComment *)hnObject CommentId];
-    return self.VotedOnDictionary[votedOnId] ? YES : NO;
+    return [self.VotedOnDictionary objectForKey:votedOnId] != nil ? YES : NO;
 }
 
 - (void)addHNObjectToVotedOnDictionary:(id)hnObject direction:(VoteDirection)direction {
