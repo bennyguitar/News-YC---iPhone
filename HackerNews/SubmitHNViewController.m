@@ -230,7 +230,6 @@
         if (success) {
             [self dismissSelf];
             [KGStatusBar showWithStatus:@"Comment Submitted"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"DidSubmitNewComment" object:nil];
         }
         else {
             [KGStatusBar showWithStatus:@"Comment Failed"];

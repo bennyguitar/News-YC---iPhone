@@ -57,6 +57,10 @@
     //[self loadComments];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [[HNManager sharedManager] cancelAllRequests];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     //self.Comments = nil;
     [[HNManager sharedManager] cancelAllRequests];
