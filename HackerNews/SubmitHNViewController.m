@@ -25,12 +25,10 @@
 @property (weak, nonatomic) IBOutlet UITextView *SubmitSelfTextView;
 @property (weak, nonatomic) IBOutlet UILabel *SubmitHeaderLabel;
 @property (weak, nonatomic) IBOutlet UIButton *SubmitDoneEditingButton;
-@property (weak, nonatomic) IBOutlet UIButton *SubmitButton;
 
 // Comment
 @property (weak, nonatomic) IBOutlet UITextView *CommentTextView;
 @property (strong, nonatomic) IBOutlet UIView *CommentView;
-@property (weak, nonatomic) IBOutlet UIButton *CommentSubmitButton;
 @property (weak, nonatomic) IBOutlet UIButton *CommentDoneEditing;
 
 
@@ -66,7 +64,7 @@
                                                object:nil];
     
     // Build Nav
-    [Helpers buildNavigationController:self leftImage:NO rightImages:@[@"Submit"] rightActions:@[@"didPressSubmit"]];
+    [self buildNavBarForSubmit:YES];
     
     // Color UI
     [self colorUI];
@@ -80,7 +78,7 @@
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [[HNManager sharedManager] cancelAllRequests];
 }
 
@@ -108,6 +106,12 @@
         self.SubmitView.alpha = 1;
         self.CommentView.alpha = 1;
     }];
+}
+
+#pragma mark - Build Nav Bar for Submit
+- (void)buildNavBarForSubmit:(BOOL)submit {
+    // Build Nav
+    [Helpers buildNavigationController:self leftImage:NO rightImages:(submit ? @[@"Submit"] : nil) rightActions:(submit ? @[@"didPressSubmit"] : nil)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -206,18 +210,18 @@
 
 #pragma mark - Submit Post
 - (void)submitPost {
+    [self buildNavBarForSubmit:NO];
     NSString *title = self.SubmitTitleTextField.text;
     NSString *link = self.SubmitLinkTextField.text.length > 0 ? self.SubmitLinkTextField.text : nil;
     NSString *text = self.SubmitSelfTextView.text.length > 0 ? self.SubmitSelfTextView.text : nil;
-    [self.SubmitButton setUserInteractionEnabled:NO];
     [[HNManager sharedManager] submitPostWithTitle:title link:link text:text completion:^(BOOL success) {
         if (success) {
             [self dismissSelf];
             [KGStatusBar showWithStatus:@"Submission Success"];
         }
         else {
+            [self buildNavBarForSubmit:YES];
             [KGStatusBar showWithStatus:@"Submission Failed"];
-            [self.SubmitButton setUserInteractionEnabled:YES];
         }
     }];
 }
@@ -225,15 +229,15 @@
 
 #pragma mark - Submit Comment
 - (void)submitComment {
-    [self.CommentSubmitButton setUserInteractionEnabled:NO];
+    [self buildNavBarForSubmit:NO];
     [[HNManager sharedManager] replyToPostOrComment:self.HNObject withText:self.CommentTextView.text completion:^(BOOL success) {
         if (success) {
             [self dismissSelf];
             [KGStatusBar showWithStatus:@"Comment Submitted"];
         }
         else {
+            [self buildNavBarForSubmit:YES];
             [KGStatusBar showWithStatus:@"Comment Failed"];
-            [self.CommentSubmitButton setUserInteractionEnabled:YES];
         }
     }];
 }

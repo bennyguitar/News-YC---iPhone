@@ -19,8 +19,6 @@ typedef NS_ENUM(NSInteger, SubmitHNType) {
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil type:(SubmitHNType)type hnObject:(id)hnObject;
 
 // Actions
-- (IBAction)didSelectSubmitPost:(id)sender;
 - (IBAction)didSelectDoneEditing:(id)sender;
-- (IBAction)didSelectSubmitComment:(id)sender;
 
 @end
