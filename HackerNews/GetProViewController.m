@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *PurchaseProButton;
 @property (weak, nonatomic) IBOutlet UIButton *RestoreProButton;
 @property (weak, nonatomic) IBOutlet UITextView *ProTextView;
+@property (strong, nonatomic) IBOutlet UIView *ThanksForPurchasingView;
 
 @end
 
@@ -70,6 +71,7 @@
     self.ProTextView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
     self.ProTextView.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
     [self.ProTextView setAttributedText:[self attributedProString]];
+    self.ThanksForPurchasingView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
 }
 
 - (void)changeTheme {
@@ -120,6 +122,11 @@
 
 - (void)satelliteStore:(SatelliteStore *)store didPurchaseProduct:(BOOL)success {
     if (success) {
+        self.ThanksForPurchasingView.alpha = 0;
+        [self.view addSubview:self.ThanksForPurchasingView];
+        [UIView animateWithDuration:0.25 animations:^{
+            self.ThanksForPurchasingView.alpha = 1;
+        }];
         [KGStatusBar showWithStatus:@"Upgraded to Pro"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Pro"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidPurchasePro" object:nil];
@@ -128,19 +135,15 @@
 }
 
 - (IBAction)didClickPurchasePro:(id)sender {
-    [self satelliteStore:self.HNStore didPurchaseProduct:YES];
-    /*
+    //[self satelliteStore:self.HNStore didPurchaseProduct:YES];
+    
     if (self.HNProducts) {
         [self.HNStore purchaseProduct:self.HNProducts[0]];
     }
     else {
         [self.HNStore getProducts];
-        while (!self.HNProducts) {
-            //
-        }
-        [self didClickPurchasePro:self];
+        [self performSelector:@selector(didClickPurchasePro:) withObject:nil afterDelay:1.25];
     }
-     */
 }
 
 - (IBAction)didClickRestorePro:(id)sender {

@@ -8,15 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#define kCellSettingsHeight 180
-#define kCellSettingsLoggedInHeight 212
+#define kCellSettingsHeight 158
 
 @protocol NavSettingsDelegate <NSObject>
 
 - (void)didClickReadability:(BOOL)active;
 - (void)didClickMarkAsRead:(BOOL)active;
 - (void)didClickChangeTheme:(BOOL)nightMode;
-- (void)didClickLogout;
 
 @end
 

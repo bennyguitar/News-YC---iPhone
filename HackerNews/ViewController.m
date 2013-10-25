@@ -141,7 +141,7 @@
 
 #pragma mark - Submit Link
 - (void)didClickSubmitLink {
-    SubmitHNViewController *vc = [[SubmitHNViewController alloc] initWithNibName:@"SubmitHNViewController" bundle:nil type:SubmitHNTypePost hnObject:nil];
+    SubmitHNViewController *vc = [[SubmitHNViewController alloc] initWithNibName:@"SubmitHNViewController" bundle:nil type:SubmitHNTypePost hnObject:nil commentIndex:0];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -161,22 +161,42 @@
     __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
     [Helpers navigationController:self addActivityIndicator:&indicator];
     
-    // Load Posts
-    [[HNManager sharedManager] loadPostsWithFilter:self.filterType completion:^(NSArray *posts) {
-        if (posts) {
-            homePagePosts = [posts mutableCopy];
-            [frontPageTable reloadData];
-            [self endRefreshing:frontPageRefresher];
-            indicator.alpha = 0;
-            [indicator removeFromSuperview];
-        }
-        else {
-            [FailedLoadingView launchFailedLoadingInView:self.view];
-            [self endRefreshing:frontPageRefresher];
-            indicator.alpha = 0;
-            [indicator removeFromSuperview];
-        }
-    }];
+    if (self.filterType == PostFilterTypeUserSubmission) {
+        // Load Posts for User
+        [[HNManager sharedManager] fetchSubmissionsForUser:[HNManager sharedManager].SessionUser.Username completion:^(NSArray *posts) {
+            if (posts) {
+                homePagePosts = [posts mutableCopy];
+                [frontPageTable reloadData];
+                [self endRefreshing:frontPageRefresher];
+                indicator.alpha = 0;
+                [indicator removeFromSuperview];
+            }
+            else {
+                [FailedLoadingView launchFailedLoadingInView:self.view];
+                [self endRefreshing:frontPageRefresher];
+                indicator.alpha = 0;
+                [indicator removeFromSuperview];
+            }
+        }];
+    }
+    else {
+        // Load Posts
+        [[HNManager sharedManager] loadPostsWithFilter:self.filterType completion:^(NSArray *posts) {
+            if (posts) {
+                homePagePosts = [posts mutableCopy];
+                [frontPageTable reloadData];
+                [self endRefreshing:frontPageRefresher];
+                indicator.alpha = 0;
+                [indicator removeFromSuperview];
+            }
+            else {
+                [FailedLoadingView launchFailedLoadingInView:self.view];
+                [self endRefreshing:frontPageRefresher];
+                indicator.alpha = 0;
+                [indicator removeFromSuperview];
+            }
+        }];
+    }
 }
 
 

@@ -17,6 +17,7 @@
 
 @property (nonatomic, assign) id HNObject;
 @property (nonatomic, assign) SubmitHNType SubmitType;
+@property (nonatomic, assign) NSNumber *CommentIndex;
 
 // Submission
 @property (strong, nonatomic) IBOutlet UIView *SubmitView;
@@ -37,12 +38,13 @@
 
 @implementation SubmitHNViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil type:(SubmitHNType)type hnObject:(id)hnObject
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil type:(SubmitHNType)type hnObject:(id)hnObject commentIndex:(NSNumber *)index
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.SubmitType = type;
         self.HNObject = hnObject;
+        self.CommentIndex = index;
     }
     return self;
 }
@@ -78,12 +80,23 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self setSizes];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [[HNManager sharedManager] cancelAllRequests];
 }
 
 
 #pragma mark - UI
+-(void)setSizes {
+    float newPostHeight = self.view.frame.size.height - self.SubmitSelfTextView.frame.origin.y - 20;
+    self.SubmitSelfTextView.frame = CGRectMake(self.SubmitSelfTextView.frame.origin.x, self.SubmitSelfTextView.frame.origin.y, self.SubmitSelfTextView.frame.size.width,newPostHeight);
+    self.CommentTextView.frame = CGRectMake(self.CommentTextView.frame.origin.x, self.CommentTextView.frame.origin.y, self.CommentTextView.frame.size.width, self.view.frame.size.height - self.CommentTextView.frame.origin.y - 20);
+    
+}
+
 - (void)colorUI {
     self.view.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
     self.SubmitView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
@@ -236,6 +249,15 @@
     [self buildNavBarForSubmit:NO];
     [[HNManager sharedManager] replyToPostOrComment:self.HNObject withText:self.CommentTextView.text completion:^(BOOL success) {
         if (success) {
+            // Create Notification
+            NSMutableDictionary *userInfo = [@{@"Comment":[self newComment]} mutableCopy];
+            if (self.CommentIndex) {
+                [userInfo setObject:self.CommentIndex forKey:@"Index"];
+            }
+            NSNotification *notification = [[NSNotification alloc] initWithName:@"DidSubmitNewComment" object:nil userInfo:userInfo];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            // Dismiss
             [self dismissSelf];
             [KGStatusBar showWithStatus:@"Comment Submitted"];
         }
@@ -244,6 +266,15 @@
             [KGStatusBar showWithStatus:@"Comment Failed"];
         }
     }];
+}
+
+- (HNComment *)newComment {
+    HNComment *newComment = [[HNComment alloc] init];
+    newComment.Text = self.CommentTextView.text;
+    newComment.Username = [HNManager sharedManager].SessionUser.Username;
+    newComment.TimeCreatedString = @"0 minutes ago";
+    newComment.Level = ([self.HNObject isKindOfClass:[HNComment class]]) ? [(HNComment *)self.HNObject Level] + 1 : 0;
+    return newComment;
 }
 
 

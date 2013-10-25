@@ -136,9 +136,28 @@
         [menuButton setImage:[UIImage imageNamed:@"3bar-01"] forState:UIControlStateNormal];
         [menuButton addTarget:appDelegate.deckController action:@selector(toggleLeftView) forControlEvents:UIControlEventTouchUpInside];
         [menuButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [menuButton setContentEdgeInsets:UIEdgeInsetsMake(0, -14, 0, 8)];
+        UIEdgeInsets insets = UIEdgeInsetsZero;
+        if ([controller respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+            insets = UIEdgeInsetsMake(0, -14, 0, 8);
+        }
+        
+        [menuButton setContentEdgeInsets:insets];
         UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithCustomView:menuButton];
         [controller.navigationItem setLeftBarButtonItem:menuItem];
+    }
+    else {
+        if (![controller respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+            // iOS 6
+            UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            rightButton.frame = CGRectMake(0, 0, 52, 23);
+            rightButton.contentMode = UIViewContentModeScaleAspectFit;
+            [rightButton setImage:[UIImage imageNamed:@"nav_back_ios6-01"] forState:UIControlStateNormal];
+            [rightButton addTarget:controller.navigationController action:@selector(popViewControllerAnimated:)forControlEvents:UIControlEventTouchUpInside];
+            [controller.navigationItem setHidesBackButton:YES];
+            [rightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+            UIBarButtonItem * menuItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+            [controller.navigationItem setLeftBarButtonItem:menuItem];
+        }
     }
     
     if (rImages && rActions) {
@@ -151,12 +170,31 @@
                 [rightButton setImage:rImages[xx] forState:UIControlStateNormal];
                 [rightButton addTarget:controller action:NSSelectorFromString(rActions[xx]) forControlEvents:UIControlEventTouchUpInside];
                 [rightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-                [rightButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, -10)];
+                
+                UIEdgeInsets insets = UIEdgeInsetsZero;
+                if ([controller respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+                    insets = UIEdgeInsetsMake(0, 10, 0, -10);
+                }
+                
+                [rightButton setContentEdgeInsets:insets];
                 rightButton.alpha = 0.5;
                 menuItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
             }
             else if ([rImages[xx] isKindOfClass:[NSString class]]) {
-                menuItem = [[UIBarButtonItem alloc] initWithTitle:rImages[xx] style:UIBarButtonItemStylePlain target:controller action:NSSelectorFromString(rActions[xx])];
+                if ([controller respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+                    // iOS7
+                    menuItem = [[UIBarButtonItem alloc] initWithTitle:rImages[xx] style:UIBarButtonItemStylePlain target:controller action:NSSelectorFromString(rActions[xx])];
+                }
+                else {
+                    // iOS6
+                    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                    rightButton.frame = CGRectMake(0, 0, 55, 23);
+                    rightButton.contentMode = UIViewContentModeScaleAspectFit;
+                    [rightButton setImage:[UIImage imageNamed:@"nav_submit_ios6-01"] forState:UIControlStateNormal];
+                    [rightButton addTarget:controller action:NSSelectorFromString(rActions[xx]) forControlEvents:UIControlEventTouchUpInside];
+                    [rightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+                    menuItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+                }
             }
             
             if (menuItem) {

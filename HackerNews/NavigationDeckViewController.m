@@ -166,9 +166,17 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidChangeTheme" object:nil];
 }
 
+#pragma mark - Profile Delegate
 - (void)didClickLogout {
     [[HNManager sharedManager] logout];
     [navTable reloadData];
+}
+
+- (void)didClickMySubmissions {
+    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil filterType:PostFilterTypeUserSubmission];
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [del.deckController setCenterController:[[UINavigationController alloc] initWithRootViewController:vc]];
+    [del.deckController toggleLeftView];
 }
 
 
@@ -250,8 +258,7 @@
                 }
             }
             
-            cell.userLabel.text = [HNManager sharedManager].SessionUser.Username;
-            cell.karmaLabel.text = [NSString stringWithFormat:@"%d Karma", [HNManager sharedManager].SessionUser.Karma];
+            [cell setCellContentWithDelegate:self];
             
             return cell;
         }
@@ -360,9 +367,6 @@
         return kCellProfNotLoggedInHeight;
     }
     else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 2 : 1)) {
-        if ([HNManager sharedManager].SessionUser.Username) {
-            return kCellSettingsLoggedInHeight;
-        }
         return kCellSettingsHeight;
     }
     else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 998 : 2)) {

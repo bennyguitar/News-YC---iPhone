@@ -29,15 +29,6 @@
     self.MarkAsRead = [[NSUserDefaults standardUserDefaults] boolForKey:@"MarkAsRead"];
     self.NightMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"];
     
-    // Logout Button
-    if (![[HNManager sharedManager] userIsLoggedIn]) {
-        self.logoutButton.hidden = YES;
-        self.logoutHidden.hidden = YES;
-        self.logoutLabel.hidden = YES;
-        self.logoutLabel.text = [NSString stringWithFormat:@"Logout %@", [HNManager sharedManager].SessionUser.Username];
-        //self.logoutLabel.text = @"Logout";
-    }
-    
     // Set Images
     [self setReadabilityStatus];
     [self setMarkAsReadStatus];
@@ -54,10 +45,6 @@
     // Set theme mode
     [self.nightModeButton addTarget:self action:@selector(didSelectNightMode) forControlEvents:UIControlEventTouchUpInside];
     [self.themeHidden addTarget:self action:@selector(didSelectNightMode) forControlEvents:UIControlEventTouchUpInside];
-    
-    // Set Logout
-    [self.logoutButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
-    [self.logoutHidden addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -81,12 +68,6 @@
     [self.nightModeButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"nav_%@_on-01.png", self.NightMode ? @"nightmode" : @"daymode"]] forState:UIControlStateNormal];
     self.themeLabel.text = [NSString stringWithFormat:@"Theme is %@", (self.NightMode ? @"NIGHT" : @"DAY")];
     [[NSUserDefaults standardUserDefaults] setBool:self.NightMode forKey:@"NightMode"];
-}
-
-- (void)logout {
-    if ([self.delegate respondsToSelector:@selector(didClickLogout)]) {
-        [self.delegate didClickLogout];
-    }
 }
 
 

@@ -93,6 +93,8 @@
 		C01EDEB51733683200AE97B8 /* NavigationDeckViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDEB31733683200AE97B8 /* NavigationDeckViewController.xib */; };
 		C01EDEB71733698600AE97B8 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDEB61733698600AE97B8 /* Social.framework */; };
 		C01EDEB91733698D00AE97B8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDEB81733698D00AE97B8 /* MessageUI.framework */; };
+		C078EE18181ACB7A008DC47C /* nav_back_ios6-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C078EE16181ACB7A008DC47C /* nav_back_ios6-01.png */; };
+		C078EE19181ACB7A008DC47C /* nav_submit_ios6-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C078EE17181ACB7A008DC47C /* nav_submit_ios6-01.png */; };
 		C08142181797975E00D1BB17 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C08142171797975E00D1BB17 /* CoreText.framework */; };
 		C0970E4917EA6CF1003FD742 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0970E4817EA6CF1003FD742 /* Images.xcassets */; };
 		C0970E4C17EA6D6E003FD742 /* icon58.png in Resources */ = {isa = PBXBuildFile; fileRef = C0970E4A17EA6D6E003FD742 /* icon58.png */; };
@@ -260,6 +262,8 @@
 		C01EDEB31733683200AE97B8 /* NavigationDeckViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationDeckViewController.xib; sourceTree = "<group>"; };
 		C01EDEB61733698600AE97B8 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		C01EDEB81733698D00AE97B8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		C078EE16181ACB7A008DC47C /* nav_back_ios6-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_ios6-01.png"; sourceTree = "<group>"; };
+		C078EE17181ACB7A008DC47C /* nav_submit_ios6-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_submit_ios6-01.png"; sourceTree = "<group>"; };
 		C08142171797975E00D1BB17 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		C0970E4817EA6CF1003FD742 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C0970E4A17EA6D6E003FD742 /* icon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon58.png; sourceTree = "<group>"; };
@@ -597,6 +601,8 @@
 		C01EDE4B1731A7E400AE97B8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C078EE16181ACB7A008DC47C /* nav_back_ios6-01.png */,
+				C078EE17181ACB7A008DC47C /* nav_submit_ios6-01.png */,
 				C0CC4EB1181A9EAC00D39DC5 /* nav_star.png */,
 				C0CC4E981818752600D39DC5 /* downvote-01.png */,
 				C0CC4E991818752600D39DC5 /* upvote-01.png */,
@@ -838,6 +844,7 @@
 				C01EDE4A1731A7C400AE97B8 /* icon114.png in Resources */,
 				C01EDE631731A84800AE97B8 /* check-01.png in Resources */,
 				C01EDE641731A84800AE97B8 /* github-01.png in Resources */,
+				C078EE19181ACB7A008DC47C /* nav_submit_ios6-01.png in Resources */,
 				C01EDE651731A84800AE97B8 /* website-01.png in Resources */,
 				C0CC4E8D1817550F00D39DC5 /* comment_button-01.png in Resources */,
 				C01EDE661731A84800AE97B8 /* commentbubbleDark.png in Resources */,
@@ -857,6 +864,7 @@
 				C0CC4E9B1818752600D39DC5 /* upvote-01.png in Resources */,
 				C0970E5117EA6DFE003FD742 /* icon80.png in Resources */,
 				C01EDE6F1731A84800AE97B8 /* topicon.png in Resources */,
+				C078EE18181ACB7A008DC47C /* nav_back_ios6-01.png in Resources */,
 				C01EDE701731A84800AE97B8 /* email-01.png in Resources */,
 				C01EDE711731A84800AE97B8 /* facebook-01.png in Resources */,
 				C0CC4EA01818AC9300D39DC5 /* CommentAuxiliaryView.xib in Resources */,

@@ -15,7 +15,7 @@
 
 @interface CommentsViewController ()
 
-@property (nonatomic, retain) NSArray *Comments;
+@property (nonatomic, retain) NSMutableArray *Comments;
 @property (nonatomic, retain) HNPost *Post;
 @property (strong, nonatomic) IBOutlet UIView *LoadingCommentsView;
 @property (weak, nonatomic) IBOutlet UITableView *CommentsTableView;
@@ -33,7 +33,7 @@
     if (self) {
         // Custom initialization
         self.Post = post;
-        self.Comments = @[];
+        self.Comments = [NSMutableArray array];
         self.AuxiliaryClickIndex = nil;
     }
     return self;
@@ -50,7 +50,9 @@
     
     // Set Up NotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeTheme) name:@"DidChangeTheme" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadComments) name:@"DidSubmitNewComment" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addSubmittedCommentNotification:) name:@"DidSubmitNewComment" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadComments) name:@"DidPurchasePro" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buildNavBar) name:@"DidLoginOrOut" object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -69,8 +71,7 @@
 #pragma mark - UI
 - (void)buildUI {
     // Build Nav
-    BOOL userIsLoggedIn = [[HNManager sharedManager] userIsLoggedIn];
-    [Helpers buildNavigationController:self leftImage:NO rightImages:(userIsLoggedIn ? @[[UIImage imageNamed:@"comment_button-01"]] : nil) rightActions:(userIsLoggedIn ? @[@"didClickSubmitComment"] : nil)];
+    [self buildNavBar];
     
     // Set TableView and LoadingView
     self.CommentsTableView.alpha = 0;
@@ -84,6 +85,11 @@
     self.refreshControl.tintColor = [UIColor blackColor];
     self.refreshControl.alpha = 0.65;
     [self.CommentsTableView addSubview:self.refreshControl];
+}
+
+- (void)buildNavBar {
+    BOOL userIsLoggedIn = [[HNManager sharedManager] userIsLoggedIn];
+    [Helpers buildNavigationController:self leftImage:NO rightImages:(userIsLoggedIn ? @[[UIImage imageNamed:@"comment_button-01"]] : nil) rightActions:(userIsLoggedIn ? @[@"didClickSubmitComment"] : nil)];
 }
 
 - (void)colorUI {
@@ -112,9 +118,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Add Submitted Comment
+- (void)addSubmittedCommentNotification:(NSNotification *)notification {
+    int index = 0;
+    if (notification.userInfo[@"Index"]) {
+        index = [notification.userInfo[@"Index"] intValue] + 1;
+    }
+
+    [self.Comments insertObject:notification.userInfo[@"Comment"] atIndex:index];
+    [self.CommentsTableView reloadData];
+}
+
+
 #pragma mark - Submit Comment
 - (void)didClickSubmitComment {
-    SubmitHNViewController *vc = [[SubmitHNViewController alloc] initWithNibName:@"SubmitHNViewController" bundle:nil type:SubmitHNTypeComment hnObject:self.Post];
+    SubmitHNViewController *vc = [[SubmitHNViewController alloc] initWithNibName:@"SubmitHNViewController" bundle:nil type:SubmitHNTypeComment hnObject:self.Post commentIndex:nil];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -129,7 +147,7 @@
         // Load Comments
         [[HNManager sharedManager] loadCommentsFromPost:self.Post completion:^(NSArray *comments) {
             if (comments) {
-                self.Comments = comments;
+                self.Comments = [comments mutableCopy];
             }
             
             [self refreshTable:self.CommentsTableView indicator:indicator];
@@ -197,40 +215,23 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([[HNManager sharedManager] userIsLoggedIn]) {
-        /*
-        if (self.AuxiliaryClickIndex) {
-            if (self.AuxiliaryClickIndex.intValue == indexPath.row) {
-                self.AuxiliaryClickIndex = nil;
-            }
-            else {
-                self.AuxiliaryClickIndex = @(indexPath.row);
-            }
+    NSIndexPath *oldIndexPath;
+    if (self.AuxiliaryClickIndex) {
+        int oldIndex = self.AuxiliaryClickIndex.intValue;
+        oldIndexPath = [NSIndexPath indexPathForRow:oldIndex inSection:0];
+        if (indexPath.row == oldIndex) {
+            self.AuxiliaryClickIndex = nil;
         }
         else {
             self.AuxiliaryClickIndex = @(indexPath.row);
         }
-        [self.CommentsTableView reloadData];
-        */
-        
-        NSIndexPath *oldIndexPath;
-        if (self.AuxiliaryClickIndex) {
-            int oldIndex = self.AuxiliaryClickIndex.intValue;
-            oldIndexPath = [NSIndexPath indexPathForRow:oldIndex inSection:0];
-            if (indexPath.row == oldIndex) {
-                self.AuxiliaryClickIndex = nil;
-            }
-            else {
-                self.AuxiliaryClickIndex = @(indexPath.row);
-            }
-        }
-        else {
-            self.AuxiliaryClickIndex = @(indexPath.row);
-        }
-        
-        NSArray *indexPathsToReload = (oldIndexPath && (oldIndexPath.row != indexPath.row)) ? @[indexPath,oldIndexPath] : @[indexPath];
-        [self.CommentsTableView reloadRowsAtIndexPaths:indexPathsToReload withRowAnimation:UITableViewRowAnimationFade];
     }
+    else {
+        self.AuxiliaryClickIndex = @(indexPath.row);
+    }
+    
+    NSArray *indexPathsToReload = (oldIndexPath && (oldIndexPath.row != indexPath.row)) ? @[indexPath,oldIndexPath] : @[indexPath];
+    [self.CommentsTableView reloadRowsAtIndexPaths:indexPathsToReload withRowAnimation:UITableViewRowAnimationFade];
 }
 
 
@@ -243,12 +244,15 @@
 
 #pragma mark - Comment Cell Delegate
 - (void)didClickReplyToCommentAtIndex:(int)index {
-    SubmitHNViewController *vc = [[SubmitHNViewController alloc] initWithNibName:@"SubmitHNViewController" bundle:nil type:SubmitHNTypeComment hnObject:self.Comments[index]];
+    SubmitHNViewController *vc = [[SubmitHNViewController alloc] initWithNibName:@"SubmitHNViewController" bundle:nil type:SubmitHNTypeComment hnObject:self.Comments[index] commentIndex:@(index)];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didClickShareCommentAtIndex:(int)index {
-    NSArray *activityItems = @[[self.Comments[index] Text]];
+    HNComment *shareComment = self.Comments[index];
+    NSMutableString *shareString = [@"" mutableCopy];
+    [shareString appendFormat:@"%@:\n%@\n\nhttps://news.ycombinator.com/item?id=%@", shareComment.Username, shareComment.Text, shareComment.CommentId];
+    NSArray *activityItems = @[shareString];
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
     [self presentViewController:activityController animated:YES completion:nil];
 }

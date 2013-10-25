@@ -25,7 +25,7 @@
 #import "Helpers.h"
 #import "libHN.h"
 
-@interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,NavShareCellDelegate,NavSettingsDelegate,NavProfileLoginDelegate,NavPurchaseProDelegate> {
+@interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,NavShareCellDelegate,NavSettingsDelegate,NavProfileLoginDelegate,NavPurchaseProDelegate,NavProfileDelegate> {
     
     IBOutlet UITableView *navTable;
     __weak IBOutlet UIView *headerBar;

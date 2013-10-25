@@ -37,7 +37,9 @@
 
 -(CommentsCell *)cellForComment:(HNComment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller showAuxiliary:(BOOL)auxiliary {
     self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
-    self.separatorInset = UIEdgeInsetsZero;
+    if ([self respondsToSelector:@selector(separatorInset)]) {
+        self.separatorInset = UIEdgeInsetsZero;
+    }
     
     // Color cell elements
     self.comment.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
@@ -126,10 +128,17 @@
             
             // Set Actions
             [self.auxiliaryShareButton addTarget:self action:@selector(didClickShare) forControlEvents:UIControlEventTouchUpInside];
-            [self.auxiliaryCommentButton addTarget:self action:@selector(didClickComment) forControlEvents:UIControlEventTouchUpInside];
+            
+            if ([[HNManager sharedManager] userIsLoggedIn]) {
+                [self.auxiliaryCommentButton addTarget:self action:@selector(didClickComment) forControlEvents:UIControlEventTouchUpInside];
+            }
+            else {
+                [self.auxiliaryCommentButton setUserInteractionEnabled:NO];
+                self.auxiliaryCommentButton.alpha = 0.25;
+            }
             
             // Set upvotes and downvotes
-            if (newComment.UpvoteURLAddition && ![[HNManager sharedManager] hasVotedOnObject:newComment]) {
+            if (newComment.UpvoteURLAddition && ![[HNManager sharedManager] hasVotedOnObject:newComment] && [[HNManager sharedManager] userIsLoggedIn]) {
                 [self.auxiliaryUpvoteButton addTarget:self action:@selector(didClickUpvote) forControlEvents:UIControlEventTouchUpInside];
                 
                 if (newComment.DownvoteURLAddition) {

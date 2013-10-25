@@ -7,6 +7,7 @@
 //
 
 #import "ProfileNotLoggedInCell.h"
+#import "HNSingleton.h"
 
 @implementation ProfileNotLoggedInCell
 
@@ -25,6 +26,7 @@
     self.usernameTextField.delegate = del;
     self.passwordTextField.delegate = del;
     [self.loginButton addTarget:self action:@selector(didClickLogin) forControlEvents:UIControlEventTouchUpInside];
+    [self.loginButton setTitleColor:kOrangeColor forState:UIControlStateNormal];
 }
 
 #pragma mark - Set Actions

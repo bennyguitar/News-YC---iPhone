@@ -7,11 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="182" id="3" customClass="ProfileNotLoggedInCell">
-            <rect key="frame" x="0.0" y="0.0" width="275" height="180"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="166" id="3" customClass="ProfileNotLoggedInCell">
+            <rect key="frame" x="0.0" y="0.0" width="275" height="164"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3" id="xGA-5j-oDt">
-                <rect key="frame" x="0.0" y="0.0" width="275" height="179"/>
+                <rect key="frame" x="0.0" y="0.0" width="275" height="163"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="11">
@@ -27,10 +27,10 @@
                         <nil key="highlightedColor"/>
                         <color key="shadowColor" white="0.1227056664" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9">
                         <rect key="frame" x="10" y="119" width="255" height="36"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <size key="titleShadowOffset" width="0.0" height="-1"/>
                         <state key="normal" title="Login">
                             <color key="titleColor" red="1" green="0.38823533059999998" blue="0.14509804549999999" alpha="1" colorSpace="deviceRGB"/>

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kCellProfNotLoggedInHeight 180
+#define kCellProfNotLoggedInHeight 164
 
 @protocol NavProfileLoginDelegate <NSObject>
 

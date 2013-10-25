@@ -67,12 +67,12 @@
         
         // Scan Author
         [scanner scanUpToString:@"<a href=\"user?id=" intoString:&trash];
-        [scanner scanUpToString:@">" intoString:&trash];
-        [scanner scanString:@">" intoString:&trash];
-        [scanner scanUpToString:@"</a> " intoString:&author];
+        [scanner scanString:@"<a href=\"user?id=" intoString:&trash];
+        [scanner scanUpToString:@"\"" intoString:&author];
         newPost.Username = author;
         
         // Scan Time Ago
+        [scanner scanUpToString:@"</a> " intoString:&trash];
         [scanner scanString:@"</a> " intoString:&trash];
         [scanner scanUpToString:@"ago" intoString:&hoursAgo];
         hoursAgo = [hoursAgo stringByAppendingString:@"ago"];
