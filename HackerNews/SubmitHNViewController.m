@@ -174,25 +174,29 @@
     // Get Keyboard Height
     float keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
     if (self.SubmitType == SubmitHNTypePost) {
-        self.SubmitSelfTextView.frame = CGRectMake(self.SubmitSelfTextView.frame.origin.x, self.SubmitSelfTextView.frame.origin.y, self.SubmitSelfTextView.frame.size.width, self.SubmitSelfTextView.frame.size.height - self.SubmitDoneEditingButton.frame.origin.y);
+        float newHeight = self.view.frame.size.height - keyboardHeight - abs(self.SubmitDoneEditingButton.frame.origin.y - self.SubmitSelfTextView.frame.origin.y) - 25;
+        self.SubmitSelfTextView.frame = CGRectMake(self.SubmitSelfTextView.frame.origin.x, self.SubmitSelfTextView.frame.origin.y, self.SubmitSelfTextView.frame.size.width, newHeight);
     }
     else {
-        self.CommentTextView.frame = CGRectMake(self.CommentTextView.frame.origin.x, self.CommentTextView.frame.origin.y, self.CommentTextView.frame.size.width, self.CommentTextView.frame.size.height - keyboardHeight);
+        float newHeight = self.view.frame.size.height - self.CommentTextView.frame.origin.y - keyboardHeight - 20;
         [UIView animateWithDuration:0.25 animations:^{
             self.CommentDoneEditing.alpha = 1;
+            self.CommentTextView.frame = CGRectMake(self.CommentTextView.frame.origin.x, self.CommentTextView.frame.origin.y, self.CommentTextView.frame.size.width, newHeight);
         }];
     }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    float keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
     if (self.SubmitType == SubmitHNTypePost) {
-        self.SubmitSelfTextView.frame = CGRectMake(self.SubmitSelfTextView.frame.origin.x, self.SubmitSelfTextView.frame.origin.y, self.SubmitSelfTextView.frame.size.width,self.SubmitSelfTextView.frame.size.height + self.SubmitDoneEditingButton.frame.origin.y);
+        float newHeight = self.view.frame.size.height - self.SubmitSelfTextView.frame.origin.y - 20;
+        [UIView animateWithDuration:0.25 animations:^{
+            self.SubmitSelfTextView.frame = CGRectMake(self.SubmitSelfTextView.frame.origin.x, self.SubmitSelfTextView.frame.origin.y, self.SubmitSelfTextView.frame.size.width,newHeight);
+        }];
     }
     else {
-        self.CommentTextView.frame = CGRectMake(self.CommentTextView.frame.origin.x, self.CommentTextView.frame.origin.y, self.CommentTextView.frame.size.width, self.CommentTextView.frame.size.height + keyboardHeight);
         [UIView animateWithDuration:0.25 animations:^{
             self.CommentDoneEditing.alpha = 0;
+            self.CommentTextView.frame = CGRectMake(self.CommentTextView.frame.origin.x, self.CommentTextView.frame.origin.y, self.CommentTextView.frame.size.width, self.view.frame.size.height - self.CommentTextView.frame.origin.y - 20);
         }];
     }
 }

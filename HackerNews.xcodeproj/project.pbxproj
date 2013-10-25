@@ -119,6 +119,13 @@
 		C0CC4E9B1818752600D39DC5 /* upvote-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E991818752600D39DC5 /* upvote-01.png */; };
 		C0CC4E9E1818AC7F00D39DC5 /* CommentAuxiliaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CC4E9D1818AC7F00D39DC5 /* CommentAuxiliaryView.m */; };
 		C0CC4EA01818AC9300D39DC5 /* CommentAuxiliaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4E9F1818AC9300D39DC5 /* CommentAuxiliaryView.xib */; };
+		C0CC4EA31819EC0000D39DC5 /* SatelliteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CC4EA21819EC0000D39DC5 /* SatelliteStore.m */; };
+		C0CC4EA81819EC4300D39DC5 /* GetProViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CC4EA61819EC4300D39DC5 /* GetProViewController.m */; };
+		C0CC4EA91819EC4300D39DC5 /* GetProViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4EA71819EC4300D39DC5 /* GetProViewController.xib */; };
+		C0CC4EAB1819ECB100D39DC5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0CC4EAA1819ECB000D39DC5 /* StoreKit.framework */; };
+		C0CC4EAE181A9DDB00D39DC5 /* NavPurchaseProCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CC4EAD181A9DDB00D39DC5 /* NavPurchaseProCell.m */; };
+		C0CC4EB0181A9DEF00D39DC5 /* NavPurchaseProCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4EAF181A9DEF00D39DC5 /* NavPurchaseProCell.xib */; };
+		C0CC4EB2181A9EAC00D39DC5 /* nav_star.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CC4EB1181A9EAC00D39DC5 /* nav_star.png */; };
 		C0D074E017EE07EB000CAAC3 /* bigCheck-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */; };
 		C0D074E317EE2627000CAAC3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */; };
 		C0EE6F7F17AED67F00C97F0B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EE6F7D17AED67F00C97F0B /* ViewController.xib */; };
@@ -286,6 +293,16 @@
 		C0CC4E9C1818AC7F00D39DC5 /* CommentAuxiliaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentAuxiliaryView.h; sourceTree = "<group>"; };
 		C0CC4E9D1818AC7F00D39DC5 /* CommentAuxiliaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentAuxiliaryView.m; sourceTree = "<group>"; };
 		C0CC4E9F1818AC9300D39DC5 /* CommentAuxiliaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentAuxiliaryView.xib; sourceTree = "<group>"; };
+		C0CC4EA11819EC0000D39DC5 /* SatelliteStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SatelliteStore.h; sourceTree = "<group>"; };
+		C0CC4EA21819EC0000D39DC5 /* SatelliteStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SatelliteStore.m; sourceTree = "<group>"; };
+		C0CC4EA51819EC4300D39DC5 /* GetProViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetProViewController.h; sourceTree = "<group>"; };
+		C0CC4EA61819EC4300D39DC5 /* GetProViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetProViewController.m; sourceTree = "<group>"; };
+		C0CC4EA71819EC4300D39DC5 /* GetProViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GetProViewController.xib; sourceTree = "<group>"; };
+		C0CC4EAA1819ECB000D39DC5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		C0CC4EAC181A9DDB00D39DC5 /* NavPurchaseProCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavPurchaseProCell.h; sourceTree = "<group>"; };
+		C0CC4EAD181A9DDB00D39DC5 /* NavPurchaseProCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavPurchaseProCell.m; sourceTree = "<group>"; };
+		C0CC4EAF181A9DEF00D39DC5 /* NavPurchaseProCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavPurchaseProCell.xib; sourceTree = "<group>"; };
+		C0CC4EB1181A9EAC00D39DC5 /* nav_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_star.png; sourceTree = "<group>"; };
 		C0D074DF17EE07EB000CAAC3 /* bigCheck-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigCheck-01.png"; sourceTree = "<group>"; };
 		C0D074E117EE2627000CAAC3 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
@@ -330,6 +347,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0CC4EAB1819ECB100D39DC5 /* StoreKit.framework in Frameworks */,
 				C08142181797975E00D1BB17 /* CoreText.framework in Frameworks */,
 				C01EDEB91733698D00AE97B8 /* MessageUI.framework in Frameworks */,
 				C01EDEB71733698600AE97B8 /* Social.framework in Frameworks */,
@@ -427,6 +445,7 @@
 		C01EDDE51731553B00AE97B8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C0CC4EAA1819ECB000D39DC5 /* StoreKit.framework */,
 				C01EDDE61731553B00AE97B8 /* UIKit.framework */,
 				C01EDDE81731553B00AE97B8 /* Foundation.framework */,
 				C01EDDEA1731553B00AE97B8 /* CoreGraphics.framework */,
@@ -555,6 +574,9 @@
 				C0F93FE81739D4D000E47B5E /* ProfileLoggedInCell.h */,
 				C0F93FE91739D4D000E47B5E /* ProfileLoggedInCell.m */,
 				C0F93FEC1739D4DC00E47B5E /* ProfileLoggedInCell.xib */,
+				C0CC4EAC181A9DDB00D39DC5 /* NavPurchaseProCell.h */,
+				C0CC4EAD181A9DDB00D39DC5 /* NavPurchaseProCell.m */,
+				C0CC4EAF181A9DEF00D39DC5 /* NavPurchaseProCell.xib */,
 			);
 			name = "Nav Cells";
 			sourceTree = "<group>";
@@ -562,6 +584,8 @@
 		C01EDE371731A48500AE97B8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C0CC4EA11819EC0000D39DC5 /* SatelliteStore.h */,
+				C0CC4EA21819EC0000D39DC5 /* SatelliteStore.m */,
 				C0D074E117EE2627000CAAC3 /* TTTAttributedLabel.h */,
 				C0D074E217EE2627000CAAC3 /* TTTAttributedLabel.m */,
 				C01EDE7A1731E2A900AE97B8 /* Helpers.h */,
@@ -573,6 +597,7 @@
 		C01EDE4B1731A7E400AE97B8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C0CC4EB1181A9EAC00D39DC5 /* nav_star.png */,
 				C0CC4E981818752600D39DC5 /* downvote-01.png */,
 				C0CC4E991818752600D39DC5 /* upvote-01.png */,
 				C0CC4E8A1817550F00D39DC5 /* comment_button-01.png */,
@@ -622,6 +647,7 @@
 		C0CC4E7C1816D71E00D39DC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C0CC4EA41819EC3000D39DC5 /* Get Pro */,
 				C0CC4E9218176C9700D39DC5 /* Submit */,
 				C0CC4E7F1816D72F00D39DC5 /* Links */,
 				C0CC4E7E1816D72800D39DC5 /* Comments */,
@@ -677,6 +703,16 @@
 				C0CC4E9518176CBC00D39DC5 /* SubmitHNViewController.xib */,
 			);
 			name = Submit;
+			sourceTree = "<group>";
+		};
+		C0CC4EA41819EC3000D39DC5 /* Get Pro */ = {
+			isa = PBXGroup;
+			children = (
+				C0CC4EA51819EC4300D39DC5 /* GetProViewController.h */,
+				C0CC4EA61819EC4300D39DC5 /* GetProViewController.m */,
+				C0CC4EA71819EC4300D39DC5 /* GetProViewController.xib */,
+			);
+			name = "Get Pro";
 			sourceTree = "<group>";
 		};
 		C0FB762C1803B14800BDA142 /* libHN */ = {
@@ -813,6 +849,7 @@
 				C01EDE6A1731A84800AE97B8 /* nav_nightmode_on-01.png in Resources */,
 				C01EDE6B1731A84800AE97B8 /* nav_markasread_off-01.png in Resources */,
 				C0970E4D17EA6D6E003FD742 /* icon120.png in Resources */,
+				C0CC4EB0181A9DEF00D39DC5 /* NavPurchaseProCell.xib in Resources */,
 				C0CC4E891816E18F00D39DC5 /* LinksViewController.xib in Resources */,
 				C01EDE6C1731A84800AE97B8 /* nav_markasread_on-01.png in Resources */,
 				C01EDE6D1731A84800AE97B8 /* nav_readability_off-01.png in Resources */,
@@ -847,6 +884,7 @@
 				C0FAA5DF173E737C00ED5F52 /* voteUpOn-01.png in Resources */,
 				C0FAA5E4173ED7C900ED5F52 /* SubmitLinkViewController.xib in Resources */,
 				C0FAA5E6173EDD4500ED5F52 /* submitLink-01.png in Resources */,
+				C0CC4EA91819EC4300D39DC5 /* GetProViewController.xib in Resources */,
 				C0970E5017EA6DFE003FD742 /* icon29.png in Resources */,
 				6C2DAAD4174C977B0069BAE1 /* ARChromeActivity.png in Resources */,
 				C0D074E017EE07EB000CAAC3 /* bigCheck-01.png in Resources */,
@@ -876,6 +914,7 @@
 				6C2DAB04174C9C2E0069BAE1 /* Safari@2x~ipad.png in Resources */,
 				6C2DAB05174C9C2E0069BAE1 /* Safari~ipad.png in Resources */,
 				6C2DAB06174C9C2E0069BAE1 /* sk.lproj in Resources */,
+				C0CC4EB2181A9EAC00D39DC5 /* nav_star.png in Resources */,
 				6C2DAB07174C9C2E0069BAE1 /* sv.lproj in Resources */,
 				6C2DAB09174C9C2E0069BAE1 /* vi.lproj in Resources */,
 				6C2DAB0A174C9C2E0069BAE1 /* zh_CN.lproj in Resources */,
@@ -903,6 +942,7 @@
 				C01EDE1A1731A3CA00AE97B8 /* IIWrapController.m in Sources */,
 				C0CC4E9618176CBC00D39DC5 /* SubmitHNViewController.m in Sources */,
 				C01EDE1E1731A3E500AE97B8 /* triangleView.m in Sources */,
+				C0CC4EAE181A9DDB00D39DC5 /* NavPurchaseProCell.m in Sources */,
 				C0FB76391803B18200BDA142 /* HNPost.m in Sources */,
 				C01EDE2F1731A44200AE97B8 /* FilterCell.m in Sources */,
 				C01EDE311731A44200AE97B8 /* ShareCell.m in Sources */,
@@ -912,6 +952,7 @@
 				C01EDE401731A4C900AE97B8 /* CommentsCell.m in Sources */,
 				C0CC4E7B1816B30E00D39DC5 /* HNWebService.m in Sources */,
 				C01EDE441731A61700AE97B8 /* HNSingleton.m in Sources */,
+				C0CC4EA31819EC0000D39DC5 /* SatelliteStore.m in Sources */,
 				C0FB763C1803B18200BDA142 /* HNCommentLink.m in Sources */,
 				C0FB763A1803B18200BDA142 /* HNComment.m in Sources */,
 				C01EDE7C1731E2A900AE97B8 /* Helpers.m in Sources */,
@@ -927,6 +968,7 @@
 				C0FAA5E3173ED7C900ED5F52 /* SubmitLinkViewController.m in Sources */,
 				C0FB763F1803B18F00BDA142 /* HNUtilities.m in Sources */,
 				6C2DAAD3174C977B0069BAE1 /* ARChromeActivity.m in Sources */,
+				C0CC4EA81819EC4300D39DC5 /* GetProViewController.m in Sources */,
 				6C2DAB08174C9C2E0069BAE1 /* TUSafariActivity.m in Sources */,
 				C0EE6F8317AEDF8E00C97F0B /* AddCommentView.m in Sources */,
 			);

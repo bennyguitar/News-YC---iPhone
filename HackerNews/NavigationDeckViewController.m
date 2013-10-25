@@ -37,6 +37,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoginOrOut) name:@"DidLoginOrOut" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard) name:@"HideKeyboard" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loggingIn) name:@"LoggingIn" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boughtPro) name:@"DidPurchasePro" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,6 +61,13 @@
     [blackView addSubview:activity];
     [cell addSubview:blackView];
 }
+
+
+#pragma mark - Bought Pro Notification
+- (void)boughtPro {
+    [navTable reloadData];
+}
+
 
 #pragma mark - Share to Social Delegates
 - (void)didClickShareToFacebook {
@@ -164,6 +172,15 @@
 }
 
 
+#pragma mark - Purchase Pro Delegate
+- (void)didSelectPurchasePro {
+    GetProViewController *vc = [[GetProViewController alloc] initWithNibName:@"GetProViewController" bundle:nil];
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [(UINavigationController *)del.deckController.centerController pushViewController:vc animated:YES];
+    [del.deckController toggleLeftView];
+}
+
+
 #pragma mark - Login Delegate
 - (void)didClickLoginWithUsername:(NSString *)user password:(NSString *)password {
     [[HNManager sharedManager] loginWithUsername:user password:password completion:^(HNUser *user) {
@@ -197,12 +214,12 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (kProfile ? 5 : 4);
+    return 5;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // FILTER CELL
-    if (indexPath.row == kProfile ? 1 : 0) {
+    if (indexPath.row == [[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 1 : 0) {
         NSString *CellIdentifier = @"FilterCell";
         FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -220,7 +237,7 @@
     }
     
     // PROFILE CELL
-    else if (indexPath.row == (kProfile ? 0 : 998)) {
+    else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 0 : 998)) {
         if ([HNManager sharedManager].SessionUser) {
             NSString *CellIdentifier = @"ProfileCell";
             ProfileLoggedInCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -259,9 +276,26 @@
             return cell;
         }
     }
+    
+    else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 999 : 2)) {
+        NSString *CellIdentifier = @"PurchaseCell";
+        NavPurchaseProCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"NavPurchaseProCell" owner:nil options:nil];
+            for (UIView *view in views) {
+                if([view isKindOfClass:[UITableViewCell class]]) {
+                    cell = (NavPurchaseProCell *)view;
+                }
+            }
+        }
+        
+        [cell setContentAndDelegate:self];
+        
+        return cell;
+    }
 
     // SHARE CELL
-    else if (indexPath.row == (kProfile ? 3 : 2)) {
+    else if (indexPath.row == 3) {
         NSString *CellIdentifier = @"ShareCell";
         ShareCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -279,7 +313,7 @@
     }
     
     // SETTINGS CELL
-    else if (indexPath.row == (kProfile ? 2 : 1)) {
+    else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 2 : 1)) {
         NSString *CellIdentifier = @"SettingsCell";
         SettingsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -297,7 +331,7 @@
     }
     
     // CREDITS CELL
-    else if (indexPath.row == (kProfile ? 4 : 3)) {
+    else if (indexPath.row == 4) {
         NSString *CellIdentifier = @"CreditsCell";
         CreditsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -316,22 +350,25 @@
 }
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == kProfile ? 1 : 0) {
+    if (indexPath.row == [[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 1 : 0) {
         return kFilterCellHeight;
     }
-    else if (indexPath.row == (kProfile ? 0 : 998)) {
+    else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 0 : 998)) {
         if ([HNManager sharedManager].SessionUser.Username) {
             return kCellProfLoggedInHeight;
         }
         return kCellProfNotLoggedInHeight;
     }
-    else if (indexPath.row == (kProfile ? 2 : 1)) {
+    else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 2 : 1)) {
         if ([HNManager sharedManager].SessionUser.Username) {
             return kCellSettingsLoggedInHeight;
         }
         return kCellSettingsHeight;
     }
-    else if (indexPath.row == (kProfile ? 3 : 2)) {
+    else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 998 : 2)) {
+        return kPurchaseProHeight;
+    }
+    else if (indexPath.row == 3) {
         return kCellShareHeight;
     }
     else {

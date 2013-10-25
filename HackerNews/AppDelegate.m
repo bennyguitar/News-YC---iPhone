@@ -20,8 +20,16 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    // Start HNManager Session
-    [[HNManager sharedManager] startSession];
+    // Test
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Pro"];
+    
+    // Set Pro & Start HNManager Session
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"]) {
+        [[HNManager sharedManager] startSession];
+    }
+    else {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Pro"];
+    }
     
     // Check Theme
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"]) {

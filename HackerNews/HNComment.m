@@ -79,6 +79,8 @@
         NSString *upvoteString = @"";
         NSString *downvoteString = @"";
         
+        
+        
         // Get Comment Level
         [scanner scanString:@"height=1 width=" intoString:&trash];
         [scanner scanUpToString:@">" intoString:&level];

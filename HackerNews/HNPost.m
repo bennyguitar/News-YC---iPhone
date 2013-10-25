@@ -18,6 +18,11 @@
     
     // Scan through components and build posts
     for (int xx = 1; xx < htmlComponents.count; xx++) {
+        // If it's Dead - move past it
+        if ([htmlComponents[xx] rangeOfString:@"<td class=\"title\"> [dead] <a"].location != NSNotFound) {
+            continue;
+        }
+        
         // Create new Post
         HNPost *newPost = [[HNPost alloc] init];
         

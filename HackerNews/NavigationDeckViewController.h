@@ -12,6 +12,7 @@
 #import <MessageUI/MessageUI.h>
 #import "IIViewDeckController.h"
 #import "ViewController.h"
+#import "GetProViewController.h"
 #import "HNSingleton.h"
 #import "FilterCell.h"
 #import "ShareCell.h"
@@ -19,11 +20,12 @@
 #import "CreditsCell.h"
 #import "ProfileNotLoggedInCell.h"
 #import "ProfileLoggedInCell.h"
+#import "NavPurchaseProCell.h"
 #import "AppDelegate.h"
 #import "Helpers.h"
 #import "libHN.h"
 
-@interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,NavShareCellDelegate,NavSettingsDelegate,NavProfileLoginDelegate> {
+@interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,NavShareCellDelegate,NavSettingsDelegate,NavProfileLoginDelegate,NavPurchaseProDelegate> {
     
     IBOutlet UITableView *navTable;
     __weak IBOutlet UIView *headerBar;
