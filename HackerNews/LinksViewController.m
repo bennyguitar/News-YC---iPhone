@@ -11,6 +11,7 @@
 #import "Helpers.h"
 #import "ARChromeActivity.h"
 #import "TUSafariActivity.h"
+#import "KGStatusBar.h"
 
 @interface LinksViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *LinkWebView;
@@ -23,6 +24,7 @@
 
 @implementation LinksViewController
 
+#pragma mark - Init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil url:(NSURL *)url post:(HNPost *)post
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,6 +35,8 @@
     return self;
 }
 
+
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -43,10 +47,8 @@
     // Set Readability
     self.Readability = [[NSUserDefaults standardUserDefaults] boolForKey:@"Readability"];
     
-    // Build Nav
-    NSArray *images = @[[UIImage imageNamed:@"share_button-01"]];
-    NSArray *actions = @[@"didClickShare"];
-    [Helpers buildNavigationController:self leftImage:NO rightImages:images rightActions:actions];
+    // Load Nav
+    [self buildNavBar];
     
     // Load Link
     [self loadWebViewWithUrl:self.Url];
@@ -67,6 +69,36 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - UI
+- (void)buildNavBar {
+    // Build Nav
+    NSArray *images = @[[UIImage imageNamed:@"share_button-01"]];
+    NSArray *actions = @[@"didClickShare"];
+    [Helpers buildNavigationController:self leftImage:NO rightImages:images rightActions:actions];
+    
+    // Add Upvote if Necessary
+    if (self.Post.UpvoteURLAddition && [[HNManager sharedManager] userIsLoggedIn] && ![[HNManager sharedManager] hasVotedOnObject:self.Post]) {
+        [Helpers addUpvoteButtonToNavigationController:self action:@selector(upvoteCurrentPost)];
+    }
+}
+
+#pragma mark - Upvote
+- (void)upvoteCurrentPost {
+    [[HNManager sharedManager] voteOnPostOrComment:self.Post direction:VoteDirectionUp completion:^(BOOL success) {
+        if (success) {
+            [KGStatusBar showWithStatus:@"Voting Success"];
+            [[HNManager sharedManager] setMarkAsReadForPost:self.Post];
+            self.Post.UpvoteURLAddition = nil;
+            [self buildNavBar];
+        }
+        else {
+            [KGStatusBar showWithStatus:@"Failed Voting"];
+        }
+        
+    }];
 }
 
 #pragma mark - Share

@@ -24,6 +24,7 @@
 + (void)buildNavBarForController:(UINavigationController *)navController leftImage:(BOOL)leftImage;
 + (void)buildNavigationController:(UIViewController *)controller leftImage:(BOOL)leftImage rightImages:(NSArray *)rImages rightActions:(NSArray *)rActions;
 + (void)navigationController:(UIViewController *)controller addActivityIndicator:(UIActivityIndicatorView **)indicator;
++ (void)addUpvoteButtonToNavigationController:(UIViewController *)controller action:(SEL)action;
 
 @end
 

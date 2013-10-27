@@ -90,6 +90,11 @@
 - (void)buildNavBar {
     BOOL userIsLoggedIn = [[HNManager sharedManager] userIsLoggedIn];
     [Helpers buildNavigationController:self leftImage:NO rightImages:(userIsLoggedIn ? @[[UIImage imageNamed:@"comment_button-01"]] : nil) rightActions:(userIsLoggedIn ? @[@"didClickSubmitComment"] : nil)];
+    
+    // Add Upvote if Necessary
+    if (self.Post.UpvoteURLAddition && [[HNManager sharedManager] userIsLoggedIn] && ![[HNManager sharedManager] hasVotedOnObject:self.Post]) {
+        [Helpers addUpvoteButtonToNavigationController:self action:@selector(upvoteCurrentPost)];
+    }
 }
 
 - (void)colorUI {
@@ -116,6 +121,23 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - Upvote
+- (void)upvoteCurrentPost {
+    [[HNManager sharedManager] voteOnPostOrComment:self.Post direction:VoteDirectionUp completion:^(BOOL success) {
+        if (success) {
+            [KGStatusBar showWithStatus:@"Voting Success"];
+            [[HNManager sharedManager] setMarkAsReadForPost:self.Post];
+            self.Post.UpvoteURLAddition = nil;
+            [self buildNavBar];
+        }
+        else {
+            [KGStatusBar showWithStatus:@"Failed Voting"];
+        }
+        
+    }];
 }
 
 #pragma mark - Add Submitted Comment

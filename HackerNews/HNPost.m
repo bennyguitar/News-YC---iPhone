@@ -39,7 +39,7 @@
         NSString *upvoteString = @"";
         
         // Scan for Upvotes
-        if ([htmlComponents[xx] rangeOfString:@"grayarrow.gif"].location != NSNotFound) {
+        if ([htmlComponents[xx] rangeOfString:@"dir=up"].location != NSNotFound) {
             [scanner scanUpToString:@"href=\"" intoString:&trash];
             [scanner scanString:@"href=\"" intoString:&trash];
             [scanner scanUpToString:@"whence" intoString:&upvoteString];

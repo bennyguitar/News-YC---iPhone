@@ -37,8 +37,17 @@ static HNManager * _sharedManager = nil;
 	if (self = [super init]) {
         // Set up Webservice
         self.Service = [[HNWebService alloc] init];
-        self.MarkAsReadDictionary = [NSMutableDictionary dictionary];
+        
+        // Set up Voted On Dictionary
         self.VotedOnDictionary = [NSMutableDictionary dictionary];
+        
+        // Set Mark As Read
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"HN-MarkAsRead"]) {
+            self.MarkAsReadDictionary = [[[NSUserDefaults standardUserDefaults] objectForKey:@"HN-MarkAsRead"] mutableCopy];
+        }
+        else {
+            self.MarkAsReadDictionary = [NSMutableDictionary dictionary];
+        }
 	}
 	return self;
 }
@@ -114,6 +123,10 @@ static HNManager * _sharedManager = nil;
 }
 
 - (void)loadPostsWithFilter:(PostFilterType)filter completion:(GetPostsCompletion)completion {
+    // Reset PostUrlAddition
+    self.postUrlAddition = nil;
+    
+    // Load post
     [self.Service loadPostsWithFilter:filter completion:completion];
 }
 
@@ -202,6 +215,7 @@ static HNManager * _sharedManager = nil;
 
 - (void)setMarkAsReadForPost:(HNPost *)post {
     [self.MarkAsReadDictionary setObject:@YES forKey:post.PostId];
+    [[NSUserDefaults standardUserDefaults] setObject:self.MarkAsReadDictionary forKey:@"HN-MarkAsRead"];
 }
 
 #pragma mark - Voted On Dictionary

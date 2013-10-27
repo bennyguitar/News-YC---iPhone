@@ -169,9 +169,9 @@
                 UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
                 rightButton.frame = CGRectMake(0, 0, iconSize, iconSize);
                 [rightButton setImage:rImages[xx] forState:UIControlStateNormal];
+                
                 [rightButton addTarget:controller action:NSSelectorFromString(rActions[xx]) forControlEvents:UIControlEventTouchUpInside];
                 [rightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-                
                 UIEdgeInsets insets = UIEdgeInsetsZero;
                 if ([controller respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
                     insets = UIEdgeInsetsMake(0, 10, 0, -10);
@@ -212,6 +212,26 @@
     [*indicator startAnimating];
     [*indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     [controller.navigationController.navigationBar addSubview:*indicator];
+}
+
++ (void)addUpvoteButtonToNavigationController:(UIViewController *)controller action:(SEL)action {
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightButton.frame = CGRectMake(0, 0, 35, 35);
+    [rightButton setImage:[UIImage imageNamed:@"upvote-01"] forState:UIControlStateNormal];
+    [rightButton addTarget:controller action:action forControlEvents:UIControlEventTouchUpInside];
+    [rightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    UIEdgeInsets insets = UIEdgeInsetsZero;
+    if ([controller respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        insets = UIEdgeInsetsMake(0, 10, 0, -10);
+    }
+    
+    [rightButton setContentEdgeInsets:insets];
+    rightButton.alpha = 0.5;
+    UIBarButtonItem *menuItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    
+    NSMutableArray *menuItems = [controller.navigationItem.rightBarButtonItems mutableCopy];
+    [menuItems addObject:menuItem];
+    [controller.navigationItem setRightBarButtonItems:menuItems animated:YES];
 }
 
 @end
