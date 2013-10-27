@@ -227,7 +227,14 @@
 
 #pragma mark - Submit Post
 - (void)submitPost {
+    // Build New Nav Bar
     [self buildNavBarForSubmit:NO];
+    
+    // Activity Indicator
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
+    [Helpers navigationController:self addActivityIndicator:&indicator];
+    
+    // Submit
     NSString *title = self.SubmitTitleTextField.text;
     NSString *link = self.SubmitLinkTextField.text.length > 0 ? self.SubmitLinkTextField.text : nil;
     NSString *text = self.SubmitSelfTextView.text.length > 0 ? self.SubmitSelfTextView.text : nil;
@@ -240,13 +247,21 @@
             [self buildNavBarForSubmit:YES];
             [KGStatusBar showWithStatus:@"Submission Failed"];
         }
+        [indicator removeFromSuperview];
     }];
 }
 
 
 #pragma mark - Submit Comment
 - (void)submitComment {
+    // Build new Nav Bar
     [self buildNavBarForSubmit:NO];
+    
+    // Activity Indicator
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
+    [Helpers navigationController:self addActivityIndicator:&indicator];
+    
+    // Submit
     [[HNManager sharedManager] replyToPostOrComment:self.HNObject withText:self.CommentTextView.text completion:^(BOOL success) {
         if (success) {
             // Create Notification
@@ -274,6 +289,7 @@
     newComment.Username = [HNManager sharedManager].SessionUser.Username;
     newComment.TimeCreatedString = @"0 minutes ago";
     newComment.Level = ([self.HNObject isKindOfClass:[HNComment class]]) ? [(HNComment *)self.HNObject Level] + 1 : 0;
+    newComment.Type = CommentTypeDefault;
     return newComment;
 }
 

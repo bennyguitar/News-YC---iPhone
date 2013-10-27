@@ -21,7 +21,7 @@
     // Override point for customization after application launch.
     
     // Test
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Pro"];
+    //[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Pro"];
     
     // Set Pro & Start HNManager Session
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"]) {

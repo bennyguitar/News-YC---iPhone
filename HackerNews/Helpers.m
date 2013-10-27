@@ -204,6 +204,9 @@
         }
         [controller.navigationItem setRightBarButtonItems:barButtonItems];
     }
+    else {
+        [controller.navigationItem setRightBarButtonItems:nil];
+    }
 }
 
 + (void)navigationController:(UIViewController *)controller addActivityIndicator:(UIActivityIndicatorView **)indicator {
