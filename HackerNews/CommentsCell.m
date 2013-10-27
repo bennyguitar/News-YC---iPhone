@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "TTTAttributedLabel.h"
 #import "LinkLabel.h"
+#import "Helpers.h"
 
 @implementation CommentsCell
 

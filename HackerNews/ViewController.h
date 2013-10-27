@@ -30,8 +30,8 @@
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,UIWebViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,TTTAttributedLabelDelegate>
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filterType:(PostFilterType)type;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil username:(NSString *)user;
 
 @property (nonatomic, assign) PostFilterType filterType;
-@property (nonatomic, assign) BOOL isLoadingFromFNID;
 
 @end

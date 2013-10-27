@@ -7,7 +7,6 @@
 //
 
 #import "HNSingleton.h"
-#import "AppDelegate.h"
 
 @implementation HNSingleton
 

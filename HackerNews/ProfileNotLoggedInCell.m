@@ -8,6 +8,7 @@
 
 #import "ProfileNotLoggedInCell.h"
 #import "HNSingleton.h"
+#import "Helpers.h"
 
 @implementation ProfileNotLoggedInCell
 

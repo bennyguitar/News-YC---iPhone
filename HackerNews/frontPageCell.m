@@ -9,6 +9,8 @@
 #import "frontPageCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import "HNSingleton.h"
+#import "Helpers.h"
+#import "libHN.h"
 
 @implementation frontPageCell
 @synthesize titleLabel, postedTimeLabel, scoreLabel, commentsLabel, authorLabel, commentTagButton, commentBGButton;

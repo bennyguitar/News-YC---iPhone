@@ -173,7 +173,7 @@
 }
 
 - (void)didClickMySubmissions {
-    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil filterType:PostFilterTypeUserSubmission];
+    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil username:[HNManager sharedManager].SessionUser.Username];
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [del.deckController setCenterController:[[UINavigationController alloc] initWithRootViewController:vc]];
     [del.deckController toggleLeftView];

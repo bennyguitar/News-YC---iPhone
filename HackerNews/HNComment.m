@@ -87,7 +87,7 @@
         newComment.Level = [level intValue] / 40;
         
         // If Logged In - Grab Voting Strings
-        if ([htmlComponents[xx] rangeOfString:@"grayarrow.gif"].location != NSNotFound) {
+        if ([htmlComponents[xx] rangeOfString:@"dir=up"].location != NSNotFound) {
             // Scan Upvote String
             [scanner scanUpToString:@"href=\"" intoString:&trash];
             [scanner scanString:@"href=\"" intoString:&trash];

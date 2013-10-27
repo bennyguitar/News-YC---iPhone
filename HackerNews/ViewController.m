@@ -20,6 +20,9 @@
     HNPost *currentPost;
 }
 
+@property (nonatomic, retain) NSString *Username;
+@property (nonatomic, assign) BOOL isLoadingFromFNID;
+
 // Change Theme
 - (void)colorUI;
 
@@ -27,6 +30,7 @@
 
 @implementation ViewController
 
+#pragma mark - Init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filterType:(PostFilterType)type
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -36,7 +40,16 @@
     return self;
 }
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil username:(NSString *)user {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.Username = user;
+    }
+    return self;
+}
 
+
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,11 +81,6 @@
     longPress.delegate = self;
     [frontPageTable addGestureRecognizer:longPress];
      */
-}
-
-- (void)buildNavBar {
-    // Build NavBar
-    [Helpers buildNavigationController:self leftImage:YES rightImages:([[HNManager sharedManager] userIsLoggedIn] ? @[[UIImage imageNamed:@"submit_button-01"]] : nil) rightActions:([[HNManager sharedManager] userIsLoggedIn] ? @[@"didClickSubmitLink"] : nil)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -128,6 +136,10 @@
     }];
 }
 
+- (void)buildNavBar {
+    // Build NavBar
+    [Helpers buildNavigationController:self leftImage:YES rightImages:([[HNManager sharedManager] userIsLoggedIn] ? @[[UIImage imageNamed:@"submit_button-01"]] : nil) rightActions:([[HNManager sharedManager] userIsLoggedIn] ? @[@"didClickSubmitLink"] : nil)];
+}
 
 #pragma mark - Toggle Nav
 - (IBAction)toggleSideNav:(id)sender {
@@ -161,9 +173,9 @@
     __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
     [Helpers navigationController:self addActivityIndicator:&indicator];
     
-    if (self.filterType == PostFilterTypeUserSubmission) {
+    if (self.Username) {
         // Load Posts for User
-        [[HNManager sharedManager] fetchSubmissionsForUser:[HNManager sharedManager].SessionUser.Username completion:^(NSArray *posts) {
+        [[HNManager sharedManager] fetchSubmissionsForUser:self.Username completion:^(NSArray *posts) {
             if (posts) {
                 homePagePosts = [posts mutableCopy];
                 [frontPageTable reloadData];
@@ -177,6 +189,7 @@
                 indicator.alpha = 0;
                 [indicator removeFromSuperview];
             }
+            
         }];
     }
     else {
@@ -231,7 +244,7 @@
             [Helpers navigationController:self addActivityIndicator:&indicator];
             
             // Load Posts
-            [[HNManager sharedManager] loadPostsWithUrlAddition:[[HNManager sharedManager] postUrlAddition] completion:^(NSArray *posts) {
+            [[HNManager sharedManager] loadPostsWithUrlAddition:(self.Username ? [[HNManager sharedManager] userSubmissionUrlAddition] : [[HNManager sharedManager] postUrlAddition]) completion:^(NSArray *posts) {
                 if (posts) {
                     indicator.alpha = 0;
                     [indicator removeFromSuperview];
@@ -312,7 +325,6 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Front Page Cell Height
     return kFrontPageCellHeight;
 }
 

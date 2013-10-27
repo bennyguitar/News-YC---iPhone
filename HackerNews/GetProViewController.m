@@ -132,11 +132,14 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidPurchasePro" object:nil];
         [self.viewDeckController toggleLeftView];
     }
+    else {
+        [KGStatusBar showWithStatus:@"Failed to purchase. Try again."];
+    }
 }
 
+
+#pragma mark - Actions
 - (IBAction)didClickPurchasePro:(id)sender {
-    //[self satelliteStore:self.HNStore didPurchaseProduct:YES];
-    
     if (self.HNProducts) {
         [self.HNStore purchaseProduct:self.HNProducts[0]];
     }
@@ -147,18 +150,13 @@
 }
 
 - (IBAction)didClickRestorePro:(id)sender {
-    /*
     if (self.HNProducts) {
         [self.HNStore restorePurchases];
     }
     else {
         [self.HNStore getProducts];
-        while (!self.HNProducts) {
-            //
-        }
-        [self didClickPurchasePro:self];
+        [self performSelector:@selector(didClickRestorePro:) withObject:nil afterDelay:1.25];
     }
-     */
 }
 
 @end
