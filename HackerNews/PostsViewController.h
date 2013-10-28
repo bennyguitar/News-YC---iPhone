@@ -27,7 +27,7 @@
 #define kLoadingRectNoSubmit CGRectMake(291,17,20,20)
 #define kLoadingRectSubmit CGRectMake(249,17,20,20)
 
-@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,UIWebViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,TTTAttributedLabelDelegate>
+@interface PostsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,UIWebViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,TTTAttributedLabelDelegate>
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filterType:(PostFilterType)type;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil username:(NSString *)user;

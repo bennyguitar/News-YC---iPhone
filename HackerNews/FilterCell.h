@@ -11,7 +11,7 @@
 
 #define kFilterCellHeight 128
 
-@class ViewController;
+@class PostsViewController;
 
 @interface FilterCell : UITableViewCell
 

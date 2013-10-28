@@ -11,7 +11,7 @@
 #import <Social/Social.h>
 #import <MessageUI/MessageUI.h>
 #import "IIViewDeckController.h"
-#import "ViewController.h"
+#import "PostsViewController.h"
 #import "GetProViewController.h"
 #import "HNSingleton.h"
 #import "FilterCell.h"

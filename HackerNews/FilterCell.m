@@ -7,7 +7,7 @@
 //
 
 #import "FilterCell.h"
-#import "ViewController.h"
+#import "PostsViewController.h"
 #import "AppDelegate.h"
 
 @implementation FilterCell
@@ -29,7 +29,7 @@
     NSArray *buttons = @[self.topButton, self.askButton, self.newestButton, self.jobsButton, self.bestButton];
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     UINavigationController *navVC = (UINavigationController *)del.deckController.centerController;
-    ViewController *vc = (ViewController *)[navVC viewControllers][0];
+    PostsViewController *vc = (PostsViewController *)[navVC viewControllers][0];
     
     for (UIButton *button in buttons) {
         [button setTitleColor:(button.tag == vc.filterType ? kOrangeColor : [UIColor colorWithWhite:0.5 alpha:1.0]) forState:UIControlStateNormal];
@@ -39,7 +39,7 @@
 
 - (void)didClickFilterButton:(UIButton *)button {
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil filterType:button.tag];
+    PostsViewController *vc = [[PostsViewController alloc] initWithNibName:@"PostsViewController" bundle:nil filterType:button.tag];
     [del.deckController setCenterController:[[UINavigationController alloc] initWithRootViewController:vc]];
     [del.deckController toggleLeftView];
     [self setUpCellForActiveFilter];

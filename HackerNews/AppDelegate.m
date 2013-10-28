@@ -7,10 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "PostsViewController.h"
 #import "IIViewDeckController.h"
 #import "NavigationDeckViewController.h"
-#import "SubmitLinkViewController.h"
 #import "HNManager.h"
 
 @implementation AppDelegate
@@ -56,8 +55,7 @@
     
     // Set View Controllers
     self.leftController = [[NavigationDeckViewController alloc] initWithNibName:@"NavigationDeckViewController" bundle:nil];
-    self.rightController = [[SubmitLinkViewController alloc] initWithNibName:@"SubmitLinkViewController" bundle:nil];
-    ViewController *centerController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil filterType:PostFilterTypeTop];
+    PostsViewController *centerController = [[PostsViewController alloc] initWithNibName:@"PostsViewController" bundle:nil filterType:PostFilterTypeTop];
     self.centerController = [[UINavigationController alloc] initWithRootViewController:centerController];
     self.deckController =  [[IIViewDeckController alloc] initWithCenterViewController:self.centerController
                                                                                     leftViewController:self.leftController

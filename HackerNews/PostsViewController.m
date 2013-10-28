@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Benjamin Gordon. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "PostsViewController.h"
 #import "CommentsViewController.h"
 #import "AppDelegate.h"
 #import "LinksViewController.h"
 #import "SubmitHNViewController.h"
 
-@interface ViewController () {
+@interface PostsViewController () {
     // Home Page UI
     __weak IBOutlet UITableView *frontPageTable;
     UIRefreshControl *frontPageRefresher;    // Data
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation ViewController
+@implementation PostsViewController
 
 #pragma mark - Init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filterType:(PostFilterType)type

@@ -10,13 +10,13 @@
 #import "IIViewDeckController.h"
 #import "HNSingleton.h"
 
-@class ViewController;
+@class PostsViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) ViewController *viewController;
+@property (strong, nonatomic) PostsViewController *viewController;
 @property (retain, nonatomic) UIViewController *centerController;
 @property (strong, nonatomic) UIViewController *leftController;
 @property (strong, nonatomic) UIViewController *rightController;

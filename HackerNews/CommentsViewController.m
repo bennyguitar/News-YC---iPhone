@@ -146,6 +146,11 @@
     if (notification.userInfo[@"Index"]) {
         index = [notification.userInfo[@"Index"] intValue] + 1;
     }
+    else {
+        if (self.Post.Type == PostTypeAskHN) {
+            index = 1;
+        }
+    }
 
     [self.Comments insertObject:notification.userInfo[@"Comment"] atIndex:index];
     [self.CommentsTableView reloadData];
