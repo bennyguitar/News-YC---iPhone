@@ -62,7 +62,7 @@
         self.holdingView.frame = CGRectMake(15 * newComment.Level, 0, self.frame.size.width - (15*newComment.Level), self.frame.size.height);
         
         self.delegate = (id <CommentCellDelegate>)controller;
-        self.Index = indexPath.row;
+        self.Index = indexPath ? indexPath.row : 0;
         
         // Set Border based on CellType
         self.topBarBorder.alpha = 0;

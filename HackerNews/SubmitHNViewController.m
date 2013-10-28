@@ -280,6 +280,8 @@
             [self buildNavBarForSubmit:YES];
             [KGStatusBar showWithStatus:@"Comment Failed"];
         }
+        
+        [indicator removeFromSuperview];
     }];
 }
 
@@ -288,8 +290,19 @@
     newComment.Text = self.CommentTextView.text;
     newComment.Username = [HNManager sharedManager].SessionUser.Username;
     newComment.TimeCreatedString = @"0 minutes ago";
-    newComment.Level = ([self.HNObject isKindOfClass:[HNComment class]]) ? [(HNComment *)self.HNObject Level] + 1 : 0;
     newComment.Type = CommentTypeDefault;
+    
+    // Set Level
+    if ([self.HNObject isKindOfClass:[HNComment class]]) {
+        if ([(HNComment *)self.HNObject Type] == CommentTypeAskHN) {
+            newComment.Level = 0;
+        }
+        else {
+            newComment.Level = [(HNComment *)self.HNObject Level] + 1;
+        }
+    }
+    
+    // Return Comment
     return newComment;
 }
 

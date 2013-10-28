@@ -317,9 +317,6 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
-    
-    // Reload table so Mark As Read will show up
-    [frontPageTable reloadData];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -329,6 +326,14 @@
 #pragma mark - Launch/Hide Comments & Link View
 -(void)didClickCommentsFromHomepage:(UIButton *)commentButton {
     currentPost = [homePagePosts objectAtIndex:commentButton.tag];
+    
+    // Set Mark As Read for AskHN
+    if (currentPost.Type == PostTypeAskHN) {
+        [[HNManager sharedManager] setMarkAsReadForPost:currentPost];
+        // Reload table so Mark As Read will show up
+        [frontPageTable reloadData];
+    }
+    
     [self loadCommentsForPost:currentPost];
 }
 

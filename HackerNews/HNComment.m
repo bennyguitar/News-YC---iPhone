@@ -22,14 +22,33 @@
     if (post.Type == PostTypeAskHN) {
         // Grab AskHN Post
         NSScanner *scanner = [NSScanner scannerWithString:htmlComponents[0]];
-        NSString *trash = @"", *text = @"", *user = @"", *timeAgo = @"";
+        NSString *trash = @"", *text = @"", *user = @"", *timeAgo = @"", *commentId = @"", *upvoteUrl = @"";
+        
+        // Check for Upvote
+        if ([htmlComponents[0] rangeOfString:@"dir=up"].location != NSNotFound) {
+            [scanner scanUpToString:@"vote(this)\" href=\"" intoString:&trash];
+            [scanner scanString:@"vote(this)\" href=\"" intoString:&trash];
+            [scanner scanUpToString:@"whence" intoString:&upvoteUrl];
+            upvoteUrl = [upvoteUrl stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+        }
+        
+        // Get Id
+        [scanner scanUpToString:@"<span id=down_" intoString:&trash];
+        [scanner scanString:@"<span id=down_" intoString:&trash];
+        [scanner scanUpToString:@">" intoString:&commentId];
+        
+        // Get User
         [scanner scanUpToString:@"by <a href=\"user?id=" intoString:&trash];
         [scanner scanString:@"by <a href=\"user?id=" intoString:&trash];
         [scanner scanUpToString:@"\">" intoString:&user];
+        
+        // Get Time Created String
         [scanner scanUpToString:@"</a> " intoString:&trash];
         [scanner scanString:@"</a> " intoString:&trash];
         [scanner scanUpToString:@"ago" intoString:&timeAgo];
         timeAgo = [timeAgo stringByAppendingString:@"ago"];
+        
+        // Get Text
         [scanner scanUpToString:@"</tr><tr><td></td><td>" intoString:&trash];
         [scanner scanString:@"</tr><tr><td></td><td>" intoString:&trash];
         [scanner scanUpToString:@"</td>" intoString:&text];
@@ -47,6 +66,8 @@
         newComment.Text = [HNUtilities stringByReplacingHTMLEntitiesInText:text];
         newComment.Links = [HNCommentLink linksFromCommentText:newComment.Text];
         newComment.Type = CommentTypeAskHN;
+        newComment.UpvoteURLAddition = upvoteUrl.length>0 ? upvoteUrl : nil;
+        newComment.CommentId = commentId;
         [comments addObject:newComment];
     }
     
