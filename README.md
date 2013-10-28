@@ -81,6 +81,20 @@ All of the links (either from a Submission or any link inside of Comment text) a
 <code>SubmitHNViewController.{h,m}</code> handles all of the logic and presentation details for submitting a new post or a reply to either a post or a comment. This controller also includes several UI methods for making a better experience (mostly regarding the UITextViews and keyboards hiding/showing and resize methods). After successful submission of a comment, this class will post a notification that is intercepted and acted upon by <code>CommentsViewController</code> to display the comment in-line.
 
 --------------------
+## Left Navigation
+
+The navigation scheme of this app is based off of the sliding menu paradigm of many popular apps for a couple of reasons. Despite Apple's best intentions to add swipe from bezel control for navigating amongst the UINavigationController View Controllers, I believe that having a plethora of navigation links and views on the left is the best way for keeping a clean main interface (ie having no tab bar taking up an additional 44 pixels on the bottom). Also, having a quick way to see different-but-related information without navigating away from what you're doing/reading is very beneficial to the end user. For those reasons I am going to stick with a swipe from left scheme to reveal the main navigation for the app.
+
+Inside of this view controller are several different sub-actions that control the behavior of the entire app. All of the front page filtering happens inside of this View Controller - which controls the types of posts you can see in <code>PostsViewController</code>. If you have purchased the Pro upgrade, you can login, logout, and view your submissions inside of this controller. If you haven't purchased the upgrade, then you can navigate to the page to buy the upgrade. From here you can also share the app (and not a comment or a link), and view the credits (really just a plug for myself).
+
+All of the specific actions are handled through delegation by the respective UITableViewCell subclasses that exist.
+
+--------------------
+## Helpers
+
+There are a few helper methods that are used app-wide that build the navigation bar and add UIActivityIndicatorViews in the correct locations inside of the navigation bar for various actions. Any time a web call is made, a UIActivityIndicatorView is added to the navigation bar - and removed upon completion. Any time a ViewController loads, the navigation bar is built with either the hamburger menu button or to let the UINavigationController handle putting a back button there. It also adds any right menu buttons for upvoting, adding a comment/post or sharing a link.
+
+--------------------
 ## 3rd Party Libraries ##
 
 News/YC uses the following third party libraries:
@@ -92,7 +106,7 @@ News/YC uses the following third party libraries:
 --------------------
 ## What's To Come
 
-Coming Soon.
+The first thing on my list for new features is a CoreData store for saving comments, posts and submissions to the app itself for future retrieval.
 
 --------------------
 ## License 
