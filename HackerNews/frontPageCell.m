@@ -28,15 +28,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    [super setSelected:selected animated:YES];
-    if (selected) {
-        UIView *view = [[UIView alloc] init];
-        view.backgroundColor = kOrangeColor;
-        [self setSelectedBackgroundView:view];
-    }
-    else {
-        self.backgroundColor = [UIColor clearColor];
-    }
+    [super setSelected:NO animated:YES];
 }
 
 -(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
