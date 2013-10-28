@@ -7,153 +7,78 @@ The iPhone version of News/YC, a Hacker News reader and interactive iOS applicat
 
 ## About ##
 
-News/YC is a front-page reader for Hacker News (http://news.ycombinator.com), a portal for interestingness regarding technology and building things. This app is free, and will forever remain free - and now, starting with version 1.2, is entirely open-sourced (please don't laugh at my code). The app can be found on the iOS App Store here: https://itunes.apple.com/us/app/news-yc/id592893508?ls=1&mt=8
+News/YC is a reader for Hacker News (http://news.ycombinator.com), a portal for interestingness regarding technology, entrepreneurship, and building things. This app is free, and will forever remain free - and now, starting with version 1.2, is entirely open-sourced (please don't laugh at my code). The app can be found on the iOS App Store here: https://itunes.apple.com/us/app/news-yc/id592893508?ls=1&mt=8
 
 --------------------
-## The Code ##
+## Table of Contents ##
 
-The root ViewController, App Delegate, and HNSingleton are in the top-level directory, while every other class should be self-documented through the folders they are in (Webservice, Data Objects, Utilities, etc.). There are a number of features that are in this code-base that aren't in the public release version (1.2) that is on the iOS App Store right now. I've tried to document these features in sub-sections labeled **Version 2**, and are currently in-progress (things like logging in and voting). Feel free to help out on these features and launch the best HN reader for iOS!
+* [The Code](#the-code)
+  * [libHN](#libhn)
+  * [Posts View Controller](#posts-view-controller)
+  * [Comments View Controller](#comments-view-controller)
+  * [Links View Controller](#links-view-controller)
+  * [Submit Post/Comment View Controller](#submit-hn-view-controller)
+  * [Left Navigation](#left-navigation)
+  * [Helpers](#helpers)
+  * [3rd Party Libraries](#3rd-party-libraries)
+* [What's To Come](#whats-to-come)
+* [License](#license)
+  
+--------------------
+## The Code
+
+**News/YC** is the sleekest HackerNews reader and now contribution portal on the iOS App Store. This codebase has been open sourced since version 1.2 of the app, and will remain online for people to learn and contribute to creating the sleekest app even sleeker. After version 2, I have subsequently cleaned up and refactored most of the code to be cleaner, and much more maintainable for future design and feature implementation. Instead of throwing all actions in one View Controller, specific actions and views are broken up into multiple View Controllers, with a much larger focus and reliance on the UINavigationController scheme (it's finally looking better for iOS 7).
 
 * Current iOS SDK: 6.0+
-* Current AppStore Version: 1.2
-* <a href="https://www.cisimple.com/jobs/kh1isdaal986n3ip9"><img src='https://www.cisimple.com/jobs/kh1isdaal986n3ip9/build_status.png'/></a>
+* Current AppStore Version: 2.1
 
 --------------------
-#### Webservice.{h,m} ####
+## libHN
 
-This class contains all web requests to the API, using a delegated system so ViewController can receive callbacks about the success or failure of each call - as well as the objects (posts/comments) returned.
-
-```objc
--(void)getHomepageWithFilter:(NSString *)filter success:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure;
-```
-
-Fairly self-explanatory, this method hits the API and pulls the homepage back as Post objects, then calls the success block to return objects back to ViewController. If no posts are retrieved, or there is a database/server error, the failure block is called. The filter parameter is passed in based on a FilterType enum that is for fetching the Top/Ask/New/Jobs/Best posts.
-
-```objc
--(void)getHomepageFromFnid:(NSString *)fnid withSuccess:(GetHomeSuccessBlock)success failure:(GetHomeFailureBlock)failure;
-```
-
-As you scroll down the homepage, once you are 3 cells from the bottom, it attempts to load the next batch of posts, or what is equivalent to hitting "more" at the bottom of the HN homepage. When any GetHomepage method returns, and Posts are created, the FNID that tells the server where to get posts next is kept in the Singleton. This is passed in to this method as a parameter, and when it returns, more Post objects are generated (as well as a new FNID) and returned in the success block.
-
-```objc
--(void)getCommentsForPost:(Post *)post success:(GetCommentsSuccessBlock)success failure:(GetCommentsFailureBlock)failure;
-```
-
-This method returns an NSArray of Comment objects, for a given Post object, in the success block if it works.
-
-**For Version 2**
-
-```objc
--(void)loginWithUsername:(NSString *)user password:(NSString *)pass;
-```
-
-This method handles logging in and returns a User object using the delegate method <code>-(void)didLoginWithUser:(User *)user</code> to call back to whatever ViewController implements and makes the call. I'm thinking about putting this method in the HNSingleton class to keep an app-wide scope on the login status (since everything is handled asynchronously) and using NSNotificationCenter when a login/logout occurs.
-
-```objc
--(void)voteUp:(BOOL)up forObject:(id)HNObject;
-```
-
-This method handles voting for objects. I'm currently working on adding in the UI to handle voting/commenting on stories, and this method will take control of voting on any object (HNObject is just a Post or Comment). The callback to this delegate will be a BOOL, indicating a successful vote or not. However, I don't plan on doing anything UI-wise specifically that will alert the user that it failed (may just be too much information), though I do plan on alerting them if the cookie is bad so they can re-login and attempt again.
+I got tired of having a HackerNews API engine that was totally dependent on my existing App structure, and so decided to write my own library, separate of the app, that I would then hook into for Version 2.1. This library is also on Github, and is called [libHN](https://github.com/bennyguitar/libHN). It handles all of the web calls, and the user management (including cookies necessary for doing user-specific actions). All of libHN is documented on its Github page, and you can read through that code to see what's happening and where.
 
 --------------------
-#### Data Objects - Post.{h,m} and Comment.{h,m} ####
+## Posts View Controller
 
-These classes make up the data model used by News/YC. Both Post and Comment contain special constructor methods based on the JSON objects that return from <code>Webservice.{h,m}</code> calls - going from NSDictionary to objects. Comment has an NSMutableAttributedString property, <code>attrText</code> that isn't used right now, but there are plans in the future to use this to style up comments (more on that in the *Things to Come* section).
+<code>PostsViewController.{h,m}</code> acts as the root View Controller for the app, and functions to display any type of data that is a collection of submissions. So, whenever you want to see the top posts right now, or the newest posts, or even your posts as a logged in user, you use PostsViewController to display them. This class is mostly just a TableView and some auxiliary methods that handle actions and events that pertain to posts and the displaying of posts.
 
-```objc
-@interface Post : NSObject
+**Loading posts by batch**
 
-// Properties
-@property (nonatomic,retain) NSString *Username;
-@property (nonatomic, retain) NSString *URLString;
-@property (nonatomic, retain) NSString *Title;
-@property (nonatomic, assign) int Points;
-@property (nonatomic, assign) int CommentCount;
-@property (nonatomic, retain) NSString *PostID;
-@property (nonatomic, assign) BOOL HasRead;
-@property (nonatomic, retain) NSDate *TimeCreated;
-@property (nonatomic, retain) NSString *TimeCreatedString;
-@property (nonatomic, retain) NSString *hnPostID;
-@property (nonatomic, assign) BOOL isOpenForActions;
-@property (nonatomic, assign) BOOL isJobPost;
-@property (nonatomic, assign) BOOL isAskHN;
-
-+ (NSArray *)parsedFrontPagePostsFromHTML:(NSString *)htmlString;
-```
-
-```objc
-@interface Comment : NSObject
-
-// Properties
-@property (nonatomic, retain) NSString *Text;
-@property (nonatomic, retain) NSMutableAttributedString *attrText;
-@property (nonatomic, retain) NSString *Username;
-@property (nonatomic, retain) NSString *CommentID;
-@property (nonatomic, retain) NSString *hnCommentID;
-@property (nonatomic, retain) NSString *ParentID;
-@property (nonatomic, retain) NSString *TimeAgoString;
-@property (nonatomic, retain) NSString *ReplyURL;
-@property (nonatomic, assign) int Level;
-@property (nonatomic, retain) NSDate *TimeCreated;
-@property (nonatomic, retain) NSMutableArray *Children;
-@property (nonatomic, retain) NSMutableArray *Links;
-@property (nonatomic, assign) CommentType CellType;
-@property (nonatomic, assign) BOOL isAskHN;
-@property (nonatomic, assign) BOOL isHNJobs;
-
-+(NSArray *)commentsFromHTML:(NSString *)html askHN:(BOOL)askHN jobs:(BOOL)HNJobs;
-```
-
-**For Version 2.0**
-
-I have included a User.{h,m} object with the intention of adding user-management functionality as well as submitting/commenting/voting.
-
-```objc
-@interface User : NSObject
-
-// Properties
-@property (nonatomic, retain) NSString *Username;
-@property (nonatomic, assign) int Karma;
-@property (nonatomic, assign) int Age;
-@property (nonatomic, retain) NSString *AboutInfo;
-```
+Basically, libHN loads posts by batches. If you go to [Hacker News](https://news.ycombinator.com) you will see that there are 30 posts and then a link to More at the bottom. If you click more, it will go to posts 31-60 with another link for More as well. libHN follows this structure, and thus only loads the initial 30 posts when you initialize PostsViewController through the <code>loadHomepage</code> method. To provide a seamless experience, in the <code>scrollViewDidScroll</code> method, I am checking for being close to the end of the table (really the third from the bottom post), and then loading the next batch. After the next batch is loaded it appends that array of posts onto the main <code>self.Posts</code> property and reloads the table. There is also a property called <code>isLoadingFromFNID</code> that basically acts as a lock to prevent slamming the HN server for the next batch of posts every time the scroll view is scrolling near that limit.
 
 --------------------
-#### HNSingleton.{h,m} ####
+## Comments View Controller
 
-This class contains a few properties that manage things on an app-wide scope. Included is an NSDictionary for keeping track of which articles have been read (though I'm thinking about adding this to the NSUserDefaults so it will always stay with the app), and the remnants of version 1.1.1 when I was using a different API to filter the homepage by Top/New/Ask (which I'd love to reincorporate again). HNSingleton incorporates a couple methods to change the theme colors and set the SessionKey (more under the break).
+All of the code for viewing and interacting with comments happens in <code>CommentsViewController.{h,m}</code> and is initialized using the <code>initWithNibName:bundle:post:</code> method that takes in an <code>HNPost</code> object. Comments are only loaded through one method, which acts on the post you initialized the controller with. Interactions with the comment cell are handled by a couple of delegates that pass information back up to the ViewController to handle.
 
-**As of Version 2.0**: It now includes the CurrentFNID property that grabs the next set of homepage posts in batches.
+**TTTAttributedLabelDelegate** 
+
+This delegate handles clicking on links inside of comments. When a user taps on a link, it grabs the URL and passes that information to <code>LinksViewController</code> to show that information in a WebView.
+
+**CommentCellDelgate**
+
+Each comment cell has an auxiliary view that shows/hides on tap. Inside of this auxiliary view is a set of four buttons: share comment, reply to comment, upvote and downvote the comment. Each of these actions is also tied to a delegate method that makes it easy to do each related action on the comment. The four delegate methods are:
 
 ```objc
-@interface HNSingleton : NSObject
-
-// Properties
-@property (nonatomic, retain) NSMutableDictionary *hasReadThisArticleDict;
-@property (nonatomic, retain) NSMutableDictionary *votedForDictionary;
-@property (nonatomic, retain) NSMutableDictionary *themeDict;
-@property (nonatomic, assign) enum fType filter;
-@property (nonatomic, retain) NSHTTPCookie *SessionCookie;
-@property (nonatomic, retain) User *User;
-@property (nonatomic, retain) NSString *CurrentFNID;
-
-// Methods
--(void)changeTheme;
--(void)setSession;
--(void)loginWithUser:(NSString *)user password:(NSString *)pass;
--(void)logout;
+- (void)didClickShareCommentAtIndex:(int)index;
+- (void)didClickReplyToCommentAtIndex:(int)index;
+- (void)didClickUpvoteCommentAtIndex:(int)index;
+- (void)didClickDownvoteCommentAtIndex:(int)index;
 ```
 
-**For Version 2.0**
+**Adding a newly submitted comment to the Table**
 
-This class also includes a NSHTTPCookie object, <code>SessionKey</code> for keeping track of user-authenticated actions such as submitting or voting. A successful login adds the cookie to the persistent cache of cookies that iOS implements device-wide. A check for the cookie inside AppDelegate's launching method adds it to the Singleton. Every authentication-important Webservice call will attach this cookie to the HTTPHeaders before the request is sent.
-
-Loggin In/Out is another new feature set for a v2.0 release. This HNSingleton class also keeps track of the current User object associated with a login and all of the login functionality. From anywhere in the app, if a login is necessary - a call to <code>[[HNSingleton sharedHNSingleton] loginWithUser:(NSString *)user password:(NSString *)pass</code> is made.
+After a user submits a new comment to either the parent post of the list of comments, or to a specific comment, the newly submitted comment is added in the correct place to the tableview to simulate adding in-line and provide a little bit of visual feedback for doing something successfully. The method that handles this is <code>- (void)addSubmittedCommentNotification:(NSNotification *)notification</code> and is called from the NSNotificationCenter.
 
 --------------------
-## API ##
+## Links View Controller
 
-News/YC uses the only officially sanctioned API that Hacker News approves of: http://hnsearch.com/api. The API calls made by this app are slightly tricky. For the front-page posts, a call is made to http://hnsearch.com/bigrss and then the resulting xml is parsed to grab the unique IDs from each post. Those are then sent as a request to the actual API to get the posts. The comments, unfortunately, return as basically a totally unordered set. I create a linked list out of those, and then I turn it into a flat array based on the nested nature of the comments - so UITableView will render correctly. All of the Comment trickery is done in <code>Comment.m</code>.
+All of the links (either from a Submission or any link inside of Comment text) are sent to and displayed through the <code>LinksViewController</code>. This class also handles sharing the link to Facebook, Twitter, Chrome, Safari or any other app extensions that a user may have on his/her device for sharing. This logic is handled by the stock Apple iOS SDK UI elements for <code>UIActivityViewController</code>.
+
+--------------------
+## Submit HN View Controller
+
+<code>SubmitHNViewController.{h,m}</code> handles all of the logic and presentation details for submitting a new post or a reply to either a post or a comment. This controller also includes several UI methods for making a better experience (mostly regarding the UITextViews and keyboards hiding/showing and resize methods). After successful submission of a comment, this class will post a notification that is intercepted and acted upon by <code>CommentsViewController</code> to display the comment in-line.
 
 --------------------
 ## 3rd Party Libraries ##
@@ -165,30 +90,12 @@ News/YC uses the following third party libraries:
 * KGStatusBar - https://github.com/kevingibbon/KGStatusBar
 
 --------------------
-## Things to Come ##
+## What's To Come
 
-For subsequent versions, I'd like to see a couple things happen to make this app awesome.
-
-**Features**
-
-* Logging In
-* Voting
-* Submitting
-* Commenting
-* Viewing Ask HN / Newest Posts
-
-Having a beautiful and easy-to-use user management system is what this app needs. I've included a spot for this already with the right ViewDeck, but have not designed anything. Ideally, a user would login by swiping open the right side and entering their credentials. Then that side would show their karma, about me info (changeable perhaps), date created, and other useful user information. The only problem is that there is zero API support of this functionality and there probably never will be, especially since it seems like PG doesn't really approve of external APIs and brings the hammer down with rate-limiters. That said, I believe that this functionality could be implemented via client-side scraping rather than doing it on a server and serving up JSON for anyone to grab. Of course submitting, commenting and voting would follow from the ability to login.
-
-I'm hoping to basically include only one more class <code>User.{h,m}</code> and all calls/scraping be done in Webservice. I may implement the HNKit (https://github.com/Xuzz/HNKit) code to do this, but there isn't much documentation on it, it doesn't look like it's in ARC, and it seems fairly convoluted.
-
-**In Code**
-* Comment labels using NSAttributedString (for < html > tags)
-* Cleaned up a little bit / better documentation
-
-The API returns comment text with different HTML tags inside it including <code>< p >,< i >, and < code ></code> that would be very cool to format in via NSAttributedString. I'm already turning the <code>< p ></code> tags into new lines, but italics are used for emphasis quite a bit in HN comments, and I'd like to have that in here as well.
+Coming Soon.
 
 --------------------
-## License ##
+## License 
 
 This repository is licensed under the standard MIT license. Any third party code that appears in this repository is licensed under the terms the original author laid out and does not transfer to my licensure. Feel free to use whatever you'd like from this.
 
