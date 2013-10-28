@@ -17,10 +17,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    
-    // Test
-    //[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Pro"];
     
     // Set Pro & Start HNManager Session
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"]) {
@@ -31,13 +27,12 @@
     }
     
     // Check Theme
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"]) {
-        [[HNSingleton sharedHNSingleton] changeTheme];
-    }
-    else {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NightMode"];
-        [[HNSingleton sharedHNSingleton] changeTheme];
     }
+    
+    // Set Theme
+    [[HNSingleton sharedHNSingleton] changeTheme];
     
     // If no User Default for Readability, turn it ON!
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"Readability"] == nil) {
@@ -47,11 +42,6 @@
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"MarkAsRead"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MarkAsRead"];
     }
-
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:0 diskCapacity:0 diskPath:nil];
-    [NSURLCache setSharedURLCache:sharedCache];
-    sharedCache = nil;
     
     // Set View Controllers
     self.leftController = [[NavigationDeckViewController alloc] initWithNibName:@"NavigationDeckViewController" bundle:nil];

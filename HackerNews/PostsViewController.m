@@ -297,31 +297,29 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == frontPageTable) {
-        // Set Current Post
-        currentPost = homePagePosts[indexPath.row];
-        
-        // Mark As Read
-        [[HNManager sharedManager] setMarkAsReadForPost:currentPost];
-        
-        // Launch LinkView
-        if (currentPost.Type == PostTypeAskHN) {
+    // Set Current Post
+    currentPost = homePagePosts[indexPath.row];
+    
+    // Mark As Read
+    [[HNManager sharedManager] setMarkAsReadForPost:currentPost];
+    
+    // Launch LinkView
+    if (currentPost.Type == PostTypeAskHN) {
+        [self loadCommentsForPost:currentPost];
+    }
+    else {
+        if (currentPost.Type == PostTypeJobs && [currentPost.UrlString rangeOfString:@"http"].location == NSNotFound) {
             [self loadCommentsForPost:currentPost];
         }
         else {
-            if (currentPost.Type == PostTypeJobs && [currentPost.UrlString rangeOfString:@"http"].location == NSNotFound) {
-                [self loadCommentsForPost:currentPost];
-            }
-            else {
-                NSURL *linkUrl = [NSURL URLWithString:currentPost.UrlString];
-                LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:linkUrl post:currentPost];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
+            NSURL *linkUrl = [NSURL URLWithString:currentPost.UrlString];
+            LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:linkUrl post:currentPost];
+            [self.navigationController pushViewController:vc animated:YES];
         }
-        
-        // Reload table so Mark As Read will show up
-        [frontPageTable reloadData];
     }
+    
+    // Reload table so Mark As Read will show up
+    [frontPageTable reloadData];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
