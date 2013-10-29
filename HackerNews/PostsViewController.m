@@ -300,9 +300,6 @@
     // Set Current Post
     currentPost = homePagePosts[indexPath.row];
     
-    // Mark As Read
-    [[HNManager sharedManager] setMarkAsReadForPost:currentPost];
-    
     // Launch LinkView
     if (currentPost.Type == PostTypeAskHN) {
         [self loadCommentsForPost:currentPost];
@@ -317,6 +314,10 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
+    
+    // Mark As Read
+    [[HNManager sharedManager] setMarkAsReadForPost:currentPost];
+    [frontPageTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
