@@ -27,3 +27,8 @@
 + (NSString *)stringByReplacingHTMLEntitiesInText:(NSString *)text;
 
 @end
+
+
+@interface NSScanner (HNScanner)
+- (void)scanBetweenString:(NSString *)stringA andString:(NSString *)stringB intoString:(NSString **)passByString;
+@end

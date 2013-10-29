@@ -66,3 +66,17 @@
 }
 
 @end
+
+
+@implementation NSScanner (HNScanner)
+
+- (void)scanBetweenString:(NSString *)stringA andString:(NSString *)stringB intoString:(NSString **)passByString {
+    NSString *trash = @"";
+    [self scanUpToString:stringA intoString:&trash];
+    [self scanString:stringA intoString:&trash];
+    [self scanUpToString:stringB intoString:passByString];
+}
+
+@end
+
+

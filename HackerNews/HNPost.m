@@ -21,6 +21,7 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "HNPost.h"
+#import "HNUtilities.h"
 
 @implementation HNPost
 
@@ -54,50 +55,34 @@
         
         // Scan for Upvotes
         if ([htmlComponents[xx] rangeOfString:@"dir=up"].location != NSNotFound) {
-            [scanner scanUpToString:@"href=\"" intoString:&trash];
-            [scanner scanString:@"href=\"" intoString:&trash];
-            [scanner scanUpToString:@"whence" intoString:&upvoteString];
+            [scanner scanBetweenString:@"href=\"" andString:@"whence" intoString:&upvoteString];
             newPost.UpvoteURLAddition = upvoteString;
         }
         
         // Scan URL
-        [scanner scanUpToString:@"<a href=\"" intoString:&trash];
-        [scanner scanString:@"<a href=\"" intoString:&trash];
-        [scanner scanUpToString:@"\"" intoString:&urlString];
+        [scanner scanBetweenString:@"<a href=\"" andString:@"\"" intoString:&urlString];
         newPost.UrlString = urlString;
         
         // Scan Title
-        [scanner scanUpToString:@">" intoString:&trash];
-        [scanner scanString:@">" intoString:&trash];
-        [scanner scanUpToString:@"</a>" intoString:&title];
+        [scanner scanBetweenString:@">" andString:@"</a>" intoString:&title];
         newPost.Title = title;
         
         // Scan Points
-        [scanner scanUpToString:@"<span id=score_" intoString:&trash];
-        [scanner scanUpToString:@">" intoString:&trash];
-        [scanner scanString:@">" intoString:&trash];
-        [scanner scanUpToString:@" point" intoString:&points];
+        [scanner scanBetweenString:@"<span id=score_" andString:@">" intoString:&trash];
+        [scanner scanBetweenString:@">" andString:@" point" intoString:&points];
         newPost.Points = [points intValue];
         
         // Scan Author
-        [scanner scanUpToString:@"<a href=\"user?id=" intoString:&trash];
-        [scanner scanString:@"<a href=\"user?id=" intoString:&trash];
-        [scanner scanUpToString:@"\"" intoString:&author];
+        [scanner scanBetweenString:@"<a href=\"user?id=" andString:@"\"" intoString:&author];
         newPost.Username = author;
         
         // Scan Time Ago
-        [scanner scanUpToString:@"</a> " intoString:&trash];
-        [scanner scanString:@"</a> " intoString:&trash];
-        [scanner scanUpToString:@"ago" intoString:&hoursAgo];
-        hoursAgo = [hoursAgo stringByAppendingString:@"ago"];
-        newPost.TimeCreatedString = hoursAgo;
+        [scanner scanBetweenString:@"</a> " andString:@"ago" intoString:&hoursAgo];
+        newPost.TimeCreatedString = [hoursAgo stringByAppendingString:@"ago"];
         
         // Scan Number of Comments
-        [scanner scanUpToString:@"<a href=\"item?id=" intoString:&trash];
-        [scanner scanString:@"<a href=\"item?id=" intoString:&trash];
-        [scanner scanUpToString:@"\">" intoString:&postId];
-        [scanner scanString:@"\">" intoString:&trash];
-        [scanner scanUpToString:@"</a>" intoString:&comments];
+        [scanner scanBetweenString:@"<a href=\"item?id=" andString:@"\">" intoString:&postId];
+        [scanner scanBetweenString:@"\">" andString:@"</a>" intoString:&comments];
         newPost.PostId = postId;
         if ([comments isEqualToString:@"discuss"]) {
             newPost.CommentCount = 0;
@@ -110,7 +95,7 @@
         }
         
         // Check if Jobs Post
-        if (newPost.PostId.length == 0 && newPost.Points == 0 && [hoursAgo isEqualToString:@"ago"]) {
+        if (newPost.PostId.length == 0 && newPost.Points == 0 && newPost.Username.length == 0) {
             newPost.Type = PostTypeJobs;
             if ([urlString rangeOfString:@"http"].location == NSNotFound) {
                 newPost.PostId = [urlString stringByReplacingOccurrencesOfString:@"item?id=" withString:@""];
