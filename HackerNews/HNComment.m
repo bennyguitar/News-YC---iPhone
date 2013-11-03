@@ -40,7 +40,8 @@
         
         // Check for Upvote
         if ([htmlComponents[0] rangeOfString:@"dir=up"].location != NSNotFound) {
-            [scanner scanBetweenString:@"vote(this)\" href=\"" andString:@"whence" intoString:&upvoteUrl];
+            [scanner scanBetweenString:@"<center><a " andString:@"href" intoString:&trash];
+            [scanner scanBetweenString:@"href=\"" andString:@"whence" intoString:&upvoteUrl];
             upvoteUrl = [upvoteUrl stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
         }
         
