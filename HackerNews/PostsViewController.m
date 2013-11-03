@@ -18,6 +18,8 @@
     UIRefreshControl *frontPageRefresher;    // Data
     NSMutableArray *homePagePosts;
     HNPost *currentPost;
+    LinksViewController *previousLinksViewController;
+    CommentsViewController *previousCommentsViewController;
 }
 
 @property (nonatomic, retain) NSString *Username;
@@ -215,10 +217,24 @@
 
 #pragma mark - Load Comments
 -(void)loadCommentsForPost:(HNPost *)post {
-    CommentsViewController *vc = [[CommentsViewController alloc] initWithNibName:@"CommentsViewController" bundle:nil post:post];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (previousCommentsViewController.Post.PostId != post.PostId) {
+        CommentsViewController *vc = [[CommentsViewController alloc] initWithNibName:@"CommentsViewController" bundle:nil post:post];
+        previousCommentsViewController = vc;
+    }
+    
+    [self.navigationController pushViewController:previousCommentsViewController animated:YES];
 }
 
+#pragma mark - Load Links
+-(void)loadLinksForPost:(HNPost *)post {
+    if (previousLinksViewController.Post.PostId != post.PostId) {
+        NSURL *linkUrl = [NSURL URLWithString:currentPost.UrlString];
+        LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:linkUrl post:currentPost];
+        previousLinksViewController = vc;
+    }
+    
+    [self.navigationController pushViewController:previousLinksViewController animated:YES];
+}
 
 #pragma mark - UIRefreshControl Stuff
 -(void)endRefreshing:(UIRefreshControl *)refresher {
@@ -299,7 +315,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Set Current Post
     currentPost = homePagePosts[indexPath.row];
-    
+	
     // Launch LinkView
     if (currentPost.Type == PostTypeAskHN) {
         [self loadCommentsForPost:currentPost];
@@ -309,9 +325,7 @@
             [self loadCommentsForPost:currentPost];
         }
         else {
-            NSURL *linkUrl = [NSURL URLWithString:currentPost.UrlString];
-            LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:linkUrl post:currentPost];
-            [self.navigationController pushViewController:vc animated:YES];
+            [self loadLinksForPost:currentPost];
         }
     }
     
@@ -326,6 +340,7 @@
 
 #pragma mark - Launch/Hide Comments & Link View
 -(void)didClickCommentsFromHomepage:(UIButton *)commentButton {
+    // Set Current Post
     currentPost = [homePagePosts objectAtIndex:commentButton.tag];
     
     // Set Mark As Read for AskHN

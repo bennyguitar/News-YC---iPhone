@@ -11,6 +11,8 @@
 
 @interface LinksViewController : UIViewController <UIWebViewDelegate>
 
+@property (nonatomic, readonly, retain) HNPost *Post;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil url:(NSURL *)url post:(HNPost *)post;
 
 @end
