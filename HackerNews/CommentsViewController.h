@@ -12,6 +12,8 @@
 
 @interface CommentsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,TTTAttributedLabelDelegate,CommentCellDelegate>
 
+@property (nonatomic, readonly, retain) HNPost *Post;
+
 // Init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil post:(HNPost *)post;
 
