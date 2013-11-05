@@ -184,8 +184,6 @@
 
 + (float)heightForComment:(HNComment *)newComment isAuxiliary:(BOOL)auxiliary {
     if (newComment) {
-        NSLog(@"%f", [CommentsCell heightForAttributedString:[CommentsCell attributedStringForComment:newComment] inSize:CGSizeMake(((UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height) - 13) - (newComment.Level*15), MAXFLOAT)] + (newComment.Type == HNCommentTypeAskHN || newComment.Type == HNCommentTypeJobs ? kCommentAskHNAddition : kCommentDefaultAddition) + (auxiliary ? kCommentAuxiliaryHeight : 0));
-        NSLog(@"%d",UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation));
         return [CommentsCell heightForAttributedString:[CommentsCell attributedStringForComment:newComment] inSize:CGSizeMake(((UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height) - 13) - (newComment.Level*15), MAXFLOAT)] + (newComment.Type == HNCommentTypeAskHN || newComment.Type == HNCommentTypeJobs ? kCommentAskHNAddition : kCommentDefaultAddition) + (auxiliary ? kCommentAuxiliaryHeight : 0);
     }
     

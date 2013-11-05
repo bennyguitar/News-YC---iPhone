@@ -109,10 +109,17 @@
 #pragma mark - Autoresizing
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [self buildNavBar];
+    
+    // Reload cells on screen
+    [self.CommentsTableView reloadRowsAtIndexPaths:[self.CommentsTableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    // Scroll to cell that was at the top before rotation
     [self.CommentsTableView scrollToRowAtIndexPath:self.rotateTableIndex atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    // Save the indexPath of the cell at the top of the screen
+    // prior to rotating the view
     CGPoint rotateScrollOffset = self.CommentsTableView.contentOffset;
     self.rotateTableIndex = [self.CommentsTableView indexPathForRowAtPoint:rotateScrollOffset];
 }
