@@ -46,6 +46,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark - Did Rotate
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self.viewDeckController setLeftSize:self.view.frame.size.width - 276];
+}
+
 #pragma mark - Did Login Notification
 -(void)didLoginOrOut {
     [navTable reloadData];

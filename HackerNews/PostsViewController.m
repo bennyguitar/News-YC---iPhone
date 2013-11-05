@@ -85,9 +85,10 @@
      */
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self setSizes];
-    NSLog(@"%@", NSStringFromCGRect(frontPageTable.frame));
+
+#pragma mark - Autoresizing
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self buildNavBar];
 }
 
 
@@ -114,12 +115,6 @@
     self.view.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
     frontPageTable.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
     frontPageTable.separatorColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"Separator"];
-}
-
--(void)setSizes {
-    // Sizes
-    frontPageTable.frame = CGRectMake(0, 0, frontPageTable.frame.size.width, self.view.frame.size.height);
-    //[frontPageTable setContentOffset:CGPointZero];
 }
 
 -(void)didChangeTheme {

@@ -22,6 +22,7 @@
 @property (nonatomic, retain) UIRefreshControl *refreshControl;
 @property (nonatomic, retain) NSNumber *AuxiliaryClickIndex;
 @property (nonatomic, retain) NSMutableDictionary *CommentCellHeightDictionary;
+@property (nonatomic, retain) NSIndexPath *rotateTableIndex;
 
 @end
 
@@ -35,6 +36,7 @@
         self.Post = post;
         self.Comments = [NSMutableArray array];
         self.AuxiliaryClickIndex = nil;
+        self.rotateTableIndex = [NSIndexPath indexPathForRow:0 inSection:0];
     }
     return self;
 }
@@ -101,6 +103,18 @@
     // Color
     self.CommentsTableView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
     self.view.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
+}
+
+
+#pragma mark - Autoresizing
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self buildNavBar];
+    [self.CommentsTableView scrollToRowAtIndexPath:self.rotateTableIndex atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    CGPoint rotateScrollOffset = self.CommentsTableView.contentOffset;
+    self.rotateTableIndex = [self.CommentsTableView indexPathForRowAtPoint:rotateScrollOffset];
 }
 
 
@@ -232,14 +246,8 @@
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     BOOL auxiliary = self.AuxiliaryClickIndex && (indexPath.row == [self.AuxiliaryClickIndex intValue]);
-    NSString *dictId = [NSString stringWithFormat:@"%d%@",indexPath.row,auxiliary ? @"A" : @""];
-    if (self.CommentCellHeightDictionary[dictId]) {
-        return [self.CommentCellHeightDictionary[dictId] floatValue];
-    }
-    
     HNComment *comment = indexPath.row < self.Comments.count ? self.Comments[indexPath.row] : nil;
     float cellHeight = [CommentsCell heightForComment:comment isAuxiliary:auxiliary];
-    [self.CommentCellHeightDictionary setObject:@(cellHeight) forKey:dictId];
     return cellHeight;
 }
 

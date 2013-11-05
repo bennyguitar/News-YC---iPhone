@@ -89,6 +89,12 @@
 }
 
 
+#pragma mark - Autoresizing
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self buildNavBarForSubmit:YES];
+}
+
+
 #pragma mark - UI
 -(void)setSizes {
     float newPostHeight = self.view.frame.size.height - self.SubmitSelfTextView.frame.origin.y - 20;
@@ -290,11 +296,11 @@
     newComment.Text = self.CommentTextView.text;
     newComment.Username = [HNManager sharedManager].SessionUser.Username;
     newComment.TimeCreatedString = @"0 minutes ago";
-    newComment.Type = CommentTypeDefault;
+    newComment.Type = HNCommentTypeDefault;
     
     // Set Level
     if ([self.HNObject isKindOfClass:[HNComment class]]) {
-        if ([(HNComment *)self.HNObject Type] == CommentTypeAskHN) {
+        if ([(HNComment *)self.HNObject Type] == HNCommentTypeAskHN) {
             newComment.Level = 0;
         }
         else {

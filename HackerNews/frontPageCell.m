@@ -59,10 +59,8 @@
         // Show HN Color
         if (self.titleLabel.text.length >= 9) {
             if ([[self.titleLabel.text substringWithRange:NSMakeRange(0, 9)] isEqualToString:@"Show HN: "]) {
-                UIView *showHNView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-                showHNView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"ShowHN"];
+                self.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"ShowHN"];
                 self.bottomBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"ShowHNBottom"];
-                [self insertSubview:showHNView atIndex:0];
             }
         }
         

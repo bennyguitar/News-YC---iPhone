@@ -72,6 +72,12 @@
 }
 
 
+#pragma mark - Autoresizing
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self buildNavBar];
+}
+
+
 #pragma mark - UI
 - (void)buildNavBar {
     // Build Nav

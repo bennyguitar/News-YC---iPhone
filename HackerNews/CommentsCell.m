@@ -75,7 +75,7 @@
         }];
         
         // Set size of Comment Label
-        CGSize labelSize = CGSizeMake(307 - (newComment.Level*15), [CommentsCell heightForAttributedString:[CommentsCell attributedStringForComment:newComment] inSize:CGSizeMake(307 - (newComment.Level*15), MAXFLOAT)]);
+        CGSize labelSize = CGSizeMake(((UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height) - 13) - (newComment.Level*15), [CommentsCell heightForAttributedString:[CommentsCell attributedStringForComment:newComment] inSize:CGSizeMake(((UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height) - 13) - (newComment.Level*15), MAXFLOAT)]);
         self.comment.frame = CGRectMake(self.comment.frame.origin.x, self.comment.frame.origin.y, ceilf(labelSize.width), ceilf(labelSize.height));
         self.holdingView.frame = CGRectMake(self.holdingView.frame.origin.x, self.holdingView.frame.origin.y, self.holdingView.frame.size.width, self.comment.frame.size.height + kCommentDefaultAddition);
         
@@ -85,28 +85,28 @@
         }
         
         // Check for Ask HN or HN Jobs
-        if (newComment.Type == CommentTypeAskHN || newComment.Type == CommentTypeJobs) {
-            self.topBar.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == CommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
-            self.postedTime.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == CommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
-            self.username.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == CommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
-            self.holdingView.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == CommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
-            self.comment.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == CommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
-            self.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == CommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
+        if (newComment.Type == HNCommentTypeAskHN || newComment.Type == HNCommentTypeJobs) {
+            self.topBar.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
+            self.postedTime.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
+            self.username.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
+            self.holdingView.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
+            self.comment.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
+            self.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
             
             // Triangle
-            TriangleView *triangle = [[TriangleView alloc] initWithFrame:CGRectMake(0, self.comment.frame.origin.y + labelSize.height + 10, self.frame.size.width, 6)];
-            [triangle setColor:[HNSingleton sharedHNSingleton].themeDict[(newComment.Type == CommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")]];
+            TriangleView *triangle = [[TriangleView alloc] initWithFrame:CGRectMake(0, self.comment.frame.origin.y + labelSize.height + 10, (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height), 6)];
+            [triangle setColor:[HNSingleton sharedHNSingleton].themeDict[(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")]];
             [triangle drawTriangleAtXPosition:(self.frame.size.width/2)];
-            triangle.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == CommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
+            triangle.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
             [self.holdingView addSubview:triangle];
             
             // Bar
-            UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, triangle.frame.origin.y + triangle.frame.size.height, self.frame.size.width, 12)];
-            barView.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == CommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
+            UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, triangle.frame.origin.y + triangle.frame.size.height, (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height), 12)];
+            barView.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
             [self.holdingView addSubview:barView];
             
             // Separator
-            UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, barView.frame.origin.y + barView.frame.size.height, self.frame.size.width, 1)];
+            UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, barView.frame.origin.y + barView.frame.size.height, (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height), 1)];
             separator.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[@"Separator"];
             [self.holdingView addSubview:separator];
             
@@ -120,7 +120,7 @@
         }
         
         // Auxiliary View
-        if (auxiliary && (newComment.Type != CommentTypeJobs)) {
+        if (auxiliary && (newComment.Type != HNCommentTypeJobs)) {
             self.auxiliaryView.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][@"ShowHN"];
             self.auxiliarySeparator.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
             self.auxiliaryView.frame = CGRectMake(0, self.holdingView.frame.size.height, self.holdingView.frame.size.width, kCommentAuxiliaryHeight);
@@ -182,24 +182,11 @@
     self.auxiliaryDownvoteButton.alpha = 0.25;
 }
 
--(float)heightForComment:(HNComment *)newComment isAuxiliary:(BOOL)auxiliary {
-    if (newComment) {
-        // Comment is Open
-        self.comment.text = newComment.Text;
-        // Set size of Comment Label
-        CGSize labelSize = CGSizeMake(307 - (newComment.Level*15), 0);
-        labelSize = [self.comment sizeThatFits:labelSize];
-        return labelSize.height + (newComment.Type == CommentTypeAskHN || newComment.Type == CommentTypeJobs ? kCommentAskHNAddition : kCommentDefaultAddition) + (auxiliary ? kCommentAuxiliaryHeight : 0);
-    }
-
-    // No Comments
-    return kCommentsDefaultH;
-}
-
-
 + (float)heightForComment:(HNComment *)newComment isAuxiliary:(BOOL)auxiliary {
     if (newComment) {
-        return [CommentsCell heightForAttributedString:[CommentsCell attributedStringForComment:newComment] inSize:CGSizeMake(307 - (newComment.Level*15), MAXFLOAT)] + (newComment.Type == CommentTypeAskHN || newComment.Type == CommentTypeJobs ? kCommentAskHNAddition : kCommentDefaultAddition) + (auxiliary ? kCommentAuxiliaryHeight : 0);
+        NSLog(@"%f", [CommentsCell heightForAttributedString:[CommentsCell attributedStringForComment:newComment] inSize:CGSizeMake(((UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height) - 13) - (newComment.Level*15), MAXFLOAT)] + (newComment.Type == HNCommentTypeAskHN || newComment.Type == HNCommentTypeJobs ? kCommentAskHNAddition : kCommentDefaultAddition) + (auxiliary ? kCommentAuxiliaryHeight : 0));
+        NSLog(@"%d",UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation));
+        return [CommentsCell heightForAttributedString:[CommentsCell attributedStringForComment:newComment] inSize:CGSizeMake(((UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height) - 13) - (newComment.Level*15), MAXFLOAT)] + (newComment.Type == HNCommentTypeAskHN || newComment.Type == HNCommentTypeJobs ? kCommentAskHNAddition : kCommentDefaultAddition) + (auxiliary ? kCommentAuxiliaryHeight : 0);
     }
     
     // No Comments
@@ -232,7 +219,7 @@
     
     // Add Links
     for (HNCommentLink *link in newComment.Links) {
-        if (newComment.Type == CommentTypeJobs || newComment.Type == CommentTypeAskHN) {
+        if (newComment.Type == HNCommentTypeJobs || newComment.Type == HNCommentTypeAskHN) {
             [mutableAttributedString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:link.UrlRange];
         }
         else {

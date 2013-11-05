@@ -117,8 +117,12 @@
             [subview removeFromSuperview];
         }
     }
-    UIImageView *mainImage = [[UIImageView alloc] initWithFrame:CGRectMake(controller.navigationController.navigationBar.frame.size.width/2 - kHeaderImageWidth/2, controller.navigationController.navigationBar.frame.size.height - kHeaderImageHeight, kHeaderImageWidth, kHeaderImageHeight)];
+    NSLog(@"Nav Height: %f", controller.navigationController.navigationBar.frame.size.height);
+    float headerHeight = controller.navigationController.navigationBar.frame.size.height > 40 ? kHeaderImageHeight : 40;
+    UIImageView *mainImage = [[UIImageView alloc] initWithFrame:CGRectMake(controller.navigationController.navigationBar.frame.size.width/2 - headerHeight*2.23/2, controller.navigationController.navigationBar.frame.size.height - headerHeight, headerHeight*2.23, headerHeight)];
     mainImage.image = [UIImage imageNamed:@"header_img"];
+    mainImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleTopMargin;
+    mainImage.contentMode = UIViewContentModeScaleAspectFit;
     mainImage.tag = 999;
     [controller.navigationController.navigationBar addSubview:mainImage];
     

@@ -23,16 +23,16 @@
 #import <Foundation/Foundation.h>
 #import "HNPost.h"
 
-typedef NS_ENUM(NSInteger, CommentType) {
-    CommentTypeDefault,
-    CommentTypeAskHN,
-    CommentTypeJobs
+typedef NS_ENUM(NSInteger, HNCommentType) {
+    HNCommentTypeDefault,
+    HNCommentTypeAskHN,
+    HNCommentTypeJobs
 };
 
 @interface HNComment : NSObject
 
 #pragma mark - Properties
-@property (nonatomic, assign) CommentType Type;
+@property (nonatomic, assign) HNCommentType Type;
 @property (nonatomic, retain) NSString *Text;
 @property (nonatomic, retain) NSString *Username;
 @property (nonatomic, retain) NSString *CommentId;

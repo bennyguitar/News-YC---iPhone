@@ -70,7 +70,7 @@
         newComment.TimeCreatedString = timeAgo;
         newComment.Text = [HNUtilities stringByReplacingHTMLEntitiesInText:text];
         newComment.Links = [HNCommentLink linksFromCommentText:newComment.Text];
-        newComment.Type = CommentTypeAskHN;
+        newComment.Type = HNCommentTypeAskHN;
         newComment.UpvoteURLAddition = upvoteUrl.length>0 ? upvoteUrl : nil;
         newComment.CommentId = commentId;
         [comments addObject:newComment];
@@ -87,7 +87,7 @@
         newComment.Level = 0;
         newComment.Text = [HNUtilities stringByReplacingHTMLEntitiesInText:text];
         newComment.Links = [HNCommentLink linksFromCommentText:newComment.Text];
-        newComment.Type = CommentTypeJobs;
+        newComment.Type = HNCommentTypeJobs;
         [comments addObject:newComment];
     }
     

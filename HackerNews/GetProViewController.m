@@ -57,13 +57,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark - Autoresizing
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self buildNavBar];
+}
+
 #pragma mark - UI
 - (void)buildUI {
     // Build Nav
-    [Helpers buildNavigationController:self leftImage:NO rightImages:nil rightActions:nil];
+    [self buildNavBar];
     
     // Color
     [self colorUI];
+}
+
+- (void)buildNavBar {
+    [Helpers buildNavigationController:self leftImage:NO rightImages:nil rightActions:nil];
 }
 
 - (void)colorUI {
