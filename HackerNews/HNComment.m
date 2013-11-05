@@ -46,7 +46,7 @@
         }
         
         // Get Id
-        [scanner scanBetweenString:@"<span id=down_" andString:@">" intoString:&commentId];
+        [scanner scanBetweenString:@"<span id=score_" andString:@">" intoString:&commentId];
         
         // Get User
         [scanner scanBetweenString:@"by <a href=\"user?id=" andString:@"\">" intoString:&user];
