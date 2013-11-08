@@ -26,11 +26,13 @@
 @property (weak, nonatomic) IBOutlet UITextView *SubmitSelfTextView;
 @property (weak, nonatomic) IBOutlet UILabel *SubmitHeaderLabel;
 @property (weak, nonatomic) IBOutlet UIButton *SubmitDoneEditingButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomSubmitTextInset;
 
 // Comment
 @property (weak, nonatomic) IBOutlet UITextView *CommentTextView;
 @property (strong, nonatomic) IBOutlet UIView *CommentView;
 @property (weak, nonatomic) IBOutlet UIButton *CommentDoneEditing;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomCommentInset;
 
 
 
@@ -78,6 +80,10 @@
     else {
         [self.view addSubview:self.CommentView];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -190,24 +196,35 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
+    CGFloat insetHeight = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    [self.bottomCommentInset setConstant:insetHeight+20];
+    [self.bottomSubmitTextInset setConstant:insetHeight+20];
+    
     // Get Keyboard Height
-    float keyboardHeight = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    /*
+    float keyboardHeight = [UIDevice currentDevice].orientation == UIDeviceOrientationPortrait ? [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height : [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.width;
     if (self.SubmitType == SubmitHNTypePost) {
         float newHeight = self.view.frame.size.height - keyboardHeight - abs(self.SubmitDoneEditingButton.frame.origin.y - self.SubmitSelfTextView.frame.origin.y) - 25;
         self.SubmitSelfTextView.frame = CGRectMake(self.SubmitSelfTextView.frame.origin.x, self.SubmitSelfTextView.frame.origin.y, self.SubmitSelfTextView.frame.size.width, newHeight);
     }
     else {
+        float scrollAmount = self.CommentTextView.frame.origin.y - 10;
         float newHeight = self.view.frame.size.height - self.CommentTextView.frame.origin.y - keyboardHeight - 20;
         [UIView animateWithDuration:0.25 animations:^{
-            self.CommentDoneEditing.alpha = 1;
-            self.CommentTextView.frame = CGRectMake(self.CommentTextView.frame.origin.x, self.CommentTextView.frame.origin.y, self.CommentTextView.frame.size.width, newHeight);
+            //self.CommentDoneEditing.alpha = 1;
+            self.view.frame = CGRectMake(0, 2, self.view.frame.size.width, self.view.frame.size.height);
+            self.CommentTextView.frame = CGRectMake(self.CommentTextView.frame.origin.x, self.CommentTextView.frame.origin.y, self.CommentTextView.frame.size.width, self.view.frame.size.height - keyboardHeight);
         }];
     }
+     */
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
+    [self.bottomCommentInset setConstant:20];
+    [self.bottomSubmitTextInset setConstant:20];
+    /*
     if (self.SubmitType == SubmitHNTypePost) {
-        float newHeight = self.view.frame.size.height - self.SubmitSelfTextView.frame.origin.y - 20;
+        float newHeight = self.view.frame.size.height - self.SubmitSelfTextView.frame.origin.y - 10;
         [UIView animateWithDuration:0.25 animations:^{
             self.SubmitSelfTextView.frame = CGRectMake(self.SubmitSelfTextView.frame.origin.x, self.SubmitSelfTextView.frame.origin.y, self.SubmitSelfTextView.frame.size.width,newHeight);
         }];
@@ -216,8 +233,10 @@
         [UIView animateWithDuration:0.25 animations:^{
             self.CommentDoneEditing.alpha = 0;
             self.CommentTextView.frame = CGRectMake(self.CommentTextView.frame.origin.x, self.CommentTextView.frame.origin.y, self.CommentTextView.frame.size.width, self.view.frame.size.height - self.CommentTextView.frame.origin.y - 20);
+            self.view.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20, self.view.frame.size.width, self.view.frame.size.height);
         }];
     }
+     */
 }
 
 #pragma mark - Submit

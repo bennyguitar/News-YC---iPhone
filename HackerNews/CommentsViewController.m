@@ -58,7 +58,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    //[self loadComments];
+    [self.CommentsTableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
