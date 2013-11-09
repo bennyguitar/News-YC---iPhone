@@ -20,6 +20,7 @@
 @property (nonatomic, retain) UIButton *shareButton;
 @property (nonatomic, assign) BOOL Readability;
 @property (nonatomic, retain) HNPost *Post;
+@property (nonatomic, retain) NSURL *LaunchURL;
 @end
 
 @implementation LinksViewController
@@ -109,7 +110,7 @@
 
 #pragma mark - Share
 - (void)didClickShare {
-    NSURL *urlToShare = self.LinkWebView.request.URL;
+    NSURL *urlToShare = self.LaunchURL;
 	NSArray *activityItems = @[ urlToShare ];
 	
     ARChromeActivity *chromeActivity = [[ARChromeActivity alloc] init];
@@ -117,6 +118,7 @@
 	NSArray *applicationActivities = @[ safariActivity, chromeActivity ];
 	
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:applicationActivities];
+    
     [self presentViewController:activityController animated:YES completion:nil];
 }
 
@@ -137,7 +139,7 @@
 #pragma mark - Load URL
 - (void)loadWebViewWithUrl:(NSURL *)url {
     if (self.Url) {
-        NSURL *launchURL = self.Readability ? [NSURL URLWithString:[NSString stringWithFormat:@"http://www.readability.com/m?url=%@", [self.Url absoluteString]]] : self.Url;
+        self.LaunchURL = self.Readability ? [NSURL URLWithString:[NSString stringWithFormat:@"http://www.readability.com/m?url=%@", [self.Url absoluteString]]] : self.Url;
         
         // Launch Activity Indicator
         UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
@@ -145,7 +147,7 @@
         [Helpers navigationController:self addActivityIndicator:&indicator];
         
         [self.LinkWebView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
-        [self.LinkWebView loadRequest:[NSURLRequest requestWithURL:launchURL]];
+        [self.LinkWebView loadRequest:[NSURLRequest requestWithURL:self.LaunchURL]];
     }
 }
 
