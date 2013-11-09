@@ -12,6 +12,7 @@
 
 
 #import "ARChromeActivity.h"
+#import "HNPostURL.h"
 
 @implementation ARChromeActivity {
 	NSURL *_activityURL;
@@ -23,7 +24,7 @@
 
 - (void)commonInit {
     _callbackSource = [[NSBundle mainBundle]objectForInfoDictionaryKey:@"CFBundleName"];
-    _activityTitle = @"Chrome";
+    _activityTitle = @"Open in Chrome";
 }
 
 - (id)init {
@@ -52,11 +53,12 @@
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-	return [[activityItems lastObject] isKindOfClass:[NSURL class]] && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome-x-callback://"]];
+	return [[activityItems lastObject] isKindOfClass:[HNPostURL class]] && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome-x-callback://"]];
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
-	_activityURL = [activityItems lastObject];
+    // Note: Shouldn't we use the original URL here? Not the readibility one.
+	_activityURL = ((HNPostURL*)[activityItems lastObject]).mobileFriendlyAbsoluteURL;
 }
 
 - (void)performActivity {

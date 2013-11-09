@@ -28,6 +28,7 @@
 //
 
 #import "TUSafariActivity.h"
+#import "HNPostURL.h"
 
 @implementation TUSafariActivity
 {
@@ -52,7 +53,7 @@
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
 {
 	for (id activityItem in activityItems) {
-		if ([activityItem isKindOfClass:[NSURL class]] && [[UIApplication sharedApplication] canOpenURL:activityItem]) {
+		if ([activityItem isKindOfClass:[HNPostURL class]] && [[UIApplication sharedApplication] canOpenURL:activityItem]) {
 			return YES;
 		}
 	}
@@ -62,11 +63,8 @@
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems
 {
-	for (id activityItem in activityItems) {
-		if ([activityItem isKindOfClass:[NSURL class]]) {
-			_URL = activityItem;
-		}
-	}
+    // Note: Shouldn't we use the original URL here? Not the readibility one.
+	_URL = ((HNPostURL*)[activityItems lastObject]).mobileFriendlyAbsoluteURL;
 }
 
 - (void)performActivity

@@ -11,7 +11,10 @@
 #import "Helpers.h"
 #import "ARChromeActivity.h"
 #import "TUSafariActivity.h"
+#import "DRPocketActivity/DRPocketActivity.h"
 #import "KGStatusBar.h"
+#import "SVProgressHUD.h"
+#import "HNPostURL.h"
 
 @interface LinksViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *LinkWebView;
@@ -109,14 +112,22 @@
 
 #pragma mark - Share
 - (void)didClickShare {
-    NSURL *urlToShare = self.LinkWebView.request.URL;
-	NSArray *activityItems = @[ urlToShare ];
-	
+    
+	NSArray *activityItems = @[[self buildPostURL]];
+
     ARChromeActivity *chromeActivity = [[ARChromeActivity alloc] init];
 	TUSafariActivity *safariActivity = [[TUSafariActivity alloc] init];
-	NSArray *applicationActivities = @[ safariActivity, chromeActivity ];
+    DRPocketActivity *pocketActivity = [[DRPocketActivity alloc] init];
+	NSArray *applicationActivities = @[ pocketActivity, safariActivity, chromeActivity ];
 	
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:applicationActivities];
+    activityController.completionHandler = ^(NSString *activityType, BOOL completed) {
+        if ([activityType isEqualToString:pocketActivity.activityType]) {
+            completed
+            ? [SVProgressHUD showSuccessWithStatus:@"Saved to pocket"]
+            : [SVProgressHUD showErrorWithStatus:@"Unable to save to pocket"];
+        }
+    };
     [self presentViewController:activityController animated:YES completion:nil];
 }
 
@@ -126,6 +137,14 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
+- (HNPostURL *)buildPostURL
+{
+    NSString *readabilityURLString = self.LinkWebView.request.URL.absoluteString;
+    NSString *originalPostUrlString = self.Post.UrlString;
+    return [[HNPostURL alloc] initWithString:originalPostUrlString andMobileFriendlyString:readabilityURLString];
+}
+
 
 #pragma mark - Change Readability
 - (void)didChangeReadability:(NSNotification *)notification {
@@ -153,6 +172,21 @@
 #pragma mark - Web View Delegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self.indicator removeFromSuperview];
+}
+
+
+#pragma mark - Activity result HUD
+- (void)showActivityResultHUDWithText:(NSString*)text {
+    [self showActivityResultHUDWithText:text andDismissAfter:0];
+}
+- (void)showActivityResultHUDWithText:(NSString*)text andDismissAfter:(NSTimeInterval)seconds {
+    
+    [SVProgressHUD showWithStatus:text];
+    double delayInSeconds = seconds;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [SVProgressHUD dismiss];
+    });
 }
 
 @end

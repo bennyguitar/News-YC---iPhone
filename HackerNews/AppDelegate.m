@@ -11,11 +11,15 @@
 #import "IIViewDeckController.h"
 #import "NavigationDeckViewController.h"
 #import "HNManager.h"
+#import "PocketAPI.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	//Register in the Pocket API.
+	[[PocketAPI sharedAPI] setConsumerKey:@"20118-9a164e727c7246cdc440dcab"];
+	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     // Set Pro & Start HNManager Session
@@ -82,6 +86,16 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if ([[PocketAPI sharedAPI] handleOpenURL:url]) {
+        return YES;
+    } else {
+        // Handle other url-schemes here.
+        return NO;
+    }
 }
 
 @end
