@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C43E84E182B097500A7ED14 /* PocketAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43E846182B097500A7ED14 /* PocketAPI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3C43E84F182B097500A7ED14 /* PocketAPILogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43E848182B097500A7ED14 /* PocketAPILogin.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3C43E850182B097500A7ED14 /* PocketAPIOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43E84A182B097500A7ED14 /* PocketAPIOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3C43E851182B097500A7ED14 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43E84D182B097500A7ED14 /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3C43E853182B09BC00A7ED14 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C43E852182B09BC00A7ED14 /* Security.framework */; };
+		3C5501F9182DD3E0002C7B97 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5501F8182DD3E0002C7B97 /* SVProgressHUD.m */; };
+		3C909304182ECB8F009ECB9A /* HNPostURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C909303182ECB8F009ECB9A /* HNPostURL.m */; };
+		3CFD566C182ED903002CF3AD /* DRPocketActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFD5665182ED903002CF3AD /* DRPocketActivity.m */; };
+		3CFD566D182ED903002CF3AD /* LoadingHUDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFD5667182ED903002CF3AD /* LoadingHUDViewController.m */; };
+		3CFD566E182ED903002CF3AD /* PocketActivity.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CFD5668182ED903002CF3AD /* PocketActivity.png */; };
+		3CFD566F182ED903002CF3AD /* PocketActivity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CFD5669182ED903002CF3AD /* PocketActivity@2x.png */; };
+		3CFD5670182ED903002CF3AD /* PocketActivity@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CFD566A182ED903002CF3AD /* PocketActivity@2x~ipad.png */; };
+		3CFD5671182ED903002CF3AD /* PocketActivity~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CFD566B182ED903002CF3AD /* PocketActivity~ipad.png */; };
 		6C2DAAD3174C977B0069BAE1 /* ARChromeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DAACE174C977B0069BAE1 /* ARChromeActivity.m */; };
 		6C2DAAD4174C977B0069BAE1 /* ARChromeActivity.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2DAACF174C977B0069BAE1 /* ARChromeActivity.png */; };
 		6C2DAAD5174C977B0069BAE1 /* ARChromeActivity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2DAAD0174C977B0069BAE1 /* ARChromeActivity@2x.png */; };
@@ -144,6 +157,29 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C43E844182B097500A7ED14 /* PocketAPI+NSOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PocketAPI+NSOperation.h"; sourceTree = "<group>"; };
+		3C43E845182B097500A7ED14 /* PocketAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPI.h; sourceTree = "<group>"; };
+		3C43E846182B097500A7ED14 /* PocketAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketAPI.m; sourceTree = "<group>"; };
+		3C43E847182B097500A7ED14 /* PocketAPILogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPILogin.h; sourceTree = "<group>"; };
+		3C43E848182B097500A7ED14 /* PocketAPILogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketAPILogin.m; sourceTree = "<group>"; };
+		3C43E849182B097500A7ED14 /* PocketAPIOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPIOperation.h; sourceTree = "<group>"; };
+		3C43E84A182B097500A7ED14 /* PocketAPIOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketAPIOperation.m; sourceTree = "<group>"; };
+		3C43E84B182B097500A7ED14 /* PocketAPITypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPITypes.h; sourceTree = "<group>"; };
+		3C43E84C182B097500A7ED14 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		3C43E84D182B097500A7ED14 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		3C43E852182B09BC00A7ED14 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		3C5501F7182DD3E0002C7B97 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		3C5501F8182DD3E0002C7B97 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		3C909302182ECB8F009ECB9A /* HNPostURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNPostURL.h; sourceTree = "<group>"; };
+		3C909303182ECB8F009ECB9A /* HNPostURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNPostURL.m; sourceTree = "<group>"; };
+		3CFD5664182ED903002CF3AD /* DRPocketActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRPocketActivity.h; sourceTree = "<group>"; };
+		3CFD5665182ED903002CF3AD /* DRPocketActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRPocketActivity.m; sourceTree = "<group>"; };
+		3CFD5666182ED903002CF3AD /* LoadingHUDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingHUDViewController.h; path = DRPocketActivity/LoadingHUDViewController.h; sourceTree = "<group>"; };
+		3CFD5667182ED903002CF3AD /* LoadingHUDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadingHUDViewController.m; path = DRPocketActivity/LoadingHUDViewController.m; sourceTree = "<group>"; };
+		3CFD5668182ED903002CF3AD /* PocketActivity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PocketActivity.png; sourceTree = "<group>"; };
+		3CFD5669182ED903002CF3AD /* PocketActivity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PocketActivity@2x.png"; sourceTree = "<group>"; };
+		3CFD566A182ED903002CF3AD /* PocketActivity@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PocketActivity@2x~ipad.png"; sourceTree = "<group>"; };
+		3CFD566B182ED903002CF3AD /* PocketActivity~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PocketActivity~ipad.png"; sourceTree = "<group>"; };
 		6C2DAACD174C977B0069BAE1 /* ARChromeActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARChromeActivity.h; path = ARChromeActivity/ARChromeActivity.h; sourceTree = "<group>"; };
 		6C2DAACE174C977B0069BAE1 /* ARChromeActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ARChromeActivity.m; path = ARChromeActivity/ARChromeActivity.m; sourceTree = "<group>"; };
 		6C2DAACF174C977B0069BAE1 /* ARChromeActivity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ARChromeActivity.png; path = ARChromeActivity/ARChromeActivity.png; sourceTree = "<group>"; };
@@ -326,6 +362,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C43E853182B09BC00A7ED14 /* Security.framework in Frameworks */,
 				C0CC4EAB1819ECB100D39DC5 /* StoreKit.framework in Frameworks */,
 				C08142181797975E00D1BB17 /* CoreText.framework in Frameworks */,
 				C01EDEB91733698D00AE97B8 /* MessageUI.framework in Frameworks */,
@@ -340,9 +377,79 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C43E843182B097500A7ED14 /* Pocket-ObjC-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				3C43E844182B097500A7ED14 /* PocketAPI+NSOperation.h */,
+				3C43E845182B097500A7ED14 /* PocketAPI.h */,
+				3C43E846182B097500A7ED14 /* PocketAPI.m */,
+				3C43E847182B097500A7ED14 /* PocketAPILogin.h */,
+				3C43E848182B097500A7ED14 /* PocketAPILogin.m */,
+				3C43E849182B097500A7ED14 /* PocketAPIOperation.h */,
+				3C43E84A182B097500A7ED14 /* PocketAPIOperation.m */,
+				3C43E84B182B097500A7ED14 /* PocketAPITypes.h */,
+				3C43E84C182B097500A7ED14 /* SFHFKeychainUtils.h */,
+				3C43E84D182B097500A7ED14 /* SFHFKeychainUtils.m */,
+			);
+			name = "Pocket-ObjC-SDK";
+			path = ../../SDK;
+			sourceTree = "<group>";
+		};
+		3C5501F6182DD3AA002C7B97 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				3C5501F7182DD3E0002C7B97 /* SVProgressHUD.h */,
+				3C5501F8182DD3E0002C7B97 /* SVProgressHUD.m */,
+			);
+			name = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		3C909301182ECB27009ECB9A /* HNPostURL */ = {
+			isa = PBXGroup;
+			children = (
+				3C909302182ECB8F009ECB9A /* HNPostURL.h */,
+				3C909303182ECB8F009ECB9A /* HNPostURL.m */,
+			);
+			name = HNPostURL;
+			sourceTree = "<group>";
+		};
+		3CFD5663182ED903002CF3AD /* DRPocketActivity */ = {
+			isa = PBXGroup;
+			children = (
+				3C43E843182B097500A7ED14 /* Pocket-ObjC-SDK */,
+				3CFD5673182ED93E002CF3AD /* images */,
+				3CFD5664182ED903002CF3AD /* DRPocketActivity.h */,
+				3CFD5665182ED903002CF3AD /* DRPocketActivity.m */,
+			);
+			path = DRPocketActivity;
+			sourceTree = "<group>";
+		};
+		3CFD5672182ED91F002CF3AD /* LoadingHUDViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3CFD5666182ED903002CF3AD /* LoadingHUDViewController.h */,
+				3CFD5667182ED903002CF3AD /* LoadingHUDViewController.m */,
+			);
+			name = LoadingHUDViewController;
+			sourceTree = "<group>";
+		};
+		3CFD5673182ED93E002CF3AD /* images */ = {
+			isa = PBXGroup;
+			children = (
+				3CFD5668182ED903002CF3AD /* PocketActivity.png */,
+				3CFD5669182ED903002CF3AD /* PocketActivity@2x.png */,
+				3CFD566A182ED903002CF3AD /* PocketActivity@2x~ipad.png */,
+				3CFD566B182ED903002CF3AD /* PocketActivity~ipad.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		6C2DAACC174C971E0069BAE1 /* ShareActivities */ = {
 			isa = PBXGroup;
 			children = (
+				3CFD5672182ED91F002CF3AD /* LoadingHUDViewController */,
+				3CFD5663182ED903002CF3AD /* DRPocketActivity */,
+				3C909301182ECB27009ECB9A /* HNPostURL */,
 				6C2DAAD9174C9C050069BAE1 /* TUSafariActivity */,
 				6C2DAAD8174C9BF80069BAE1 /* ARChromeActivity */,
 			);
@@ -424,6 +531,7 @@
 		C01EDDE51731553B00AE97B8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3C43E852182B09BC00A7ED14 /* Security.framework */,
 				C0CC4EAA1819ECB000D39DC5 /* StoreKit.framework */,
 				C01EDDE61731553B00AE97B8 /* UIKit.framework */,
 				C01EDDE81731553B00AE97B8 /* Foundation.framework */,
@@ -435,6 +543,7 @@
 		C01EDDEC1731553B00AE97B8 /* HackerNews */ = {
 			isa = PBXGroup;
 			children = (
+				3C5501F6182DD3AA002C7B97 /* SVProgressHUD */,
 				C0CC4E9018176C7300D39DC5 /* Singleton */,
 				C0CC4E7C1816D71E00D39DC5 /* Controllers */,
 				C0FB762C1803B14800BDA142 /* libHN */,
@@ -814,6 +923,7 @@
 				C02032BC18270E680038950B /* topicon.png in Resources */,
 				C0CC4E891816E18F00D39DC5 /* LinksViewController.xib in Resources */,
 				C01EDE6C1731A84800AE97B8 /* nav_markasread_on-01.png in Resources */,
+				3CFD566F182ED903002CF3AD /* PocketActivity@2x.png in Resources */,
 				C01EDE6D1731A84800AE97B8 /* nav_readability_off-01.png in Resources */,
 				C01EDE6E1731A84800AE97B8 /* nav_readability_on-01.png in Resources */,
 				C0CC4E9B1818752600D39DC5 /* upvote-01.png in Resources */,
@@ -824,6 +934,7 @@
 				C0CC4EA01818AC9300D39DC5 /* CommentAuxiliaryView.xib in Resources */,
 				C01EDE721731A84800AE97B8 /* twitter-01.png in Resources */,
 				C01EDE751731A84800AE97B8 /* minus-01.png in Resources */,
+				3CFD5671182ED903002CF3AD /* PocketActivity~ipad.png in Resources */,
 				C01EDE761731A84800AE97B8 /* commentbubble-01.png in Resources */,
 				C01EDEB51733683200AE97B8 /* NavigationDeckViewController.xib in Resources */,
 				C078EE1B181D6157008DC47C /* nav_background_ios6@2x.png in Resources */,
@@ -842,6 +953,7 @@
 				C0D074E017EE07EB000CAAC3 /* bigCheck-01.png in Resources */,
 				6C2DAAD5174C977B0069BAE1 /* ARChromeActivity@2x.png in Resources */,
 				6C2DAAD6174C977B0069BAE1 /* ARChromeActivity@2x~ipad.png in Resources */,
+				3CFD566E182ED903002CF3AD /* PocketActivity.png in Resources */,
 				6C2DAAD7174C977B0069BAE1 /* ARChromeActivity~ipad.png in Resources */,
 				6C2DAAF3174C9C2E0069BAE1 /* cs.lproj in Resources */,
 				6C2DAAF4174C9C2E0069BAE1 /* de.lproj in Resources */,
@@ -862,6 +974,7 @@
 				6C2DAB00174C9C2E0069BAE1 /* pt.lproj in Resources */,
 				6C2DAB01174C9C2E0069BAE1 /* ru.lproj in Resources */,
 				6C2DAB02174C9C2E0069BAE1 /* Safari.png in Resources */,
+				3CFD5670182ED903002CF3AD /* PocketActivity@2x~ipad.png in Resources */,
 				6C2DAB03174C9C2E0069BAE1 /* Safari@2x.png in Resources */,
 				6C2DAB04174C9C2E0069BAE1 /* Safari@2x~ipad.png in Resources */,
 				6C2DAB05174C9C2E0069BAE1 /* Safari~ipad.png in Resources */,
@@ -884,6 +997,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C01EDDF31731553B00AE97B8 /* main.m in Sources */,
+				3C43E850182B097500A7ED14 /* PocketAPIOperation.m in Sources */,
 				C01EDDF71731553B00AE97B8 /* AppDelegate.m in Sources */,
 				C0CC4E831816D76100D39DC5 /* CommentsViewController.m in Sources */,
 				C01EDE001731553B00AE97B8 /* PostsViewController.m in Sources */,
@@ -892,7 +1006,9 @@
 				C01EDE191731A3CA00AE97B8 /* IIViewDeckController.m in Sources */,
 				C01EDE1A1731A3CA00AE97B8 /* IIWrapController.m in Sources */,
 				C0CC4E9618176CBC00D39DC5 /* SubmitHNViewController.m in Sources */,
+				3CFD566C182ED903002CF3AD /* DRPocketActivity.m in Sources */,
 				C01EDE1E1731A3E500AE97B8 /* triangleView.m in Sources */,
+				3C43E84E182B097500A7ED14 /* PocketAPI.m in Sources */,
 				C0CC4EAE181A9DDB00D39DC5 /* NavPurchaseProCell.m in Sources */,
 				C0FB76391803B18200BDA142 /* HNPost.m in Sources */,
 				C01EDE2F1731A44200AE97B8 /* FilterCell.m in Sources */,
@@ -901,6 +1017,7 @@
 				C01EDE351731A44200AE97B8 /* CreditsCell.m in Sources */,
 				C01EDE3B1731A4BB00AE97B8 /* frontPageCell.m in Sources */,
 				C01EDE401731A4C900AE97B8 /* CommentsCell.m in Sources */,
+				3CFD566D182ED903002CF3AD /* LoadingHUDViewController.m in Sources */,
 				C0CC4E7B1816B30E00D39DC5 /* HNWebService.m in Sources */,
 				C01EDE441731A61700AE97B8 /* HNSingleton.m in Sources */,
 				C0CC4EA31819EC0000D39DC5 /* SatelliteStore.m in Sources */,
@@ -911,6 +1028,7 @@
 				C0CC4E9E1818AC7F00D39DC5 /* CommentAuxiliaryView.m in Sources */,
 				C01EDEB41733683200AE97B8 /* NavigationDeckViewController.m in Sources */,
 				C0ABB6221735C777005EA39C /* FailedLoadingView.m in Sources */,
+				3C5501F9182DD3E0002C7B97 /* SVProgressHUD.m in Sources */,
 				C0F93FE51739CE1800E47B5E /* ProfileNotLoggedInCell.m in Sources */,
 				C0F93FEB1739D4D100E47B5E /* ProfileLoggedInCell.m in Sources */,
 				C0FB76421803B19B00BDA142 /* HNManager.m in Sources */,
@@ -918,7 +1036,10 @@
 				C0F93FF51739DE0000E47B5E /* KGStatusBar.m in Sources */,
 				C0FB763F1803B18F00BDA142 /* HNUtilities.m in Sources */,
 				6C2DAAD3174C977B0069BAE1 /* ARChromeActivity.m in Sources */,
+				3C43E84F182B097500A7ED14 /* PocketAPILogin.m in Sources */,
+				3C43E851182B097500A7ED14 /* SFHFKeychainUtils.m in Sources */,
 				C0CC4EA81819EC4300D39DC5 /* GetProViewController.m in Sources */,
+				3C909304182ECB8F009ECB9A /* HNPostURL.m in Sources */,
 				6C2DAB08174C9C2E0069BAE1 /* TUSafariActivity.m in Sources */,
 				C0EE6F8317AEDF8E00C97F0B /* AddCommentView.m in Sources */,
 			);
