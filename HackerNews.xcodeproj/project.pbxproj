@@ -251,8 +251,8 @@
 		C01EDE421731A61700AE97B8 /* HNTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNTheme.h; sourceTree = "<group>"; };
 		C01EDE431731A61700AE97B8 /* HNTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNTheme.m; sourceTree = "<group>"; };
 		C01EDE451731A67C00AE97B8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C01EDE471731A7C400AE97B8 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
-		C01EDE481731A7C400AE97B8 /* icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114.png; sourceTree = "<group>"; };
+		C01EDE471731A7C400AE97B8 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon57.png; path = ../icon57.png; sourceTree = "<group>"; };
+		C01EDE481731A7C400AE97B8 /* icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon114.png; path = ../icon114.png; sourceTree = "<group>"; };
 		C01EDE4C1731A84700AE97B8 /* check-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-01.png"; sourceTree = "<group>"; };
 		C01EDE4D1731A84700AE97B8 /* github-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "github-01.png"; sourceTree = "<group>"; };
 		C01EDE4E1731A84700AE97B8 /* website-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "website-01.png"; sourceTree = "<group>"; };
@@ -285,10 +285,10 @@
 		C078EE1A181D6157008DC47C /* nav_background_ios6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_background_ios6@2x.png"; sourceTree = "<group>"; };
 		C08142171797975E00D1BB17 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		C0970E4817EA6CF1003FD742 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C0970E4A17EA6D6E003FD742 /* icon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon58.png; sourceTree = "<group>"; };
-		C0970E4B17EA6D6E003FD742 /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
-		C0970E4E17EA6DFE003FD742 /* icon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon29.png; sourceTree = "<group>"; };
-		C0970E4F17EA6DFE003FD742 /* icon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon80.png; sourceTree = "<group>"; };
+		C0970E4A17EA6D6E003FD742 /* icon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon58.png; path = ../icon58.png; sourceTree = "<group>"; };
+		C0970E4B17EA6D6E003FD742 /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon120.png; path = ../icon120.png; sourceTree = "<group>"; };
+		C0970E4E17EA6DFE003FD742 /* icon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon29.png; path = ../icon29.png; sourceTree = "<group>"; };
+		C0970E4F17EA6DFE003FD742 /* icon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon80.png; path = ../icon80.png; sourceTree = "<group>"; };
 		C0ABB61F1735C777005EA39C /* FailedLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailedLoadingView.h; sourceTree = "<group>"; };
 		C0ABB6201735C777005EA39C /* FailedLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailedLoadingView.m; sourceTree = "<group>"; };
 		C0ABB6211735C777005EA39C /* FailedLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FailedLoadingView.xib; sourceTree = "<group>"; };
@@ -508,12 +508,6 @@
 				C08142171797975E00D1BB17 /* CoreText.framework */,
 				C01EDEB81733698D00AE97B8 /* MessageUI.framework */,
 				C01EDEB61733698600AE97B8 /* Social.framework */,
-				C01EDE471731A7C400AE97B8 /* icon57.png */,
-				C01EDE481731A7C400AE97B8 /* icon114.png */,
-				C0970E4A17EA6D6E003FD742 /* icon58.png */,
-				C0970E4B17EA6D6E003FD742 /* icon120.png */,
-				C0970E4E17EA6DFE003FD742 /* icon29.png */,
-				C0970E4F17EA6DFE003FD742 /* icon80.png */,
 				C01EDE451731A67C00AE97B8 /* QuartzCore.framework */,
 				C01EDDEC1731553B00AE97B8 /* HackerNews */,
 				C01EDDE51731553B00AE97B8 /* Frameworks */,
@@ -559,6 +553,12 @@
 		C01EDDED1731553B00AE97B8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C01EDE471731A7C400AE97B8 /* icon57.png */,
+				C01EDE481731A7C400AE97B8 /* icon114.png */,
+				C0970E4A17EA6D6E003FD742 /* icon58.png */,
+				C0970E4B17EA6D6E003FD742 /* icon120.png */,
+				C0970E4E17EA6DFE003FD742 /* icon29.png */,
+				C0970E4F17EA6DFE003FD742 /* icon80.png */,
 				C01EDE4B1731A7E400AE97B8 /* Images */,
 				C01EDDEE1731553B00AE97B8 /* HackerNews-Info.plist */,
 				C01EDDEF1731553B00AE97B8 /* InfoPlist.strings */,
