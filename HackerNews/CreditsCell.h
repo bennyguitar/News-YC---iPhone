@@ -8,8 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-#define kCellCreditsHeight 151
+#define kCellCreditsHeight 183
+
+@protocol CreditsCellDelegate <NSObject>
+
+- (void)didClickGitHubLink;
+
+@end
 
 @interface CreditsCell : UITableViewCell
+
+@property (weak) id <CreditsCellDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UIButton *githubButton;
+
+- (void)setCellWithDelegate:(id<CreditsCellDelegate>)delegate;
 
 @end

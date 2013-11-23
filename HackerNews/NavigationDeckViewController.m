@@ -172,6 +172,15 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidChangeTheme" object:nil];
 }
 
+
+#pragma mark - Credits Delegate
+- (void)didClickGitHubLink {
+    LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:[NSURL URLWithString:@"https://github.com/bennyguitar/News-YC---iPhone"] post:nil];
+    [(UINavigationController *)self.viewDeckController.centerController pushViewController:vc animated:YES];
+    [self.viewDeckController toggleLeftView];
+}
+
+
 #pragma mark - Profile Delegate
 - (void)didClickLogout {
     [[HNManager sharedManager] logout];
@@ -355,6 +364,8 @@
                 }
             }
         }
+        
+        [cell setCellWithDelegate:self];
 
         return cell;
     }

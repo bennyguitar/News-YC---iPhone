@@ -13,6 +13,7 @@
 #import "IIViewDeckController.h"
 #import "PostsViewController.h"
 #import "GetProViewController.h"
+#import "LinksViewController.h"
 #import "HNTheme.h"
 #import "FilterCell.h"
 #import "ShareCell.h"
@@ -25,7 +26,7 @@
 #import "Helpers.h"
 #import "libHN.h"
 
-@interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,NavShareCellDelegate,NavSettingsDelegate,NavProfileLoginDelegate,NavPurchaseProDelegate,NavProfileDelegate> {
+@interface NavigationDeckViewController : UIViewController <MFMailComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,NavShareCellDelegate,NavSettingsDelegate,NavProfileLoginDelegate,NavPurchaseProDelegate,NavProfileDelegate,CreditsCellDelegate> {
     
     IBOutlet UITableView *navTable;
     __weak IBOutlet UIView *headerBar;

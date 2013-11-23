@@ -26,4 +26,15 @@
     // Configure the view for the selected state
 }
 
+- (void)setCellWithDelegate:(id<CreditsCellDelegate>)delegate {
+    self.delegate = delegate;
+    [self.githubButton addTarget:self action:@selector(didSelectGitHubButton) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)didSelectGitHubButton {
+    if ([self.delegate respondsToSelector:@selector(didClickGitHubLink)]) {
+        [self.delegate didClickGitHubLink];
+    }
+}
+
 @end
