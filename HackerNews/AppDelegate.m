@@ -23,9 +23,6 @@
 	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    // TEST
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Pro"];
-    
     // Set Pro & Start HNManager Session
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"]) {
         [[HNManager sharedManager] startSession];
