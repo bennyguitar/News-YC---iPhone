@@ -9,7 +9,7 @@
 #import "Helpers.h"
 #import "SubmitHNViewController.h"
 #import "libHN.h"
-#import "HNSingleton.h"
+#import "HNTheme.h"
 #import "FailedLoadingView.h"
 #import "KGStatusBar.h"
 
@@ -94,6 +94,14 @@
     [[HNManager sharedManager] cancelAllRequests];
 }
 
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 
 #pragma mark - Autoresizing
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -110,17 +118,17 @@
 }
 
 - (void)colorUI {
-    self.view.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
-    self.SubmitView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
-    self.SubmitLinkTextField.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
-    self.SubmitTitleTextField.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
-    self.SubmitSelfTextView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
-    self.SubmitTitleTextField.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
-    self.SubmitLinkTextField.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
-    self.SubmitSelfTextView.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
-    self.CommentTextView.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
-    self.CommentView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
-    self.CommentTextView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
+    self.view.backgroundColor = [HNTheme colorForElement:@"CellBG"];
+    self.SubmitView.backgroundColor = [HNTheme colorForElement:@"CellBG"];
+    self.SubmitLinkTextField.backgroundColor = [HNTheme colorForElement:@"BottomBar"];
+    self.SubmitTitleTextField.backgroundColor = [HNTheme colorForElement:@"BottomBar"];
+    self.SubmitSelfTextView.backgroundColor = [HNTheme colorForElement:@"BottomBar"];
+    self.SubmitTitleTextField.textColor = [HNTheme colorForElement:@"MainFont"];
+    self.SubmitLinkTextField.textColor = [HNTheme colorForElement:@"MainFont"];
+    self.SubmitSelfTextView.textColor = [HNTheme colorForElement:@"MainFont"];
+    self.CommentTextView.textColor = [HNTheme colorForElement:@"MainFont"];
+    self.CommentView.backgroundColor = [HNTheme colorForElement:@"CellBG"];
+    self.CommentTextView.backgroundColor = [HNTheme colorForElement:@"BottomBar"];
 }
 
 - (void)changeTheme {

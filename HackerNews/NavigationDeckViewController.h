@@ -13,7 +13,7 @@
 #import "IIViewDeckController.h"
 #import "PostsViewController.h"
 #import "GetProViewController.h"
-#import "HNSingleton.h"
+#import "HNTheme.h"
 #import "FilterCell.h"
 #import "ShareCell.h"
 #import "SettingsCell.h"

@@ -8,7 +8,7 @@
 
 #import "frontPageCell.h"
 #import <QuartzCore/QuartzCore.h>
-#import "HNSingleton.h"
+#import "HNTheme.h"
 #import "Helpers.h"
 #import "libHN.h"
 
@@ -50,31 +50,31 @@
         [self.commentBGButton addTarget:controller action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
         
         // Color cell elements
-        self.titleLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
-        self.postedTimeLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
-        self.scoreLabel.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
-        self.bottomBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
-        [self.commentTagButton setImage:[[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CommentBubble"] forState:UIControlStateNormal];
+        self.titleLabel.textColor = [HNTheme colorForElement:@"MainFont"];
+        self.postedTimeLabel.textColor = [HNTheme colorForElement:@"SubFont"];
+        self.scoreLabel.textColor = [HNTheme colorForElement:@"SubFont"];
+        self.bottomBar.backgroundColor = [HNTheme colorForElement:@"BottomBar"];
+        [self.commentTagButton setImage:[HNTheme imageForKey:@"CommentBubble"] forState:UIControlStateNormal];
         
         // Show HN Color
         if (self.titleLabel.text.length >= 9) {
             if ([[self.titleLabel.text substringWithRange:NSMakeRange(0, 9)] isEqualToString:@"Show HN: "]) {
-                self.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"ShowHN"];
-                self.bottomBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"ShowHNBottom"];
+                self.backgroundColor = [HNTheme colorForElement:@"ShowHN"];
+                self.bottomBar.backgroundColor = [HNTheme colorForElement:@"ShowHNBottom"];
             }
         }
         
         // Jobs Color
         if (post.Type == PostTypeJobs) {
             UIView *jobsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-            jobsView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"HNJobs"];
+            jobsView.backgroundColor = [HNTheme colorForElement:@"HNJobs"];
             [self insertSubview:jobsView atIndex:0];
             self.scoreLabel.text = @"HN Jobs";
             self.postedTimeLabel.text = @"";
             self.commentBGButton.hidden = YES;
             self.commentTagButton.hidden = YES;
             self.commentsLabel.hidden = YES;
-            self.bottomBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"HNJobsBottom"];
+            self.bottomBar.backgroundColor = [HNTheme colorForElement:@"HNJobsBottom"];
         }
         
         // Mark as Read

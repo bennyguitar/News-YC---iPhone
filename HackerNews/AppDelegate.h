@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "IIViewDeckController.h"
-#import "HNSingleton.h"
+#import "HNTheme.h"
 
 @class PostsViewController;
 

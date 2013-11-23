@@ -12,6 +12,7 @@
 #import "NavigationDeckViewController.h"
 #import "HNManager.h"
 #import "PocketAPI.h"
+#import "SatelliteStore.h"
 
 @implementation AppDelegate
 
@@ -22,6 +23,9 @@
 	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    // TEST
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Pro"];
+    
     // Set Pro & Start HNManager Session
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"]) {
         [[HNManager sharedManager] startSession];
@@ -31,12 +35,12 @@
     }
     
     // Check Theme
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NightMode"];
+    if (![[NSUserDefaults standardUserDefaults] integerForKey:@"HNTheme"]) {
+        [[NSUserDefaults standardUserDefaults] setInteger:HNThemeTypeNight forKey:@"HNTheme"];
     }
     
     // Set Theme
-    [[HNSingleton sharedHNSingleton] changeTheme];
+    [HNTheme changeThemeToType:[[NSUserDefaults standardUserDefaults] integerForKey:@"HNTheme"]];
     
     // If no User Default for Readability, turn it ON!
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"Readability"] == nil) {
@@ -46,6 +50,14 @@
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"MarkAsRead"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MarkAsRead"];
     }
+    
+    // SatelliteStore: Set Up Store
+    [[SatelliteStore shoppingCenter] setProductIdentifiers:@[kProProductID]];
+    
+    // SatelliteStore: Get Pro Products
+    [[SatelliteStore shoppingCenter] getProductsWithCompletion:^(BOOL success) {
+        //
+    }];
     
     // Set View Controllers
     self.leftController = [[NavigationDeckViewController alloc] initWithNibName:@"NavigationDeckViewController" bundle:nil];

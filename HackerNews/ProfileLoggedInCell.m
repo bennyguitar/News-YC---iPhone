@@ -7,7 +7,7 @@
 //
 #import "HNManager.h"
 #import "ProfileLoggedInCell.h"
-#import "HNSingleton.h"
+#import "HNTheme.h"
 #import "Helpers.h"
 
 @implementation ProfileLoggedInCell

@@ -9,7 +9,7 @@
 #import "GetProViewController.h"
 #import "SatelliteStore.h"
 #import "Helpers.h"
-#import "HNSingleton.h"
+#import "HNTheme.h"
 #import "KGStatusBar.h"
 #import "IIViewDeckController.h"
 
@@ -40,9 +40,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Set up Store
-    [self setUpStore];
     
     // Build UI
     [self buildUI];
@@ -77,11 +74,11 @@
 }
 
 - (void)colorUI {
-    self.view.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
-    self.ProTextView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
-    self.ProTextView.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
+    self.view.backgroundColor = [HNTheme colorForElement:@"CellBG"];
+    self.ProTextView.backgroundColor = [HNTheme colorForElement:@"BottomBar"];
+    self.ProTextView.textColor = [HNTheme colorForElement:@"MainFont"];
     [self.ProTextView setAttributedText:[self attributedProString]];
-    self.ThanksForPurchasingView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
+    self.ThanksForPurchasingView.backgroundColor = [HNTheme colorForElement:@"CellBG"];
 }
 
 - (void)changeTheme {
@@ -98,10 +95,10 @@
     NSMutableAttributedString *proString = [[NSMutableAttributedString alloc] initWithString:@"Because who likes just reading HackerNews? Why not contribute to the community?\n\nWith a purchase of the pro version of this app you get a lot of things:\n\nLogin and view your submissions.\nSubmit a link or a self-post.\nReply to any post or comment.\nVote on posts or comments.\n\nAs I add more features in the future, you'll be able to do all of that as well. Purchasing the pro version also has a positive effect on me maintaining this app and maintaining the GitHub repository for it as well (oh yeah, it's totally open-sourced too).\n\nThanks for purchasing pro, and I really hope you like it!"];
     
     // Background Color
-    [proString addAttribute:NSBackgroundColorAttributeName value:[[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"] range:NSMakeRange(0, proString.string.length)];
+    [proString addAttribute:NSBackgroundColorAttributeName value:[HNTheme colorForElement:@"BottomBar"] range:NSMakeRange(0, proString.string.length)];
     
     // Font Color
-    [proString addAttribute:NSForegroundColorAttributeName value:[[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"] range:NSMakeRange(0, proString.string.length)];
+    [proString addAttribute:NSForegroundColorAttributeName value:[HNTheme colorForElement:@"MainFont"] range:NSMakeRange(0, proString.string.length)];
     
     // Font
     [proString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, proString.string.length)];
@@ -119,20 +116,32 @@
 
 
 #pragma mark - Satellite Store
-- (void)setUpStore {
-    self.HNStore = [[SatelliteStore alloc] initWithDelegate:self];
-    [self.HNStore getProducts];
-}
-
-- (void)satelliteStore:(SatelliteStore *)store didFetchProducts:(NSArray *)products {
-    if (products) {
-        self.HNProducts = [NSArray arrayWithArray:products];
+- (void)purchasePro {
+    if ([[SatelliteStore shoppingCenter] inventoryHasProducts]) {
+        [[SatelliteStore shoppingCenter] purchaseProductWithIdentifier:kProProductID withCompletion:^(BOOL purchased) {
+            [self setUIForPurchase:purchased];
+        }];
+    }
+    else {
+        [[SatelliteStore shoppingCenter] getProductsWithCompletion:^(BOOL success) {
+            if (success) {
+                // Try again
+                [self purchasePro];
+            }
+        }];
     }
 }
 
-- (void)satelliteStore:(SatelliteStore *)store didPurchaseProduct:(BOOL)success {
-    if (success) {
+- (void)restorePro {
+    [[SatelliteStore shoppingCenter] restorePurchasesWithCompletion:^(BOOL purchased) {
+        [self setUIForPurchase:purchased];
+    }];
+}
+
+- (void)setUIForPurchase:(BOOL)purchased {
+    if (purchased) {
         self.ThanksForPurchasingView.alpha = 0;
+        self.ThanksForPurchasingView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
         [self.view addSubview:self.ThanksForPurchasingView];
         [UIView animateWithDuration:0.25 animations:^{
             self.ThanksForPurchasingView.alpha = 1;
@@ -150,23 +159,11 @@
 
 #pragma mark - Actions
 - (IBAction)didClickPurchasePro:(id)sender {
-    if (self.HNProducts) {
-        [self.HNStore purchaseProduct:self.HNProducts[0]];
-    }
-    else {
-        [self.HNStore getProducts];
-        [self performSelector:@selector(didClickPurchasePro:) withObject:nil afterDelay:1.25];
-    }
+    [self purchasePro];
 }
 
 - (IBAction)didClickRestorePro:(id)sender {
-    if (self.HNProducts) {
-        [self.HNStore restorePurchases];
-    }
-    else {
-        [self.HNStore getProducts];
-        [self performSelector:@selector(didClickRestorePro:) withObject:nil afterDelay:1.25];
-    }
+    [self restorePro];
 }
 
 @end

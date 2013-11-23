@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SatelliteStore.h"
 
-@interface GetProViewController : UIViewController <SatelliteStoreDelegate>
+@interface GetProViewController : UIViewController
 
 
 - (IBAction)didClickPurchasePro:(id)sender;

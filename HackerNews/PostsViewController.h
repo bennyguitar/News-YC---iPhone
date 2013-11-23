@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TriangleView.h"
-#import "HNSingleton.h"
+#import "HNTheme.h"
 #import "frontPageCell.h"
 #import "CommentsCell.h"
 #import "Helpers.h"

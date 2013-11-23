@@ -112,9 +112,9 @@
 
 -(void)colorUI {
     // Set Colors for all objects based on Theme
-    self.view.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
-    frontPageTable.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
-    frontPageTable.separatorColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"Separator"];
+    self.view.backgroundColor = [HNTheme colorForElement:@"CellBG"];
+    frontPageTable.backgroundColor = [HNTheme colorForElement:@"CellBG"];
+    frontPageTable.separatorColor = [HNTheme colorForElement:@"Separator"];
 }
 
 -(void)didChangeTheme {

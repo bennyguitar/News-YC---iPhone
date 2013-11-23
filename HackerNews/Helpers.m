@@ -9,6 +9,7 @@
 #import "Helpers.h"
 #import <QuartzCore/QuartzCore.h>
 #import "AppDelegate.h"
+#import "HNTheme.h"
 
 @implementation Helpers
 
@@ -78,10 +79,10 @@
 
 + (void)buildNavBarForController:(UINavigationController *)navController leftImage:(BOOL)leftImage {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
-        [navController.navigationBar setBarTintColor:kOrangeColor];
+        [navController.navigationBar setBarTintColor:[HNTheme colorForElement:@"NavBar"]];
     }
     else {
-        [navController.navigationBar setTintColor:kOrangeColor];
+        [navController.navigationBar setTintColor:[HNTheme colorForElement:@"NavBar"]];
     }
     
     // Add Center Image
@@ -102,7 +103,7 @@
 + (void)buildNavigationController:(UIViewController *)controller leftImage:(BOOL)leftImage rightImages:(NSArray *)rImages rightActions:(NSArray *)rActions {
     // Change tint
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
-        controller.navigationController.navigationBar.barTintColor = kOrangeColor; /* iOS 7 */
+        controller.navigationController.navigationBar.barTintColor = [HNTheme colorForElement:@"NavBar"]; /* iOS 7 */
         controller.navigationController.navigationBar.tintColor = [UIColor colorWithWhite:0.0 alpha:0.6]; //For nav items
         controller.navigationController.navigationBar.translucent = NO;
     }
@@ -216,6 +217,7 @@
 + (void)navigationController:(UIViewController *)controller addActivityIndicator:(UIActivityIndicatorView **)indicator {
     float origin = controller.navigationItem.rightBarButtonItems.count*40+30;
     [*indicator setFrame:CGRectMake(controller.navigationController.navigationBar.frame.size.width - origin, controller.navigationController.navigationBar.frame.size.height/2 - 10, 20, 20)];
+    [*indicator setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin];
     [*indicator startAnimating];
     [*indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     [controller.navigationController.navigationBar addSubview:*indicator];

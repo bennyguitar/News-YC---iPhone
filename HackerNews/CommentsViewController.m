@@ -9,7 +9,7 @@
 #import "CommentsViewController.h"
 #import "LinksViewController.h"
 #import "SubmitHNViewController.h"
-#import "HNSingleton.h"
+#import "HNTheme.h"
 #import "KGStatusBar.h"
 #import "Helpers.h"
 
@@ -101,8 +101,8 @@
 
 - (void)colorUI {
     // Color
-    self.CommentsTableView.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
-    self.view.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"CellBG"];
+    self.CommentsTableView.backgroundColor = [HNTheme colorForElement:@"CellBG"];
+    self.view.backgroundColor = [HNTheme colorForElement:@"CellBG"];
 }
 
 

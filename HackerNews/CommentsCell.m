@@ -43,13 +43,13 @@
     }
     
     // Color cell elements
-    self.comment.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"MainFont"];
-    self.comment.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][@"CellBG"];
-    self.username.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
-    self.username.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][@"BottomBar"];
-    self.postedTime.textColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"SubFont"];
-    self.postedTime.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][@"BottomBar"];
-    self.topBar.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
+    self.comment.textColor = [[HNTheme currentTheme].themeDict objectForKey:@"MainFont"];
+    self.comment.backgroundColor = [[HNTheme currentTheme] themeDict][@"CellBG"];
+    self.username.textColor = [[HNTheme currentTheme].themeDict objectForKey:@"SubFont"];
+    self.username.backgroundColor = [[HNTheme currentTheme] themeDict][@"BottomBar"];
+    self.postedTime.textColor = [[HNTheme currentTheme].themeDict objectForKey:@"SubFont"];
+    self.postedTime.backgroundColor = [[HNTheme currentTheme] themeDict][@"BottomBar"];
+    self.topBar.backgroundColor = [[HNTheme currentTheme].themeDict objectForKey:@"BottomBar"];
     self.comment.opaque = YES;
     self.username.opaque = YES;
     self.postedTime.opaque = YES;
@@ -86,28 +86,28 @@
         
         // Check for Ask HN or HN Jobs
         if (newComment.Type == HNCommentTypeAskHN || newComment.Type == HNCommentTypeJobs) {
-            self.topBar.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
-            self.postedTime.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
-            self.username.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
-            self.holdingView.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
-            self.comment.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
-            self.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
+            self.topBar.backgroundColor = [HNTheme colorForElement:(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
+            self.postedTime.backgroundColor = [HNTheme colorForElement:(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
+            self.username.backgroundColor = [HNTheme colorForElement:(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
+            self.holdingView.backgroundColor = [HNTheme colorForElement:(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
+            self.comment.backgroundColor = [HNTheme colorForElement:(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
+            self.backgroundColor = [HNTheme colorForElement:(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
             
             // Triangle
             TriangleView *triangle = [[TriangleView alloc] initWithFrame:CGRectMake(0, self.comment.frame.origin.y + labelSize.height + 10, (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height), 6)];
-            [triangle setColor:[HNSingleton sharedHNSingleton].themeDict[(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")]];
+            [triangle setColor:[HNTheme colorForElement:(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")]];
             [triangle drawTriangleAtXPosition:(self.frame.size.width/2)];
-            triangle.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
+            triangle.backgroundColor = [HNTheme colorForElement:(newComment.Type == HNCommentTypeAskHN ? @"ShowHN" : @"HNJobs")];
             [self.holdingView addSubview:triangle];
             
             // Bar
             UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, triangle.frame.origin.y + triangle.frame.size.height, (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height), 12)];
-            barView.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
+            barView.backgroundColor = [HNTheme colorForElement:(newComment.Type == HNCommentTypeAskHN ? @"ShowHNBottom" : @"HNJobsBottom")];
             [self.holdingView addSubview:barView];
             
             // Separator
             UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, barView.frame.origin.y + barView.frame.size.height, (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height), 1)];
-            separator.backgroundColor = [HNSingleton sharedHNSingleton].themeDict[@"Separator"];
+            separator.backgroundColor = [HNTheme colorForElement:@"Separator"];
             [self.holdingView addSubview:separator];
             
             // Holding View
@@ -121,8 +121,8 @@
         
         // Auxiliary View
         if (auxiliary && (newComment.Type != HNCommentTypeJobs)) {
-            self.auxiliaryView.backgroundColor = [[HNSingleton sharedHNSingleton] themeDict][@"ShowHN"];
-            self.auxiliarySeparator.backgroundColor = [[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"];
+            self.auxiliaryView.backgroundColor = [HNTheme colorForElement:@"ShowHN"];
+            self.auxiliarySeparator.backgroundColor = [HNTheme colorForElement:@"BottomBar"];
             self.auxiliaryView.frame = CGRectMake(0, self.holdingView.frame.size.height, self.holdingView.frame.size.width, kCommentAuxiliaryHeight);
             [self.holdingView addSubview:self.auxiliaryView];
             self.holdingView.frame = CGRectMake(self.holdingView.frame.origin.x, self.holdingView.frame.origin.y, self.holdingView.frame.size.width, self.holdingView.frame.size.height + kCommentAuxiliaryHeight);
@@ -195,10 +195,10 @@
     NSMutableAttributedString *mutableAttributedString = [[NSMutableAttributedString alloc] initWithString:newComment.Text];
     
     // Background Color
-    [mutableAttributedString addAttribute:NSBackgroundColorAttributeName value:[[HNSingleton sharedHNSingleton] themeDict][@"CellBG"] range:NSMakeRange(0, newComment.Text.length)];
+    [mutableAttributedString addAttribute:NSBackgroundColorAttributeName value:[HNTheme colorForElement:@"CellBG"] range:NSMakeRange(0, newComment.Text.length)];
     
     // Font Color
-    [mutableAttributedString addAttribute:NSForegroundColorAttributeName value:[[HNSingleton sharedHNSingleton] themeDict][@"MainFont"] range:NSMakeRange(0, newComment.Text.length)];
+    [mutableAttributedString addAttribute:NSForegroundColorAttributeName value:[HNTheme colorForElement:@"MainFont"] range:NSMakeRange(0, newComment.Text.length)];
     
     // Paragraph Style
     NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
@@ -250,7 +250,7 @@
     for (int xx = 0; xx < self.commentLevel + 1; xx++) {
         if (xx != 0) {
             UIBezierPath *path = [UIBezierPath bezierPath];
-            [[[HNSingleton sharedHNSingleton].themeDict objectForKey:@"BottomBar"] setStroke];
+            [[HNTheme colorForElement:@"BottomBar"] setStroke];
             [path moveToPoint:CGPointMake(15*xx, 0)];
             [path addLineToPoint:CGPointMake(15*xx, self.frame.size.height)];
             [path stroke];

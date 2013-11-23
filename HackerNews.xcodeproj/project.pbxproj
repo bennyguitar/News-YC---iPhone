@@ -72,7 +72,7 @@
 		C01EDE3C1731A4BB00AE97B8 /* frontPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE3A1731A4BB00AE97B8 /* frontPageCell.xib */; };
 		C01EDE401731A4C900AE97B8 /* CommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE3E1731A4C800AE97B8 /* CommentsCell.m */; };
 		C01EDE411731A4C900AE97B8 /* CommentsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE3F1731A4C900AE97B8 /* CommentsCell.xib */; };
-		C01EDE441731A61700AE97B8 /* HNSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE431731A61700AE97B8 /* HNSingleton.m */; };
+		C01EDE441731A61700AE97B8 /* HNTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C01EDE431731A61700AE97B8 /* HNTheme.m */; };
 		C01EDE461731A67C00AE97B8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDE451731A67C00AE97B8 /* QuartzCore.framework */; };
 		C01EDE491731A7C400AE97B8 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE471731A7C400AE97B8 /* icon57.png */; };
 		C01EDE4A1731A7C400AE97B8 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = C01EDE481731A7C400AE97B8 /* icon114.png */; };
@@ -248,8 +248,8 @@
 		C01EDE3D1731A4C800AE97B8 /* CommentsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsCell.h; sourceTree = "<group>"; };
 		C01EDE3E1731A4C800AE97B8 /* CommentsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsCell.m; sourceTree = "<group>"; };
 		C01EDE3F1731A4C900AE97B8 /* CommentsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsCell.xib; sourceTree = "<group>"; };
-		C01EDE421731A61700AE97B8 /* HNSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNSingleton.h; sourceTree = "<group>"; };
-		C01EDE431731A61700AE97B8 /* HNSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNSingleton.m; sourceTree = "<group>"; };
+		C01EDE421731A61700AE97B8 /* HNTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNTheme.h; sourceTree = "<group>"; };
+		C01EDE431731A61700AE97B8 /* HNTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNTheme.m; sourceTree = "<group>"; };
 		C01EDE451731A67C00AE97B8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C01EDE471731A7C400AE97B8 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
 		C01EDE481731A7C400AE97B8 /* icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114.png; sourceTree = "<group>"; };
@@ -447,6 +447,7 @@
 		6C2DAACC174C971E0069BAE1 /* ShareActivities */ = {
 			isa = PBXGroup;
 			children = (
+				3C5501F6182DD3AA002C7B97 /* SVProgressHUD */,
 				3CFD5672182ED91F002CF3AD /* LoadingHUDViewController */,
 				3CFD5663182ED903002CF3AD /* DRPocketActivity */,
 				3C909301182ECB27009ECB9A /* HNPostURL */,
@@ -543,11 +544,8 @@
 		C01EDDEC1731553B00AE97B8 /* HackerNews */ = {
 			isa = PBXGroup;
 			children = (
-				3C5501F6182DD3AA002C7B97 /* SVProgressHUD */,
-				C0CC4E9018176C7300D39DC5 /* Singleton */,
 				C0CC4E7C1816D71E00D39DC5 /* Controllers */,
 				C0FB762C1803B14800BDA142 /* libHN */,
-				6C2DAACC174C971E0069BAE1 /* ShareActivities */,
 				C01EDE371731A48500AE97B8 /* Utilities */,
 				C01EDE1B1731A3D500AE97B8 /* Custom Views */,
 				C01EDDF51731553B00AE97B8 /* AppDelegate.h */,
@@ -660,6 +658,8 @@
 		C01EDE371731A48500AE97B8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C0CC4E9018176C7300D39DC5 /* Theme */,
+				6C2DAACC174C971E0069BAE1 /* ShareActivities */,
 				C0CC4EA11819EC0000D39DC5 /* SatelliteStore.h */,
 				C0CC4EA21819EC0000D39DC5 /* SatelliteStore.m */,
 				C0D074E117EE2627000CAAC3 /* TTTAttributedLabel.h */,
@@ -755,13 +755,13 @@
 			name = Links;
 			sourceTree = "<group>";
 		};
-		C0CC4E9018176C7300D39DC5 /* Singleton */ = {
+		C0CC4E9018176C7300D39DC5 /* Theme */ = {
 			isa = PBXGroup;
 			children = (
-				C01EDE421731A61700AE97B8 /* HNSingleton.h */,
-				C01EDE431731A61700AE97B8 /* HNSingleton.m */,
+				C01EDE421731A61700AE97B8 /* HNTheme.h */,
+				C01EDE431731A61700AE97B8 /* HNTheme.m */,
 			);
-			name = Singleton;
+			name = Theme;
 			sourceTree = "<group>";
 		};
 		C0CC4E9218176C9700D39DC5 /* Submit */ = {
@@ -1019,7 +1019,7 @@
 				C01EDE401731A4C900AE97B8 /* CommentsCell.m in Sources */,
 				3CFD566D182ED903002CF3AD /* LoadingHUDViewController.m in Sources */,
 				C0CC4E7B1816B30E00D39DC5 /* HNWebService.m in Sources */,
-				C01EDE441731A61700AE97B8 /* HNSingleton.m in Sources */,
+				C01EDE441731A61700AE97B8 /* HNTheme.m in Sources */,
 				C0CC4EA31819EC0000D39DC5 /* SatelliteStore.m in Sources */,
 				C0FB763C1803B18200BDA142 /* HNCommentLink.m in Sources */,
 				C0FB763A1803B18200BDA142 /* HNComment.m in Sources */,

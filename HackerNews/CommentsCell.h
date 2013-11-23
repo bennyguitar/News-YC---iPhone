@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HNComment.h"
-#import "HNSingleton.h"
+#import "HNTheme.h"
 #import "TTTAttributedLabel.h"
 #import "LinkLabel.h"
 #import "triangleView.h"
