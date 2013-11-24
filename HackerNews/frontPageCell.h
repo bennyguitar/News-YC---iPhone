@@ -12,6 +12,12 @@
 #define kFrontPageCellHeight 96
 #define kFrontPageActionsHeight 148
 
+@protocol FrontPageCellDelgate <NSObject>
+
+- (void)didDoubleTapToUpvotePostAtIndex:(NSInteger)index;
+
+@end
+
 
 @interface frontPageCell : UITableViewCell
 
@@ -23,9 +29,9 @@
 @property (retain, nonatomic) IBOutlet UIButton *commentTagButton;
 @property (retain, nonatomic) IBOutlet UIButton *commentBGButton;
 @property (retain, nonatomic) IBOutlet UIImageView *bottomBar;
-@property (weak, nonatomic) IBOutlet UIButton *voteUpButton;
-@property (weak, nonatomic) IBOutlet UIButton *voteDownButton;
-@property (weak, nonatomic) IBOutlet UIView *postActionsView;
+@property (nonatomic, assign) NSInteger Index;
+
+@property (weak) id <FrontPageCellDelgate> delegate;
 
 -(frontPageCell *)setCellWithPost:(HNPost *)post atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller;
 

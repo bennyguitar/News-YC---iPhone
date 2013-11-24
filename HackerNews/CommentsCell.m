@@ -36,7 +36,7 @@
     [super setHighlighted:NO animated:animated];
 }
 
--(CommentsCell *)cellForComment:(HNComment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller showAuxiliary:(BOOL)auxiliary {
+-(CommentsCell *)cellForComment:(HNComment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller postOP:(NSString *)postOP showAuxiliary:(BOOL)auxiliary {
     self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
     if ([self respondsToSelector:@selector(separatorInset)]) {
         self.separatorInset = UIEdgeInsetsZero;
@@ -45,6 +45,7 @@
     // Color cell elements
     self.comment.textColor = [[HNTheme currentTheme].themeDict objectForKey:@"MainFont"];
     self.comment.backgroundColor = [[HNTheme currentTheme] themeDict][@"CellBG"];
+    //self.username.textColor = [postOP isEqualToString:newComment.Username] ? [[HNTheme currentTheme].themeDict objectForKey:@"NavBar"] : [[HNTheme currentTheme].themeDict objectForKey:@"SubFont"];
     self.username.textColor = [[HNTheme currentTheme].themeDict objectForKey:@"SubFont"];
     self.username.backgroundColor = [[HNTheme currentTheme] themeDict][@"BottomBar"];
     self.postedTime.textColor = [[HNTheme currentTheme].themeDict objectForKey:@"SubFont"];

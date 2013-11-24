@@ -99,8 +99,9 @@
     [[HNManager sharedManager] voteOnPostOrComment:self.Post direction:VoteDirectionUp completion:^(BOOL success) {
         if (success) {
             [KGStatusBar showWithStatus:@"Voting Success"];
-            [[HNManager sharedManager] setMarkAsReadForPost:self.Post];
+            [[HNManager sharedManager] addHNObjectToVotedOnDictionary:self.Post direction:VoteDirectionUp];
             self.Post.UpvoteURLAddition = nil;
+            [self.Post setPoints:self.Post.Points + 1];
             [self buildNavBar];
         }
         else {

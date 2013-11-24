@@ -167,8 +167,8 @@
     //
 }
 
-- (void)didClickChangeTheme:(BOOL)nightMode {
-    [HNTheme changeThemeToType:(nightMode ? HNThemeTypeNight : HNThemeTypeDay)];
+- (void)didClickChangeTheme:(HNThemeType)type {
+    [HNTheme changeThemeToType:type];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidChangeTheme" object:nil];
 }
 

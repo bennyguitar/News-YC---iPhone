@@ -150,8 +150,9 @@
     [[HNManager sharedManager] voteOnPostOrComment:self.Post direction:VoteDirectionUp completion:^(BOOL success) {
         if (success) {
             [KGStatusBar showWithStatus:@"Voting Success"];
-            [[HNManager sharedManager] setMarkAsReadForPost:self.Post];
+            [[HNManager sharedManager] addHNObjectToVotedOnDictionary:self.Post direction:VoteDirectionUp];
             self.Post.UpvoteURLAddition = nil;
+            [self.Post setPoints:self.Post.Points + 1];
             [self buildNavBar];
         }
         else {
@@ -245,7 +246,7 @@
     
     // Set Content
     
-    cell = [cell cellForComment:(self.Comments.count > 0 ? self.Comments[indexPath.row] : nil) atIndex:indexPath fromController:self showAuxiliary:(self.AuxiliaryClickIndex && (indexPath.row == [self.AuxiliaryClickIndex intValue]) ? YES : NO)];
+    cell = [cell cellForComment:(self.Comments.count > 0 ? self.Comments[indexPath.row] : nil) atIndex:indexPath fromController:self postOP:self.Post.Username showAuxiliary:(self.AuxiliaryClickIndex && (indexPath.row == [self.AuxiliaryClickIndex intValue]) ? YES : NO)];
     [cell.comment setDelegate:self];
     
     return cell;

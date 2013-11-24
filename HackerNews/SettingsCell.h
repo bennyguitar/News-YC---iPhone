@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 Benjamin Gordon. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
+#import "HNTheme.h"
 
 #define kCellSettingsHeight 158
 
@@ -14,7 +16,7 @@
 
 - (void)didClickReadability:(BOOL)active;
 - (void)didClickMarkAsRead:(BOOL)active;
-- (void)didClickChangeTheme:(BOOL)nightMode;
+- (void)didClickChangeTheme:(HNThemeType)type;
 
 @end
 
@@ -42,6 +44,7 @@
 @property (nonatomic, assign) BOOL Readability;
 @property (nonatomic, assign) BOOL MarkAsRead;
 @property (nonatomic, assign) BOOL NightMode;
+@property (nonatomic, assign) HNThemeType ThemeMode;
 
 @property (weak) id <NavSettingsDelegate> delegate;
 

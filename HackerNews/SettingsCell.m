@@ -27,7 +27,7 @@
     // Set Variables
     self.Readability = [[NSUserDefaults standardUserDefaults] boolForKey:@"Readability"];
     self.MarkAsRead = [[NSUserDefaults standardUserDefaults] boolForKey:@"MarkAsRead"];
-    self.NightMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"];
+    self.ThemeMode = [[NSUserDefaults standardUserDefaults] integerForKey:@"HNTheme"];
     
     // Set Images
     [self setReadabilityStatus];
@@ -65,9 +65,9 @@
 
 - (void)setThemeStatus {
     self.nightModeButton.alpha = 1;
-    [self.nightModeButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"nav_%@_on-01.png", self.NightMode ? @"nightmode" : @"daymode"]] forState:UIControlStateNormal];
-    self.themeLabel.text = [NSString stringWithFormat:@"Theme is %@", (self.NightMode ? @"NIGHT" : @"DAY")];
-    [[NSUserDefaults standardUserDefaults] setBool:self.NightMode forKey:@"NightMode"];
+    [self.nightModeButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"nav_%@_on-01.png", self.ThemeMode == HNThemeTypeNight ? @"nightmode" : @"daymode"]] forState:UIControlStateNormal];
+    self.themeLabel.text = [NSString stringWithFormat:@"Theme is %@", (self.ThemeMode == HNThemeTypeNight ? @"NIGHT" : @"DAY")];
+    [[NSUserDefaults standardUserDefaults] setInteger:self.ThemeMode forKey:@"HNTheme"];
 }
 
 
@@ -96,12 +96,12 @@
 
 - (void)didSelectNightMode {
     // Change Readbility status
-    self.NightMode = self.NightMode ? NO : YES;
+    self.ThemeMode = self.ThemeMode == HNThemeTypeNight ? HNThemeTypeDay : HNThemeTypeNight;
     [self setThemeStatus];
     
     // Delegate Change
     if ([self.delegate respondsToSelector:@selector(didClickChangeTheme:)]) {
-        [self.delegate didClickChangeTheme:self.NightMode];
+        [self.delegate didClickChangeTheme:self.ThemeMode];
     }
 }
 

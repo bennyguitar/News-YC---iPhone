@@ -52,7 +52,7 @@
 
 @property (weak) id <CommentCellDelegate> delegate;
 
--(CommentsCell *)cellForComment:(HNComment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller showAuxiliary:(BOOL)auxiliary;
+-(CommentsCell *)cellForComment:(HNComment *)newComment atIndex:(NSIndexPath *)indexPath fromController:(UIViewController *)controller postOP:(NSString *)postOP  showAuxiliary:(BOOL)auxiliary;
 + (float)heightForComment:(HNComment *)newComment isAuxiliary:(BOOL)auxiliary;
 
 @end

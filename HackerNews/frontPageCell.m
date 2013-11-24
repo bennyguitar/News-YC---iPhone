@@ -48,11 +48,21 @@
         self.commentBGButton.tag = indexPath.row;
         [self.commentTagButton addTarget:controller action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
         [self.commentBGButton addTarget:controller action:@selector(didClickCommentsFromHomepage:) forControlEvents:UIControlEventTouchUpInside];
+        self.Index = indexPath.row;
+        
+        // Set Gesture
+        if ([[HNManager sharedManager] userIsLoggedIn] && ![[HNManager sharedManager] hasVotedOnObject:post] && post.UpvoteURLAddition) {
+            UITapGestureRecognizer *tapG = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didDoubleTap:)];
+            [tapG setNumberOfTouchesRequired:2];
+            [self addGestureRecognizer:tapG];
+            self.multipleTouchEnabled = YES;
+            self.delegate = (id<FrontPageCellDelgate>)controller;
+        }
         
         // Color cell elements
         self.titleLabel.textColor = [HNTheme colorForElement:@"MainFont"];
         self.postedTimeLabel.textColor = [HNTheme colorForElement:@"SubFont"];
-        self.scoreLabel.textColor = [HNTheme colorForElement:@"SubFont"];
+        self.scoreLabel.textColor = [[HNManager sharedManager] hasVotedOnObject:post] ? [HNTheme colorForElement:@"NavBar"] : [HNTheme colorForElement:@"SubFont"];
         self.bottomBar.backgroundColor = [HNTheme colorForElement:@"BottomBar"];
         [self.commentTagButton setImage:[HNTheme imageForKey:@"CommentBubble"] forState:UIControlStateNormal];
         
@@ -66,9 +76,7 @@
         
         // Jobs Color
         if (post.Type == PostTypeJobs) {
-            UIView *jobsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-            jobsView.backgroundColor = [HNTheme colorForElement:@"HNJobs"];
-            [self insertSubview:jobsView atIndex:0];
+            self.backgroundColor = [HNTheme colorForElement:@"HNJobs"];
             self.scoreLabel.text = @"HN Jobs";
             self.postedTimeLabel.text = @"";
             self.commentBGButton.hidden = YES;
@@ -86,6 +94,13 @@
     }
     
     return self;
+}
+
+#pragma mark - Gesture Recognizer
+- (void)didDoubleTap:(UITapGestureRecognizer *)recognizer {
+    if ([self.delegate respondsToSelector:@selector(didDoubleTapToUpvotePostAtIndex:)]) {
+        [self.delegate didDoubleTapToUpvotePostAtIndex:self.Index];
+    }
 }
 
 

@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "LinksViewController.h"
 #import "SubmitHNViewController.h"
+#import "KGStatusBar.h"
 
 @interface PostsViewController () {
     // Home Page UI
@@ -83,6 +84,10 @@
     longPress.delegate = self;
     [frontPageTable addGestureRecognizer:longPress];
      */
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [frontPageTable reloadData];
 }
 
 
@@ -346,6 +351,24 @@
     }
     
     [self loadCommentsForPost:currentPost];
+}
+
+
+#pragma mark - Double Tap Gesture to Upvote
+- (void)didDoubleTapToUpvotePostAtIndex:(NSInteger)index {
+    if (index < homePagePosts.count) {
+        [[HNManager sharedManager] voteOnPostOrComment:homePagePosts[index] direction:VoteDirectionUp completion:^(BOOL success) {
+            if (success) {
+                [KGStatusBar showWithStatus:@"Voting Success"];
+                [[HNManager sharedManager] addHNObjectToVotedOnDictionary:homePagePosts[index] direction:VoteDirectionUp];
+                [homePagePosts[index] setPoints:[homePagePosts[index] Points] + 1];
+                [frontPageTable reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            else {
+                [KGStatusBar showWithStatus:@"Failed Voting"];
+            }
+        }];
+    }
 }
 
 @end

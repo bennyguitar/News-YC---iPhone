@@ -32,7 +32,7 @@
     }
     
     // Check Theme
-    if (![[NSUserDefaults standardUserDefaults] integerForKey:@"HNTheme"]) {
+    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"HNTheme"]) {
         [[NSUserDefaults standardUserDefaults] setInteger:HNThemeTypeNight forKey:@"HNTheme"];
     }
     

@@ -53,7 +53,7 @@ static HNManager * _sharedManager = nil;
         self.Service = [[HNWebService alloc] init];
         
         // Set up Voted On Dictionary
-        self.VotedOnDictionary = [NSMutableDictionary dictionary];
+        self.VotedOnDictionary = [[NSUserDefaults standardUserDefaults] valueForKey:@"VotedOnDictionary"] ? [[[NSUserDefaults standardUserDefaults] valueForKey:@"VotedOnDictionary"] mutableCopy] : [NSMutableDictionary dictionary];
         
         // Set Mark As Read
         if ([[NSUserDefaults standardUserDefaults] objectForKey:@"HN-MarkAsRead"]) {
@@ -235,12 +235,13 @@ static HNManager * _sharedManager = nil;
 #pragma mark - Voted On Dictionary
 - (BOOL)hasVotedOnObject:(id)hnObject {
     NSString *votedOnId = [hnObject isKindOfClass:[HNPost class]] ? [(HNPost *)hnObject PostId] : [(HNComment *)hnObject CommentId];
-    return [self.VotedOnDictionary objectForKey:votedOnId] != nil ? YES : NO;
+    return [self.VotedOnDictionary objectForKey:[NSString stringWithFormat:@"%@:%@",self.SessionUser.Username,votedOnId]] != nil ? YES : NO;
 }
 
 - (void)addHNObjectToVotedOnDictionary:(id)hnObject direction:(VoteDirection)direction {
     NSString *votedOnId = [hnObject isKindOfClass:[HNPost class]] ? [(HNPost *)hnObject PostId] : [(HNComment *)hnObject CommentId];
-    [self.VotedOnDictionary setObject:@(direction) forKey:votedOnId];
+    [self.VotedOnDictionary setObject:@(direction) forKey:[NSString stringWithFormat:@"%@:%@",self.SessionUser.Username,votedOnId]];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSDictionary dictionaryWithDictionary:self.VotedOnDictionary] forKey:@"VotedOnDictionary"];
 }
 
 #pragma mark - Cancel Requests
