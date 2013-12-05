@@ -204,9 +204,10 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    CGFloat insetHeight = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-    [self.bottomCommentInset setConstant:insetHeight+20];
-    [self.bottomSubmitTextInset setConstant:insetHeight+20];
+    CGSize keyboardSize = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    CGFloat keyboardHeight = UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]) ? keyboardSize.width : keyboardSize.height;
+    [self.bottomCommentInset setConstant:keyboardHeight+20];
+    [self.bottomSubmitTextInset setConstant:keyboardHeight+20];
     
     // Get Keyboard Height
     /*

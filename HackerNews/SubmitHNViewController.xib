@@ -91,6 +91,7 @@
                 <constraint firstItem="ONy-Jl-U3i" firstAttribute="leading" secondItem="FLD-gW-NfF" secondAttribute="leading" constant="139" id="0ux-ZP-LSq"/>
                 <constraint firstItem="k9R-kM-lTO" firstAttribute="leading" secondItem="FLD-gW-NfF" secondAttribute="leading" constant="20" id="5QG-7I-j5Q"/>
                 <constraint firstItem="Tam-A1-liv" firstAttribute="leading" secondItem="FLD-gW-NfF" secondAttribute="leading" constant="20" id="7hg-WJ-hX5"/>
+                <constraint firstItem="k9R-kM-lTO" firstAttribute="top" secondItem="FLD-gW-NfF" secondAttribute="top" constant="20" symbolic="YES" id="7or-Om-a27"/>
                 <constraint firstItem="ONy-Jl-U3i" firstAttribute="top" secondItem="Tam-A1-liv" secondAttribute="bottom" constant="5" id="Cqm-8O-zDb"/>
                 <constraint firstAttribute="trailing" secondItem="k9R-kM-lTO" secondAttribute="trailing" constant="20" id="LwK-5y-lkd"/>
                 <constraint firstAttribute="trailing" secondItem="b6Z-E5-pa3" secondAttribute="trailing" constant="20" id="MBP-jZ-Mvt"/>
@@ -107,7 +108,6 @@
                 <constraint firstAttribute="trailing" secondItem="Tam-A1-liv" secondAttribute="trailing" constant="20" id="rpc-rv-zBK"/>
                 <constraint firstItem="nLB-z7-eTJ" firstAttribute="top" secondItem="k9R-kM-lTO" secondAttribute="bottom" constant="8" id="shd-QO-gZb"/>
                 <constraint firstItem="nLB-z7-eTJ" firstAttribute="leading" secondItem="FLD-gW-NfF" secondAttribute="leading" constant="20" id="vAV-Ib-nK0"/>
-                <constraint firstItem="k9R-kM-lTO" firstAttribute="top" secondItem="FLD-gW-NfF" secondAttribute="top" constant="20" id="wes-Lu-YlI"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
