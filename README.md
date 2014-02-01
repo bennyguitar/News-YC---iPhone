@@ -13,6 +13,7 @@ News/YC is a reader for Hacker News (http://news.ycombinator.com), a portal for 
 ## Table of Contents ##
 
 * [The Code](#the-code)
+  * [Setting Up](#setting-up)
   * [libHN](#libhn)
   * [Posts View Controller](#posts-view-controller)
   * [Comments View Controller](#comments-view-controller)
@@ -31,6 +32,11 @@ News/YC is a reader for Hacker News (http://news.ycombinator.com), a portal for 
 
 * Current iOS SDK: 6.0+
 * Current AppStore Version: 2.1
+
+--------------------
+## Setting Up
+
+Because this project uses [Cocoapods](http://cocoapods.org/) for dependency management, you need to install the pods in the project before you can build and run the code. To do this, navigate to the project directory in Terminal.app. Then run this line: <code>pod install</code>, and that will build all of the other libraries that this project uses. Anytime you open this project, you should probably pull fresh from this GitHub repo and run <code>pod update</code> to make sure your code is up to date.
 
 --------------------
 ## libHN
@@ -99,9 +105,10 @@ There are a few helper methods that are used app-wide that build the navigation 
 
 News/YC uses the following third party libraries:
 
-* IIViewDeck - https://github.com/Inferis/ViewDeck
-* MYJsonWebservice - https://github.com/MatthewYork/JSON-Webservice-Template
-* KGStatusBar - https://github.com/kevingibbon/KGStatusBar
+* [IIViewDeck](https://github.com/Inferis/ViewDeck)
+* [MYJsonWebservice](https://github.com/MatthewYork/JSON-Webservice-Template)
+* [KGStatusBar](https://github.com/kevingibbon/KGStatusBar)
+* [TTTAttributedLabel](https://github.com/mattt/TTTAttributedLabel)
 
 --------------------
 ## What's To Come
