@@ -492,10 +492,6 @@
 		C01EDDDA1731553B00AE97B8 = {
 			isa = PBXGroup;
 			children = (
-				C08142171797975E00D1BB17 /* CoreText.framework */,
-				C01EDEB81733698D00AE97B8 /* MessageUI.framework */,
-				C01EDEB61733698600AE97B8 /* Social.framework */,
-				C01EDE451731A67C00AE97B8 /* QuartzCore.framework */,
 				C01EDDEC1731553B00AE97B8 /* HackerNews */,
 				C01EDDE51731553B00AE97B8 /* Frameworks */,
 				C01EDDE41731553B00AE97B8 /* Products */,
@@ -514,6 +510,10 @@
 		C01EDDE51731553B00AE97B8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C08142171797975E00D1BB17 /* CoreText.framework */,
+				C01EDEB81733698D00AE97B8 /* MessageUI.framework */,
+				C01EDEB61733698600AE97B8 /* Social.framework */,
+				C01EDE451731A67C00AE97B8 /* QuartzCore.framework */,
 				3C43E852182B09BC00A7ED14 /* Security.framework */,
 				C0CC4EAA1819ECB000D39DC5 /* StoreKit.framework */,
 				C01EDDE61731553B00AE97B8 /* UIKit.framework */,
