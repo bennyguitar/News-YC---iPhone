@@ -12,6 +12,7 @@
 #import "HNTheme.h"
 #import "KGStatusBar.h"
 #import "Helpers.h"
+#import <BGUtilities.h>
 
 @interface CommentsViewController ()
 
@@ -282,8 +283,22 @@
 
 #pragma mark - TTTAttributedLabelDelegate
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
-    LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:url post:nil];
-    [self.navigationController pushViewController:vc animated:YES];
+    // Load HN Links in CommentController
+    if ([url.absoluteString contains:@"https://news.ycombinator.com/item?id="]) {
+        NSScanner *scanner = [NSScanner scannerWithString:url.absoluteString];
+        NSString *newPostId = @"";
+        [scanner scanBetweenString:@"item?id=" andString:@"/" intoString:&newPostId];
+        HNPost *newPost = [HNPost new];
+        newPost.PostId = newPostId;
+        CommentsViewController *newCommentsVC = [[CommentsViewController alloc] initWithNibName:@"CommentsViewController" bundle:nil post:newPost];
+        [self.navigationController pushViewController:newCommentsVC animated:YES];
+    }
+    
+    // Load in LinksViewController
+    else {
+        LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:url post:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 
