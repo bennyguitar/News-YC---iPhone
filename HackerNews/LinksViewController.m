@@ -22,6 +22,10 @@
 @property (nonatomic, weak) UIActivityIndicatorView *indicator;
 @property (nonatomic, retain) UIButton *shareButton;
 @property (nonatomic, assign) BOOL Readability;
+@property (weak, nonatomic) IBOutlet UIView *webActionsView;
+@property (weak, nonatomic) IBOutlet UIButton *webBackButton;
+@property (weak, nonatomic) IBOutlet UIButton *webForwardButton;
+@property (weak, nonatomic) IBOutlet UIButton *webRefreshButton;
 @property (nonatomic, retain) HNPost *Post;
 @end
 
@@ -55,6 +59,10 @@
     
     // Load Link
     [self loadWebViewWithUrl:self.Url];
+    
+    // Build UI
+    [self buildWebActionsBackground];
+    [self buildWebActionsForWebViewState];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -92,6 +100,20 @@
     if (self.Post.UpvoteURLAddition && [[HNManager sharedManager] userIsLoggedIn] && ![[HNManager sharedManager] hasVotedOnObject:self.Post]) {
         [Helpers addUpvoteButtonToNavigationController:self action:@selector(upvoteCurrentPost)];
     }
+}
+
+- (void)buildWebActionsBackground {
+    self.webActionsView.backgroundColor = kOrangeColor;
+}
+
+- (void)buildWebActionsForWebViewState {
+    // Back Button
+    self.webBackButton.alpha = [self.LinkWebView canGoBack] ? 1.0 : 0.25;
+    self.webBackButton.userInteractionEnabled = [self.LinkWebView canGoBack];
+    
+    // Forward Button
+    self.webForwardButton.alpha = [self.LinkWebView canGoForward] ? 1.0 : 0.25;
+    self.webForwardButton.userInteractionEnabled = [self.LinkWebView canGoForward];
 }
 
 #pragma mark - Upvote
@@ -159,20 +181,50 @@
     if (self.Url) {
         NSURL *launchURL = self.Readability ? [NSURL URLWithString:[NSString stringWithFormat:@"http://www.readability.com/m?url=%@", [self.Url absoluteString]]] : self.Url;
         
+        [self.LinkWebView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
+        [self.LinkWebView loadRequest:[NSURLRequest requestWithURL:launchURL]];
+    }
+}
+
+- (void)showIndicator:(BOOL)show {
+    // Remove current indicator
+    [self.indicator removeFromSuperview];
+    
+    if (show) {
         // Launch Activity Indicator
         UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
         self.indicator = indicator;
         [Helpers navigationController:self addActivityIndicator:&indicator];
-        
-        [self.LinkWebView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML = \"\";"];
-        [self.LinkWebView loadRequest:[NSURLRequest requestWithURL:launchURL]];
     }
 }
 
 
 #pragma mark - Web View Delegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [self.indicator removeFromSuperview];
+    [self showIndicator:NO];
+    [self buildWebActionsForWebViewState];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [self showIndicator:YES];
+}
+
+
+#pragma mark - Web Actions
+- (IBAction)didSelectGoBack:(id)sender {
+    if ([self.LinkWebView canGoBack]) {
+        [self.LinkWebView goBack];
+    }
+}
+
+- (IBAction)didSelectGoForward:(id)sender {
+    if ([self.LinkWebView canGoForward]) {
+        [self.LinkWebView goForward];
+    }
+}
+
+- (IBAction)didSelectRefresh:(id)sender {
+    [self.LinkWebView reload];
 }
 
 

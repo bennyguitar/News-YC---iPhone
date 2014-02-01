@@ -8,6 +8,8 @@
 
 #import "CreditsCell.h"
 
+#define kBTCAddress @"172uHpvuFochdrDWNdt7rwhX32SYm5QF9K"
+
 @implementation CreditsCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -29,6 +31,7 @@
 - (void)setCellWithDelegate:(id<CreditsCellDelegate>)delegate {
     self.delegate = delegate;
     [self.githubButton addTarget:self action:@selector(didSelectGitHubButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.btcButton addTarget:self action:@selector(didSelectDonateBTC) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)didSelectGitHubButton {
@@ -36,5 +39,11 @@
         [self.delegate didClickGitHubLink];
     }
 }
+
+- (void)didSelectDonateBTC {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Donate Bitcoin" message:[NSString stringWithFormat:@"You can send all BTC donations to:\n\n%@", kBTCAddress] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+}
+
 
 @end

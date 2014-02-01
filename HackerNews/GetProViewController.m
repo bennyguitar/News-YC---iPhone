@@ -7,7 +7,7 @@
 //
 
 #import "GetProViewController.h"
-#import "SatelliteStore.h"
+#import <SatelliteStore.h>
 #import "Helpers.h"
 #import "HNTheme.h"
 #import "KGStatusBar.h"
@@ -117,7 +117,7 @@
 
 #pragma mark - Satellite Store
 - (void)purchasePro {
-    if ([[SatelliteStore shoppingCenter] inventoryHasProducts]) {
+    if ([[SatelliteStore shoppingCenter] Inventory]) {
         [[SatelliteStore shoppingCenter] purchaseProductWithIdentifier:kProProductID withCompletion:^(BOOL purchased) {
             [self setUIForPurchase:purchased];
         }];

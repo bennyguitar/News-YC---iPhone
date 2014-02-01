@@ -1,0 +1,22 @@
+PODS:
+  - BGUtilities (1.1)
+  - Colours (4.1)
+  - libHN (1.1.0)
+  - SatelliteStore (1.0.0)
+  - SpinKit (1.0.1)
+
+DEPENDENCIES:
+  - BGUtilities
+  - Colours
+  - libHN
+  - SatelliteStore
+  - SpinKit
+
+SPEC CHECKSUMS:
+  BGUtilities: 4d71a5dfb702569ea405518f67ac79012a6ac666
+  Colours: 72912c7baa2ce5bee076b6ce08f75791a3fa5244
+  libHN: e9918d3dbc2fa1f2d0abb55575aeeda4ac47f6b9
+  SatelliteStore: 78d95a6fd6a14c6d13430d05d0b4855271f7e61e
+  SpinKit: c7490233be81d8daf41da05dc463351423658aad
+
+COCOAPODS: 0.28.0

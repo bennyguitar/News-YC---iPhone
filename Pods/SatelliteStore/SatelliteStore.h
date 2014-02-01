@@ -23,8 +23,6 @@
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 
-#define kProProductID @"com.subvertllc.HackerNews.Pro"
-
 @class SatelliteStore;
 
 
@@ -58,7 +56,6 @@ typedef void (^PurchaseProductCompletion) (BOOL purchased);
 
 // Inventory
 - (SKProduct *)productFromInventoryWithIdentifier:(NSString *)identifier;
-- (BOOL)inventoryHasProducts;
 
 // Can Make Purchases
 - (BOOL)isOpenForBusiness;

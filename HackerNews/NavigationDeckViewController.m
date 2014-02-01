@@ -242,7 +242,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // FILTER CELL
-    if (indexPath.row == [[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 1 : 0) {
+    if (indexPath.row == 1) {
         NSString *CellIdentifier = @"FilterCell";
         FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -260,7 +260,7 @@
     }
     
     // PROFILE CELL
-    else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 0 : 998)) {
+    else if (indexPath.row == 0) {
         if ([HNManager sharedManager].SessionUser) {
             NSString *CellIdentifier = @"ProfileCell";
             ProfileLoggedInCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -299,6 +299,7 @@
         }
     }
     
+    /*
     else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 999 : 2)) {
         NSString *CellIdentifier = @"PurchaseCell";
         NavPurchaseProCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -315,7 +316,7 @@
         
         return cell;
     }
-
+     */
     // SHARE CELL
     else if (indexPath.row == 3) {
         NSString *CellIdentifier = @"ShareCell";
@@ -335,7 +336,7 @@
     }
     
     // SETTINGS CELL
-    else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 2 : 1)) {
+    else if (indexPath.row == 2) {
         NSString *CellIdentifier = @"SettingsCell";
         SettingsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -374,20 +375,17 @@
 }
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == [[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 1 : 0) {
+    if (indexPath.row == 1) {
         return kFilterCellHeight;
     }
-    else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 0 : 998)) {
+    else if (indexPath.row == 0) {
         if ([HNManager sharedManager].SessionUser.Username) {
             return kCellProfLoggedInHeight;
         }
         return kCellProfNotLoggedInHeight;
     }
-    else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 2 : 1)) {
+    else if (indexPath.row == 2) {
         return kCellSettingsHeight;
-    }
-    else if (indexPath.row == ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"] ? 998 : 2)) {
-        return kPurchaseProHeight;
     }
     else if (indexPath.row == 3) {
         return kCellShareHeight;

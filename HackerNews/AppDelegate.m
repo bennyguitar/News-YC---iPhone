@@ -13,6 +13,7 @@
 #import "HNManager.h"
 #import "PocketAPI.h"
 #import "SatelliteStore.h"
+#import "Helpers.h"
 
 @implementation AppDelegate
 
@@ -24,12 +25,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     // Set Pro & Start HNManager Session
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Pro"]) {
-        [[HNManager sharedManager] startSession];
-    }
-    else {
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Pro"];
-    }
+    [[HNManager sharedManager] startSession];
     
     // Check Theme
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"HNTheme"]) {
@@ -47,14 +43,6 @@
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"MarkAsRead"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MarkAsRead"];
     }
-    
-    // SatelliteStore: Set Up Store
-    [[SatelliteStore shoppingCenter] setProductIdentifiers:@[kProProductID]];
-    
-    // SatelliteStore: Get Pro Products
-    [[SatelliteStore shoppingCenter] getProductsWithCompletion:^(BOOL success) {
-        //
-    }];
     
     // Set View Controllers
     self.leftController = [[NavigationDeckViewController alloc] initWithNibName:@"NavigationDeckViewController" bundle:nil];

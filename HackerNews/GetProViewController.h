@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SatelliteStore.h"
+#import <SatelliteStore.h>
 
 @interface GetProViewController : UIViewController
 

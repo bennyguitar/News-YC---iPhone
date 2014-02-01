@@ -50,6 +50,7 @@ static SatelliteStore * _shoppingCenter = nil;
 - (id)init {
 	if (self = [super init]) {
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+        self.Inventory = [NSMutableDictionary dictionary];
 	}
 	return self;
 }
@@ -153,6 +154,9 @@ static SatelliteStore * _shoppingCenter = nil;
     // remove the transaction from the payment queue.
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
     
+    //Remove the transaction observer so there is no chance to send notification to nil object
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+    
     // Completion
     if (self.purchaseCompletion) {
         self.purchaseCompletion(wasSuccessful);
@@ -175,7 +179,6 @@ static SatelliteStore * _shoppingCenter = nil;
     {
         // this is fine, the user just cancelled, so don’t notify
         [self finishTransaction:transaction wasSuccessful:NO];
-        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
     }
 }
 
@@ -187,7 +190,6 @@ static SatelliteStore * _shoppingCenter = nil;
 
 #pragma mark - Inventory
 - (void)setInventoryWithProducts:(NSArray *)products {
-    self.Inventory = [NSMutableDictionary dictionary];
     [products enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[SKProduct class]]) {
             [self.Inventory setObject:obj forKey:[(SKProduct *)products[idx] productIdentifier]];
@@ -201,10 +203,6 @@ static SatelliteStore * _shoppingCenter = nil;
     }
     
     return nil;
-}
-
-- (BOOL)inventoryHasProducts {
-    return self.Inventory ? YES : NO;
 }
 
 #pragma mark - Open for Business

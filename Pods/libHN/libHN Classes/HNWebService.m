@@ -513,7 +513,7 @@
     [operation setUrlPath:urlPath data:bodyData cookie:[[HNManager sharedManager] SessionCookie] completion:^{
         if (blockOperation.responseData) {
             NSString *html = [[NSString alloc] initWithData:blockOperation.responseData encoding:NSUTF8StringEncoding];
-            if ([html rangeOfString:@"logout?whence=%6e%65%77%73"].location != NSNotFound) {
+            if ([html rangeOfString:@"logout?whence=%6e%65%77%65%73%74"].location != NSNotFound || [html rangeOfString:@"logout?whence=%6e%65%77%73"].location != NSNotFound) {
                 // It worked!
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completion(YES);

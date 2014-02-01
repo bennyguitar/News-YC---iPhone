@@ -15,6 +15,8 @@
 #define kHeaderImageHeight 44
 #define kHeaderImageWidth 98
 
+#define kProProductID @"com.subvertllc.HackerNews.Pro"
+
 @interface Helpers : NSObject
 
 +(void)makeShadowForView:(UIView *)s withRadius:(float)radius;

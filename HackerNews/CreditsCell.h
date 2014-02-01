@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kCellCreditsHeight 183
+#define kCellCreditsHeight 220
 
 @protocol CreditsCellDelegate <NSObject>
 
@@ -20,6 +20,7 @@
 
 @property (weak) id <CreditsCellDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *githubButton;
+@property (weak, nonatomic) IBOutlet UIButton *btcButton;
 
 - (void)setCellWithDelegate:(id<CreditsCellDelegate>)delegate;
 
