@@ -143,6 +143,7 @@
     [Helpers buildNavigationController:self leftImage:YES rightImages:([[HNManager sharedManager] userIsLoggedIn] ? @[[UIImage imageNamed:@"submit_button-01"]] : nil) rightActions:([[HNManager sharedManager] userIsLoggedIn] ? @[@"didClickSubmitLink"] : nil)];
 }
 
+
 #pragma mark - Toggle Nav
 - (IBAction)toggleSideNav:(id)sender {
     [self.viewDeckController toggleLeftView];
@@ -225,6 +226,7 @@
     [self.navigationController pushViewController:previousCommentsViewController animated:YES];
 }
 
+
 #pragma mark - Load Links
 -(void)loadLinksForPost:(HNPost *)post {
     if (previousLinksViewController.Post.PostId != post.PostId) {
@@ -236,17 +238,10 @@
     [self.navigationController pushViewController:previousLinksViewController animated:YES];
 }
 
+
 #pragma mark - UIRefreshControl Stuff
 -(void)endRefreshing:(UIRefreshControl *)refresher {
     [refresher endRefreshing];
-}
-
-
-#pragma mark - Vote for HNObject
--(void)voteForPost:(HNPost *)post {
-    [[HNManager sharedManager] voteOnPostOrComment:post direction:VoteDirectionUp completion:^(BOOL success) {
-        NSLog(@"%d", success);
-    }];
 }
 
 
@@ -337,6 +332,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return kFrontPageCellHeight;
 }
+
 
 #pragma mark - Launch/Hide Comments & Link View
 -(void)didClickCommentsFromHomepage:(UIButton *)commentButton {

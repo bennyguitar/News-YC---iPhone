@@ -70,7 +70,6 @@ static HNTheme * _currentTheme = nil;
         [[HNTheme currentTheme].themeDict setValue:kOrangeColor forKey:@"NavBar"];
     }
     else {
-        NSLog(@"%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"Theme"]);
         [[HNTheme currentTheme].themeDict setValue:[UIColor colorWithWhite:0.85 alpha:1.0] forKey:@"CellBG"];
         [[HNTheme currentTheme].themeDict setValue:[UIColor colorWithWhite:0.4 alpha:1.0] forKey:@"MainFont"];
         [[HNTheme currentTheme].themeDict setValue:[UIColor colorWithWhite:0.20 alpha:1.0] forKey:@"SubFont"];

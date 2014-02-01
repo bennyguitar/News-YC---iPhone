@@ -1007,8 +1007,6 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
 {
     UITouch *touch = [touches anyObject];
     
-    NSLog(@"%@", NSStringFromCGRect(self.frame));
-    
     self.activeLink = [self linkAtPoint:[touch locationInView:self]];
         
     if (!self.activeLink) {
