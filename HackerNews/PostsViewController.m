@@ -213,6 +213,7 @@
 
 #pragma mark - Load Comments
 -(void)loadCommentsForPost:(HNPost *)post {
+    currentPost = post;
     CommentsViewController *vc = [[CommentsViewController alloc] initWithNibName:@"CommentsViewController" bundle:nil post:post];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -220,7 +221,7 @@
 
 #pragma mark - Load Links
 -(void)loadLinksForPost:(HNPost *)post {
-    LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:[NSURL URLWithString:currentPost.UrlString] post:currentPost];
+    LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:[NSURL URLWithString:currentPost.UrlString] post:post];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

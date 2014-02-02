@@ -65,10 +65,6 @@
     [self buildWebActionsForWebViewState];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [[HNManager sharedManager] cancelAllRequests];
-}
-
 - (void)viewDidDisappear:(BOOL)animated {
     [self showIndicator:NO];
 }
