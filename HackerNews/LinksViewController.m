@@ -66,14 +66,11 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    self.indicator.alpha = 0;
-    [self.indicator removeFromSuperview];
     [[HNManager sharedManager] cancelAllRequests];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    self.indicator.alpha = 0;
-    [self.indicator removeFromSuperview];
+    [self showIndicator:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,9 +88,15 @@
 
 #pragma mark - UI
 - (void)buildNavBar {
-    // Build Nav
-    NSArray *images = @[[UIImage imageNamed:@"share_button-01"]];
-    NSArray *actions = @[@"didClickShare"];
+    // Build Nav Images/Actions
+    NSMutableArray *images = [@[[UIImage imageNamed:@"share_button-01"]] mutableCopy];
+    NSMutableArray *actions = [@[@"didClickShare"] mutableCopy];
+    if (self.Post) {
+        [images addObject:[UIImage imageNamed:@"goToComments-01"]];
+        [actions addObject:@"didClickComment"];
+    }
+    
+    // Add to Nav
     [Helpers buildNavigationController:self leftImage:NO rightImages:images rightActions:actions];
     
     // Add Upvote if Necessary
@@ -187,15 +190,7 @@
 }
 
 - (void)showIndicator:(BOOL)show {
-    // Remove current indicator
-    [self.indicator removeFromSuperview];
-    
-    if (show) {
-        // Launch Activity Indicator
-        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
-        self.indicator = indicator;
-        [Helpers navigationController:self addActivityIndicator:&indicator];
-    }
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:show];
 }
 
 

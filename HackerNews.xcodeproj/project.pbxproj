@@ -54,6 +54,9 @@
 		B6208660189DADDE0072299F /* web_back-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B620865D189DADDE0072299F /* web_back-01.png */; };
 		B6208661189DADDE0072299F /* web_forward-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B620865E189DADDE0072299F /* web_forward-01.png */; };
 		B6208662189DADDE0072299F /* web_refresh-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B620865F189DADDE0072299F /* web_refresh-01.png */; };
+		B6208665189E86A60072299F /* goToComments-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B6208663189E86A60072299F /* goToComments-01.png */; };
+		B6208666189E86A60072299F /* goToLink-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B6208664189E86A60072299F /* goToLink-01.png */; };
+		B6208668189E8CBD0072299F /* y_header-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B6208667189E8CBD0072299F /* y_header-01.png */; };
 		C012E5CC173B09440030924E /* logoutOrange-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C012E5CB173B09440030924E /* logoutOrange-01.png */; };
 		C01EDDE71731553B00AE97B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDDE61731553B00AE97B8 /* UIKit.framework */; };
 		C01EDDE91731553B00AE97B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01EDDE81731553B00AE97B8 /* Foundation.framework */; };
@@ -213,6 +216,9 @@
 		B620865D189DADDE0072299F /* web_back-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "web_back-01.png"; sourceTree = "<group>"; };
 		B620865E189DADDE0072299F /* web_forward-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "web_forward-01.png"; sourceTree = "<group>"; };
 		B620865F189DADDE0072299F /* web_refresh-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "web_refresh-01.png"; sourceTree = "<group>"; };
+		B6208663189E86A60072299F /* goToComments-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goToComments-01.png"; sourceTree = "<group>"; };
+		B6208664189E86A60072299F /* goToLink-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goToLink-01.png"; sourceTree = "<group>"; };
+		B6208667189E8CBD0072299F /* y_header-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "y_header-01.png"; sourceTree = "<group>"; };
 		C012E5CB173B09440030924E /* logoutOrange-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoutOrange-01.png"; sourceTree = "<group>"; };
 		C01EDDE31731553B00AE97B8 /* HackerNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C01EDDE61731553B00AE97B8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -659,6 +665,9 @@
 		C01EDE4B1731A7E400AE97B8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B6208667189E8CBD0072299F /* y_header-01.png */,
+				B6208663189E86A60072299F /* goToComments-01.png */,
+				B6208664189E86A60072299F /* goToLink-01.png */,
 				C02032BB18270E680038950B /* topicon.png */,
 				B620865B189DABB00072299F /* nav_btc-01.png */,
 				B620865D189DADDE0072299F /* web_back-01.png */,
@@ -842,10 +851,12 @@
 				C01EDE361731A44200AE97B8 /* CreditsCell.xib in Resources */,
 				C01EDE3C1731A4BB00AE97B8 /* frontPageCell.xib in Resources */,
 				C01EDE411731A4C900AE97B8 /* CommentsCell.xib in Resources */,
+				B6208665189E86A60072299F /* goToComments-01.png in Resources */,
 				C01EDE491731A7C400AE97B8 /* icon57.png in Resources */,
 				C01EDE4A1731A7C400AE97B8 /* icon114.png in Resources */,
 				C01EDE631731A84800AE97B8 /* check-01.png in Resources */,
 				C01EDE641731A84800AE97B8 /* github-01.png in Resources */,
+				B6208668189E8CBD0072299F /* y_header-01.png in Resources */,
 				C078EE19181ACB7A008DC47C /* nav_submit_ios6-01.png in Resources */,
 				C01EDE651731A84800AE97B8 /* website-01.png in Resources */,
 				C0CC4E8D1817550F00D39DC5 /* comment_button-01.png in Resources */,
@@ -912,6 +923,7 @@
 				C0CC4E841816D76100D39DC5 /* CommentsViewController.xib in Resources */,
 				6C2DAAFD174C9C2E0069BAE1 /* nl.lproj in Resources */,
 				6C2DAAFE174C9C2E0069BAE1 /* no.lproj in Resources */,
+				B6208666189E86A60072299F /* goToLink-01.png in Resources */,
 				6C2DAAFF174C9C2E0069BAE1 /* pl.lproj in Resources */,
 				6C2DAB00174C9C2E0069BAE1 /* pt.lproj in Resources */,
 				6C2DAB01174C9C2E0069BAE1 /* ru.lproj in Resources */,

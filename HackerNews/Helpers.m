@@ -113,19 +113,23 @@
     }
     
     // Set Center Image
+    
     for (UIView *subview in controller.navigationController.navigationBar.subviews) {
         if (subview.tag == 999) {
             [subview removeFromSuperview];
         }
     }
-    CGFloat headerHeight = controller.navigationController.navigationBar.frame.size.height > 40 ? kHeaderImageHeight : 40;
-    UIImageView *mainImage = [[UIImageView alloc] initWithFrame:CGRectMake(controller.navigationController.navigationBar.frame.size.width/2 - headerHeight*2.23/2, controller.navigationController.navigationBar.frame.size.height - headerHeight, headerHeight*2.23, headerHeight)];
-    mainImage.image = [UIImage imageNamed:@"header_img"];
+    NSLog(@"%f", controller.navigationController.navigationBar.frame.size.height);
+    CGFloat imageSize = controller.navigationController.navigationBar.frame.size.height > 40 ? kHeaderImageHeight : kHeaderImageHeight*0.85;
+    UIImageView *mainImage = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,imageSize,imageSize)];
+    mainImage.center = CGPointMake(controller.navigationController.navigationBar.center.x, controller.navigationController.navigationBar.frame.size.height/2);
+    mainImage.image = [UIImage imageNamed:@"y_header-01"];
     mainImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleTopMargin;
     mainImage.contentMode = UIViewContentModeScaleAspectFit;
     mainImage.tag = 999;
     [controller.navigationController.navigationBar addSubview:mainImage];
     
+     
     // Get Icon size ready
     float iconSize = 35;
     
@@ -241,6 +245,7 @@
     [menuItems addObject:menuItem];
     [controller.navigationItem setRightBarButtonItems:menuItems animated:YES];
 }
+
 
 @end
 

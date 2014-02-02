@@ -69,6 +69,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     //self.Comments = nil;
     [[HNManager sharedManager] cancelAllRequests];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 #pragma mark - UI
@@ -91,8 +92,22 @@
 }
 
 - (void)buildNavBar {
+    // Set Up NavBar Actions/Images
     BOOL userIsLoggedIn = [[HNManager sharedManager] userIsLoggedIn];
-    [Helpers buildNavigationController:self leftImage:NO rightImages:(userIsLoggedIn ? @[[UIImage imageNamed:@"comment_button-01"]] : nil) rightActions:(userIsLoggedIn ? @[@"didClickSubmitComment"] : nil)];
+    BOOL postHasLink = self.Post ? (self.Post.UrlString ? YES : NO) : NO;
+    NSMutableArray *rightImages = [NSMutableArray array];
+    NSMutableArray *rightActions = [NSMutableArray array];
+    if (userIsLoggedIn) {
+        [rightImages addObject:[UIImage imageNamed:@"comment_button-01"]];
+        [rightActions addObject:@"didClickSubmitComment"];
+    }
+    if (postHasLink) {
+        [rightImages addObject:[UIImage imageNamed:@"goToLink-01"]];
+        [rightActions addObject:@"goToLink"];
+    }
+    
+    // Create buttons/actions
+    [Helpers buildNavigationController:self leftImage:NO rightImages:rightImages rightActions:rightActions];
     
     // Add Upvote if Necessary
     if (self.Post.UpvoteURLAddition && [[HNManager sharedManager] userIsLoggedIn] && ![[HNManager sharedManager] hasVotedOnObject:self.Post]) {
@@ -189,12 +204,20 @@
 }
 
 
+#pragma mark - Go to Link
+- (void)goToLink {
+    if (self.Post && self.Post.UrlString) {
+        LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:[NSURL URLWithString:self.Post.UrlString] post:self.Post];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+
 #pragma mark - WebService
 - (void)loadComments {
     if (self.Post) {
-        // Add Activity Indicator View
-        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
-        [Helpers navigationController:self addActivityIndicator:&indicator];
+        // Show Indicator
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         
         // Load Comments
         [[HNManager sharedManager] loadCommentsFromPost:self.Post completion:^(NSArray *comments) {
@@ -202,19 +225,19 @@
                 self.Comments = [comments mutableCopy];
             }
             
-            [self refreshTable:self.CommentsTableView indicator:indicator];
+            [self refreshTable:self.CommentsTableView];
         }];
     }
 }
 
 
 #pragma mark - Refresh Table
-- (void)refreshTable:(UITableView *)tableView indicator:(UIActivityIndicatorView *)indicator {
+- (void)refreshTable:(UITableView *)tableView {
     [tableView reloadData];
-    [indicator removeFromSuperview];
     [self.refreshControl endRefreshing];
     self.LoadingCommentsView.alpha = 0;
     self.CommentsTableView.alpha = 1;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 

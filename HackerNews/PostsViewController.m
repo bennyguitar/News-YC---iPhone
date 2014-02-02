@@ -19,8 +19,6 @@
     UIRefreshControl *frontPageRefresher;    // Data
     NSMutableArray *homePagePosts;
     HNPost *currentPost;
-    LinksViewController *previousLinksViewController;
-    CommentsViewController *previousCommentsViewController;
 }
 
 @property (nonatomic, retain) NSString *Username;
@@ -172,9 +170,8 @@
     // Clear fnid
     [[HNManager sharedManager] setPostUrlAddition:nil];
     
-    // Add activity indicator
-    __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
-    [Helpers navigationController:self addActivityIndicator:&indicator];
+    // Show indicator
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     if (self.Username) {
         // Load Posts for User
@@ -183,15 +180,14 @@
                 homePagePosts = [posts mutableCopy];
                 [frontPageTable reloadData];
                 [self endRefreshing:frontPageRefresher];
-                indicator.alpha = 0;
-                [indicator removeFromSuperview];
             }
             else {
                 [FailedLoadingView launchFailedLoadingInView:self.view];
                 [self endRefreshing:frontPageRefresher];
-                indicator.alpha = 0;
-                [indicator removeFromSuperview];
             }
+            
+            // Hide indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             
         }];
     }
@@ -202,15 +198,14 @@
                 homePagePosts = [posts mutableCopy];
                 [frontPageTable reloadData];
                 [self endRefreshing:frontPageRefresher];
-                indicator.alpha = 0;
-                [indicator removeFromSuperview];
             }
             else {
                 [FailedLoadingView launchFailedLoadingInView:self.view];
                 [self endRefreshing:frontPageRefresher];
-                indicator.alpha = 0;
-                [indicator removeFromSuperview];
             }
+            
+            // Hide indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
     }
 }
@@ -218,24 +213,15 @@
 
 #pragma mark - Load Comments
 -(void)loadCommentsForPost:(HNPost *)post {
-    if (previousCommentsViewController.Post.PostId != post.PostId) {
-        CommentsViewController *vc = [[CommentsViewController alloc] initWithNibName:@"CommentsViewController" bundle:nil post:post];
-        previousCommentsViewController = vc;
-    }
-    
-    [self.navigationController pushViewController:previousCommentsViewController animated:YES];
+    CommentsViewController *vc = [[CommentsViewController alloc] initWithNibName:@"CommentsViewController" bundle:nil post:post];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
 #pragma mark - Load Links
 -(void)loadLinksForPost:(HNPost *)post {
-    if (previousLinksViewController.Post.PostId != post.PostId) {
-        NSURL *linkUrl = [NSURL URLWithString:currentPost.UrlString];
-        LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:linkUrl post:currentPost];
-        previousLinksViewController = vc;
-    }
-    
-    [self.navigationController pushViewController:previousLinksViewController animated:YES];
+    LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:[NSURL URLWithString:currentPost.UrlString] post:currentPost];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
