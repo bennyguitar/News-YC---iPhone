@@ -41,7 +41,7 @@
 }
 
 - (void)didSelectDonateBTC {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Donate Bitcoin" message:[NSString stringWithFormat:@"You can send all BTC donations to:\n\n%@", kBTCAddress] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Support Development!" message:[NSString stringWithFormat:@"You can help support this app by donating Bitcoins. Send all BTC donations to:\n\n%@", kBTCAddress] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
 }
 
