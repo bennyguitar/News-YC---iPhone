@@ -63,12 +63,12 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[HNManager sharedManager] cancelAllRequests];
+    //[[HNManager sharedManager] cancelAllRequests];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     //self.Comments = nil;
-    [[HNManager sharedManager] cancelAllRequests];
+    //[[HNManager sharedManager] cancelAllRequests];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
