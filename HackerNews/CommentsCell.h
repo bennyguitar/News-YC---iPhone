@@ -22,17 +22,17 @@
 
 @protocol CommentCellDelegate <NSObject>
 
-- (void)didClickShareCommentAtIndex:(int)index;
-- (void)didClickReplyToCommentAtIndex:(int)index;
-- (void)didClickUpvoteCommentAtIndex:(int)index;
-- (void)didClickDownvoteCommentAtIndex:(int)index;
+- (void)didClickShareCommentAtIndex:(NSInteger)index;
+- (void)didClickReplyToCommentAtIndex:(NSInteger)index;
+- (void)didClickUpvoteCommentAtIndex:(NSInteger)index;
+- (void)didClickDownvoteCommentAtIndex:(NSInteger)index;
 
 @end
 
 @interface CommentsCell : UITableViewCell <TTTAttributedLabelDelegate> {
 }
 
-@property (nonatomic, assign) int Index;
+@property (nonatomic, assign) NSInteger Index;
 @property (retain, nonatomic) IBOutlet UILabel *username;
 @property (retain, nonatomic) IBOutlet UILabel *postedTime;
 @property (retain, nonatomic) IBOutlet TTTAttributedLabel *comment;

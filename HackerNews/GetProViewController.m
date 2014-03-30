@@ -112,30 +112,7 @@
     [proString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:[proString.string rangeOfString:@"Thanks for purchasing pro, and I really hope you like it!"]];
     
     return proString;
-}
 
-
-#pragma mark - Satellite Store
-- (void)purchasePro {
-    if ([[SatelliteStore shoppingCenter] Inventory]) {
-        [[SatelliteStore shoppingCenter] purchaseProductWithIdentifier:kProProductID withCompletion:^(BOOL purchased) {
-            [self setUIForPurchase:purchased];
-        }];
-    }
-    else {
-        [[SatelliteStore shoppingCenter] getProductsWithCompletion:^(BOOL success) {
-            if (success) {
-                // Try again
-                [self purchasePro];
-            }
-        }];
-    }
-}
-
-- (void)restorePro {
-    [[SatelliteStore shoppingCenter] restorePurchasesWithCompletion:^(BOOL purchased) {
-        [self setUIForPurchase:purchased];
-    }];
 }
 
 - (void)setUIForPurchase:(BOOL)purchased {
@@ -156,14 +133,5 @@
     }
 }
 
-
-#pragma mark - Actions
-- (IBAction)didClickPurchasePro:(id)sender {
-    [self purchasePro];
-}
-
-- (IBAction)didClickRestorePro:(id)sender {
-    [self restorePro];
-}
 
 @end

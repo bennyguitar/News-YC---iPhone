@@ -13,6 +13,7 @@
 @protocol CreditsCellDelegate <NSObject>
 
 - (void)didClickGitHubLink;
+- (void)didClickBTCAddress;
 
 @end
 

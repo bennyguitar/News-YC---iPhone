@@ -42,8 +42,8 @@
     // - Change it to local time
     NSTimeZone *currentTimeZone = [NSTimeZone defaultTimeZone];
     NSTimeZone *utcTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-    int currentGMTOffset = [currentTimeZone secondsFromGMTForDate:date];
-    int gmtOffset = [utcTimeZone secondsFromGMTForDate:date];
+    NSInteger currentGMTOffset = [currentTimeZone secondsFromGMTForDate:date];
+    NSInteger gmtOffset = [utcTimeZone secondsFromGMTForDate:date];
     NSTimeInterval gmtInterval = currentGMTOffset - gmtOffset;
     NSDate *localDate = [[NSDate alloc] initWithTimeInterval:gmtInterval sinceDate:date];
     

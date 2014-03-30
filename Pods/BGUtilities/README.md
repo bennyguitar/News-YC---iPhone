@@ -91,6 +91,15 @@ NSString *sentence = @"This sentence contains 6 unique words words.";
 }];
 ```
 
+**Concatenate NSStrings**
+
+Concatenating can be quite annoying in Objective-C, and I'm here to partially ease the pain. Unfortunately we don't have the simplicity of say <code>@"Hello" + @" World"</code>, but it is better than using <code>stringWithFormat:</code>. Hopefully you enjoy the compromise:
+
+```objc
+NSString *concatenated = [NSString stringByConcatenating:@"Hello",@" World",nil];
+```
+
+
 ## NSScanner
 
 **Scan a string that is between two other strings**

@@ -89,4 +89,12 @@
 - (void)enumerateWordsUsingBlock:(void (^)(NSString *word, NSInteger index, BOOL *stop))block;
 
 
+#pragma mark - Concatenate
+/**
+ Returns an NSString after concatenating all of the strings in the order they are in the passed in.
+ @param @"Hello",@"World"
+ @return NSString
+ */
++ (instancetype)stringByConcatenating:(NSString *)string, ... NS_REQUIRES_NIL_TERMINATION;
+
 @end

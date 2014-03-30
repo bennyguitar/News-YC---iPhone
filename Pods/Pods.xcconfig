@@ -1,4 +1,5 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BGUtilities" "${PODS_ROOT}/Headers/Colours" "${PODS_ROOT}/Headers/SatelliteStore" "${PODS_ROOT}/Headers/SpinKit" "${PODS_ROOT}/Headers/libHN"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BGUtilities" "${PODS_ROOT}/Headers/BTCDonationViewController" "${PODS_ROOT}/Headers/Colours" "${PODS_ROOT}/Headers/SatelliteStore" "${PODS_ROOT}/Headers/SpinKit" "${PODS_ROOT}/Headers/libHN"
+OTHER_CFLAGS = $(inherited) "-isystem${PODS_ROOT}/Headers" "-isystem${PODS_ROOT}/Headers/BGUtilities" "-isystem${PODS_ROOT}/Headers/BTCDonationViewController" "-isystem${PODS_ROOT}/Headers/Colours" "-isystem${PODS_ROOT}/Headers/SatelliteStore" "-isystem${PODS_ROOT}/Headers/SpinKit" "-isystem${PODS_ROOT}/Headers/libHN"
 OTHER_LDFLAGS = -ObjC
 PODS_ROOT = ${SRCROOT}/Pods

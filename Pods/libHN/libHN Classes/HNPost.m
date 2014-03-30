@@ -128,4 +128,18 @@
     return postArray;
 }
 
+- (NSString *)UrlDomain {
+    NSString *urlDomain = nil;
+    
+    if (self.UrlString) {
+        NSURL *url = [NSURL URLWithString:self.UrlString];
+        urlDomain = [url host];
+        if ([urlDomain hasPrefix:@"www."]) {
+            urlDomain = [urlDomain substringFromIndex:4];
+        }
+    }
+
+    return urlDomain;
+}
+
 @end

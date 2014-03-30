@@ -257,7 +257,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *CellIdentifier = [NSString stringWithFormat:@"CommentCell %d", indexPath.row];
+    NSString *CellIdentifier = [NSString stringWithFormat:@"CommentCell %ld", (long)indexPath.row];
     CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray* views = [[NSBundle mainBundle] loadNibNamed:@"CommentsCell" owner:nil options:nil];
@@ -276,7 +276,7 @@
     return cell;
 }
 
-- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     BOOL auxiliary = self.AuxiliaryClickIndex && (indexPath.row == [self.AuxiliaryClickIndex intValue]);
     HNComment *comment = indexPath.row < self.Comments.count ? self.Comments[indexPath.row] : nil;
     float cellHeight = [CommentsCell heightForComment:comment isAuxiliary:auxiliary];
@@ -326,12 +326,12 @@
 
 
 #pragma mark - Comment Cell Delegate
-- (void)didClickReplyToCommentAtIndex:(int)index {
+- (void)didClickReplyToCommentAtIndex:(NSInteger)index {
     SubmitHNViewController *vc = [[SubmitHNViewController alloc] initWithNibName:@"SubmitHNViewController" bundle:nil type:SubmitHNTypeComment hnObject:self.Comments[index] commentIndex:@(index)];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)didClickShareCommentAtIndex:(int)index {
+- (void)didClickShareCommentAtIndex:(NSInteger)index {
     HNComment *shareComment = self.Comments[index];
     NSMutableString *shareString = [@"" mutableCopy];
     [shareString appendFormat:@"%@:\n%@\n\nhttps://news.ycombinator.com/item?id=%@", shareComment.Username, shareComment.Text, shareComment.CommentId];
@@ -340,11 +340,11 @@
     [self presentViewController:activityController animated:YES completion:nil];
 }
 
-- (void)didClickUpvoteCommentAtIndex:(int)index {
+- (void)didClickUpvoteCommentAtIndex:(NSInteger)index {
     [self voteOnComment:self.Comments[index] direction:VoteDirectionUp];
 }
 
-- (void)didClickDownvoteCommentAtIndex:(int)index {
+- (void)didClickDownvoteCommentAtIndex:(NSInteger)index {
     [self voteOnComment:self.Comments[index] direction:VoteDirectionDown];
 }
 

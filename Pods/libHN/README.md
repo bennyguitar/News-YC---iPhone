@@ -90,7 +90,7 @@ Now that you've gotten the first set of posts, use this method to keep retrievin
 
 ```objc
 [[HNManager sharedManager] loadPostsWithUrlAddition:[[HNManager sharedManager] postUrlAddition] completion:(NSArray *posts){
-  if (posts) {
+  if (posts && posts.count > 0) {
     // Posts were successfuly retrieved
   }
   else {

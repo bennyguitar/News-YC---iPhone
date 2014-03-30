@@ -7,6 +7,9 @@
 //
 
 #import "NavigationDeckViewController.h"
+#import <BTCDonationViewController.h>
+
+static NSString * const kBTCAddress = @"1LvoCg2axTrjgmGN6qT9kKXTA1M3ckBKJL";
 
 @interface NavigationDeckViewController ()
 
@@ -178,6 +181,19 @@
     LinksViewController *vc = [[LinksViewController alloc] initWithNibName:@"LinksViewController" bundle:nil url:[NSURL URLWithString:@"https://github.com/bennyguitar/News-YC---iPhone"] post:nil];
     [(UINavigationController *)self.viewDeckController.centerController pushViewController:vc animated:YES];
     [self.viewDeckController toggleLeftView];
+}
+
+- (void)didClickBTCAddress {
+    NSDictionary *uiOptions = @{kBTCDonationUIKeyBackgroundColor:[HNTheme colorForElement:@"CellBG"],
+                                kBTCDonationUIKeyQRColor:[HNTheme colorForElement:@"MainFont"],
+                                kBTCDonationUIKeyAddressLinkColor:[HNTheme colorForElement:@"SubFont"],
+                                kBTCDonationUIKeyFooterTextColor:[HNTheme colorForElement:@"MainFont"],
+                                kBTCDonationUIKeyHeaderBottomTextColor:[HNTheme colorForElement:@"MainFont"],
+                                kBTCDonationUIKeyHeaderTopTextColor:[HNTheme colorForElement:@"MainFont"]};
+    BTCDonationViewController *vc = [BTCDonationViewController newControllerWithBTCAddress:kBTCAddress options:uiOptions];
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [(UINavigationController *)del.deckController.centerController pushViewController:vc animated:YES];
+    [del.deckController toggleLeftView];
 }
 
 
@@ -374,7 +390,7 @@
     return nil;
 }
 
--(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 1) {
         return kFilterCellHeight;
     }

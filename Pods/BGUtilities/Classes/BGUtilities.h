@@ -27,5 +27,6 @@
 #import "NSScanner+BGScannerUtilities.h"
 #import "UIView+BGViewUtilities.h"
 #import "BGSystemUtilities.h"
+#import "UIImage+BGImageUtilities.h"
 
 #endif

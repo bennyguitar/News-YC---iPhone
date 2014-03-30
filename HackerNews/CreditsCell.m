@@ -8,8 +8,6 @@
 
 #import "CreditsCell.h"
 
-#define kBTCAddress @"172uHpvuFochdrDWNdt7rwhX32SYm5QF9K"
-
 @implementation CreditsCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -41,8 +39,9 @@
 }
 
 - (void)didSelectDonateBTC {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Support Development!" message:[NSString stringWithFormat:@"You can help support this app by donating Bitcoins. Send all BTC donations to:\n\n%@", kBTCAddress] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    [alert show];
+    if ([self.delegate respondsToSelector:@selector(didClickBTCAddress)]) {
+        [self.delegate didClickBTCAddress];
+    }
 }
 
 

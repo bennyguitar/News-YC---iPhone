@@ -10,12 +10,30 @@ Drag the included **Colours.h** and **Colours.m** files into your project. They 
 
 **Cocoapods**
 
-<code>pod 'Colours'</code>
+*Note: 5.0.0 breaks previous versions' rgbaDictionary and hsbaDictionary methods!*
+
+<code>pod 'Colours', '~> 5.1.1'</code>
 
 **NSColor**
 
 Colours supports <code>NSColor</code> out of the box! Just make sure you have the <code>AppKit</code> framework installed (it comes that way for a new application) and you will be set. This README uses UIColor for its examples, just substitute NSColor and the methods are all the same.
 
+## Table of Contents
+* [Color Palette](#color-palette)
+* [Using Predefined Colors](#using-predefined-colors)
+* [Color Helper Methods](#color-helper-methods)
+  * [Hex String](#hex-string)
+  * [RGBA](#rgba)
+  * [HSBA](#hsba)
+  * [CIELAB](#cielab)
+  * [CMYK](#cmyk)
+  * [Color Components](#color-components)
+  * [Black or White Contrasting Color](#black-or-white-contrasting-color)
+  * [Complementary Color](#complementary-color)
+* [Distance between 2 Colors](#distance-between-2-colors)
+* [Generating Color Schemes](#generating-color-schemes)
+* [Android](#android)
+* [Reap What I Sow!](#reap-what-i-sow)
 
 ## Color Palette
 
@@ -31,12 +49,16 @@ Colours was set up to be exactly like using an Apple predefined system color. Fo
 
 Beyond giving you a list of a ton of colors with no effort, this category also gives you some methods that allow different color manipulations and translations. Here's how you use these:
 
-**Hex String to and from a UIColor**
+#### Hex String
+
+You can convert the commonly seen hexadecimal color string (ahh, thank you CSS) to a UIColor, and vice versa, very easily using the following methods:
 
 ```objc
 UIColor *newColor = [UIColor colorFromHexString:@"#f587e4"];
 NSString *hexString = [newColor hexString];
 ```
+
+#### RGBA
 
 **RGBA Array to and from a UIColor**
 
@@ -49,16 +71,29 @@ UIColor *newColor = [UIColor colorFromRGBAArray:colorArray];
 
 **RGBA Dictionary to and from a UIColor**
 
-Similar to the array method above, this returns an NSDictionary that contains NSNumbers for the keys: <code>@"r",@"g",@"b",@"a"</code>.
+Similar to the array method above, this returns an NSDictionary that contains NSNumbers. Static keys are used to access the different color components of the dictionary. This allows you to use autocorrect to use the returned dictionary faster.
+
+* `kColoursRGBA_R`
+* `kColoursRGBA_G`
+* `kColoursRGBA_B`
+* `kColoursRGBA_A`
 
 ```objc
 NSDictionary *colorDict = [[UIColor seafoamColor] rgbaDictionary];
 UIColor *newColor = [UIColor colorFromRGBADictionary:colorDict];
+
+// You can also get a single component like so:
+NSNumber *r = colorDict[kColoursRGBA_R];
 ```
 
-**HSBA Array & Dictionary to and from a UIColor**
+#### HSBA
 
-Like both of the RGBA methods above, you can also get the Hue, Saturation and Brightness values from a UIColor and create an array or dictionary out of them, or vice versa.
+Like both of the RGBA methods above, you can also get the Hue, Saturation and Brightness values from a UIColor and create an array or dictionary out of them, or vice versa. The colorDictionary returned also uses static keys like the RGBA version of this method. Here are the ones to use:
+
+* `kColoursHSBA_H`
+* `kColoursHSBA_S`
+* `kColoursHSBA_B`
+* `kColoursHSBA_A`
 
 ```objc
 NSArray *colorArray = [[UIColor seafoamColor] hsbaArray];
@@ -68,7 +103,66 @@ UIColor *newColor1 = [UIColor colorFromHSBAArray:colorArray];
 UIColor *newColor2 = [UIColor colorFromHSBADictionary:colorDictionary];
 ```
 
-**Generating white or black that contrasts with a UIColor**
+#### CIELAB
+
+Like both of the RGBA methods above, you can also get the CIE\_Lightness, CIE\_a and CIE\_b values from a UIColor and create an array or dictionary out of them, or vice versa. The colorDictionary returned also uses static keys like the RGBA version of this method. Here are the ones to use:
+
+* `kColoursCIE_L`
+* `kColoursCIE_A`
+* `kColoursCIE_B`
+* `kColoursCIE_alpha`
+
+```objc
+NSArray *colorArray = [[UIColor seafoamColor] CIE_LabArray];
+NSDictionary *colorDict = [[UIColor seafoamColor] CIE_LabDictionary];
+
+UIColor *newColor1 = [UIColor colorFromCIE_LabArray:colorArray];
+UIColor *newColor2 = [UIColor colorFromCIE_LabDictionary:colorDictionary];
+```
+
+#### CMYK
+
+Like both of the RGBA methods above, you can also get the CMYKY values from a UIColor and create an array or dictionary out of them, or vice versa. The colorDictionary returned also uses static keys like the RGBA version of this method. Here are the ones to use:
+
+* `kColoursCMYK_C`
+* `kColoursCMYK_M`
+* `kColoursCMYK_Y`
+* `kColoursCMYK_K`
+
+```objc
+NSArray *colorArray = [[UIColor seafoamColor] cmykArray];
+NSDictionary *colorDict = [[UIColor seafoamColor] cmykDictionary];
+
+UIColor *newColor1 = [UIColor colorFromCMYKArray:colorArray];
+UIColor *newColor2 = [UIColor colorFromCMYKDictionary:colorDictionary];
+```
+
+#### Color Components
+
+This method returns a dictionary containing values for each of the keys (RGBA, HSBA, CIE_LAB, CMYK) from above. This means you can get a hue value and a Lightness value from the same source. Here's how you use this:
+
+```objc
+NSDictionary *components = [someColor colorComponents];
+CGFloat H = components[kColoursHSBA_H];
+CGFloat L = components[kColoursCIE_L];
+```
+
+You can also retrieve singular values instead of the entire dictionary by calling any of these methods below on a UIColor. This will be significantly slower at getting all of the values for one color, versus just retrieving one. If you need more than one, call the specific array or dictionary method from above.
+
+```obj
+CGFloat R = [[UIColor tomatoColor] red];
+CGFloat G = [[UIColor tomatoColor] green];
+CGFloat B = [[UIColor tomatoColor] blue];
+CGFloat H = [[UIColor tomatoColor] hue];
+CGFloat S = [[UIColor tomatoColor] saturation];
+CGFloat B = [[UIColor tomatoColor] brightness];
+CGFloat CIE_L = [[UIColor tomatoColor] CIE_Lightness];
+CGFloat CIE_A = [[UIColor tomatoColor] CIE_a];
+CGFloat CIE_B = [[UIColor tomatoColor] CIE_b];
+CGFloat alpha = [[UIColor tomatoColor] alpha];
+```
+
+#### Black or White Contrasting Color
 
 A lot of times you may want to put text on top of a view that is a certain color, and you want to be sure that it will look good on top of it. With this method you will return either white or black, depending on the how well each of them contrast on top of it. Here's how you use this:
 
@@ -76,7 +170,7 @@ A lot of times you may want to put text on top of a view that is a certain color
 UIColor *contrastingColor = [[UIColor seafoamColor] blackOrWhiteContrastingColor];
 ```
 
-**Generating a complementary color**
+#### Complementary Color
 
 This method will create a UIColor instance that is the exact opposite color from another UIColor on the color wheel. The same saturation and brightness are preserved, just the hue is changed.
 
@@ -84,7 +178,26 @@ This method will create a UIColor instance that is the exact opposite color from
 UIColor *complementary = [[UIColor seafoamColor] complementaryColor];
 ```
 
-## Generating Color Schemes ##
+## Distance between 2 Colors
+
+`5.1.0 +`
+
+Detecting a difference in two colors is not as trivial as it sounds. One's first instinct is to go for a difference in RGB values, leaving you with a sum of the differences of each point. It looks great! Until you actually start comparing colors. Why do these two reds have a different distance than these two blues *in real life* vs computationally? Human visual perception is next in the line of things between a color and your brain. Some colors are just perceived to have larger variants inside of their respective areas than others, so we need a way to model this human variable to colors. Enter CIELAB. This color formulation is supposed to be this model. So now we need to standardize a unit of distance between any two colors that works independent of how humans visually perceive that distance. Enter CIE76,94,2000. These are methods that use user-tested data and other mathematically and statistically significant correlations to output this info. You can read the wiki articles below to get a better understanding historically of how we moved to newer and better color distance formulas, and what their respective pros/cons are.
+
+**Finding Distance**
+
+```objc
+CGFloat distance = [someColor distanceFromColor:someOtherColor type:ColorDistanceCIE94];
+BOOL isNoticablySimilar = distance < threshold;
+```
+
+**References**
+
+* [Color Difference](http://en.wikipedia.org/wiki/Color_difference)
+* [Just Noticeable Difference](http://en.wikipedia.org/wiki/Just_noticeable_difference)
+* [CIELAB Specification](http://en.wikipedia.org/wiki/CIELAB)
+
+## Generating Color Schemes
 
 You can create a 5-color scheme based off of a UIColor using the following method. It takes in a UIColor and one of the ColorSchemeTypes defined in Colours. It returns an NSArray of 4 new UIColor objects to create a pretty nice color scheme that complements the root color you passed in.
 

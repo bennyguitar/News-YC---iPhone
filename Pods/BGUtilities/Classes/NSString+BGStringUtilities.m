@@ -118,4 +118,21 @@
 }
 
 
+#pragma mark - Concatenate
++ (instancetype)stringByConcatenating:(NSString *)aString, ... NS_REQUIRES_NIL_TERMINATION {
+    // Set Up
+    NSMutableString *newString = [NSMutableString string];
+    va_list args;
+    
+    // Traverse the strings
+    va_start(args, aString);
+    for (NSString *arg = aString; arg != nil; arg = va_arg(args, NSString*)) {
+        [newString appendString:arg];
+    }
+    va_end(args);
+    
+    return [newString copy];
+}
+
+
 @end

@@ -26,39 +26,55 @@
 @class SatelliteStore;
 
 
-typedef void (^GetProductsCompletion) (BOOL success);
-typedef void (^PurchaseProductCompletion) (BOOL purchased);
+typedef void (^GetProductsCompletion) (BOOL success, NSArray * products, NSError * error);
+typedef void (^PurchaseProductCompletion) (BOOL purchased, NSString * productIdentifier, SKPaymentTransaction * transaction, NSError * error);
+typedef void (^RestoreProductsCompletion) (NSArray * productIdentifiers, NSError * error);
+
+@interface SatellitePurchaseBlockObject : NSObject
+
+@property (nonatomic, strong) NSString * productIdentifier;
+@property (copy) PurchaseProductCompletion completionBlock;
+
++(SatellitePurchaseBlockObject *)purchaseBlockObjectForProductIdentifier:(NSString *)productIdentifier withCompletion:(PurchaseProductCompletion)completion;
+@end
+
+@interface SatelliteGetProductsBlockObject : NSObject
+
+@property (nonatomic, strong) NSArray * productIdentifiers;
+@property (copy) GetProductsCompletion  completionBlock;
+@property (nonatomic, strong, readonly) SKProductsRequest * productRequest;
+
++(SatelliteGetProductsBlockObject *)getBlockObjectForProductIdentifiers:(NSArray *)productIdentifiers withCompletion:(GetProductsCompletion)completion;
+
+-(id)initWithProductIdentifiers:(NSArray *)productIdentifiers;
+@end
 
 // Class
 @interface SatelliteStore : NSObject <SKPaymentTransactionObserver,SKProductsRequestDelegate>
 
-@property (nonatomic, strong) SKProductsRequest *ProductsRequest;
 @property (nonatomic, retain) NSMutableDictionary *Inventory;
 @property (nonatomic, retain) NSSet *InventoryIdentifiers;
-@property (nonatomic, strong) PurchaseProductCompletion purchaseCompletion;
-@property (nonatomic, strong) GetProductsCompletion getProductsCompletion;
+@property (nonatomic, strong) NSMutableArray * fetchProductsCompletionBlockObjects;
+@property (nonatomic, strong) NSMutableArray * purchaseCompletionBlockObjects;
+@property (nonatomic, strong, readonly) RestoreProductsCompletion restoreProductsCompletion;
 
 
 // Singleton
 + (SatelliteStore *)shoppingCenter;
 
-// Set Product Identifiers
-- (void)setProductIdentifiers:(NSArray *)identifiers;
-
 // Get Products
-- (void)getProductsWithCompletion:(GetProductsCompletion)completion;
+- (void)getProductsWithIdentifiers:(NSArray *)productIdentifiers withCompletion:(GetProductsCompletion)completion;
+
+// Get Single Product
+-(void)getProductWithIdentifier:(NSString *)productIdentifier withCompletion:(GetProductsCompletion)completion;
 
 // Purchase Products
 - (void)purchaseProductWithIdentifier:(NSString *)identifier withCompletion:(PurchaseProductCompletion)completion;
 
 // Restore Purchases
-- (void)restorePurchasesWithCompletion:(PurchaseProductCompletion)completion;
+- (void)restorePurchasesWithCompletion:(RestoreProductsCompletion)completion;
 
-// Inventory
-- (SKProduct *)productFromInventoryWithIdentifier:(NSString *)identifier;
-
-// Can Make Purchases
-- (BOOL)isOpenForBusiness;
-
+//Check if user can make purchase
+-(BOOL)isOpenForBusiness;
 
 @end

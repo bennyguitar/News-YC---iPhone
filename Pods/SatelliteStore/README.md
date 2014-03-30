@@ -16,35 +16,36 @@ SatelliteStore is a modernized block-based StoreKit wrapper for iOS with very li
 
 ## Installation
 
+**Cocoapods** 
+
+[What's cocoapods?](http://cocoapods.com)
+
+<code>pod 'SatelliteStore'</code>
+
+**Adding Files**
+
 All you need to do is add the <code>SatelliteStore.{h,m}</code> files from the top-level directory into your project. Then, to use the Store in a controller or class, just add <code>#import "SatelliteStore.h"</code> to your other imports. Now you're ready to blast off!
 
 ## Set Up
 
-The SatelliteStore object has two methods necessary to fetch products from the iTunes App Store. I recommend calling this in your AppDelegate, so that by the time a user has a chance to make a purchase you have already populated the inventory. Since SatelliteStore is a singleton class, you'll be working with the <code>[SatelliteStore shoppingCenter]</code> app-wide instantiation. All methods should go through the shoppingCenter to make sure things work. Here's some code you should add to your <code>- (BOOL)application:didFinishLaunchingWithOptions:</code> method in the AppDelegate file:
-
-```objc
-// Satellite Store: Set Identifiers
-[[SatelliteStore shoppingCenter] setProductIdentifiers:@[@"com.YourApp.ProductId1",@"com.YourApp.ProductId2"]];
-        
-// Satellite Store: Get Prodcuts
-[[SatelliteStore shoppingCenter] getProductsWithCompletion:^(BOOL success) {
-    //
-}];
-```
-
-The first methods adds the product identifiers into an NSSet that the SatelliteStore then uses to make a query that actually finds the associated SKProduct items. The second method is that query, and returns a boolean of whether it worked or not. After calling this method, the SatelliteStore adds all of the returned products into its <code>Inventory</code>, a dictionary of ProductIds mapped to each SKProduct item. The reason this has a success callback is because if you try to purchase an item when no items have been retrieved, it obviously won't work. The success alerts you as a developer that products have been returned (if you have 0 items in iTunesConnect, then this will return YES, but the Inventory will be empty).
+The inventory is no longer needed so you do not need to set the product identifiers. 
 
 ## Purchasing a Product
 
 There is only one method used to buy a product, and you need to make sure you have done the stuff in the Set Up step above this before you call this method. Here's how you purchase a product:
 
 ```objc
-[[SatelliteStore shoppingCenter] purchaseProductWithIdentifier:@"com.YourApp.ProductId1" withCompletion:^(BOOL success) {
-      if (success) {
+[[SatelliteStore shoppingCenter] purchaseProductWithIdentifier:@"com.YourApp.Product1"
+                                        withCompletion:^(BOOL purchased, NSString *productIdentifier, SKPaymentTransaction *transaction, NSError *error) {
+      if (purchased) {
           // Purchase Worked!
       }
       else {
-          // Handle failure
+      		if(transaction.error.code == SKErrorPaymentCancelled){
+      			//user cancelled purchase
+      		}else{
+      		// Handle failure
+      		}   
       }
 }];
 ```
@@ -54,9 +55,9 @@ There is only one method used to buy a product, and you need to make sure you ha
 Similar to purchasing a product, there is only one method you should call to restore your purchases inside of the app:
 
 ```objc
-[[SatelliteStore shoppingCenter] restorePurchasesWithCompletion:^(BOOL success) {
-      if (success) {
-          // Purchase Worked!
+[[SatelliteStore shoppingCenter] restorePurchasesWithCompletion:^(NSArray *productIdentifiers, NSError * error) {
+      if (!error) {
+          // Restore Worked!
       }
       else {
           // Handle failure
@@ -66,7 +67,7 @@ Similar to purchasing a product, there is only one method you should call to res
 
 ## Auxiliary Methods
 
-There are a couple methods you can hit that offer some additional functionality if you'd like. You can bind to the <code>productFromInventoryWithIdentifier:(NSString *)identifier</code> method to just grab an SKProduct item from the inventory if one exists with taht identifier. You can also bind to the <code>isOpenForBusiness</code> method that returns a BOOL of whether purchases are allowed or not (parental controls, etc).
+There are a couple methods you can hit that offer some additional functionality if you'd like. You can also bind to the <code>isOpenForBusiness</code> method that returns a BOOL of whether purchases are allowed or not (parental controls, etc).
 
 ## License
 

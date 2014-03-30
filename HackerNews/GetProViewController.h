@@ -11,8 +11,4 @@
 
 @interface GetProViewController : UIViewController
 
-
-- (IBAction)didClickPurchasePro:(id)sender;
-- (IBAction)didClickRestorePro:(id)sender;
-
 @end
