@@ -159,4 +159,28 @@
 + (void)fadeViews:(NSArray *)views withDuration:(float)duration fadeIn:(BOOL)fadeIn completion:(void (^)(BOOL finished))completion;
 
 
+#pragma mark - Gradient
+/**
+ *  Creates a linear gradient from top to bottom, where the startColor is the top and the endColor is the bottom. There is no gradient pivot between colors, it is a smooth transition from start to end.
+ *
+ *  @param startColor UIColor
+ *  @param endColor   UIColor
+ */
+- (void)addLinearGradientWithStartColor:(UIColor *)startColor endColor:(UIColor *)endColor;
+
+/**
+ *  Creates a linear gradient from top to bottom, where the color at [colors firstObject] is at the top of the view, and the color at [colors lastObject] is at the bottom. Each color is split evenly across the gradient - there is no pivot point between colors.
+ *
+ *  @param colors NSArray of UIColors
+ */
+- (void)addLinearGradientWithColors:(NSArray *)colors;
+
+/**
+ *  Creates a linear gradient from top to bottom, where the color at [colors firstObject] is at the top of the view, and the color at [colors lastObject] is at the bottom. Each color is split evenly across the gradient - there is no pivot point between colors. This method places the gradient at a specific sublayer.
+ *
+ *  @param colors NSArray of UIColors
+ */
+- (void)addLinearGradientWithColors:(NSArray *)colors subLayerIndex:(int)index;
+
+
 @end

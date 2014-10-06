@@ -80,6 +80,16 @@ typedef NS_ENUM(NSInteger, ColorDistance) {
     ColorDistanceCIE2000,
 };
 
+typedef NS_ENUM(NSInteger, ColorComparison) {
+    ColorComparisonDarkness,
+    ColorComparisonLightness,
+    ColorComparisonDesaturated,
+    ColorComparisonSaturated,
+    ColorComparisonRed,
+    ColorComparisonGreen,
+    ColorComparisonBlue
+};
+
 
 #pragma mark - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
 /**
@@ -318,6 +328,26 @@ typedef NS_ENUM(NSInteger, ColorDistance) {
 - (CGFloat)keyBlack;
 
 
+#pragma mark - Darken/Lighten
+/**
+ *  Darkens a color by changing the brightness by a percentage you pass in. If you want a 25% darker color, you pass in 0.25;
+ *
+ *  @param percentage CGFloat
+ *
+ *  @return Color
+ */
+- (instancetype)darken:(CGFloat)percentage;
+
+/**
+ *  Lightens a color by changing the brightness by a percentage you pass in. If you want a 25% lighter color, you pass in 0.25;
+ *
+ *  @param percentage CGFloat
+ *
+ *  @return Color
+ */
+- (instancetype)lighten:(CGFloat)percentage;
+
+
 #pragma mark - 4 Color Scheme from Color
 /**
  Creates an NSArray of 4 Colors that complement the Color.
@@ -364,6 +394,11 @@ typedef NS_ENUM(NSInteger, ColorDistance) {
  *  @return CGFloat
  */
 - (CGFloat)distanceFromColor:(id)color type:(ColorDistance)distanceType;
+
+
+#pragma mark - Compare Colors
++ (NSArray *)sortColors:(NSArray *)colors withComparison:(ColorComparison)comparison;
++ (NSComparisonResult)compareColor:(id)colorA andColor:(id)colorB withComparison:(ColorComparison)comparison;
 
 
 #pragma mark - Colors

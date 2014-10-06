@@ -31,7 +31,7 @@
     // Set Up
     NSMutableArray *comments = [@[] mutableCopy];
     NSString *trash = @"";
-    NSArray *htmlComponents = [html componentsSeparatedByString:@"<tr><td><table border=0><tr><td><img src=\"s.gif\""];
+    NSArray *htmlComponents = [html componentsSeparatedByString:@"<td><img src=\"s.gif\""];
     
     if (post.Type == PostTypeAskHN) {
         // Grab AskHN Post
@@ -39,14 +39,14 @@
         NSString *text = @"", *user = @"", *timeAgo = @"", *commentId = @"", *upvoteUrl = @"";
         
         // Check for Upvote
-        if ([htmlComponents[0] rangeOfString:@"dir=up"].location != NSNotFound) {
+        if ([htmlComponents[0] rangeOfString:@"dir=\"up"].location != NSNotFound) {
             [scanner scanBetweenString:@"<center><a " andString:@"href" intoString:&trash];
             [scanner scanBetweenString:@"href=\"" andString:@"whence" intoString:&upvoteUrl];
             upvoteUrl = [upvoteUrl stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
         }
         
         // Get Id
-        [scanner scanBetweenString:@"<span id=score_" andString:@">" intoString:&commentId];
+        [scanner scanBetweenString:@"<span id=\"score_" andString:@">" intoString:&commentId];
         
         // Get User
         [scanner scanBetweenString:@"by <a href=\"user?id=" andString:@"\">" intoString:&user];
@@ -59,7 +59,7 @@
         [scanner scanBetweenString:@"</tr><tr><td></td><td>" andString:@"</td>" intoString:&text];
         
         // Get rid of special text crap
-        if ([text rangeOfString:@"<form method=post"].location != NSNotFound) {
+        if ([text rangeOfString:@"<form method=\"post"].location != NSNotFound) {
             text = @"";
         }
         
@@ -92,6 +92,12 @@
     }
     
     for (int xx = 1; xx < htmlComponents.count; xx++) {
+        // 1st and Last object are garbage.
+        if (xx == htmlComponents.count - 1) {
+            break;
+        }
+        
+        // Set Up
         NSScanner *scanner = [NSScanner scannerWithString:htmlComponents[xx]];
         HNComment *newComment = [[HNComment alloc] init];
         NSString *level = @"";
@@ -106,7 +112,7 @@
         
         
         // Get Comment Level
-        [scanner scanBetweenString:@"height=1 width=" andString:@">" intoString:&level];
+        [scanner scanBetweenString:@"height=\"1\" width=\"" andString:@">" intoString:&level];
         newComment.Level = [level intValue] / 40;
         
         // If Logged In - Grab Voting Strings

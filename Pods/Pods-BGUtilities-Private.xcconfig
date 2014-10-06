@@ -1,5 +1,5 @@
 #include "Pods-BGUtilities.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/BGUtilities" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BGUtilities" "${PODS_ROOT}/Headers/BTCDonationViewController" "${PODS_ROOT}/Headers/Colours" "${PODS_ROOT}/Headers/SatelliteStore" "${PODS_ROOT}/Headers/SpinKit" "${PODS_ROOT}/Headers/libHN"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/BGUtilities" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BGUtilities" "${PODS_ROOT}/Headers/BMYScrollableNavigationBar" "${PODS_ROOT}/Headers/Colours" "${PODS_ROOT}/Headers/DZNEmptyDataSet" "${PODS_ROOT}/Headers/FRDLivelyButton" "${PODS_ROOT}/Headers/MMDrawerController" "${PODS_ROOT}/Headers/MTStatusBarOverlay" "${PODS_ROOT}/Headers/POP+MCAnimate" "${PODS_ROOT}/Headers/RNGridMenu" "${PODS_ROOT}/Headers/TTTAttributedLabel" "${PODS_ROOT}/Headers/XLForm" "${PODS_ROOT}/Headers/libHN" "${PODS_ROOT}/Headers/pop"
 OTHER_LDFLAGS = -ObjC
 PODS_ROOT = ${SRCROOT}

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="KGk-i7-Jjw" customClass="HNNavFilterTableViewCell" customModule="HN">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u9e-6y-wli">
+                        <rect key="frame" x="20" y="21" width="49" height="33"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="49" id="8bu-KM-xev"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="Top">
+                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="didSelectFilterButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="peB-yY-zn2"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEH-aD-1Ua">
+                        <rect key="frame" x="77" y="20" width="49" height="33"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="49" id="V9G-jg-g07"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="Ask">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="didSelectFilterButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bee-TQ-O6t"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IzG-dZ-pxF">
+                        <rect key="frame" x="134" y="20" width="49" height="33"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="49" id="DAO-dg-cpH"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="New">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="didSelectFilterButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2Gg-1d-riK"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rMe-x6-nG7">
+                        <rect key="frame" x="20" y="62" width="49" height="33"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="4VT-z6-qi3"/>
+                            <constraint firstAttribute="width" constant="49" id="o8K-k2-b8g"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="Jobs">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="didSelectFilterButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8gM-bc-jXC"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="4" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C2E-Pj-THv">
+                        <rect key="frame" x="77" y="64" width="49" height="30"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="49" id="kff-cY-dcO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="Best">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="didSelectFilterButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="pzA-8z-v8i"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6A-SU-Yen">
+                        <rect key="frame" x="143" y="62" width="63" height="33"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="63" id="ICn-S2-Cyd"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="Show HN">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="didSelectFilterButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xd6-3j-no3"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="bEH-aD-1Ua" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="0KO-V1-Q5X"/>
+                    <constraint firstItem="C2E-Pj-THv" firstAttribute="top" secondItem="bEH-aD-1Ua" secondAttribute="bottom" constant="11" id="3zV-5A-0e2"/>
+                    <constraint firstItem="rMe-x6-nG7" firstAttribute="baseline" secondItem="N6A-SU-Yen" secondAttribute="firstBaseline" id="5bj-dH-w6i"/>
+                    <constraint firstItem="IzG-dZ-pxF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="5vy-gl-Zic"/>
+                    <constraint firstItem="rMe-x6-nG7" firstAttribute="leading" secondItem="u9e-6y-wli" secondAttribute="leading" id="EA1-Z7-DbK"/>
+                    <constraint firstItem="IzG-dZ-pxF" firstAttribute="leading" secondItem="bEH-aD-1Ua" secondAttribute="trailing" constant="8" id="MvD-KE-saT"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="rMe-x6-nG7" secondAttribute="bottom" constant="16.5" id="NCc-6M-paF"/>
+                    <constraint firstItem="bEH-aD-1Ua" firstAttribute="leading" secondItem="u9e-6y-wli" secondAttribute="trailing" constant="8" id="Nrv-12-moR"/>
+                    <constraint firstItem="rMe-x6-nG7" firstAttribute="top" secondItem="N6A-SU-Yen" secondAttribute="top" id="URF-01-IAf"/>
+                    <constraint firstItem="u9e-6y-wli" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="eGc-4A-Vh9"/>
+                    <constraint firstItem="N6A-SU-Yen" firstAttribute="top" secondItem="IzG-dZ-pxF" secondAttribute="bottom" constant="9" id="fK8-w6-dyn"/>
+                    <constraint firstItem="C2E-Pj-THv" firstAttribute="leading" secondItem="rMe-x6-nG7" secondAttribute="trailing" constant="8" symbolic="YES" id="fMC-F0-tlC"/>
+                    <constraint firstItem="rMe-x6-nG7" firstAttribute="firstBaseline" secondItem="N6A-SU-Yen" secondAttribute="baseline" id="kiR-L8-4cF"/>
+                    <constraint firstItem="rMe-x6-nG7" firstAttribute="top" secondItem="u9e-6y-wli" secondAttribute="bottom" constant="8" id="nOd-CM-LHI"/>
+                    <constraint firstItem="N6A-SU-Yen" firstAttribute="leading" secondItem="C2E-Pj-THv" secondAttribute="trailing" constant="17" id="u5h-mS-B0d"/>
+                    <constraint firstItem="u9e-6y-wli" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="21" id="xmy-KY-5mg"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="46" y="393"/>
+        </tableViewCell>
+    </objects>
+</document>

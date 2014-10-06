@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="140" id="KGk-i7-Jjw" customClass="HNNavLoginTableViewCell" customModule="HN">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1g-Y5-iKt" customClass="HNTextField" customModule="HN" customModuleProvider="target">
+                        <rect key="frame" x="20" y="10" width="280" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="5FH-bW-bOT"/>
+                            <constraint firstAttribute="height" constant="30" id="kfm-vu-EGL"/>
+                        </constraints>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                    </textField>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O8L-ZN-Jya" customClass="HNTextField" customModule="HN" customModuleProvider="target">
+                        <rect key="frame" x="20" y="56" width="280" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="3Wi-QL-KO7"/>
+                        </constraints>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="send" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                    </textField>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="O8L-ZN-Jya" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="BW0-5l-mXG"/>
+                    <constraint firstAttribute="bottom" secondItem="O8L-ZN-Jya" secondAttribute="bottom" constant="53.5" id="Cp6-50-Bug"/>
+                    <constraint firstItem="Z1g-Y5-iKt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="F9r-kt-W0c"/>
+                    <constraint firstAttribute="trailing" secondItem="O8L-ZN-Jya" secondAttribute="trailing" constant="20" id="LyB-kb-y38"/>
+                    <constraint firstAttribute="trailing" secondItem="Z1g-Y5-iKt" secondAttribute="trailing" constant="20" id="O0x-k4-9gb"/>
+                    <constraint firstItem="Z1g-Y5-iKt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="PfV-tt-paJ"/>
+                    <constraint firstItem="O8L-ZN-Jya" firstAttribute="top" secondItem="Z1g-Y5-iKt" secondAttribute="bottom" constant="16" id="PxA-hu-oAS"/>
+                    <constraint firstItem="O8L-ZN-Jya" firstAttribute="top" secondItem="Z1g-Y5-iKt" secondAttribute="bottom" constant="16" id="i35-Pe-e3v"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="passwordTextField" destination="O8L-ZN-Jya" id="Dpp-wx-SEy"/>
+                <outlet property="usernameTextField" destination="Z1g-Y5-iKt" id="dJY-Zf-S0S"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="388"/>
+        </tableViewCell>
+    </objects>
+</document>

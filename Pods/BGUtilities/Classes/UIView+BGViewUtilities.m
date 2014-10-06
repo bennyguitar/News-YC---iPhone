@@ -138,4 +138,28 @@
 }
 
 
+#pragma mark - Gradient
+- (void)addLinearGradientWithStartColor:(UIColor *)startColor endColor:(UIColor *)endColor {
+    [self addLinearGradientWithColors:@[startColor,endColor]];
+}
+
+- (void)addLinearGradientWithColors:(NSArray *)colors {
+    [self addLinearGradientWithColors:colors subLayerIndex:0];
+}
+
+- (void)addLinearGradientWithColors:(NSArray *)colors subLayerIndex:(int)index {
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    NSMutableArray *gColors = [NSMutableArray array];
+    [colors enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[UIColor class]]) {
+            [gColors addObject:(id)[obj CGColor]];
+        }
+    }];
+    gradient.colors = gColors;
+    gradient.frame = self.bounds;
+    int mIndex = self.layer.sublayers.count > index ? index : (int)self.layer.sublayers.count;
+    [self.layer insertSublayer:gradient atIndex:mIndex];
+}
+
+
 @end

@@ -1,5 +1,0 @@
-#include "Pods-BTCDonationViewController.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/BTCDonationViewController" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BGUtilities" "${PODS_ROOT}/Headers/BTCDonationViewController" "${PODS_ROOT}/Headers/Colours" "${PODS_ROOT}/Headers/SatelliteStore" "${PODS_ROOT}/Headers/SpinKit" "${PODS_ROOT}/Headers/libHN"
-OTHER_LDFLAGS = -ObjC
-PODS_ROOT = ${SRCROOT}

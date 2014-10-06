@@ -30,25 +30,25 @@ static HNManager * _sharedManager = nil;
 
 #pragma mark - Set Up HNManager's Singleton
 + (HNManager *)sharedManager {
-	@synchronized([HNManager class]) {
-		if (!_sharedManager)
+    @synchronized([HNManager class]) {
+        if (!_sharedManager)
             _sharedManager  = [[HNManager alloc] init];
-		return _sharedManager;
-	}
-	return nil;
+        return _sharedManager;
+    }
+    return nil;
 }
 
 + (id)alloc {
-	@synchronized([HNManager class]) {
-		NSAssert(_sharedManager == nil, @"Attempted to allocate a second instance of a singleton.");
-		_sharedManager = [super alloc];
-		return _sharedManager;
-	}
-	return nil;
+    @synchronized([HNManager class]) {
+        NSAssert(_sharedManager == nil, @"Attempted to allocate a second instance of a singleton.");
+        _sharedManager = [super alloc];
+        return _sharedManager;
+    }
+    return nil;
 }
 
 - (instancetype)init {
-	if (self = [super init]) {
+    if (self = [super init]) {
         // Set up Webservice
         self.Service = [[HNWebService alloc] init];
         
@@ -62,8 +62,8 @@ static HNManager * _sharedManager = nil;
         else {
             self.MarkAsReadDictionary = [NSMutableDictionary dictionary];
         }
-	}
-	return self;
+    }
+    return self;
 }
 
 #pragma mark - Start Session
@@ -72,19 +72,15 @@ static HNManager * _sharedManager = nil;
     self.SessionCookie = [HNManager getHNCookie];
     
     // Validate User/Cookie
+    __weak typeof(self) wSelf = self;
     [self validateAndSetCookieWithCompletion:^(HNUser *user, NSHTTPCookie *cookie) {
-        if (user) {
-            self.SessionUser = user;
+        if (!wSelf) {
+            return;
         }
-        else {
-            self.SessionUser = nil;
-        }
-        if (cookie) {
-            self.SessionCookie = cookie;
-        }
-        else {
-            self.SessionCookie = nil;
-        }
+        
+        __strong typeof(self) sSelf = wSelf;
+        sSelf.SessionUser = user ? user : nil;
+        sSelf.SessionCookie = cookie ? cookie : nil;
         
         // Post Notification
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
@@ -107,14 +103,17 @@ static HNManager * _sharedManager = nil;
 
 #pragma mark - WebService Methods
 - (void)loginWithUsername:(NSString *)user password:(NSString *)pass completion:(SuccessfulLoginBlock)completion {
+    __weak typeof(self) wSelf = self;
     [self.Service loginWithUsername:user pass:pass completion:^(HNUser *user, NSHTTPCookie *cookie) {
-        if (user && cookie) {
+        if (user && cookie && wSelf) {
+            __strong typeof(wSelf) sSelf = wSelf;
+            
             // Set Cookie & User
-            [self setCookie:cookie user:user];
+            [sSelf setCookie:cookie user:user];
             
             // Post Notification
             [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLoginOrOut" object:nil];
-
+            
             // Pass user on through
             completion(user);
         }

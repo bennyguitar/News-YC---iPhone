@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HNCommentsViewController" customModule="HN" customModuleProvider="target">
+            <connections>
+                <outlet property="commentsTableView" destination="LWr-q5-o1R" id="LvZ-ID-h5L"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LWr-q5-o1R">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="LCi-N5-txl"/>
+                        <outlet property="delegate" destination="-1" id="4oF-M8-ZBy"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="LWr-q5-o1R" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LLX-bM-WPk"/>
+                <constraint firstItem="LWr-q5-o1R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ME6-ym-CCX"/>
+                <constraint firstAttribute="trailing" secondItem="LWr-q5-o1R" secondAttribute="trailing" id="hjH-eE-VWD"/>
+                <constraint firstAttribute="bottom" secondItem="LWr-q5-o1R" secondAttribute="bottom" id="hkK-ln-TYS"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

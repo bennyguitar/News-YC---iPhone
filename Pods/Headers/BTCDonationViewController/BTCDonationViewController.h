@@ -1,1 +1,0 @@
-../../BTCDonationViewController/Classes/BTCDonationViewController.h

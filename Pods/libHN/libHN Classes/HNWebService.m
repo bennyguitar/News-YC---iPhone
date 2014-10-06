@@ -60,6 +60,9 @@
         case PostFilterTypeNew:
             pathAddition = @"newest";
             break;
+        case PostFilterTypeShowHN:
+            pathAddition = @"show";
+            break;
         default:
             break;
     }
@@ -172,56 +175,11 @@
 
 #pragma mark - Login
 - (void)loginWithUsername:(NSString *)user pass:(NSString *)pass completion:(LoginCompletion)completion {
-    // Login is a three-part process
-    // 1. go to https://news.ycombinator.com/newslogin?whence=%6e%65%77%73 and grab the fnid for the login submit button
-    // 2. pass this info in to that url via a POST request
-    // 3. build a User object by going to that specific URL as well
-    
-    
-    // First things first, let's grab that FNID
-    NSString *urlPath = [NSString stringWithFormat:@"%@%@", kBaseURLAddress, @"newslogin?whence=%6e%65%77%73"];
-    
-    // Build the operation
-    HNOperation *operation = [[HNOperation alloc] init];
-    __block HNOperation *blockOperation = operation;
-    [operation setUrlPath:urlPath data:nil cookie:nil completion:^{
-        if (blockOperation.responseData) {
-            NSString *html = [[NSString alloc] initWithData:blockOperation.responseData encoding:NSUTF8StringEncoding];
-            if (html) {
-                NSString *fnid = @"", *trash = @"";
-                NSScanner *fnidScan = [NSScanner scannerWithString:html];
-                [fnidScan scanUpToString:@"name=\"fnid\" value=\"" intoString:&trash];
-                [fnidScan scanString:@"name=\"fnid\" value=\"" intoString:&trash];
-                [fnidScan scanUpToString:@"\"" intoString:&fnid];
-                
-                if (fnid.length > 0) {
-                    // We grabbed the fnid, now attempt part 2
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self part2LoginWithFNID:fnid user:user pass:pass completion:completion];
-                    });
-                }
-                else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(nil,nil);
-                    });
-                }
-            }
-        }
-        else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion(nil,nil);
-            });
-        }
-    }];
-    [self.HNQueue addOperation:operation];
-}
-
-- (void)part2LoginWithFNID:(NSString *)fnid user:(NSString *)user pass:(NSString *)pass completion:(LoginCompletion)completion {
     // Now let's attempt to login
-    NSString *urlPath = [NSString stringWithFormat:@"%@y", kBaseURLAddress];
+    NSString *urlPath = [NSString stringWithFormat:@"%@login", kBaseURLAddress];
     
     // Build the body data
-    NSString *bodyString = [NSString stringWithFormat:@"u=%@&p=%@&fnid=%@",user,pass,fnid];
+    NSString *bodyString = [NSString stringWithFormat:@"acct=%@&pw=%@&whence=news",user,pass];
     NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
     
     // Start the Operation
@@ -409,7 +367,7 @@
                     
                     // Create next Request
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self part2SubmitPostOrCommentWithData:bodyData completion:completion];
+                        [self part2SubmitPostOrCommentWithData:bodyData pathComponent:@"r" completion:completion];
                     });
                 }
                 else {
@@ -464,20 +422,29 @@
         if (blockOperation.responseData) {
             NSString *html = [[NSString alloc] initWithData:blockOperation.responseData encoding:NSUTF8StringEncoding];
             if ([html rangeOfString:@"textarea"].location != NSNotFound) {
-                NSString *trash = @"", *fnid = @"";
+                NSString *trash = @"", *hmac = @"", *parent, *whence;
                 NSScanner *scanner = [NSScanner scannerWithString:html];
-                [scanner scanUpToString:@"name=\"fnid\" value=\"" intoString:&trash];
-                [scanner scanString:@"name=\"fnid\" value=\"" intoString:&trash];
-                [scanner scanUpToString:@"\"" intoString:&fnid];
                 
-                if (fnid.length > 0) {
+                [scanner scanUpToString:@"name=\"parent\" value=\"" intoString:&trash];
+                [scanner scanString:@"name=\"parent\" value=\"" intoString:&trash];
+                [scanner scanUpToString:@"\"" intoString:&parent];
+                
+                [scanner scanUpToString:@"name=\"whence\" value=\"" intoString:&trash];
+                [scanner scanString:@"name=\"whence\" value=\"" intoString:&trash];
+                [scanner scanUpToString:@"\"" intoString:&whence];
+                
+                [scanner scanUpToString:@"name=\"hmac\" value=\"" intoString:&trash];
+                [scanner scanString:@"name=\"hmac\" value=\"" intoString:&trash];
+                [scanner scanUpToString:@"\"" intoString:&hmac];
+                
+                if (hmac.length > 0) {
                     // Create BodyData
-                    NSString *bodyString = [[NSString stringWithFormat:@"fnid=%@&text=%@", fnid, text] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    NSString *bodyString = [[NSString stringWithFormat:@"hmac=%@&text=%@&parent=%@&whence=%@", hmac, text, parent, whence] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                     NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
                     
                     // Create next Request
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self part2SubmitPostOrCommentWithData:bodyData completion:completion];
+                        [self part2SubmitPostOrCommentWithData:bodyData pathComponent:@"comment" completion:completion];
                     });
                 }
                 else {
@@ -503,9 +470,9 @@
 
 
 #pragma mark - Part 2 of submitting a Comment/Post
-- (void)part2SubmitPostOrCommentWithData:(NSData *)bodyData completion:(BooleanSuccessBlock)completion {
+- (void)part2SubmitPostOrCommentWithData:(NSData *)bodyData pathComponent:(NSString *)pathComponent completion:(BooleanSuccessBlock)completion {
     // Make the url path
-    NSString *urlPath = [NSString stringWithFormat:@"%@r", kBaseURLAddress];
+    NSString *urlPath = [NSString stringWithFormat:@"%@%@", kBaseURLAddress, pathComponent];
     
     // Start the Operation
     HNOperation *operation = [[HNOperation alloc] init];
@@ -550,6 +517,7 @@
     
     // Get urlAddition
     NSString *urlAddition;
+    NSString *uniqueId;
     if ([hnObject isKindOfClass:[HNPost class]]) {
         if (direction == VoteDirectionDown) {
             // You can't downvote a Post
@@ -557,9 +525,11 @@
             return;
         }
         urlAddition = [(HNPost *)hnObject UpvoteURLAddition];
+        uniqueId = [(HNPost *)hnObject PostId];
     }
     else {
         urlAddition = direction == VoteDirectionUp ? [(HNComment *)hnObject UpvoteURLAddition] : [(HNComment *)hnObject DownvoteURLAddition];
+        uniqueId = [(HNComment *)hnObject CommentId];
     }
     
     // if urlAddition is nil, return
@@ -577,7 +547,7 @@
     [operation setUrlPath:urlPath data:nil cookie:[[HNManager sharedManager] SessionCookie] completion:^{
         if (blockOperation.responseData) {
             NSString *html = [[NSString alloc] initWithData:blockOperation.responseData encoding:NSUTF8StringEncoding];
-            if (html.length == 0) {
+            if ([html rangeOfString:[NSString stringWithFormat:@"for=%@", uniqueId]].location == NSNotFound) {
                 // It worked!
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completion(YES);

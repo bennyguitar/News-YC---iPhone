@@ -1,6 +1,8 @@
 ![ScreenShot](Screenshots/banner.png)
 
-[![Build Status](https://travis-ci.org/bennyguitar/Colours.png?branch=4.0)](https://travis-ci.org/bennyguitar/Colours)
+[![Build Status](https://travis-ci.org/bennyguitar/Colours.svg?branch=4.0)](https://travis-ci.org/bennyguitar/Colours)
+
+[![Gitter chat](https://badges.gitter.im/bennyguitar/Colours.png)](https://gitter.im/bennyguitar/Colours)
 
 ## Installation
 
@@ -12,7 +14,7 @@ Drag the included **Colours.h** and **Colours.m** files into your project. They 
 
 *Note: 5.0.0 breaks previous versions' rgbaDictionary and hsbaDictionary methods!*
 
-<code>pod 'Colours', '~> 5.1.1'</code>
+<code>pod 'Colours'</code>
 
 **NSColor**
 

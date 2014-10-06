@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="153" id="KGk-i7-Jjw" customClass="HNNavCreditsTableViewCell" customModule="HN" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="153"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created with ❤︎ by Ben Gordon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uKY-hl-yTa">
+                        <rect key="frame" x="20" y="21" width="280" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wg5-nJ-vPf">
+                        <rect key="frame" x="20" y="47" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="ksq-97-E9Q"/>
+                            <constraint firstAttribute="height" constant="25" id="xhC-ro-cV8"/>
+                        </constraints>
+                        <state key="normal" image="github-01.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="didSelectGithubButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="x9M-P5-lLi"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12V-JV-HaB">
+                        <rect key="frame" x="58" y="47" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="CQc-nw-RuW"/>
+                            <constraint firstAttribute="width" constant="25" id="avi-69-1St"/>
+                        </constraints>
+                        <state key="normal" image="twitter-01.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="didSelectTwitterButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LAV-Zc-Hhg"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKH-QU-6vo">
+                        <rect key="frame" x="96" y="47" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="ewJ-fy-phb"/>
+                            <constraint firstAttribute="height" constant="25" id="vvg-Gm-zVj"/>
+                        </constraints>
+                        <state key="normal" image="y.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="didSelectYCombinatorButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hZ9-lb-kXD"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e12-ez-QvS">
+                        <rect key="frame" x="20" y="90" width="280" height="40"/>
+                        <state key="normal">
+                            <attributedString key="attributedTitle">
+                                <fragment content="This app is on on GitHub!">
+                                    <attributes>
+                                        <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <font key="NSFont" size="12" name=".HelveticaNeueDeskInterface-Regular"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                        </state>
+                        <connections>
+                            <action selector="didSelectAppButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="OpI-hJ-JnU"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="uKY-hl-yTa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="21" id="0Xj-yo-Xrb"/>
+                    <constraint firstAttribute="trailing" secondItem="uKY-hl-yTa" secondAttribute="trailing" constant="20" id="3O7-S0-0kj"/>
+                    <constraint firstItem="aKH-QU-6vo" firstAttribute="leading" secondItem="12V-JV-HaB" secondAttribute="trailing" constant="13" id="3cQ-ES-a4Q"/>
+                    <constraint firstItem="12V-JV-HaB" firstAttribute="leading" secondItem="wg5-nJ-vPf" secondAttribute="trailing" constant="13" id="5dO-gU-5NM"/>
+                    <constraint firstItem="uKY-hl-yTa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="6If-M0-78C"/>
+                    <constraint firstItem="e12-ez-QvS" firstAttribute="top" secondItem="wg5-nJ-vPf" secondAttribute="bottom" constant="18" id="6OP-4h-iUD"/>
+                    <constraint firstItem="12V-JV-HaB" firstAttribute="top" secondItem="uKY-hl-yTa" secondAttribute="bottom" constant="8" id="AcA-I9-cAt"/>
+                    <constraint firstAttribute="bottom" secondItem="e12-ez-QvS" secondAttribute="bottom" constant="23" id="CxH-I4-cmF"/>
+                    <constraint firstItem="aKH-QU-6vo" firstAttribute="top" secondItem="uKY-hl-yTa" secondAttribute="bottom" constant="8" id="Fbf-As-Cm9"/>
+                    <constraint firstItem="wg5-nJ-vPf" firstAttribute="top" secondItem="uKY-hl-yTa" secondAttribute="bottom" constant="8" id="PCK-PG-7Ym"/>
+                    <constraint firstItem="12V-JV-HaB" firstAttribute="leading" secondItem="wg5-nJ-vPf" secondAttribute="trailing" constant="13" id="aNH-MG-ccz"/>
+                    <constraint firstAttribute="trailing" secondItem="e12-ez-QvS" secondAttribute="trailing" constant="20" id="dHv-9q-D3c"/>
+                    <constraint firstItem="12V-JV-HaB" firstAttribute="top" secondItem="uKY-hl-yTa" secondAttribute="bottom" constant="8" id="faP-Ga-XLf"/>
+                    <constraint firstItem="e12-ez-QvS" firstAttribute="top" secondItem="aKH-QU-6vo" secondAttribute="bottom" constant="18" id="gFD-0h-IVV"/>
+                    <constraint firstItem="wg5-nJ-vPf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="n59-4R-mJx"/>
+                    <constraint firstItem="e12-ez-QvS" firstAttribute="top" secondItem="12V-JV-HaB" secondAttribute="bottom" constant="18" id="ruX-TS-YBl"/>
+                    <constraint firstItem="e12-ez-QvS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="vyA-0W-J3k"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="githubButton" destination="wg5-nJ-vPf" id="jJ9-vJ-7i0"/>
+                <outlet property="twitterButton" destination="12V-JV-HaB" id="ZfK-td-OuN"/>
+                <outlet property="yCombinatorButton" destination="aKH-QU-6vo" id="QGN-bI-4Sk"/>
+            </connections>
+            <point key="canvasLocation" x="173" y="282.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="github-01.png" width="80" height="80"/>
+        <image name="twitter-01.png" width="200" height="200"/>
+        <image name="y.png" width="141" height="141"/>
+    </resources>
+</document>

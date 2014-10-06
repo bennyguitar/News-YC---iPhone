@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="72" id="wl7-8q-PfQ" customClass="HNPostsCollectionCell" customModule="HN" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wl7-8q-PfQ" id="PPk-eb-Qdl">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Post Title YAHYAHAYAH" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbE-w3-4c4">
+                        <rect key="frame" x="14" y="17" width="250" height="19"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="23f-sb-AAl" userLabel="Bottom Bar">
+                        <rect key="frame" x="0.0" y="54" width="320" height="18"/>
+                        <subviews>
+                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 hour ago by bennyg" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uq2-89-K5a">
+                                <rect key="frame" x="14" y="1" width="298" height="15"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="uq2-89-K5a" firstAttribute="top" secondItem="23f-sb-AAl" secondAttribute="top" constant="1" id="XON-3M-TZ6"/>
+                            <constraint firstAttribute="trailing" secondItem="uq2-89-K5a" secondAttribute="trailing" constant="8" id="fIB-38-otF"/>
+                            <constraint firstItem="uq2-89-K5a" firstAttribute="leading" secondItem="23f-sb-AAl" secondAttribute="leading" constant="14" id="r6d-Gh-x6w"/>
+                            <constraint firstAttribute="bottom" secondItem="uq2-89-K5a" secondAttribute="bottom" constant="2" id="rLc-LF-VS1"/>
+                        </constraints>
+                    </view>
+                    <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7Y-Zt-VPd">
+                        <rect key="frame" x="276" y="18" width="30" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="9MJ-se-jex"/>
+                            <constraint firstAttribute="height" constant="24" id="Qdt-04-yGD"/>
+                        </constraints>
+                        <state key="normal" image="commentbubble-01.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSv-af-rc7">
+                        <rect key="frame" x="279" y="21" width="25" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="Dax-J3-GSq"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4v-PY-hME">
+                        <rect key="frame" x="266" y="0.0" width="54" height="55"/>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="a7Y-Zt-VPd" secondAttribute="trailing" constant="14" id="2aK-Iw-lVB"/>
+                    <constraint firstItem="e4v-PY-hME" firstAttribute="leading" secondItem="GbE-w3-4c4" secondAttribute="trailing" constant="2" id="4k2-pY-mnw"/>
+                    <constraint firstItem="23f-sb-AAl" firstAttribute="top" secondItem="GbE-w3-4c4" secondAttribute="bottom" constant="18" id="7rn-wA-O5u"/>
+                    <constraint firstAttribute="bottom" secondItem="23f-sb-AAl" secondAttribute="bottom" constant="-1" id="Esj-ae-wjj"/>
+                    <constraint firstItem="e4v-PY-hME" firstAttribute="top" secondItem="PPk-eb-Qdl" secondAttribute="top" id="Qs9-ox-aJw"/>
+                    <constraint firstAttribute="trailing" secondItem="rSv-af-rc7" secondAttribute="trailing" constant="16" id="VwT-8Y-VUe"/>
+                    <constraint firstItem="23f-sb-AAl" firstAttribute="leading" secondItem="PPk-eb-Qdl" secondAttribute="leading" id="WL3-Up-S0X"/>
+                    <constraint firstItem="GbE-w3-4c4" firstAttribute="leading" secondItem="PPk-eb-Qdl" secondAttribute="leading" constant="14" id="ZK9-xf-CKg"/>
+                    <constraint firstAttribute="trailing" secondItem="23f-sb-AAl" secondAttribute="trailing" id="a9O-gX-sfe"/>
+                    <constraint firstAttribute="centerY" secondItem="a7Y-Zt-VPd" secondAttribute="centerY" constant="5.5" id="n7a-E9-u8S"/>
+                    <constraint firstAttribute="bottom" secondItem="e4v-PY-hME" secondAttribute="bottom" constant="16" id="pr7-5g-37N"/>
+                    <constraint firstItem="GbE-w3-4c4" firstAttribute="top" secondItem="PPk-eb-Qdl" secondAttribute="top" constant="17" id="qbf-eX-3aa"/>
+                    <constraint firstAttribute="centerY" secondItem="rSv-af-rc7" secondAttribute="centerY" constant="7.5" id="vWm-4D-0Nv"/>
+                    <constraint firstAttribute="trailing" secondItem="e4v-PY-hME" secondAttribute="trailing" id="vjI-zC-MUr"/>
+                    <constraint firstItem="a7Y-Zt-VPd" firstAttribute="leading" secondItem="GbE-w3-4c4" secondAttribute="trailing" constant="12" id="zUs-kk-wNH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="cellAuthorLabel" destination="uq2-89-K5a" id="P5V-M2-zta"/>
+                <outlet property="cellBottomBar" destination="23f-sb-AAl" id="TYy-5D-8A7"/>
+                <outlet property="cellTitleLabel" destination="GbE-w3-4c4" id="BTg-Ae-npf"/>
+                <outlet property="commentBubbleButton" destination="a7Y-Zt-VPd" id="G40-n7-ScJ"/>
+                <outlet property="commentButtonOverlay" destination="e4v-PY-hME" id="7CZ-gb-7D8"/>
+                <outlet property="commentCountLabel" destination="rSv-af-rc7" id="RxV-5D-MnP"/>
+            </connections>
+            <point key="canvasLocation" x="224" y="248"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="commentbubble-01.png" width="100" height="80"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

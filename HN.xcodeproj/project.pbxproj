@@ -1,0 +1,876 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9736D846DE1540C8A72F1530 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E00BF15266934FC7A9473FF8 /* libPods.a */; };
+		B618606A19C8D46600BF7738 /* commentbubble-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B618606919C8D46600BF7738 /* commentbubble-01.png */; };
+		B618606D19C8D6C300BF7738 /* commentbubbleDark.png in Resources */ = {isa = PBXBuildFile; fileRef = B618606C19C8D6C300BF7738 /* commentbubbleDark.png */; };
+		B618607219C9E04900BF7738 /* HNCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B618607019C9E04900BF7738 /* HNCommentsViewController.swift */; };
+		B618607319C9E04900BF7738 /* HNCommentsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B618607119C9E04900BF7738 /* HNCommentsViewController.xib */; };
+		B62F2DCE19DB7C270083C6EA /* HNTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62F2DCD19DB7C270083C6EA /* HNTextField.swift */; };
+		B63D8E2C19BEAE8E0077FCBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63D8E2B19BEAE8E0077FCBA /* AppDelegate.swift */; };
+		B63D8E2E19BEAE8E0077FCBA /* HNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63D8E2D19BEAE8E0077FCBA /* HNViewController.swift */; };
+		B63D8E3319BEAE8E0077FCBA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B63D8E3219BEAE8E0077FCBA /* Images.xcassets */; };
+		B63D8E3F19BEAE8E0077FCBA /* HNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63D8E3E19BEAE8E0077FCBA /* HNTests.swift */; };
+		B63D8E4F19BEAF8C0077FCBA /* HNPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63D8E4D19BEAF8C0077FCBA /* HNPostsViewController.swift */; };
+		B63D8E5019BEAF8C0077FCBA /* HNPostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B63D8E4E19BEAF8C0077FCBA /* HNPostsViewController.xib */; };
+		B63D8E5319BEB2680077FCBA /* BGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63D8E5219BEB2680077FCBA /* BGUtils.swift */; };
+		B650969619BF446E0062DBDE /* HNPostsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B650969519BF446E0062DBDE /* HNPostsCollectionCell.swift */; };
+		B650969819BF448E0062DBDE /* HNPostsCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B650969719BF448E0062DBDE /* HNPostsCollectionCell.xib */; };
+		B655B9C519DB4DD0005D3146 /* HNNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B655B9C319DB4DD0005D3146 /* HNNavigationViewController.swift */; };
+		B655B9C619DB4DD0005D3146 /* HNNavigationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B655B9C419DB4DD0005D3146 /* HNNavigationViewController.xib */; };
+		B655B9CE19DB4E29005D3146 /* minimal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B655B9CA19DB4E29005D3146 /* minimal.jpg */; };
+		B655B9CF19DB4E29005D3146 /* night.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B655B9CB19DB4E29005D3146 /* night.jpg */; };
+		B655B9D019DB4E29005D3146 /* sanfran.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B655B9CC19DB4E29005D3146 /* sanfran.jpg */; };
+		B655B9D119DB4E29005D3146 /* space.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B655B9CD19DB4E29005D3146 /* space.jpg */; };
+		B655B9DE19DB653F005D3146 /* HNNavFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B655B9D919DB653F005D3146 /* HNNavFilterTableViewCell.xib */; };
+		B655B9DF19DB653F005D3146 /* HNNavLoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B655B9DA19DB653F005D3146 /* HNNavLoginTableViewCell.xib */; };
+		B655B9E019DB653F005D3146 /* HNNavProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B655B9DB19DB653F005D3146 /* HNNavProfileTableViewCell.xib */; };
+		B655B9E119DB653F005D3146 /* HNNavTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B655B9DC19DB653F005D3146 /* HNNavTableHeader.xib */; };
+		B655B9E219DB653F005D3146 /* HNNavThemeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B655B9DD19DB653F005D3146 /* HNNavThemeTableViewCell.xib */; };
+		B655B9E519DB659D005D3146 /* HNNavFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B655B9E419DB659D005D3146 /* HNNavFilterTableViewCell.swift */; };
+		B655B9E719DB6628005D3146 /* HNNavThemeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B655B9E619DB6628005D3146 /* HNNavThemeTableViewCell.swift */; };
+		B655B9E919DB6646005D3146 /* HNNavLoginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B655B9E819DB6646005D3146 /* HNNavLoginTableViewCell.swift */; };
+		B655B9EB19DB665D005D3146 /* HNNavProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B655B9EA19DB665D005D3146 /* HNNavProfileTableViewCell.swift */; };
+		B655B9EE19DB6682005D3146 /* HNNavSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B655B9EC19DB6682005D3146 /* HNNavSettingsTableViewCell.swift */; };
+		B655B9EF19DB6682005D3146 /* HNNavSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B655B9ED19DB6682005D3146 /* HNNavSettingsTableViewCell.xib */; };
+		B655B9F219DB66A2005D3146 /* HNNavCreditsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B655B9F019DB66A2005D3146 /* HNNavCreditsTableViewCell.swift */; };
+		B655B9F319DB66A2005D3146 /* HNNavCreditsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B655B9F119DB66A2005D3146 /* HNNavCreditsTableViewCell.xib */; };
+		B655B9F519DB66BF005D3146 /* HNNavTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B655B9F419DB66BF005D3146 /* HNNavTableHeader.swift */; };
+		B669A4A219E1B8B5007B37AD /* github-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B669A4A019E1B8B5007B37AD /* github-01.png */; };
+		B669A4A319E1B8B5007B37AD /* twitter-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B669A4A119E1B8B5007B37AD /* twitter-01.png */; };
+		B669A4A619E1BA1E007B37AD /* y.png in Resources */ = {isa = PBXBuildFile; fileRef = B669A4A519E1BA1E007B37AD /* y.png */; };
+		B669A4A819E1DA23007B37AD /* HNSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B669A4A719E1DA23007B37AD /* HNSubmissionViewController.swift */; };
+		B693857A19CC798F004A2B44 /* HNWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B693857819CC798F004A2B44 /* HNWebViewController.swift */; };
+		B693857B19CC798F004A2B44 /* HNWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B693857919CC798F004A2B44 /* HNWebViewController.xib */; };
+		B693857F19CC7CAD004A2B44 /* web_back-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B693857C19CC7CAD004A2B44 /* web_back-01.png */; };
+		B693858019CC7CAD004A2B44 /* web_forward-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B693857D19CC7CAD004A2B44 /* web_forward-01.png */; };
+		B693858119CC7CAD004A2B44 /* web_refresh-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B693857E19CC7CAD004A2B44 /* web_refresh-01.png */; };
+		B693858419CC8088004A2B44 /* HNCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B693858219CC8088004A2B44 /* HNCommentCell.swift */; };
+		B693858519CC8088004A2B44 /* HNCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B693858319CC8088004A2B44 /* HNCommentCell.xib */; };
+		B693858819CF6CB2004A2B44 /* HNNavigationBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B693858719CF6CB2004A2B44 /* HNNavigationBrain.swift */; };
+		B69D3ABB19BF329F003DDD99 /* HNTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D3ABA19BF329F003DDD99 /* HNTheme.swift */; };
+		B6F2A8D319E220E900350F9C /* HNLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F2A8D219E220E900350F9C /* HNLaunchScreen.xib */; };
+		B6F76AF119E069990047556B /* HNGridMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F76AF019E069990047556B /* HNGridMenuView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B63D8E3919BEAE8E0077FCBA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B63D8E1E19BEAE8E0077FCBA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B63D8E2519BEAE8E0077FCBA;
+			remoteInfo = HN;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		39873886B896457C8C3149AA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		B618606919C8D46600BF7738 /* commentbubble-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "commentbubble-01.png"; sourceTree = "<group>"; };
+		B618606C19C8D6C300BF7738 /* commentbubbleDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = commentbubbleDark.png; sourceTree = "<group>"; };
+		B618607019C9E04900BF7738 /* HNCommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNCommentsViewController.swift; path = Controllers/HNCommentsViewController.swift; sourceTree = "<group>"; };
+		B618607119C9E04900BF7738 /* HNCommentsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HNCommentsViewController.xib; path = Controllers/HNCommentsViewController.xib; sourceTree = "<group>"; };
+		B62F2DCD19DB7C270083C6EA /* HNTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNTextField.swift; path = CustomViews/TextField/HNTextField.swift; sourceTree = "<group>"; };
+		B63D8E2619BEAE8E0077FCBA /* HN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B63D8E2A19BEAE8E0077FCBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B63D8E2B19BEAE8E0077FCBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B63D8E2D19BEAE8E0077FCBA /* HNViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNViewController.swift; sourceTree = "<group>"; };
+		B63D8E3219BEAE8E0077FCBA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B63D8E3819BEAE8E0077FCBA /* HNTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HNTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B63D8E3D19BEAE8E0077FCBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B63D8E3E19BEAE8E0077FCBA /* HNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNTests.swift; sourceTree = "<group>"; };
+		B63D8E4D19BEAF8C0077FCBA /* HNPostsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNPostsViewController.swift; path = Controllers/HNPostsViewController.swift; sourceTree = "<group>"; };
+		B63D8E4E19BEAF8C0077FCBA /* HNPostsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HNPostsViewController.xib; path = Controllers/HNPostsViewController.xib; sourceTree = "<group>"; };
+		B63D8E5219BEB2680077FCBA /* BGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BGUtils.swift; path = Utilities/BGUtils.swift; sourceTree = "<group>"; };
+		B650969519BF446E0062DBDE /* HNPostsCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNPostsCollectionCell.swift; path = CustomViews/Cells/Posts/HNPostsCollectionCell.swift; sourceTree = "<group>"; };
+		B650969719BF448E0062DBDE /* HNPostsCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HNPostsCollectionCell.xib; path = CustomViews/Cells/Posts/HNPostsCollectionCell.xib; sourceTree = "<group>"; };
+		B655B9C319DB4DD0005D3146 /* HNNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNNavigationViewController.swift; path = Controllers/HNNavigationViewController.swift; sourceTree = "<group>"; };
+		B655B9C419DB4DD0005D3146 /* HNNavigationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HNNavigationViewController.xib; path = Controllers/HNNavigationViewController.xib; sourceTree = "<group>"; };
+		B655B9CA19DB4E29005D3146 /* minimal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = minimal.jpg; sourceTree = "<group>"; };
+		B655B9CB19DB4E29005D3146 /* night.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = night.jpg; sourceTree = "<group>"; };
+		B655B9CC19DB4E29005D3146 /* sanfran.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sanfran.jpg; sourceTree = "<group>"; };
+		B655B9CD19DB4E29005D3146 /* space.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = space.jpg; sourceTree = "<group>"; };
+		B655B9D919DB653F005D3146 /* HNNavFilterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HNNavFilterTableViewCell.xib; sourceTree = "<group>"; };
+		B655B9DA19DB653F005D3146 /* HNNavLoginTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HNNavLoginTableViewCell.xib; sourceTree = "<group>"; };
+		B655B9DB19DB653F005D3146 /* HNNavProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HNNavProfileTableViewCell.xib; sourceTree = "<group>"; };
+		B655B9DC19DB653F005D3146 /* HNNavTableHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HNNavTableHeader.xib; sourceTree = "<group>"; };
+		B655B9DD19DB653F005D3146 /* HNNavThemeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HNNavThemeTableViewCell.xib; sourceTree = "<group>"; };
+		B655B9E419DB659D005D3146 /* HNNavFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNNavFilterTableViewCell.swift; path = CustomViews/Cells/Navigation/HNNavFilterTableViewCell.swift; sourceTree = "<group>"; };
+		B655B9E619DB6628005D3146 /* HNNavThemeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNNavThemeTableViewCell.swift; path = CustomViews/Cells/Navigation/HNNavThemeTableViewCell.swift; sourceTree = "<group>"; };
+		B655B9E819DB6646005D3146 /* HNNavLoginTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNNavLoginTableViewCell.swift; path = CustomViews/Cells/Navigation/HNNavLoginTableViewCell.swift; sourceTree = "<group>"; };
+		B655B9EA19DB665D005D3146 /* HNNavProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNNavProfileTableViewCell.swift; path = CustomViews/Cells/Navigation/HNNavProfileTableViewCell.swift; sourceTree = "<group>"; };
+		B655B9EC19DB6682005D3146 /* HNNavSettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNNavSettingsTableViewCell.swift; path = CustomViews/Cells/Navigation/HNNavSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		B655B9ED19DB6682005D3146 /* HNNavSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HNNavSettingsTableViewCell.xib; path = CustomViews/Cells/Navigation/HNNavSettingsTableViewCell.xib; sourceTree = "<group>"; };
+		B655B9F019DB66A2005D3146 /* HNNavCreditsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNNavCreditsTableViewCell.swift; path = CustomViews/Cells/Navigation/HNNavCreditsTableViewCell.swift; sourceTree = "<group>"; };
+		B655B9F119DB66A2005D3146 /* HNNavCreditsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HNNavCreditsTableViewCell.xib; path = CustomViews/Cells/Navigation/HNNavCreditsTableViewCell.xib; sourceTree = "<group>"; };
+		B655B9F419DB66BF005D3146 /* HNNavTableHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNNavTableHeader.swift; path = CustomViews/Cells/Navigation/HNNavTableHeader.swift; sourceTree = "<group>"; };
+		B669A4A019E1B8B5007B37AD /* github-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "github-01.png"; sourceTree = "<group>"; };
+		B669A4A119E1B8B5007B37AD /* twitter-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-01.png"; sourceTree = "<group>"; };
+		B669A4A519E1BA1E007B37AD /* y.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = y.png; sourceTree = "<group>"; };
+		B669A4A719E1DA23007B37AD /* HNSubmissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNSubmissionViewController.swift; path = Controllers/HNSubmissionViewController.swift; sourceTree = "<group>"; };
+		B693857819CC798F004A2B44 /* HNWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNWebViewController.swift; path = Controllers/HNWebViewController.swift; sourceTree = "<group>"; };
+		B693857919CC798F004A2B44 /* HNWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HNWebViewController.xib; path = Controllers/HNWebViewController.xib; sourceTree = "<group>"; };
+		B693857C19CC7CAD004A2B44 /* web_back-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "web_back-01.png"; sourceTree = "<group>"; };
+		B693857D19CC7CAD004A2B44 /* web_forward-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "web_forward-01.png"; sourceTree = "<group>"; };
+		B693857E19CC7CAD004A2B44 /* web_refresh-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "web_refresh-01.png"; sourceTree = "<group>"; };
+		B693858219CC8088004A2B44 /* HNCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNCommentCell.swift; path = CustomViews/Cells/Comments/HNCommentCell.swift; sourceTree = "<group>"; };
+		B693858319CC8088004A2B44 /* HNCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HNCommentCell.xib; path = CustomViews/Cells/Comments/HNCommentCell.xib; sourceTree = "<group>"; };
+		B693858719CF6CB2004A2B44 /* HNNavigationBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNNavigationBrain.swift; path = "Navigation Brain/HNNavigationBrain.swift"; sourceTree = "<group>"; };
+		B69D3ABA19BF329F003DDD99 /* HNTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNTheme.swift; path = Theme/HNTheme.swift; sourceTree = "<group>"; };
+		B69D3ABC19BF389B003DDD99 /* HN-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HN-Bridging-Header.h"; sourceTree = "<group>"; };
+		B6F2A8D219E220E900350F9C /* HNLaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HNLaunchScreen.xib; path = "CustomViews/Launch Screen/HNLaunchScreen.xib"; sourceTree = "<group>"; };
+		B6F76AF019E069990047556B /* HNGridMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HNGridMenuView.swift; path = CustomViews/Menu/HNGridMenuView.swift; sourceTree = "<group>"; };
+		E00BF15266934FC7A9473FF8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B63D8E2319BEAE8E0077FCBA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9736D846DE1540C8A72F1530 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B63D8E3519BEAE8E0077FCBA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		746550C90D554AA0B00424D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E00BF15266934FC7A9473FF8 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B618606B19C8D46800BF7738 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				B669A4A419E1B8B9007B37AD /* Credits Icons */,
+				B655B9C919DB4E0B005D3146 /* Navigation Images */,
+				B655B9C819DB4E01005D3146 /* Comment Bubbles */,
+				B655B9C719DB4DF8005D3146 /* Web Actions */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		B618606E19C9E01C00BF7738 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				B693858219CC8088004A2B44 /* HNCommentCell.swift */,
+				B693858319CC8088004A2B44 /* HNCommentCell.xib */,
+			);
+			name = Comments;
+			sourceTree = "<group>";
+		};
+		B618606F19C9E02200BF7738 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				B618607019C9E04900BF7738 /* HNCommentsViewController.swift */,
+				B618607119C9E04900BF7738 /* HNCommentsViewController.xib */,
+			);
+			name = Comments;
+			sourceTree = "<group>";
+		};
+		B62F2DCC19DB7C0A0083C6EA /* HNTextField */ = {
+			isa = PBXGroup;
+			children = (
+				B62F2DCD19DB7C270083C6EA /* HNTextField.swift */,
+			);
+			name = HNTextField;
+			sourceTree = "<group>";
+		};
+		B63D8E1D19BEAE8E0077FCBA = {
+			isa = PBXGroup;
+			children = (
+				B63D8E2819BEAE8E0077FCBA /* HN */,
+				B63D8E3B19BEAE8E0077FCBA /* HNTests */,
+				B63D8E2719BEAE8E0077FCBA /* Products */,
+				39873886B896457C8C3149AA /* Pods.xcconfig */,
+				746550C90D554AA0B00424D3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B63D8E2719BEAE8E0077FCBA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B63D8E2619BEAE8E0077FCBA /* HN.app */,
+				B63D8E3819BEAE8E0077FCBA /* HNTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B63D8E2819BEAE8E0077FCBA /* HN */ = {
+			isa = PBXGroup;
+			children = (
+				B69D3AB919BF328B003DDD99 /* Theme */,
+				B63D8E5119BEB24E0077FCBA /* Utilities */,
+				B693858619CF6C95004A2B44 /* Navigation Brain */,
+				B650969219BF44370062DBDE /* Custom Views */,
+				B63D8E4A19BEAF1A0077FCBA /* Controllers */,
+				B63D8E4B19BEAF1F0077FCBA /* App Delegate */,
+				B63D8E3219BEAE8E0077FCBA /* Images.xcassets */,
+				B63D8E2919BEAE8E0077FCBA /* Supporting Files */,
+				B69D3ABC19BF389B003DDD99 /* HN-Bridging-Header.h */,
+			);
+			path = HN;
+			sourceTree = "<group>";
+		};
+		B63D8E2919BEAE8E0077FCBA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B618606B19C8D46800BF7738 /* Images */,
+				B63D8E2A19BEAE8E0077FCBA /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B63D8E3B19BEAE8E0077FCBA /* HNTests */ = {
+			isa = PBXGroup;
+			children = (
+				B63D8E3E19BEAE8E0077FCBA /* HNTests.swift */,
+				B63D8E3C19BEAE8E0077FCBA /* Supporting Files */,
+			);
+			path = HNTests;
+			sourceTree = "<group>";
+		};
+		B63D8E3C19BEAE8E0077FCBA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B63D8E3D19BEAE8E0077FCBA /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B63D8E4A19BEAF1A0077FCBA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B6F76AF219E097630047556B /* Submission */,
+				B655B9C019DB4D4F005D3146 /* Navigation Drawer */,
+				B693857719CC797D004A2B44 /* Web */,
+				B618606F19C9E02200BF7738 /* Comments */,
+				B63D8E4C19BEAF400077FCBA /* Posts */,
+				B63D8E2D19BEAE8E0077FCBA /* HNViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		B63D8E4B19BEAF1F0077FCBA /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				B63D8E2B19BEAE8E0077FCBA /* AppDelegate.swift */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		B63D8E4C19BEAF400077FCBA /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				B63D8E4D19BEAF8C0077FCBA /* HNPostsViewController.swift */,
+				B63D8E4E19BEAF8C0077FCBA /* HNPostsViewController.xib */,
+			);
+			name = Posts;
+			sourceTree = "<group>";
+		};
+		B63D8E5119BEB24E0077FCBA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B63D8E5219BEB2680077FCBA /* BGUtils.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		B63E69CD19DCC56900A84AE7 /* HNMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				B6F76AF019E069990047556B /* HNGridMenuView.swift */,
+			);
+			name = HNMenuView;
+			sourceTree = "<group>";
+		};
+		B650969219BF44370062DBDE /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				B6F2A8D419E220F200350F9C /* HNLaunchScreen */,
+				B63E69CD19DCC56900A84AE7 /* HNMenuView */,
+				B62F2DCC19DB7C0A0083C6EA /* HNTextField */,
+				B650969319BF443E0062DBDE /* Table Cells */,
+			);
+			name = "Custom Views";
+			sourceTree = "<group>";
+		};
+		B650969319BF443E0062DBDE /* Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B655B9D219DB64CC005D3146 /* Navigation */,
+				B618606E19C9E01C00BF7738 /* Comments */,
+				B650969419BF44440062DBDE /* Posts */,
+			);
+			name = "Table Cells";
+			sourceTree = "<group>";
+		};
+		B650969419BF44440062DBDE /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				B650969519BF446E0062DBDE /* HNPostsCollectionCell.swift */,
+				B650969719BF448E0062DBDE /* HNPostsCollectionCell.xib */,
+			);
+			name = Posts;
+			sourceTree = "<group>";
+		};
+		B655B9C019DB4D4F005D3146 /* Navigation Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				B655B9C319DB4DD0005D3146 /* HNNavigationViewController.swift */,
+				B655B9C419DB4DD0005D3146 /* HNNavigationViewController.xib */,
+			);
+			name = "Navigation Drawer";
+			sourceTree = "<group>";
+		};
+		B655B9C719DB4DF8005D3146 /* Web Actions */ = {
+			isa = PBXGroup;
+			children = (
+				B693857C19CC7CAD004A2B44 /* web_back-01.png */,
+				B693857D19CC7CAD004A2B44 /* web_forward-01.png */,
+				B693857E19CC7CAD004A2B44 /* web_refresh-01.png */,
+			);
+			name = "Web Actions";
+			sourceTree = "<group>";
+		};
+		B655B9C819DB4E01005D3146 /* Comment Bubbles */ = {
+			isa = PBXGroup;
+			children = (
+				B618606C19C8D6C300BF7738 /* commentbubbleDark.png */,
+				B618606919C8D46600BF7738 /* commentbubble-01.png */,
+			);
+			name = "Comment Bubbles";
+			sourceTree = "<group>";
+		};
+		B655B9C919DB4E0B005D3146 /* Navigation Images */ = {
+			isa = PBXGroup;
+			children = (
+				B655B9CA19DB4E29005D3146 /* minimal.jpg */,
+				B655B9CB19DB4E29005D3146 /* night.jpg */,
+				B655B9CC19DB4E29005D3146 /* sanfran.jpg */,
+				B655B9CD19DB4E29005D3146 /* space.jpg */,
+			);
+			name = "Navigation Images";
+			sourceTree = "<group>";
+		};
+		B655B9D219DB64CC005D3146 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				B655B9E319DB654D005D3146 /* Table Header */,
+				B655B9D819DB6501005D3146 /* Filter */,
+				B655B9D719DB64FA005D3146 /* Credits */,
+				B655B9D619DB64ED005D3146 /* Theme */,
+				B655B9D519DB64E7005D3146 /* Settings */,
+				B655B9D419DB64DD005D3146 /* Login */,
+				B655B9D319DB64D6005D3146 /* Profile */,
+			);
+			name = Navigation;
+			sourceTree = "<group>";
+		};
+		B655B9D319DB64D6005D3146 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B655B9DB19DB653F005D3146 /* HNNavProfileTableViewCell.xib */,
+				B655B9EA19DB665D005D3146 /* HNNavProfileTableViewCell.swift */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		B655B9D419DB64DD005D3146 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B655B9DA19DB653F005D3146 /* HNNavLoginTableViewCell.xib */,
+				B655B9E819DB6646005D3146 /* HNNavLoginTableViewCell.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		B655B9D519DB64E7005D3146 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B655B9EC19DB6682005D3146 /* HNNavSettingsTableViewCell.swift */,
+				B655B9ED19DB6682005D3146 /* HNNavSettingsTableViewCell.xib */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		B655B9D619DB64ED005D3146 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				B655B9DD19DB653F005D3146 /* HNNavThemeTableViewCell.xib */,
+				B655B9E619DB6628005D3146 /* HNNavThemeTableViewCell.swift */,
+			);
+			name = Theme;
+			sourceTree = "<group>";
+		};
+		B655B9D719DB64FA005D3146 /* Credits */ = {
+			isa = PBXGroup;
+			children = (
+				B655B9F019DB66A2005D3146 /* HNNavCreditsTableViewCell.swift */,
+				B655B9F119DB66A2005D3146 /* HNNavCreditsTableViewCell.xib */,
+			);
+			name = Credits;
+			sourceTree = "<group>";
+		};
+		B655B9D819DB6501005D3146 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				B655B9D919DB653F005D3146 /* HNNavFilterTableViewCell.xib */,
+				B655B9E419DB659D005D3146 /* HNNavFilterTableViewCell.swift */,
+			);
+			name = Filter;
+			sourceTree = "<group>";
+		};
+		B655B9E319DB654D005D3146 /* Table Header */ = {
+			isa = PBXGroup;
+			children = (
+				B655B9DC19DB653F005D3146 /* HNNavTableHeader.xib */,
+				B655B9F419DB66BF005D3146 /* HNNavTableHeader.swift */,
+			);
+			name = "Table Header";
+			sourceTree = "<group>";
+		};
+		B669A4A419E1B8B9007B37AD /* Credits Icons */ = {
+			isa = PBXGroup;
+			children = (
+				B669A4A519E1BA1E007B37AD /* y.png */,
+				B669A4A019E1B8B5007B37AD /* github-01.png */,
+				B669A4A119E1B8B5007B37AD /* twitter-01.png */,
+			);
+			name = "Credits Icons";
+			sourceTree = "<group>";
+		};
+		B693857719CC797D004A2B44 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				B693857819CC798F004A2B44 /* HNWebViewController.swift */,
+				B693857919CC798F004A2B44 /* HNWebViewController.xib */,
+			);
+			name = Web;
+			sourceTree = "<group>";
+		};
+		B693858619CF6C95004A2B44 /* Navigation Brain */ = {
+			isa = PBXGroup;
+			children = (
+				B693858719CF6CB2004A2B44 /* HNNavigationBrain.swift */,
+			);
+			name = "Navigation Brain";
+			sourceTree = "<group>";
+		};
+		B69D3AB919BF328B003DDD99 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				B69D3ABA19BF329F003DDD99 /* HNTheme.swift */,
+			);
+			name = Theme;
+			sourceTree = "<group>";
+		};
+		B6F2A8D419E220F200350F9C /* HNLaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B6F2A8D219E220E900350F9C /* HNLaunchScreen.xib */,
+			);
+			name = HNLaunchScreen;
+			sourceTree = "<group>";
+		};
+		B6F76AF219E097630047556B /* Submission */ = {
+			isa = PBXGroup;
+			children = (
+				B669A4A719E1DA23007B37AD /* HNSubmissionViewController.swift */,
+			);
+			name = Submission;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B63D8E2519BEAE8E0077FCBA /* HN */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B63D8E4219BEAE8E0077FCBA /* Build configuration list for PBXNativeTarget "HN" */;
+			buildPhases = (
+				BA6F3B5CB09143FBB8CD3757 /* Check Pods Manifest.lock */,
+				B63D8E2219BEAE8E0077FCBA /* Sources */,
+				B63D8E2319BEAE8E0077FCBA /* Frameworks */,
+				B63D8E2419BEAE8E0077FCBA /* Resources */,
+				5441D67044514273BA00A95A /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HN;
+			productName = HN;
+			productReference = B63D8E2619BEAE8E0077FCBA /* HN.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B63D8E3719BEAE8E0077FCBA /* HNTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B63D8E4519BEAE8E0077FCBA /* Build configuration list for PBXNativeTarget "HNTests" */;
+			buildPhases = (
+				B63D8E3419BEAE8E0077FCBA /* Sources */,
+				B63D8E3519BEAE8E0077FCBA /* Frameworks */,
+				B63D8E3619BEAE8E0077FCBA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B63D8E3A19BEAE8E0077FCBA /* PBXTargetDependency */,
+			);
+			name = HNTests;
+			productName = HNTests;
+			productReference = B63D8E3819BEAE8E0077FCBA /* HNTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B63D8E1E19BEAE8E0077FCBA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = bennyguitar;
+				TargetAttributes = {
+					B63D8E2519BEAE8E0077FCBA = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					B63D8E3719BEAE8E0077FCBA = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = B63D8E2519BEAE8E0077FCBA;
+					};
+				};
+			};
+			buildConfigurationList = B63D8E2119BEAE8E0077FCBA /* Build configuration list for PBXProject "HN" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B63D8E1D19BEAE8E0077FCBA;
+			productRefGroup = B63D8E2719BEAE8E0077FCBA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B63D8E2519BEAE8E0077FCBA /* HN */,
+				B63D8E3719BEAE8E0077FCBA /* HNTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B63D8E2419BEAE8E0077FCBA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B655B9C619DB4DD0005D3146 /* HNNavigationViewController.xib in Resources */,
+				B618607319C9E04900BF7738 /* HNCommentsViewController.xib in Resources */,
+				B618606A19C8D46600BF7738 /* commentbubble-01.png in Resources */,
+				B63D8E5019BEAF8C0077FCBA /* HNPostsViewController.xib in Resources */,
+				B655B9E019DB653F005D3146 /* HNNavProfileTableViewCell.xib in Resources */,
+				B669A4A619E1BA1E007B37AD /* y.png in Resources */,
+				B655B9E119DB653F005D3146 /* HNNavTableHeader.xib in Resources */,
+				B655B9D119DB4E29005D3146 /* space.jpg in Resources */,
+				B693858519CC8088004A2B44 /* HNCommentCell.xib in Resources */,
+				B655B9E219DB653F005D3146 /* HNNavThemeTableViewCell.xib in Resources */,
+				B669A4A319E1B8B5007B37AD /* twitter-01.png in Resources */,
+				B650969819BF448E0062DBDE /* HNPostsCollectionCell.xib in Resources */,
+				B655B9DE19DB653F005D3146 /* HNNavFilterTableViewCell.xib in Resources */,
+				B655B9CF19DB4E29005D3146 /* night.jpg in Resources */,
+				B655B9EF19DB6682005D3146 /* HNNavSettingsTableViewCell.xib in Resources */,
+				B6F2A8D319E220E900350F9C /* HNLaunchScreen.xib in Resources */,
+				B655B9CE19DB4E29005D3146 /* minimal.jpg in Resources */,
+				B693858019CC7CAD004A2B44 /* web_forward-01.png in Resources */,
+				B669A4A219E1B8B5007B37AD /* github-01.png in Resources */,
+				B655B9DF19DB653F005D3146 /* HNNavLoginTableViewCell.xib in Resources */,
+				B655B9D019DB4E29005D3146 /* sanfran.jpg in Resources */,
+				B693858119CC7CAD004A2B44 /* web_refresh-01.png in Resources */,
+				B693857B19CC798F004A2B44 /* HNWebViewController.xib in Resources */,
+				B618606D19C8D6C300BF7738 /* commentbubbleDark.png in Resources */,
+				B655B9F319DB66A2005D3146 /* HNNavCreditsTableViewCell.xib in Resources */,
+				B693857F19CC7CAD004A2B44 /* web_back-01.png in Resources */,
+				B63D8E3319BEAE8E0077FCBA /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B63D8E3619BEAE8E0077FCBA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5441D67044514273BA00A95A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA6F3B5CB09143FBB8CD3757 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B63D8E2219BEAE8E0077FCBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6F76AF119E069990047556B /* HNGridMenuView.swift in Sources */,
+				B62F2DCE19DB7C270083C6EA /* HNTextField.swift in Sources */,
+				B655B9E719DB6628005D3146 /* HNNavThemeTableViewCell.swift in Sources */,
+				B63D8E2E19BEAE8E0077FCBA /* HNViewController.swift in Sources */,
+				B655B9E519DB659D005D3146 /* HNNavFilterTableViewCell.swift in Sources */,
+				B655B9C519DB4DD0005D3146 /* HNNavigationViewController.swift in Sources */,
+				B655B9EE19DB6682005D3146 /* HNNavSettingsTableViewCell.swift in Sources */,
+				B655B9F519DB66BF005D3146 /* HNNavTableHeader.swift in Sources */,
+				B650969619BF446E0062DBDE /* HNPostsCollectionCell.swift in Sources */,
+				B655B9E919DB6646005D3146 /* HNNavLoginTableViewCell.swift in Sources */,
+				B693858819CF6CB2004A2B44 /* HNNavigationBrain.swift in Sources */,
+				B669A4A819E1DA23007B37AD /* HNSubmissionViewController.swift in Sources */,
+				B63D8E2C19BEAE8E0077FCBA /* AppDelegate.swift in Sources */,
+				B655B9EB19DB665D005D3146 /* HNNavProfileTableViewCell.swift in Sources */,
+				B63D8E5319BEB2680077FCBA /* BGUtils.swift in Sources */,
+				B69D3ABB19BF329F003DDD99 /* HNTheme.swift in Sources */,
+				B655B9F219DB66A2005D3146 /* HNNavCreditsTableViewCell.swift in Sources */,
+				B63D8E4F19BEAF8C0077FCBA /* HNPostsViewController.swift in Sources */,
+				B693858419CC8088004A2B44 /* HNCommentCell.swift in Sources */,
+				B618607219C9E04900BF7738 /* HNCommentsViewController.swift in Sources */,
+				B693857A19CC798F004A2B44 /* HNWebViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B63D8E3419BEAE8E0077FCBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B63D8E3F19BEAE8E0077FCBA /* HNTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B63D8E3A19BEAE8E0077FCBA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B63D8E2519BEAE8E0077FCBA /* HN */;
+			targetProxy = B63D8E3919BEAE8E0077FCBA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B63D8E4019BEAE8E0077FCBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B63D8E4119BEAE8E0077FCBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B63D8E4319BEAE8E0077FCBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39873886B896457C8C3149AA /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = HN/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HN/HN-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B63D8E4419BEAE8E0077FCBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39873886B896457C8C3149AA /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = HN/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HN/HN-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B63D8E4619BEAE8E0077FCBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HN.app/HN";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HNTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		B63D8E4719BEAE8E0077FCBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HN.app/HN";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HNTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B63D8E2119BEAE8E0077FCBA /* Build configuration list for PBXProject "HN" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B63D8E4019BEAE8E0077FCBA /* Debug */,
+				B63D8E4119BEAE8E0077FCBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B63D8E4219BEAE8E0077FCBA /* Build configuration list for PBXNativeTarget "HN" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B63D8E4319BEAE8E0077FCBA /* Debug */,
+				B63D8E4419BEAE8E0077FCBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B63D8E4519BEAE8E0077FCBA /* Build configuration list for PBXNativeTarget "HNTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B63D8E4619BEAE8E0077FCBA /* Debug */,
+				B63D8E4719BEAE8E0077FCBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B63D8E1E19BEAE8E0077FCBA /* Project object */;
+}

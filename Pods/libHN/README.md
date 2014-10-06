@@ -433,6 +433,7 @@ I'm thinking of adding these features as things go along, but for v0.1, I wanted
 Here's a list of iOS/Mac apps that use libHN to provide sweet functionality. Use this library in your app? Open an issue and I'll add it to the list here:
 
 * [News/YC](https://itunes.apple.com/us/app/news-yc/id592893508?mt=8) -- also on [GitHub](https://github.com/bennyguitar/News-YC---iPhone)
+* [The News (iOS)](http://bit.ly/1oShrzm) 
 
 ---------------------
 

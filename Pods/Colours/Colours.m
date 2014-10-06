@@ -33,10 +33,12 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 @implementation UIColor (Colours)
+#define ColorClass UIColor
 
 #elif TARGET_OS_MAC
 #import <AppKit/AppKit.h>
 @implementation NSColor (Colours)
+#define ColorClass NSColor
 
 #endif
 
@@ -471,6 +473,23 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     return [[self cmykArray][3] floatValue];
 }
 
+
+#pragma mark - Darken/Lighten
+- (instancetype)darken:(CGFloat)percentage {
+    return [self modifyBrightnessByPercentage:percentage];
+}
+
+- (instancetype)lighten:(CGFloat)percentage {
+    return [self modifyBrightnessByPercentage:percentage+1.0];
+}
+
+- (instancetype)modifyBrightnessByPercentage:(CGFloat)percentage {
+    NSMutableDictionary *hsba = [[self hsbaDictionary] mutableCopy];
+    [hsba setObject:@([hsba[kColoursHSBA_B] floatValue] * percentage) forKey:kColoursHSBA_B];
+    return [ColorClass colorFromHSBADictionary:hsba];
+}
+
+
 #pragma mark - Generate Color Scheme
 - (NSArray *)colorSchemeOfType:(ColorScheme)type
 {
@@ -657,6 +676,27 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     
     // Finally return CIE2000 distance
     return sqrt(pow((deltaLPrime/(kL*sL)), 2) + pow((deltaCPrime/(kC*sC)), 2) + pow((deltaHPrime/(kH*sH)), 2) + Rt*(deltaC/(kC*sC))*(deltaHPrime/(kH*sH)));
+}
+
+
+#pragma mark - Compare Colors
++ (NSArray *)sortColors:(NSArray *)colors withComparison:(ColorComparison)comparison {
+    return [colors sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [self compareColor:obj1 andColor:obj2 withComparison:comparison];
+    }];
+}
+
++ (NSComparisonResult)compareColor:(id)colorA andColor:(id)colorB withComparison:(ColorComparison)comparison {
+    if (![colorA isKindOfClass:[self class]] || ![colorB isKindOfClass:[self class]]) {
+        return NSOrderedSame;
+    }
+    
+    // Check Colors
+    NSString *key = @"";
+    boolean_t greater = true;
+    NSDictionary *c1 = [colorA colorsForComparison:comparison key:&key greater:&greater];
+    NSDictionary *c2 = [colorB colorsForComparison:comparison key:&key greater:&greater];
+    return [self compareValue:[c1[key] floatValue] andValue:[c2[key] floatValue] greaterThan:greater];
 }
 
 
@@ -1201,8 +1241,56 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     }
 }
 
-- (CGFloat)radiansFromDegree:(CGFloat)degree {
-    return degree * M_PI/180;
+
+#pragma mark - Color Comparison
+- (NSDictionary *)colorsForComparison:(ColorComparison)comparison key:(NSString **)key greater:(boolean_t *)greaterThan {
+    switch (comparison) {
+        case ColorComparisonRed:
+            *key = kColoursRGBA_R;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+            
+        case ColorComparisonGreen:
+            *key = kColoursRGBA_G;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+            
+        case ColorComparisonBlue:
+            *key = kColoursRGBA_B;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+            
+        case ColorComparisonDarkness:
+            *key = kColoursHSBA_B;
+            *greaterThan = false;
+            return [self hsbaDictionary];
+            
+        case ColorComparisonLightness:
+            *key = kColoursHSBA_B;
+            *greaterThan = true;
+            return [self hsbaDictionary];
+            
+        case ColorComparisonSaturated:
+            *key = kColoursHSBA_S;
+            *greaterThan = true;
+            return [self hsbaDictionary];
+            
+        case ColorComparisonDesaturated:
+            *key = kColoursHSBA_S;
+            *greaterThan = false;
+            return [self hsbaDictionary];
+            
+        default:
+            *key = kColoursRGBA_R;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+    }
+}
+
++ (NSComparisonResult)compareValue:(CGFloat)v1 andValue:(CGFloat)v2 greaterThan:(boolean_t)greaterThan {
+    CGFloat comparison = v1 - v2;
+    comparison = (greaterThan == true ? 1 : -1)*comparison;
+    return (comparison == 0.0 ? NSOrderedSame : (comparison < 0.0 ? NSOrderedDescending : NSOrderedAscending));
 }
 
 
@@ -1271,7 +1359,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
         *red = white * 1.0;
         *green = white * 1.0;
         *blue = white * 1.0;
-        *alpha = m_alpha;
+        if (alpha) {
+		    *alpha = m_alpha;
+        }
         return YES;
     }
     
@@ -1291,7 +1381,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
         *hue = 0;
         *saturation = 0;
         *brightness = white * 1.0;
-        *alpha = a * 1.0;
+        if (alpha) {
+            *alpha = a * 1.0;
+		}
         return YES;
     }
     

@@ -32,7 +32,8 @@ typedef NS_ENUM(NSInteger, PostFilterType) {
     PostFilterTypeAsk,
     PostFilterTypeNew,
     PostFilterTypeJobs,
-    PostFilterTypeBest
+    PostFilterTypeBest,
+    PostFilterTypeShowHN
 };
 
 typedef NS_ENUM(NSInteger, VoteDirection) {
