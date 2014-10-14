@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Create VCs
         var postsVC = HNPostsViewController(nibName: BGUtils.className(HNPostsViewController.self), bundle: nil, postType: PostFilterType.Top)
-        var postsNavVC = UINavigationController(navigationBarClass: BMYScrollableNavigationBar.self, toolbarClass: nil)
-        postsNavVC.viewControllers = [postsVC]
+        var postsNavVC = UINavigationController(rootViewController: postsVC)
         var navVC = HNNavigationViewController(nibName: BGUtils.className(HNNavigationViewController.self), bundle: nil)
         
         // Create MMDrawerController

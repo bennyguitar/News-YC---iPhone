@@ -120,6 +120,7 @@
             [scanner scanString:@"<td class=\"title\"><a href=\"" intoString:&trash];
             [scanner scanUpToString:@"\"" intoString:&Fnid];
             *fnid = [Fnid stringByReplacingOccurrencesOfString:@"/" withString:@""];
+            *fnid = [*fnid stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
         }
         
         [postArray addObject:newPost];

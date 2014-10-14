@@ -88,6 +88,7 @@ class HNViewController: BMYScrollableNavigationBarViewController, HNGridMenuView
     
     func resetUI() {
         buildNavBar()
+        HNGridMenuView.bounceGridMenuIfOnScreen()
     }
     
     func setActionsButtonActive(active: Bool) {

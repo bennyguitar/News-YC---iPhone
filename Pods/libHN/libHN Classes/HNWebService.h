@@ -43,7 +43,7 @@ typedef NS_ENUM(NSInteger, VoteDirection) {
 
 
 #pragma mark - Blocks
-typedef void (^GetPostsCompletion) (NSArray *posts);
+typedef void (^GetPostsCompletion) (NSArray *posts, NSString *nextPageIdentifier);
 typedef void (^GetCommentsCompletion) (NSArray *comments);
 typedef void (^LoginCompletion) (HNUser *user, NSHTTPCookie *cookie);
 typedef void (^BooleanSuccessBlock) (BOOL success);
@@ -73,7 +73,7 @@ typedef void (^SubmitCommentSuccessBlock) (BOOL success);
 // Voting
 - (void)voteOnHNObject:(id)hnObject direction:(VoteDirection)direction completion:(BooleanSuccessBlock)completion;
 // Get Submissions for User
-- (void)fetchSubmissionsForUser:(NSString *)user completion:(GetPostsCompletion)completion;
+- (void)fetchSubmissionsForUser:(NSString *)user urlAddition:(NSString *)urlAddition completion:(GetPostsCompletion)completion;
 // Cancel Requests
 - (void)cancelAllRequests;
 

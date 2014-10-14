@@ -20,6 +20,7 @@ class HNGridMenuView: RNGridMenu, RNGridMenuDelegate {
     var currentType: HNMenuType = .AllPosts
     var menuOptions: [String]? = nil
     var del: HNGridMenuViewDelegate? = nil
+    var viewController: UIViewController? = nil
     
     class func showMenuViewWithType(type: HNMenuType, vc: UIViewController, _delegate: HNGridMenuViewDelegate, options: [AnyObject]?) {
         var m = HNGridMenuView(titles: options != nil ? options : menuOptionsForType(type))
@@ -30,6 +31,7 @@ class HNGridMenuView: RNGridMenu, RNGridMenuDelegate {
         m.del = _delegate
         m.currentType = type
         m.delegate = m
+        m.viewController = vc
         if (m.items.count > 0) {
             m.showInViewController(vc, center: vc.view.center)
         }
@@ -37,6 +39,14 @@ class HNGridMenuView: RNGridMenu, RNGridMenuDelegate {
     
     func gridMenu(gridMenu: RNGridMenu!, willDismissWithSelectedItem item: RNGridMenuItem!, atIndex itemIndex: Int) {
         del?.didSelectGridMenuOption(item.title, idx: itemIndex, type: currentType)
+    }
+    
+    class func bounceGridMenuIfOnScreen() {
+        if let menu = RNGridMenu.visibleGridMenu() as? HNGridMenuView {
+            let v = menu.viewController?.view
+            let c = v!.center
+            menu.showInViewController(menu.viewController, center: c)
+        }
     }
     
     class func menuOptionsForType(type: HNMenuType) -> [AnyObject]? {

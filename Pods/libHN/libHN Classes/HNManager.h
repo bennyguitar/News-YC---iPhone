@@ -118,10 +118,11 @@ typedef void (^SuccessfulLoginBlock) (HNUser *user);
 
 /**
  Loads posts from HN for a given username. To get the next batch of posts for a user, use the [[HNManager sharedManager] userSubmissionUrlAddition] object and the - (void)loadPostsWithUrlAddition:(NSString *)urlAddition completion:(GetPostsCompletion)completion method.
- @param user   - NSString of the username
+ @param user        - NSString of the username
+ @param urlAddition - NSString of the additional path component
  @return    NSArray of HNPost objects
  */
-- (void)fetchSubmissionsForUser:(NSString *)user completion:(GetPostsCompletion)completion;
+- (void)fetchSubmissionsForUser:(NSString *)user urlAddition:(NSString *)urlAddition completion:(GetPostsCompletion)completion;
 
 #pragma mark - Internal Methods
 + (NSHTTPCookie *)getHNCookie;

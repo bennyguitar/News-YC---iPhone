@@ -16,6 +16,9 @@ class HNPostsViewController: HNViewController, UITableViewDelegate, UITableViewD
     var currentPosts: [HNPost] = []
     var isLoadingPosts: Bool = false
     var user: String? = nil
+    var shouldLoadNewPosts = true
+    var refreshControl: UIRefreshControl? = nil
+    var nextPageUrlAddition: String? = nil
 
     // Init
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?, postType: PostFilterType!) {
@@ -50,17 +53,12 @@ class HNPostsViewController: HNViewController, UITableViewDelegate, UITableViewD
         }
         
         // Load Data
-        if (user != nil) {
-            loadPosts(user!)
-            return
-        }
-        
         loadPosts()
     }
     
     override func viewDidAppear(animated: Bool)  {
         super.viewDidAppear(animated)
-        bindNavigationBarToScrollView(postsTableView)
+        //bindNavigationBarToScrollView(postsTableView)
     }
     
     override func viewDidLayoutSubviews()  {
@@ -81,6 +79,11 @@ class HNPostsViewController: HNViewController, UITableViewDelegate, UITableViewD
         if (postsTableView.respondsToSelector(Selector.convertFromStringLiteral("layoutMargins"))) {
             postsTableView.layoutMargins = UIEdgeInsetsZero
         }
+        
+        // Refresh Control
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: "didPullRefreshControl", forControlEvents: .ValueChanged)
+        postsTableView.addSubview(refreshControl!)
     }
     
     override func resetUI() {
@@ -90,48 +93,62 @@ class HNPostsViewController: HNViewController, UITableViewDelegate, UITableViewD
         postsTableView.separatorColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.CellSeparator)
         postsTableView.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
         postsTableView.reloadData()
+        
+        // Refresh Control
+        refreshControl?.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
+        refreshControl?.tintColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.MainFont)
     }
 
     
     // Load Data
     func loadPosts() {
-        var completion: GetPostsCompletion = {[weak self](posts: [AnyObject]!) -> Void in
-            if (self != nil) {
-                if let p = posts as? [HNPost] {
-                    var s = self!
-                    s.currentPosts = p
-                    s.postsTableView.reloadData()
-                }
-            }
+        // Return if we're already loading
+        if (isLoadingPosts) {
+            return
         }
-        HNManager.sharedManager().loadPostsWithFilter(currentPostType, completion:completion)
-    }
-    
-    func loadPosts(username: String) {
-        var completion: GetPostsCompletion = {[weak self](posts: [AnyObject]!) -> Void in
-            if (self != nil) {
+        
+        refreshControl?.beginRefreshing()
+        isLoadingPosts = true
+        
+        // Build the completion closure
+        var completion: GetPostsCompletion = {[weak self](posts: [AnyObject]!, urlAddition: String!) -> Void in
+            if let s = self {
+                s.refreshControl?.endRefreshing()
                 if let p = posts as? [HNPost] {
-                    var s = self!
-                    s.currentPosts = p
-                    s.postsTableView.reloadData()
-                }
-            }
-        }
-        HNManager.sharedManager().fetchSubmissionsForUser(username, completion: completion)
-    }
-    
-    func loadAdditionalPosts() {
-        var completion: GetPostsCompletion = {[weak self](posts: [AnyObject]!) -> Void in
-            if (self != nil) {
-                if let p = posts as? [HNPost] {
-                    var s = self!
                     s.isLoadingPosts = false
-                    s.currentPosts = s.currentPosts + p
+                    s.currentPosts = (s.shouldLoadNewPosts ? p : s.currentPosts + p)
+                    s.nextPageUrlAddition = urlAddition!
+                    s.shouldLoadNewPosts = false
                     s.postsTableView.reloadData()
                 }
             }
         }
-        HNManager.sharedManager().loadPostsWithUrlAddition(HNManager.sharedManager().postUrlAddition, completion: completion)
+        
+        if (shouldLoadNewPosts && user == nil) {
+            // Refresh Pulled
+            HNManager.sharedManager().loadPostsWithFilter(currentPostType, completion:completion)
+            return
+        }
+        
+        // Url Addition && User
+        if (nextPageUrlAddition != nil && NSString(string: nextPageUrlAddition!).length > 0 && user != nil) {
+            HNManager.sharedManager().fetchSubmissionsForUser(user!, urlAddition: nextPageUrlAddition!, completion: completion)
+            return
+        }
+        
+        // Url Addition
+        if (nextPageUrlAddition != nil && NSString(string: nextPageUrlAddition!).length > 0) {
+            HNManager.sharedManager().loadPostsWithUrlAddition(nextPageUrlAddition!, completion: completion)
+            return
+        }
+        
+        // Username
+        if (user != nil && currentPosts.count == 0){
+            HNManager.sharedManager().fetchSubmissionsForUser(user, urlAddition: nil, completion: completion)
+            return
+        }
+        
+        refreshControl?.endRefreshing()
     }
     
     
@@ -169,10 +186,17 @@ class HNPostsViewController: HNViewController, UITableViewDelegate, UITableViewD
         if (indexes != nil && indexes?.count > 0) {
             let i = indexes![indexes!.count - 1] as NSIndexPath
             if (i.row == currentPosts.count - 3 && !isLoadingPosts) {
-                isLoadingPosts = true
-                loadAdditionalPosts()
+                loadPosts()
             }
         }
+    }
+    
+    
+    // Refresh Control
+    func didPullRefreshControl() {
+        isLoadingPosts = false
+        shouldLoadNewPosts = true
+        loadPosts()
     }
     
     

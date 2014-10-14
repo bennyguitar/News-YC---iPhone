@@ -184,15 +184,15 @@ static HNManager * _sharedManager = nil;
     [self.Service voteOnHNObject:hnObject direction:direction completion:completion];
 }
 
-- (void)fetchSubmissionsForUser:(NSString *)user completion:(GetPostsCompletion)completion {
+- (void)fetchSubmissionsForUser:(NSString *)user urlAddition:(NSString *)urlAddition completion:(GetPostsCompletion)completion {
     if (!user) {
         // Need a username to get their submissions!
-        completion(nil);
+        completion(nil, nil);
         return;
     }
     
     // Make the webservice call
-    [self.Service fetchSubmissionsForUser:user completion:completion];
+    [self.Service fetchSubmissionsForUser:user urlAddition:urlAddition completion:completion];
 }
 
 

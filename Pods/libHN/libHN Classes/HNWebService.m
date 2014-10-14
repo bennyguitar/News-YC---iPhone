@@ -79,18 +79,18 @@
             if (posts) {
                 [[HNManager sharedManager] setPostUrlAddition:fnid];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(posts);
+                    completion(posts, fnid);
                 });
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(nil);
+                    completion(nil, nil);
                 });
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completion(nil);
+                completion(nil, nil);
             });
         }
     }];
@@ -102,7 +102,7 @@
 - (void)loadPostsWithUrlAddition:(NSString *)urlAddition completion:(GetPostsCompletion)completion {
     if (!urlAddition || urlAddition.length == 0) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            completion(@[]);
+            completion(@[], nil);
         });
         return;
     }
@@ -121,18 +121,18 @@
             if (posts) {
                 [[HNManager sharedManager] setPostUrlAddition:fnid];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(posts);
+                    completion(posts, fnid);
                 });
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(nil);
+                    completion(nil, nil);
                 });
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completion(nil);
+                completion(nil, nil);
             });
         }
     }];
@@ -570,9 +570,15 @@
 
 
 #pragma mark - Fetch Submissions
-- (void)fetchSubmissionsForUser:(NSString *)user completion:(GetPostsCompletion)completion {
+- (void)fetchSubmissionsForUser:(NSString *)user urlAddition:(NSString *)urlAddition completion:(GetPostsCompletion)completion {
     // Make the url path
-    NSString *urlPath = [NSString stringWithFormat:@"%@submitted?id=%@", kBaseURLAddress, user];
+    NSString *urlPath;
+    if (urlAddition) {
+        urlPath = [NSString stringWithFormat:@"%@%@", kBaseURLAddress, urlAddition];
+    }
+    else {
+        urlPath = [NSString stringWithFormat:@"%@submitted?id=%@", kBaseURLAddress, user];
+    }
     
     // Start the Operation
     HNOperation *operation = [[HNOperation alloc] init];
@@ -583,7 +589,7 @@
             if ([html rangeOfString:@"No such user."].location != NSNotFound && html.length == 13) {
                 // Bad Request
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(nil);
+                    completion(nil, nil);
                 });
             }
             else {
@@ -591,13 +597,13 @@
                 NSArray *posts = [HNPost parsedPostsFromHTML:html FNID:&fnid];
                 [[HNManager sharedManager] setUserSubmissionUrlAddition:fnid];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(posts);
+                    completion(posts, fnid);
                 });
             }
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completion(nil);
+                completion(nil, nil);
             });
         }
     }];

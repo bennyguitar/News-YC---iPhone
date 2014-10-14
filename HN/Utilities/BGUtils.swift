@@ -49,4 +49,12 @@ class BGUtils: NSObject {
         m.animation = MTStatusBarOverlayAnimationFallDown
         m.postErrorMessage(msg, duration: 2.0, animated: true)
     }
+    
+    class func themedRefreshControl(target: AnyObject!, selector: Selector) -> UIRefreshControl {
+        var r = UIRefreshControl()
+        r.backgroundColor = HNTheme.currentTheme().colorForUIElement(.BackgroundColor)
+        r.tintColor = HNTheme.currentTheme().colorForUIElement(.Bar)
+        r.addTarget(target, action: selector, forControlEvents: .ValueChanged)
+        return r
+    }
 }

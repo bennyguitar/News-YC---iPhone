@@ -80,10 +80,21 @@ class HNCommentCell: UITableViewCell, TTTAttributedLabelDelegate {
         }
         
         // UI
-        backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
-        topBar.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.Bar)
-        usernameLabel.backgroundColor = topBar!.backgroundColor
-        timeLabel.backgroundColor = topBar!.backgroundColor
+        var bgColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
+        var barColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.Bar)
+        if (comment.Type == HNCommentType.AskHN) {
+            bgColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.ShowHNBackground)
+            barColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.ShowHNBar)
+        }
+        else if (comment.Type == HNCommentType.Jobs) {
+            bgColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.JobsBackground)
+            barColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.JobsBar)
+        }
+        
+        backgroundColor = bgColor
+        topBar.backgroundColor = barColor
+        usernameLabel.backgroundColor = barColor
+        timeLabel.backgroundColor = barColor
         usernameLabel.textColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.SubFont)
         timeLabel.textColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.SubFont)
         

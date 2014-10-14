@@ -16,6 +16,7 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
     var hiddenCommentMap: [String:Int] = Dictionary()
     var visibleIndexPath: NSIndexPath? = nil
     var didSelectIndex: Int? = 0
+    var refreshControl: UIRefreshControl? = nil
     
     // MARK: - Init
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?, post: HNPost?) {
@@ -43,7 +44,7 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
     
     override func viewDidAppear(animated: Bool)  {
         super.viewDidAppear(animated)
-        bindNavigationBarToScrollView(commentsTableView)
+        //bindNavigationBarToScrollView(commentsTableView)
     }
     
     override func viewDidLayoutSubviews()  {
@@ -70,6 +71,7 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
     
     // MARK: - UI
     func buildUI() {
+        // Table View
         commentsTableView.registerNib(UINib(nibName: BGUtils.className(HNCommentCell), bundle: nil), forCellReuseIdentifier: HNPostsCollectionCellIdentifier)
         commentsTableView.rowHeight = UITableViewAutomaticDimension
         commentsTableView.estimatedRowHeight = 72.0
@@ -77,6 +79,11 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
         if (commentsTableView.respondsToSelector("layoutMargins")) {
             commentsTableView.layoutMargins = UIEdgeInsetsZero
         }
+        
+        // Refresh Control
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: "loadComments", forControlEvents: .ValueChanged)
+        commentsTableView.addSubview(refreshControl!)
     }
     
     override func resetUI() {
@@ -86,15 +93,21 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
         commentsTableView.separatorColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.CellSeparator)
         commentsTableView.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
         commentsTableView.reloadData()
+        
+        // Refresh
+        refreshControl?.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
+        refreshControl?.tintColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.MainFont)
     }
     
     
     // MARK: - Load Data
     func loadComments() {
+        refreshControl?.beginRefreshing()
         if (currentPost != nil) {
             HNManager.sharedManager().loadCommentsFromPost(currentPost, completion: {[weak self](comments) -> Void in
                 if (comments != nil && self != nil) {
                     var s = self!
+                    s.refreshControl?.endRefreshing()
                     s.allComments = comments as? [HNComment]
                     s.commentsTableView.reloadData()
                 }
@@ -115,12 +128,8 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
         // Create Cell
         var cell: HNCommentCell = tableView.dequeueReusableCellWithIdentifier(HNPostsCollectionCellIdentifier, forIndexPath: indexPath) as HNCommentCell
         
-        // Get Visibility
-        let comment = allComments![indexPath.row]
-        let v = topLevelHiddenIndexPaths!.containsIndex(indexPath.row) ? HNCommentCellVisibility.Closed : (hiddenCommentMap[comment.CommentId] != nil ? HNCommentCellVisibility.Hidden : HNCommentCellVisibility.Visible)
-        
         // Return it
-        cell.setContentWithComment(allComments![indexPath.row], indexPath: indexPath, delegate: self, visibility: v)
+        cell.setContentWithComment(allComments![indexPath.row], indexPath: indexPath, delegate: self, visibility: HNCommentCellVisibility.Visible)
         cell.setNeedsUpdateConstraints()
         return cell
     }
@@ -135,6 +144,7 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
     
     // MARK: - Comments Delegate
     func didSelectHideNested(index: Int, level: Int) {
+        /*
         // Add or Remove from Top Level Hidden Indexes
         var isHiding = true
         if (topLevelHiddenIndexPaths!.containsIndex(index)) {
@@ -163,6 +173,7 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
         
         // Reload
         commentsTableView.reloadData()
+        */
     }
     
     // Grid Menu
