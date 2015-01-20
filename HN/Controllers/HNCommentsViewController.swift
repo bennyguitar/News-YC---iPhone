@@ -12,7 +12,7 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var commentsTableView: UITableView!
     var currentPost: HNPost? = nil
     var allComments: [HNComment]? = []
-    var topLevelHiddenIndexPaths: NSMutableIndexSet? = NSMutableIndexSet()
+    var topLevelHiddenIndexPaths: NSMutableIndexSet = NSMutableIndexSet()
     var hiddenCommentMap: [String:Int] = Dictionary()
     var visibleIndexPath: NSIndexPath? = nil
     var didSelectIndex: Int? = 0

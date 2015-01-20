@@ -22,12 +22,8 @@ class HNSubmissionViewController: XLFormViewController {
     var currentHNObject: AnyObject? = nil
     
     
-    override  init(style: UITableViewStyle) {
-        return super.init(style: style)
-    }
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        return super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     init(hnObject: AnyObject?)  {
@@ -40,7 +36,7 @@ class HNSubmissionViewController: XLFormViewController {
                 submissionType = .CommentReply
             }
         }
-        var formDescriptor = XLFormDescriptor.formDescriptorWithTitle(nil)
+        var formDescriptor = XLFormDescriptor(title: nil)
         
         // New Post
         if (submissionType == .NewPost) {
@@ -48,17 +44,17 @@ class HNSubmissionViewController: XLFormViewController {
             section.footerTitle = "Each submission must have a title, and either a URL or the body text for a self post."
             formDescriptor.addFormSection(section)
             
-            var row = XLFormRowDescriptor.formRowDescriptorWithTag(HNSubmissionFormPostTitle, rowType: "text", title: "Title")
+            var row = XLFormRowDescriptor(tag: HNSubmissionFormPostTitle, rowType: "text", title: "Title")
             row.required = false
             HNSubmissionViewController.setStyleForTextFieldRow(row)
             section.addFormRow(row)
             
-            row = XLFormRowDescriptor.formRowDescriptorWithTag(HNSubmissionFormPostUrl, rowType: "url", title: "URL")
+            row = XLFormRowDescriptor(tag: HNSubmissionFormPostUrl, rowType: "url", title: "URL")
             row.required = false
             HNSubmissionViewController.setStyleForTextFieldRow(row)
             section.addFormRow(row)
             
-            row = XLFormRowDescriptor.formRowDescriptorWithTag(HNSubmissionFormPostText, rowType: "textView", title: "Text")
+            row = XLFormRowDescriptor(tag: HNSubmissionFormPostText, rowType: "textView", title: "Text")
             row.required = false
             HNSubmissionViewController.setStyleForTextViewRow(row)
             section.addFormRow(row)
@@ -70,7 +66,7 @@ class HNSubmissionViewController: XLFormViewController {
             section.footerTitle = "Be engaging."
             formDescriptor .addFormSection(section)
             
-            var row = XLFormRowDescriptor.formRowDescriptorWithTag(HNSubmissionFormCommentText, rowType: "textView", title: "Text")
+            var row = XLFormRowDescriptor(tag: HNSubmissionFormCommentText, rowType: "textView", title: "Text")
             row.required = false
             HNSubmissionViewController.setStyleForTextViewRow(row)
             section.addFormRow(row)
@@ -80,7 +76,7 @@ class HNSubmissionViewController: XLFormViewController {
         currentHNObject = hnObject
         currentSubmissionType = submissionType
         
-        return super.init(form: formDescriptor)
+        super.init(form: formDescriptor)
     }
     
     class func setStyleForTextFieldRow(row: XLFormRowDescriptor) {

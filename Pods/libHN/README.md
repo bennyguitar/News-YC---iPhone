@@ -434,6 +434,7 @@ Here's a list of iOS/Mac apps that use libHN to provide sweet functionality. Use
 
 * [News/YC](https://itunes.apple.com/us/app/news-yc/id592893508?mt=8) -- also on [GitHub](https://github.com/bennyguitar/News-YC---iPhone)
 * [The News (iOS)](http://bit.ly/1oShrzm) 
+* [MackerNews (OSX)](http://mackernews.com)
 
 ---------------------
 

@@ -68,7 +68,7 @@
         newPost.Title = title;
         
         // Scan Points
-        [scanner scanBetweenString:@"<span id=\"score_" andString:@">" intoString:&trash];
+        [scanner scanBetweenString:@"id=\"score_" andString:@">" intoString:&trash];
         [scanner scanBetweenString:@">" andString:@" " intoString:&points];
         newPost.Points = [points intValue];
         
@@ -111,7 +111,7 @@
                 newPost.Type = PostTypeDefault;
             }
         }
-
+        
         
         // Grab FNID if last
         if (xx == htmlComponents.count - 1) {
@@ -139,7 +139,7 @@
             urlDomain = [urlDomain substringFromIndex:4];
         }
     }
-
+    
     return urlDomain;
 }
 

@@ -29,7 +29,7 @@ class HNNavFilterTableViewCell: UITableViewCell {
     }
     
     func didSelectFilterButton(sender: UIButton) {
-        HNNavigationBrain.navigateToPosts(PostFilterType.fromRaw(sender.tag)!)
+        HNNavigationBrain.navigateToPosts(PostFilterType(rawValue: sender.tag)!)
         currentFilterType = sender.tag
         updateUI()
     }

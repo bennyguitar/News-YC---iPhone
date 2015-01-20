@@ -58,7 +58,7 @@ class HNTheme: NSObject {
         // Set Theme from User Defaults
         if (NSUserDefaults.standardUserDefaults().valueForKey(HNThemeDefaultsKey) != nil) {
             let k : AnyObject! = NSUserDefaults.standardUserDefaults().valueForKey(HNThemeDefaultsKey)
-            themeType = ThemeType.fromRaw(k.integerValue)!
+            themeType = ThemeType(rawValue: k.integerValue)!
             return
         }
         
@@ -69,15 +69,15 @@ class HNTheme: NSObject {
     func imageForCommentBubble() -> UIImage {
         switch (themeType) {
         case .Day:
-            return HNCommentBubbleDark
+            return HNCommentBubbleDark!
         case .Night:
-            return HNCommentBubbleLight
+            return HNCommentBubbleLight!
         case .SpaceOne:
-            return HNCommentBubbleDark
+            return HNCommentBubbleDark!
         case .Minima:
             return UIImage()
         default:
-            return HNCommentBubbleLight
+            return HNCommentBubbleLight!
         }
     }
     
@@ -226,22 +226,22 @@ class HNTheme: NSObject {
     func navigationBackgroundImage() -> UIImage {
         switch (themeType) {
         case ThemeType.Day:
-            return UIImage(named: "sanfran.jpg")
+            return UIImage(named: "sanfran.jpg")!
         case ThemeType.Night:
-            return UIImage(named: "night.jpg")
+            return UIImage(named: "night.jpg")!
         case ThemeType.SpaceOne:
-            return UIImage(named: "space.jpg")
+            return UIImage(named: "space.jpg")!
         case ThemeType.Minima:
-            return UIImage(named: "minimal.jpg")
+            return UIImage(named: "minimal.jpg")!
         default:
-            return UIImage(named: "sanfran.jpg")
+            return UIImage(named: "sanfran.jpg")!
         }
     }
     
     // Change Theme
     func changeTheme(type: HNTheme.ThemeType) {
         themeType = type
-        NSUserDefaults.standardUserDefaults().setValue(type.toRaw(), forKey: HNThemeDefaultsKey)
+        NSUserDefaults.standardUserDefaults().setValue(type.rawValue, forKey: HNThemeDefaultsKey)
         NSUserDefaults.standardUserDefaults().synchronize()
         NSNotificationCenter.defaultCenter().postNotificationName(HNThemeChangeNotificationKey, object: nil)
     }

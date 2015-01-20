@@ -11,7 +11,7 @@ import UIKit
 let HNNavThemeTableViewCellIdentifier = "HNNavThemeTableViewCellIdentifier"
 
 class HNNavThemeTableViewCell: UITableViewCell {
-    var currentThemeType: Int? = HNTheme.currentTheme().themeType.toRaw()
+    var currentThemeType: Int? = HNTheme.currentTheme().themeType.rawValue
     
     // TableView Lifecycle
     override func awakeFromNib() {
@@ -29,7 +29,7 @@ class HNNavThemeTableViewCell: UITableViewCell {
     }
     
     func didSelectThemeButton(sender: UIButton) {
-        HNTheme.currentTheme().changeTheme(HNTheme.ThemeType.fromRaw(sender.tag)!)
+        HNTheme.currentTheme().changeTheme(HNTheme.ThemeType(rawValue: sender.tag)!)
         currentThemeType = sender.tag
         updateUI()
     }

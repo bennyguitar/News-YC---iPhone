@@ -1,7 +1,0 @@
-CLANG_CXX_LANGUAGE_STANDARD = c++11
-CLANG_CXX_LIBRARY = libc++
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BGUtilities" "${PODS_ROOT}/Headers/BMYScrollableNavigationBar" "${PODS_ROOT}/Headers/Colours" "${PODS_ROOT}/Headers/DZNEmptyDataSet" "${PODS_ROOT}/Headers/FRDLivelyButton" "${PODS_ROOT}/Headers/MMDrawerController" "${PODS_ROOT}/Headers/MTStatusBarOverlay" "${PODS_ROOT}/Headers/POP+MCAnimate" "${PODS_ROOT}/Headers/RNGridMenu" "${PODS_ROOT}/Headers/TTTAttributedLabel" "${PODS_ROOT}/Headers/XLForm" "${PODS_ROOT}/Headers/libHN" "${PODS_ROOT}/Headers/pop"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/BGUtilities" -isystem "${PODS_ROOT}/Headers/BMYScrollableNavigationBar" -isystem "${PODS_ROOT}/Headers/Colours" -isystem "${PODS_ROOT}/Headers/DZNEmptyDataSet" -isystem "${PODS_ROOT}/Headers/FRDLivelyButton" -isystem "${PODS_ROOT}/Headers/MMDrawerController" -isystem "${PODS_ROOT}/Headers/MTStatusBarOverlay" -isystem "${PODS_ROOT}/Headers/POP+MCAnimate" -isystem "${PODS_ROOT}/Headers/RNGridMenu" -isystem "${PODS_ROOT}/Headers/TTTAttributedLabel" -isystem "${PODS_ROOT}/Headers/XLForm" -isystem "${PODS_ROOT}/Headers/libHN" -isystem "${PODS_ROOT}/Headers/pop"
-OTHER_LDFLAGS = -ObjC -lc++ -framework Accelerate -framework CoreGraphics -framework CoreText -framework Foundation -framework QuartzCore -framework UIKit
-PODS_ROOT = ${SRCROOT}/Pods

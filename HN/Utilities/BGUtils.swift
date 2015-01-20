@@ -23,9 +23,10 @@ class BGUtils: NSObject {
             urlString = u
         }
         
-        var url = NSURL(string: urlString!)
-        var activityController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        vc.navigationController?.presentViewController(activityController, animated: true, completion: nil)
+        if let url = NSURL(string: urlString!) {
+            var activityController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            vc.navigationController?.presentViewController(activityController, animated: true, completion: nil)
+        }
     }
     
     class func vote(up: Bool, object: AnyObject) {

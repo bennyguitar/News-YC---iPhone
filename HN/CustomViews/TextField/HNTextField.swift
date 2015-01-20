@@ -14,7 +14,9 @@ class HNTextField: UITextField {
     override func drawPlaceholderInRect(rect: CGRect) {
         if (placeholderColor != nil) {
             var placeholderRect = CGRectMake(rect.origin.x, (rect.size.height - font.lineHeight)/2, rect.size.width, font.lineHeight);
-            NSString(string: placeholder!).drawInRect(placeholderRect, withAttributes:[NSForegroundColorAttributeName:placeholderColor!, NSFontAttributeName:UIFont(name: "HelveticaNeue-Thin", size: 14.0)])
+            var p = NSString(string: placeholder!)
+            var attr = [NSForegroundColorAttributeName:placeholderColor!, NSFontAttributeName:UIFont(name: "HelveticaNeue-Thin", size: 14.0)!]
+            p.drawInRect(placeholderRect, withAttributes: attr)
         }
     }
     

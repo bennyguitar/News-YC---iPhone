@@ -69,8 +69,8 @@ class HNCommentCell: UITableViewCell, TTTAttributedLabelDelegate {
         
         // Links
         commentLabel.delegate = self
-        commentLabel.linkAttributes = [kCTForegroundColorAttributeName:HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.CommentLinkColor), kCTUnderlineStyleAttributeName:NSUnderlineStyle.StyleNone.toRaw()]
-        commentLabel.activeLinkAttributes = [kCTForegroundColorAttributeName:HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.CommentLinkColor), kCTUnderlineStyleAttributeName:NSUnderlineStyle.StyleNone.toRaw(), kCTFontAttributeName:UIFont.boldSystemFontOfSize(14.0)]
+        commentLabel.linkAttributes = [kCTForegroundColorAttributeName:HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.CommentLinkColor), kCTUnderlineStyleAttributeName:NSUnderlineStyle.StyleNone.rawValue]
+        commentLabel.activeLinkAttributes = [kCTForegroundColorAttributeName:HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.CommentLinkColor), kCTUnderlineStyleAttributeName:NSUnderlineStyle.StyleNone.rawValue, kCTFontAttributeName:UIFont.boldSystemFontOfSize(14.0)]
         commentLabel.setText(comment.Text, afterInheritingLabelAttributesAndConfiguringWithBlock: { (aString) -> NSMutableAttributedString! in
             aString.addAttributes([kCTForegroundColorAttributeName:HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.MainFont), kCTFontAttributeName:UIFont.systemFontOfSize(14.0), NSBackgroundColorAttributeName: HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)], range: NSMakeRange(0, NSString(string: comment.Text).length))
             return aString

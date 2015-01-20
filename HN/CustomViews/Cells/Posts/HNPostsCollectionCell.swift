@@ -85,7 +85,7 @@ class HNPostsCollectionCell: UITableViewCell {
         commentCountLabel.textColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.MainFont)
         
         // Set Edge Insets
-        if (self.respondsToSelector(Selector.convertFromStringLiteral("layoutMargins"))) {
+        if (self.respondsToSelector(Selector("layoutMargins"))) {
             layoutMargins = UIEdgeInsetsZero
         }
     }

@@ -76,7 +76,7 @@ class HNPostsViewController: HNViewController, UITableViewDelegate, UITableViewD
         postsTableView.rowHeight = UITableViewAutomaticDimension
         postsTableView.estimatedRowHeight = 72.0
         postsTableView.separatorInset = UIEdgeInsetsZero
-        if (postsTableView.respondsToSelector(Selector.convertFromStringLiteral("layoutMargins"))) {
+        if (postsTableView.respondsToSelector(Selector("layoutMargins"))) {
             postsTableView.layoutMargins = UIEdgeInsetsZero
         }
         
