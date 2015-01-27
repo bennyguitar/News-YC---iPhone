@@ -26,6 +26,10 @@ class HNSubmissionViewController: XLFormViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
+    override init!(form: XLFormDescriptor!, style: UITableViewStyle) {
+        super.init(form: form, style: style)
+    }
+    
     init(hnObject: AnyObject?)  {
         var submissionType = HNSubmissionType.NewPost
         if (hnObject != nil) {
