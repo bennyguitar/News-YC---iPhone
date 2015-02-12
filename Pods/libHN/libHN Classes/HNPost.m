@@ -77,7 +77,8 @@
         newPost.Username = author;
         
         // Scan Time Ago
-        [scanner scanBetweenString:@"</a> " andString:@"ago" intoString:&hoursAgo];
+        [scanner scanBetweenString:@"</a> <a href=\"" andString:@"\"" intoString:&trash];
+        [scanner scanBetweenString:@">" andString:@"ago" intoString:&hoursAgo];
         newPost.TimeCreatedString = [hoursAgo stringByAppendingString:@"ago"];
         
         // Scan Number of Comments

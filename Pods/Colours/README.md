@@ -12,13 +12,25 @@ Drag the included **Colours.h** and **Colours.m** files into your project. They 
 
 **Cocoapods**
 
-*Note: 5.0.0 breaks previous versions' rgbaDictionary and hsbaDictionary methods!*
-
 <code>pod 'Colours'</code>
+
+or, for Swift:
+
+<code>pod 'Colours/Swift'</code>
 
 **NSColor**
 
 Colours supports <code>NSColor</code> out of the box! Just make sure you have the <code>AppKit</code> framework installed (it comes that way for a new application) and you will be set. This README uses UIColor for its examples, just substitute NSColor and the methods are all the same.
+
+**Swift**
+
+A Swift version of Colours now exists that contains everything in the Obj-C version except:
+
+* Color Components Dictionary (use the tuples instead)
+* Sorting/Comparing Colors
+* Distance between Colors
+
+Also, instead of dictionaries and arrays of color components, tuples are used instead. So instead of `[someRedColor rgbaArray]`, you would use `someRedColor.rgba()` which gives you a tuple of four `CGFloats` like `(1.0, 0.0, 0.0, 1.0)`. To get just the red value, you would write `someRedColor.rgba().r`.
 
 ## Table of Contents
 * [Color Palette](#color-palette)
@@ -30,6 +42,7 @@ Colours supports <code>NSColor</code> out of the box! Just make sure you have th
   * [CIELAB](#cielab)
   * [CMYK](#cmyk)
   * [Color Components](#color-components)
+  * [Darken/Lighten Components](#darkenlighten-colors)
   * [Black or White Contrasting Color](#black-or-white-contrasting-color)
   * [Complementary Color](#complementary-color)
 * [Distance between 2 Colors](#distance-between-2-colors)
@@ -162,6 +175,15 @@ CGFloat CIE_L = [[UIColor tomatoColor] CIE_Lightness];
 CGFloat CIE_A = [[UIColor tomatoColor] CIE_a];
 CGFloat CIE_B = [[UIColor tomatoColor] CIE_b];
 CGFloat alpha = [[UIColor tomatoColor] alpha];
+```
+
+#### Darken/Lighten Colors
+
+You can darken or lighten a color by using these methods. The only parameter is a percentage float from 0 -> 1, so a 25% lighter color would use the parameter 0.25.
+
+```objc
+UIColor *lighterColor = [[UIColor seafoamColor] lighten:0.25f];
+UIColor *darkerColor = [[UIColor seafoamColor] darken:0.25f];
 ```
 
 #### Black or White Contrasting Color
