@@ -1,0 +1,84 @@
+PODS:
+  - BGUtilities (1.4.0):
+    - Colours
+  - BMYScrollableNavigationBar (1.0.0)
+  - Colours (5.6.1)
+  - FRDLivelyButton (1.1.3)
+  - libHN (4.0.1)
+  - MMDrawerController (0.5.7):
+    - MMDrawerController/Core (= 0.5.7)
+    - MMDrawerController/MMDrawerBarButtonItem (= 0.5.7)
+    - MMDrawerController/MMDrawerVisualStates (= 0.5.7)
+    - MMDrawerController/Subclass (= 0.5.7)
+  - MMDrawerController/Core (0.5.7)
+  - MMDrawerController/MMDrawerBarButtonItem (0.5.7):
+    - MMDrawerController/Core
+  - MMDrawerController/MMDrawerVisualStates (0.5.7):
+    - MMDrawerController/Core
+  - MMDrawerController/Subclass (0.5.7):
+    - MMDrawerController/Core
+  - MTStatusBarOverlay (0.9.1)
+  - pop (1.0.7)
+  - POP+MCAnimate (2.0.1):
+    - pop (~> 1.0)
+    - POP+MCAnimate/Animations (= 2.0.1)
+    - POP+MCAnimate/Group (= 2.0.1)
+    - POP+MCAnimate/Internal (= 2.0.1)
+    - POP+MCAnimate/Shorthand (= 2.0.1)
+    - POP+MCAnimate/Velocity (= 2.0.1)
+  - POP+MCAnimate/Animations (2.0.1):
+    - pop (~> 1.0)
+    - POP+MCAnimate/Group
+    - POP+MCAnimate/Internal
+    - POP+MCAnimate/Shorthand
+    - POP+MCAnimate/Velocity
+  - POP+MCAnimate/Group (2.0.1):
+    - pop (~> 1.0)
+  - POP+MCAnimate/Internal (2.0.1):
+    - pop (~> 1.0)
+  - POP+MCAnimate/Shorthand (2.0.1):
+    - pop (~> 1.0)
+  - POP+MCAnimate/Velocity (2.0.1):
+    - pop (~> 1.0)
+    - POP+MCAnimate/Internal
+  - RNGridMenu (0.1.3)
+  - TTTAttributedLabel (1.13.2)
+  - XLForm (2.1.0)
+
+DEPENDENCIES:
+  - BGUtilities
+  - BMYScrollableNavigationBar
+  - Colours
+  - FRDLivelyButton
+  - libHN
+  - MMDrawerController
+  - MTStatusBarOverlay
+  - POP+MCAnimate
+  - RNGridMenu (from `https://github.com/bennyguitar/RNGridMenu.git`)
+  - TTTAttributedLabel
+  - XLForm
+
+EXTERNAL SOURCES:
+  RNGridMenu:
+    :git: https://github.com/bennyguitar/RNGridMenu.git
+
+CHECKOUT OPTIONS:
+  RNGridMenu:
+    :commit: 8bb9a9549f31cfd4e86d3b2fe4436be705c62162
+    :git: https://github.com/bennyguitar/RNGridMenu.git
+
+SPEC CHECKSUMS:
+  BGUtilities: 9e7052035a926c64f72c9b1dcd81ada086ebfa6f
+  BMYScrollableNavigationBar: 7042b6d975a8a4ff305274d21d9355a0a2e550a6
+  Colours: ecbcbb168f7e6190b76b34df1b477c103cb638eb
+  FRDLivelyButton: 7ef8c4f9b116b211dc64eb3c388adc65b342e63c
+  libHN: 09d7a629db71ce8ef7efb047375ed8b1d82f474e
+  MMDrawerController: c3ab7a318ddc7e2bcd133139c3161af08c6e1197
+  MTStatusBarOverlay: f1fef7143ed3e9ce3d2c6ee3f297079e5cab905f
+  pop: 2f14a1ea61339767af9e66741b418c831b3844df
+  POP+MCAnimate: 528a556e3754a0b406adc481b02ec2984cfd1032
+  RNGridMenu: 8aed69538abb8280f496a88fb24e0cf7dd180caf
+  TTTAttributedLabel: 7c4592f9a806badb8b48dc634cb9800447c51594
+  XLForm: 7d6855fe88df37b44ea00da80cc0cf3a945cfb1b
+
+COCOAPODS: 0.35.0
