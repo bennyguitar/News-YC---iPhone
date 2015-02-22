@@ -38,6 +38,9 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
         resetUI()
         menuType = .AllComments
         
+        // Notifications
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("loadComments"), name: kHNShouldReloadDataFromConfiguration, object: nil);
+        
         // Data
         loadComments()
     }

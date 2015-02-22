@@ -51,6 +51,7 @@ class HNPostsViewController: HNViewController, UITableViewDelegate, UITableViewD
                 self!.postsTableView.reloadData()
             }
         }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("loadPosts"), name: kHNShouldReloadDataFromConfiguration, object: nil);
         
         // Load Data
         loadPosts()

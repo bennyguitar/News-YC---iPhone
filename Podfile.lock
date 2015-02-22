@@ -2,9 +2,9 @@ PODS:
   - BGUtilities (1.4.0):
     - Colours
   - BMYScrollableNavigationBar (1.0.0)
-  - Colours (5.5.0)
+  - Colours (5.6.1)
   - FRDLivelyButton (1.1.3)
-  - libHN (3.0.2)
+  - libHN (4.0.1)
   - MMDrawerController (0.5.7):
     - MMDrawerController/Core (= 0.5.7)
     - MMDrawerController/MMDrawerBarButtonItem (= 0.5.7)
@@ -42,7 +42,7 @@ PODS:
     - pop (~> 1.0)
     - POP+MCAnimate/Internal
   - RNGridMenu (0.1.3)
-  - TTTAttributedLabel (1.13.0)
+  - TTTAttributedLabel (1.13.2)
   - XLForm (2.1.0)
 
 DEPENDENCIES:
@@ -70,15 +70,15 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   BGUtilities: 9e7052035a926c64f72c9b1dcd81ada086ebfa6f
   BMYScrollableNavigationBar: 7042b6d975a8a4ff305274d21d9355a0a2e550a6
-  Colours: 7abeb0fdebe2da3d8bd7305aee0798375f51f5d8
+  Colours: ecbcbb168f7e6190b76b34df1b477c103cb638eb
   FRDLivelyButton: 7ef8c4f9b116b211dc64eb3c388adc65b342e63c
-  libHN: 0c5ec22bf8480fee669efffa9f348752218c886e
+  libHN: 09d7a629db71ce8ef7efb047375ed8b1d82f474e
   MMDrawerController: c3ab7a318ddc7e2bcd133139c3161af08c6e1197
   MTStatusBarOverlay: f1fef7143ed3e9ce3d2c6ee3f297079e5cab905f
   pop: 2f14a1ea61339767af9e66741b418c831b3844df
   POP+MCAnimate: 528a556e3754a0b406adc481b02ec2984cfd1032
   RNGridMenu: 8aed69538abb8280f496a88fb24e0cf7dd180caf
-  TTTAttributedLabel: a847b59a75c92d59f4eabc9cc1745704cff2dc36
+  TTTAttributedLabel: 7c4592f9a806badb8b48dc634cb9800447c51594
   XLForm: 7d6855fe88df37b44ea00da80cc0cf3a945cfb1b
 
 COCOAPODS: 0.35.0
