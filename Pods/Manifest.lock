@@ -4,7 +4,7 @@ PODS:
   - BMYScrollableNavigationBar (1.0.0)
   - Colours (5.6.1)
   - FRDLivelyButton (1.1.3)
-  - libHN (4.0.1)
+  - libHN (4.0.2)
   - MMDrawerController (0.5.7):
     - MMDrawerController/Core (= 0.5.7)
     - MMDrawerController/MMDrawerBarButtonItem (= 0.5.7)
@@ -72,7 +72,7 @@ SPEC CHECKSUMS:
   BMYScrollableNavigationBar: 7042b6d975a8a4ff305274d21d9355a0a2e550a6
   Colours: ecbcbb168f7e6190b76b34df1b477c103cb638eb
   FRDLivelyButton: 7ef8c4f9b116b211dc64eb3c388adc65b342e63c
-  libHN: 09d7a629db71ce8ef7efb047375ed8b1d82f474e
+  libHN: 243997619c679e20e5e7f78b1d7e4ca37745bfb1
   MMDrawerController: c3ab7a318ddc7e2bcd133139c3161af08c6e1197
   MTStatusBarOverlay: f1fef7143ed3e9ce3d2c6ee3f297079e5cab905f
   pop: 2f14a1ea61339767af9e66741b418c831b3844df
