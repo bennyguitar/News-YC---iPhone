@@ -93,13 +93,13 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
         super.resetUI()
         
         // Table
-        commentsTableView.separatorColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.CellSeparator)
-        commentsTableView.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
+        commentsTableView.separatorColor = HNThemeManager.Theme.CellSeparator
+        commentsTableView.backgroundColor = HNThemeManager.Theme.BackgroundColor
         commentsTableView.reloadData()
         
         // Refresh
-        refreshControl?.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
-        refreshControl?.tintColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.MainFont)
+        refreshControl?.backgroundColor = HNThemeManager.Theme.BackgroundColor
+        refreshControl?.tintColor = HNThemeManager.Theme.MainFont
     }
     
     

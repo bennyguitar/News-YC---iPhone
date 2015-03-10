@@ -24,7 +24,7 @@ class HNGridMenuView: RNGridMenu, RNGridMenuDelegate {
     
     class func showMenuViewWithType(type: HNMenuType, vc: UIViewController, _delegate: HNGridMenuViewDelegate, options: [AnyObject]?) {
         var m = HNGridMenuView(titles: options != nil ? options : menuOptionsForType(type))
-        m.highlightColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.CommentLinkColor)
+        m.highlightColor = HNThemeManager.Theme.CommentLinkColor
         m.itemFont = UIFont.systemFontOfSize(15.0)
         m.itemSize = CGSizeMake(200, 50)
         m.cornerRadius = 3.0

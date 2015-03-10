@@ -19,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Start Loading Data
         HNManager.sharedManager().startSession()
         
+        // Set Up Themes
+        HNThemeManager.setUp()
+        
         // Create VCs
         var postsVC = HNPostsViewController(nibName: BGUtils.className(HNPostsViewController.self), bundle: nil, postType: PostFilterType.Top)
         var postsNavVC = UINavigationController(rootViewController: postsVC)

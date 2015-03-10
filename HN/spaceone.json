@@ -1,0 +1,18 @@
+{
+	"Name":"Space One",
+	"BackgroundColor":"0F0F0F",
+	"PrimaryColor":"000000",
+	"Bar":"1A1A1A",
+	"MainFont":"A6A6A6",
+	"SubFont":"8C8C8C",
+	"JobsBackgorund":"091408",
+	"JobsBar":"0D1F0C",
+	"ShowHNBackground":"1F120B",
+	"ShowHNBar":"2E1B11",
+	"CellSeparator":"1A1A1A",
+	"NavLinkColor":"595959",
+	"CommentLinkColor":"DB9E7D",
+	"CommentBubble":"1F1F1F",
+    "ShowHNCommentBubble":"2E1B11",
+	"Image":"space.jpg"
+}

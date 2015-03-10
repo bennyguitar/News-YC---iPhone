@@ -53,8 +53,8 @@ class BGUtils: NSObject {
     
     class func themedRefreshControl(target: AnyObject!, selector: Selector) -> UIRefreshControl {
         var r = UIRefreshControl()
-        r.backgroundColor = HNTheme.currentTheme().colorForUIElement(.BackgroundColor)
-        r.tintColor = HNTheme.currentTheme().colorForUIElement(.Bar)
+        r.backgroundColor = HNThemeManager.Theme.BackgroundColor
+        r.tintColor = HNThemeManager.Theme.Bar
         r.addTarget(target, action: selector, forControlEvents: .ValueChanged)
         return r
     }

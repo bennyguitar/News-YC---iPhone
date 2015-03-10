@@ -30,19 +30,19 @@ class HNNavSettingsTableViewCell: UITableViewCell {
     
     // UI
     func setUI() {
-        readabilityButton.setTitleColor((HNTheme.currentTheme().readabilityIsActive() ? HNOrangeColor : UIColor.whiteColor()), forState: .Normal)
-        markAsReadButton.setTitleColor((HNTheme.currentTheme().markAsReadIsActive() ? HNOrangeColor : UIColor.whiteColor()), forState: .Normal)
+        readabilityButton.setTitleColor((HNThemeManager.readabilityIsActive() ? HNOrangeColor : UIColor.whiteColor()), forState: .Normal)
+        markAsReadButton.setTitleColor((HNThemeManager.markAsReadIsActive() ? HNOrangeColor : UIColor.whiteColor()), forState: .Normal)
         
     }
     
     // Actions
     @IBAction func didSelectReadabilityButton(sender: AnyObject) {
-        HNTheme.currentTheme().readability(!HNTheme.currentTheme().readabilityIsActive())
+        HNThemeManager.readability(!HNThemeManager.readabilityIsActive())
         setUI()
     }
     
     @IBAction func didSelectMarkAsReadButton(sender: AnyObject) {
-        HNTheme.currentTheme().markAsRead(!HNTheme.currentTheme().markAsReadIsActive())
+        HNThemeManager.markAsRead(!HNThemeManager.markAsReadIsActive())
         setUI()
     }
     

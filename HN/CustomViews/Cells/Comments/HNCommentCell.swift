@@ -69,10 +69,10 @@ class HNCommentCell: UITableViewCell, TTTAttributedLabelDelegate {
         
         // Links
         commentLabel.delegate = self
-        commentLabel.linkAttributes = [kCTForegroundColorAttributeName:HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.CommentLinkColor), kCTUnderlineStyleAttributeName:NSUnderlineStyle.StyleNone.rawValue]
-        commentLabel.activeLinkAttributes = [kCTForegroundColorAttributeName:HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.CommentLinkColor), kCTUnderlineStyleAttributeName:NSUnderlineStyle.StyleNone.rawValue, kCTFontAttributeName:UIFont.boldSystemFontOfSize(14.0)]
+        commentLabel.linkAttributes = [kCTForegroundColorAttributeName:HNThemeManager.Theme.CommentLinkColor, kCTUnderlineStyleAttributeName:NSUnderlineStyle.StyleNone.rawValue]
+        commentLabel.activeLinkAttributes = [kCTForegroundColorAttributeName:HNThemeManager.Theme.CommentLinkColor, kCTUnderlineStyleAttributeName:NSUnderlineStyle.StyleNone.rawValue, kCTFontAttributeName:UIFont.boldSystemFontOfSize(14.0)]
         commentLabel.setText(comment.Text, afterInheritingLabelAttributesAndConfiguringWithBlock: { (aString) -> NSMutableAttributedString! in
-            aString.addAttributes([kCTForegroundColorAttributeName:HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.MainFont), kCTFontAttributeName:UIFont.systemFontOfSize(14.0), NSBackgroundColorAttributeName: HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)], range: NSMakeRange(0, NSString(string: comment.Text).length))
+            aString.addAttributes([kCTForegroundColorAttributeName:HNThemeManager.Theme.MainFont, kCTFontAttributeName:UIFont.systemFontOfSize(14.0), NSBackgroundColorAttributeName: HNThemeManager.Theme.BackgroundColor], range: NSMakeRange(0, NSString(string: comment.Text).length))
             return aString
         })
         for link in comment.Links {
@@ -80,23 +80,23 @@ class HNCommentCell: UITableViewCell, TTTAttributedLabelDelegate {
         }
         
         // UI
-        var bgColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
-        var barColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.Bar)
+        var bgColor = HNThemeManager.Theme.BackgroundColor
+        var barColor = HNThemeManager.Theme.Bar
         if (comment.Type == HNCommentType.AskHN) {
-            bgColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.ShowHNBackground)
-            barColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.ShowHNBar)
+            bgColor = HNThemeManager.Theme.ShowHNBackground
+            barColor = HNThemeManager.Theme.ShowHNBar
         }
         else if (comment.Type == HNCommentType.Jobs) {
-            bgColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.JobsBackground)
-            barColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.JobsBar)
+            bgColor = HNThemeManager.Theme.JobsBackground
+            barColor = HNThemeManager.Theme.JobsBar
         }
         
         backgroundColor = bgColor
         topBar.backgroundColor = barColor
         usernameLabel.backgroundColor = barColor
         timeLabel.backgroundColor = barColor
-        usernameLabel.textColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.SubFont)
-        timeLabel.textColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.SubFont)
+        usernameLabel.textColor = HNThemeManager.Theme.SubFont
+        timeLabel.textColor = HNThemeManager.Theme.SubFont
         
         // Constraints
         commentLabelLeftSpaceConstraint.constant = CGFloat(comment.Level) * CGFloat(commentLevelSpace) + CGFloat(horizCommentSpaceStart)
@@ -108,7 +108,7 @@ class HNCommentCell: UITableViewCell, TTTAttributedLabelDelegate {
         for (var xx = 0; xx < commentLevel + 1; xx++) {
             if (xx != 0) {
                 var path = UIBezierPath()
-                HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.Bar).setStroke()
+                HNThemeManager.Theme.Bar.setStroke()
                 path.moveToPoint(CGPoint(x: 15*xx, y: 0))
                 path.addLineToPoint(CGPoint(x: Double(15)*Double(xx), y: Double(rect.size.height)))
                 path.stroke()

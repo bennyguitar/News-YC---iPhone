@@ -43,16 +43,16 @@ class HNPostsCollectionCell: UITableViewCell {
         del = delegate
         cellAuthorLabel.attributedText = postSecondaryAttributedString("\(post!.TimeCreatedString) by \(post!.Username)", matches:post!.Username)
         cellTitleLabel.attributedText = postPrimaryAttributedString(post!.Title)
-        cellBottomBar.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.Bar)
-        commentBubbleButton.setImage(HNTheme.currentTheme().imageForCommentBubble(), forState: UIControlState.Normal)
+        cellBottomBar.backgroundColor = HNThemeManager.Theme.Bar
+        commentBubbleButton.setImage(HNThemeManager.Theme.CommentBubbleImage, forState: UIControlState.Normal)
         commentCountLabel.text = "\(post!.CommentCount)"
         commentBubbleButton.addTarget(self, action: "didSelectCommentsButton", forControlEvents: UIControlEvents.TouchUpInside)
         commentButtonOverlay.addTarget(self, action: "didSelectCommentsButton", forControlEvents: UIControlEvents.TouchUpInside)
         
         // Alphas
-        commentBubbleButton.alpha = 0.25
+        commentBubbleButton.alpha = 1.0
         commentCountLabel.alpha = 1.0
-        cellTitleLabel.alpha = HNTheme.currentTheme().markAsReadIsActive() && HNManager.sharedManager().hasUserReadPost(post) ? 0.5 : 1.0
+        cellTitleLabel.alpha = HNThemeManager.markAsReadIsActive() && HNManager.sharedManager().hasUserReadPost(post) ? 0.5 : 1.0
         //commentCountLabel.textColor = HNOrangeColor
         
         // UI Coloring
@@ -61,28 +61,29 @@ class HNPostsCollectionCell: UITableViewCell {
         let t = NSString(string: post!.Title)
         if (t.contains("Show HN:")) {
             // Show HN
-            backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.ShowHNBackground)
-            cellBottomBar.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.ShowHNBar)
+            backgroundColor = HNThemeManager.Theme.ShowHNBackground
+            cellBottomBar.backgroundColor = HNThemeManager.Theme.ShowHNBar
+            commentBubbleButton.setImage(HNThemeManager.Theme.ShowHNCommentBubbleImage, forState: UIControlState.Normal)
         }
         else {
             // Jobs Post
             if (post?.Type == PostType.Jobs) {
-                backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.JobsBackground)
-                cellBottomBar.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.JobsBar)
+                backgroundColor = HNThemeManager.Theme.JobsBackground
+                cellBottomBar.backgroundColor = HNThemeManager.Theme.JobsBar
                 commentBubbleButton.alpha = 0.0
                 commentCountLabel.alpha = 0.0
                 cellAuthorLabel.attributedText = postSecondaryAttributedString("HN Jobs", matches: nil)
             }
             // Normal
             else {
-                backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
+                backgroundColor = HNThemeManager.Theme.BackgroundColor
             }
         }
         
         // Backgrounds
         cellTitleLabel.backgroundColor = backgroundColor
         cellAuthorLabel.backgroundColor = cellBottomBar.backgroundColor
-        commentCountLabel.textColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.MainFont)
+        commentCountLabel.textColor = HNThemeManager.Theme.MainFont
         
         // Set Edge Insets
         if (self.respondsToSelector(Selector("layoutMargins"))) {
@@ -91,11 +92,11 @@ class HNPostsCollectionCell: UITableViewCell {
     }
     
     func postPrimaryAttributedString(t: String!) -> NSAttributedString {
-        return NSAttributedString(string: t, attributes: [NSForegroundColorAttributeName:HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.MainFont),NSFontAttributeName:UIFont.systemFontOfSize(14.0),NSParagraphStyleAttributeName:NSParagraphStyle.defaultParagraphStyle()])
+        return NSAttributedString(string: t, attributes: [NSForegroundColorAttributeName:HNThemeManager.Theme.MainFont, NSFontAttributeName:UIFont.systemFontOfSize(14.0),NSParagraphStyleAttributeName:NSParagraphStyle.defaultParagraphStyle()])
     }
     
     func postSecondaryAttributedString(text: String!, matches: String?) -> NSAttributedString {
-        return NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName:HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.SubFont),NSFontAttributeName:UIFont.systemFontOfSize(11.0)])
+        return NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName:HNThemeManager.Theme.SubFont, NSFontAttributeName:UIFont.systemFontOfSize(11.0)])
     }
     
     func didSelectCommentsButton() {

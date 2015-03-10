@@ -1,0 +1,18 @@
+{
+	"Name":"Night",
+	"BackgroundColor":"262626",
+	"PrimaryColor":"FF4E00",
+	"Bar":"383838",
+	"MainFont":"EBEBEB",
+	"SubFont":"D9D9D9",
+	"JobsBackgorund":"3C7847",
+	"JobsBar":"2D5A37",
+	"ShowHNBackground":"954E30",
+	"ShowHNBar":"743D27",
+	"CellSeparator":"404040",
+	"NavLinkColor":"6B2709",
+	"CommentLinkColor":"FF4E00",
+	"CommentBubble":"393939",
+    "ShowHNCommentBubble":"743D27",
+	"Image":"night.jpg"
+}

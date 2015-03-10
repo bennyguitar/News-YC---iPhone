@@ -78,10 +78,10 @@ class HNWebViewController: HNViewController, UIWebViewDelegate {
     }
     
     func buildWebActionsUI() {
-        webActionsBar.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.PrimaryColor)
-        backButton.setImage(UIImage(named: "web_back-01")!.imageWithNewColor(HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.NavLinkColor)), forState: UIControlState.Normal)
-        forwardButton.setImage(UIImage(named: "web_forward-01")!.imageWithNewColor(HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.NavLinkColor)), forState: UIControlState.Normal)
-        refreshButton.setImage(UIImage(named: "web_refresh-01")!.imageWithNewColor(HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.NavLinkColor)), forState: UIControlState.Normal)
+        webActionsBar.backgroundColor = HNThemeManager.Theme.PrimaryColor
+        backButton.setImage(UIImage(named: "web_back-01")!.imageWithNewColor(HNThemeManager.Theme.NavLinkColor), forState: UIControlState.Normal)
+        forwardButton.setImage(UIImage(named: "web_forward-01")!.imageWithNewColor(HNThemeManager.Theme.NavLinkColor), forState: UIControlState.Normal)
+        refreshButton.setImage(UIImage(named: "web_refresh-01")!.imageWithNewColor(HNThemeManager.Theme.NavLinkColor), forState: UIControlState.Normal)
     }
     
     func setWebActionsUI() {
@@ -139,7 +139,7 @@ class HNWebViewController: HNViewController, UIWebViewDelegate {
     
     func loadUrl() {
         if (url != nil) {
-            var u = HNTheme.currentTheme().readabilityIsActive() ? NSURL(string: "http://www.readability.com/m?url=\(url!.absoluteString!)") : url!
+            var u = HNThemeManager.readabilityIsActive() ? NSURL(string: "http://www.readability.com/m?url=\(url!.absoluteString!)") : url!
             linkWebView.loadRequest(NSURLRequest(URL: u!))
         }
     }

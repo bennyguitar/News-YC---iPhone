@@ -91,13 +91,13 @@ class HNPostsViewController: HNViewController, UITableViewDelegate, UITableViewD
         super.resetUI()
         
         // Table
-        postsTableView.separatorColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.CellSeparator)
-        postsTableView.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
+        postsTableView.separatorColor = HNThemeManager.Theme.CellSeparator
+        postsTableView.backgroundColor = HNThemeManager.Theme.BackgroundColor
         postsTableView.reloadData()
         
         // Refresh Control
-        refreshControl?.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
-        refreshControl?.tintColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.MainFont)
+        refreshControl?.backgroundColor = HNThemeManager.Theme.BackgroundColor
+        refreshControl?.tintColor = HNThemeManager.Theme.MainFont
     }
 
     

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1EF68EAA1AADDCC700F2C1BE /* HNThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF68EA91AADDCC700F2C1BE /* HNThemeManager.swift */; };
+		1EF68EB01AAE37C600F2C1BE /* day.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EF68EAC1AAE37C600F2C1BE /* day.json */; };
+		1EF68EB11AAE37C600F2C1BE /* minima.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EF68EAD1AAE37C600F2C1BE /* minima.json */; };
+		1EF68EB21AAE37C600F2C1BE /* night.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EF68EAE1AAE37C600F2C1BE /* night.json */; };
+		1EF68EB31AAE37C600F2C1BE /* spaceone.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EF68EAF1AAE37C600F2C1BE /* spaceone.json */; };
 		9736D846DE1540C8A72F1530 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E00BF15266934FC7A9473FF8 /* libPods.a */; };
 		B618606A19C8D46600BF7738 /* commentbubble-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B618606919C8D46600BF7738 /* commentbubble-01.png */; };
 		B618606D19C8D6C300BF7738 /* commentbubbleDark.png in Resources */ = {isa = PBXBuildFile; fileRef = B618606C19C8D6C300BF7738 /* commentbubbleDark.png */; };
@@ -70,6 +75,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1EF68EA91AADDCC700F2C1BE /* HNThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HNThemeManager.swift; sourceTree = "<group>"; };
+		1EF68EAC1AAE37C600F2C1BE /* day.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = day.json; sourceTree = "<group>"; };
+		1EF68EAD1AAE37C600F2C1BE /* minima.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = minima.json; sourceTree = "<group>"; };
+		1EF68EAE1AAE37C600F2C1BE /* night.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = night.json; sourceTree = "<group>"; };
+		1EF68EAF1AAE37C600F2C1BE /* spaceone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spaceone.json; sourceTree = "<group>"; };
 		7761B11D6B05DD227B4EBCAC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7766ACE662E0D77E19BE7958 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B618606919C8D46600BF7738 /* commentbubble-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "commentbubble-01.png"; sourceTree = "<group>"; };
@@ -148,6 +158,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1EF68EAB1AAE37AC00F2C1BE /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				1EF68EAC1AAE37C600F2C1BE /* day.json */,
+				1EF68EAD1AAE37C600F2C1BE /* minima.json */,
+				1EF68EAE1AAE37C600F2C1BE /* night.json */,
+				1EF68EAF1AAE37C600F2C1BE /* spaceone.json */,
+			);
+			name = Themes;
+			sourceTree = "<group>";
+		};
 		746550C90D554AA0B00424D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +253,7 @@
 		B63D8E2919BEAE8E0077FCBA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1EF68EAB1AAE37AC00F2C1BE /* Themes */,
 				B618606B19C8D46800BF7738 /* Images */,
 				B63D8E2A19BEAE8E0077FCBA /* Info.plist */,
 			);
@@ -478,6 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				B69D3ABA19BF329F003DDD99 /* HNTheme.swift */,
+				1EF68EA91AADDCC700F2C1BE /* HNThemeManager.swift */,
 			);
 			name = Theme;
 			sourceTree = "<group>";
@@ -590,6 +613,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EF68EB21AAE37C600F2C1BE /* night.json in Resources */,
 				B655B9C619DB4DD0005D3146 /* HNNavigationViewController.xib in Resources */,
 				B618607319C9E04900BF7738 /* HNCommentsViewController.xib in Resources */,
 				B618606A19C8D46600BF7738 /* commentbubble-01.png in Resources */,
@@ -605,6 +629,7 @@
 				B655B9DE19DB653F005D3146 /* HNNavFilterTableViewCell.xib in Resources */,
 				B655B9CF19DB4E29005D3146 /* night.jpg in Resources */,
 				B655B9EF19DB6682005D3146 /* HNNavSettingsTableViewCell.xib in Resources */,
+				1EF68EB11AAE37C600F2C1BE /* minima.json in Resources */,
 				B6F2A8D319E220E900350F9C /* HNLaunchScreen.xib in Resources */,
 				B655B9CE19DB4E29005D3146 /* minimal.jpg in Resources */,
 				B693858019CC7CAD004A2B44 /* web_forward-01.png in Resources */,
@@ -613,9 +638,11 @@
 				B655B9D019DB4E29005D3146 /* sanfran.jpg in Resources */,
 				B693858119CC7CAD004A2B44 /* web_refresh-01.png in Resources */,
 				B693857B19CC798F004A2B44 /* HNWebViewController.xib in Resources */,
+				1EF68EB31AAE37C600F2C1BE /* spaceone.json in Resources */,
 				B618606D19C8D6C300BF7738 /* commentbubbleDark.png in Resources */,
 				B655B9F319DB66A2005D3146 /* HNNavCreditsTableViewCell.xib in Resources */,
 				B693857F19CC7CAD004A2B44 /* web_back-01.png in Resources */,
+				1EF68EB01AAE37C600F2C1BE /* day.json in Resources */,
 				B63D8E3319BEAE8E0077FCBA /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -684,6 +711,7 @@
 				B63D8E5319BEB2680077FCBA /* BGUtils.swift in Sources */,
 				B69D3ABB19BF329F003DDD99 /* HNTheme.swift in Sources */,
 				B655B9F219DB66A2005D3146 /* HNNavCreditsTableViewCell.swift in Sources */,
+				1EF68EAA1AADDCC700F2C1BE /* HNThemeManager.swift in Sources */,
 				B63D8E4F19BEAF8C0077FCBA /* HNPostsViewController.swift in Sources */,
 				B693858419CC8088004A2B44 /* HNCommentCell.swift in Sources */,
 				B618607219C9E04900BF7738 /* HNCommentsViewController.swift in Sources */,

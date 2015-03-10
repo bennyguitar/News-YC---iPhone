@@ -1,0 +1,16 @@
+{
+	"Name":"Minima",
+	"BackgroundColor":"EBEBEB",
+	"PrimaryColor":"DBDBDB",
+	"Bar":"E3E3E3",
+	"MainFont":"757575",
+	"SubFont":"5C5C5C",
+	"JobsBackgorund":"E5F7D5",
+	"JobsBar":"DAEDC7",
+	"ShowHNBackground":"FED9B4",
+	"ShowHNBar":"F3C79E",
+	"CellSeparator":"C7C7C7",
+	"NavLinkColor":"8C8C8C",
+    "CommentLinkColor":"222222",
+	"Image":"minimal.jpg"
+}

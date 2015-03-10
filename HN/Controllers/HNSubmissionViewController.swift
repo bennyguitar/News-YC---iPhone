@@ -84,17 +84,17 @@ class HNSubmissionViewController: XLFormViewController {
     }
     
     class func setStyleForTextFieldRow(row: XLFormRowDescriptor) {
-        row.cellConfigAtConfigure.setObject(HNTheme.currentTheme().colorForUIElement(.Bar), forKey: "backgroundColor")
-        row.cellConfig.setObject(HNTheme.currentTheme().colorForUIElement(.Bar), forKey: "textField.backgroundColor")
-        row.cellConfig.setObject(HNTheme.currentTheme().colorForUIElement(.MainFont), forKey: "textField.textColor")
-        row.cellConfig.setObject(HNTheme.currentTheme().colorForUIElement(.SubFont), forKey: "textLabel.textColor")
+        row.cellConfigAtConfigure.setObject(HNThemeManager.Theme.Bar, forKey: "backgroundColor")
+        row.cellConfig.setObject(HNThemeManager.Theme.Bar, forKey: "textField.backgroundColor")
+        row.cellConfig.setObject(HNThemeManager.Theme.MainFont, forKey: "textField.textColor")
+        row.cellConfig.setObject(HNThemeManager.Theme.SubFont, forKey: "textLabel.textColor")
     }
     
     class func setStyleForTextViewRow(row: XLFormRowDescriptor) {
-        row.cellConfigAtConfigure.setObject(HNTheme.currentTheme().colorForUIElement(.Bar), forKey: "backgroundColor")
-        row.cellConfig.setObject(HNTheme.currentTheme().colorForUIElement(.Bar), forKey: "textView.backgroundColor")
-        row.cellConfig.setObject(HNTheme.currentTheme().colorForUIElement(.MainFont), forKey: "textView.textColor")
-        row.cellConfig.setObject(HNTheme.currentTheme().colorForUIElement(.SubFont), forKey: "label.textColor")
+        row.cellConfigAtConfigure.setObject(HNThemeManager.Theme.Bar, forKey: "backgroundColor")
+        row.cellConfig.setObject(HNThemeManager.Theme.Bar, forKey: "textView.backgroundColor")
+        row.cellConfig.setObject(HNThemeManager.Theme.MainFont, forKey: "textView.textColor")
+        row.cellConfig.setObject(HNThemeManager.Theme.SubFont, forKey: "label.textColor")
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -105,8 +105,8 @@ class HNSubmissionViewController: XLFormViewController {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "didSelectSaveForm:")
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "didSelectCancel:")
-        tableView.backgroundColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.BackgroundColor)
-        tableView.separatorColor = HNTheme.currentTheme().colorForUIElement(HNTheme.ThemeUIElement.SubFont)
+        tableView.backgroundColor = HNThemeManager.Theme.BackgroundColor
+        tableView.separatorColor = HNThemeManager.Theme.SubFont
     }
     
     override func viewDidAppear(animated: Bool) {
