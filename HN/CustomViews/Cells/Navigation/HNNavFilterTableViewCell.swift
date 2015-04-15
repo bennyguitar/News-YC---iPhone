@@ -37,7 +37,7 @@ class HNNavFilterTableViewCell: UITableViewCell {
     func updateUI() {
         for (view) in subviews[0].subviews {
             if (view.isKindOfClass(UIButton.self)) {
-                var b = view as UIButton
+                var b = view as! UIButton
                 b.setTitleColor((b.tag == currentFilterType ? HNOrangeColor : UIColor.whiteColor()), forState: UIControlState.Normal)
             }
         }

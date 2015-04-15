@@ -112,7 +112,7 @@ class HNNavigationViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func cellForNavigationType(type: HNNavCellType) -> UITableViewCell {
-        return navigationTableView.dequeueReusableCellWithIdentifier(cellIdentifierForNavigationType(type)) as UITableViewCell
+        return navigationTableView.dequeueReusableCellWithIdentifier(cellIdentifierForNavigationType(type)) as! UITableViewCell
     }
     
     func textForNavigationType(type: HNNavCellType) -> String {

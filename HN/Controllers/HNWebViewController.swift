@@ -27,7 +27,7 @@ class HNWebViewController: HNViewController, UIWebViewDelegate {
     
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?, urlString: NSString?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        url = NSURL(string: urlString!)
+        url = NSURL(string: urlString! as String)
         menuType = .Link
     }
 

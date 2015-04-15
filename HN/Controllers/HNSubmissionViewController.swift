@@ -44,7 +44,7 @@ class HNSubmissionViewController: XLFormViewController {
         
         // New Post
         if (submissionType == .NewPost) {
-            var section: XLFormSectionDescriptor = XLFormSectionDescriptor.formSectionWithTitle("Submission") as XLFormSectionDescriptor
+            var section: XLFormSectionDescriptor = XLFormSectionDescriptor.formSectionWithTitle("Submission") as! XLFormSectionDescriptor
             section.footerTitle = "Each submission must have a title, and either a URL or the body text for a self post."
             formDescriptor.addFormSection(section)
             
@@ -66,7 +66,7 @@ class HNSubmissionViewController: XLFormViewController {
         
         // Reply
         else {
-            var section: XLFormSectionDescriptor = XLFormSectionDescriptor.formSectionWithTitle("Reply") as XLFormSectionDescriptor
+            var section: XLFormSectionDescriptor = XLFormSectionDescriptor.formSectionWithTitle("Reply") as! XLFormSectionDescriptor
             section.footerTitle = "Be engaging."
             formDescriptor .addFormSection(section)
             
