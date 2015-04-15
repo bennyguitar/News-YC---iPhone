@@ -11,7 +11,7 @@ import UIKit
 let HNNavigationBrainShouldNavigateNotification = "HNNavigationBrainShouldNavigateNotification"
 let HNNavigationBrainVCKey = "HNNavigationBrainVCKey"
 
-class HNNavigationBrain: NSObject {
+class HNNavigationBrain {
     // Main Nav
     private class func navigateToViewController(vc: UIViewController!) {
         if (vc != nil) {

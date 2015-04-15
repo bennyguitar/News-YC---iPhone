@@ -129,7 +129,7 @@ class HNCommentsViewController: HNViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Create Cell
-        var cell: HNCommentCell = tableView.dequeueReusableCellWithIdentifier(HNPostsCollectionCellIdentifier, forIndexPath: indexPath) as HNCommentCell
+        var cell: HNCommentCell = tableView.dequeueReusableCellWithIdentifier(HNPostsCollectionCellIdentifier, forIndexPath: indexPath) as! HNCommentCell
         
         // Return it
         cell.setContentWithComment(allComments![indexPath.row], indexPath: indexPath, delegate: self, visibility: HNCommentCellVisibility.Visible)
