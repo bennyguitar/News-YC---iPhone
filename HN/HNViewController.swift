@@ -68,7 +68,7 @@ class HNViewController: BMYScrollableNavigationBarViewController, HNGridMenuView
         // Hamburger Button
         hamburgerButton = FRDLivelyButton(frame: CGRectMake(0,0,36,28))
         hamburgerButton?.setStyle(kFRDLivelyButtonStyleHamburger, animated: true)
-        hamburgerButton?.options = [kFRDLivelyButtonLineWidth: 1.5, kFRDLivelyButtonColor: HNThemeManager.Theme.NavLinkColor, kFRDLivelyButtonHighlightedColor: HNThemeManager.Theme.NavLinkColor.darken(0.925)]
+        hamburgerButton?.options = [kFRDLivelyButtonLineWidth: 1.5, kFRDLivelyButtonColor: HNThemeManager.Theme.NavLinkColor, kFRDLivelyButtonHighlightedColor: HNThemeManager.Theme.NavLinkColor.darken(0.08)]
         hamburgerButton?.addTarget(self, action: "didToggleNavigationMenu", forControlEvents: UIControlEvents.TouchUpInside)
         var barButtonItem = UIBarButtonItem(customView: hamburgerButton!)
         
@@ -76,7 +76,7 @@ class HNViewController: BMYScrollableNavigationBarViewController, HNGridMenuView
         if (shouldShowActionsButton) {
             actionsButton = FRDLivelyButton(frame: CGRectMake(0,0,36,28))
             actionsButton?.setStyle((isShowingActionsView ? kFRDLivelyButtonStyleClose : kFRDLivelyButtonStyleCaretDown), animated: true)
-            actionsButton?.options = [kFRDLivelyButtonLineWidth: 1.5, kFRDLivelyButtonColor: HNThemeManager.Theme.NavLinkColor, kFRDLivelyButtonHighlightedColor: HNThemeManager.Theme.NavLinkColor.darken(0.925)]
+            actionsButton?.options = [kFRDLivelyButtonLineWidth: 1.5, kFRDLivelyButtonColor: HNThemeManager.Theme.NavLinkColor, kFRDLivelyButtonHighlightedColor: HNThemeManager.Theme.NavLinkColor.darken(0.08)]
             actionsButton?.addTarget(self, action: "didToggleActionsButton", forControlEvents: UIControlEvents.TouchUpInside)
             var barButtonItem2 = UIBarButtonItem(customView: actionsButton!)
             navigationItem.rightBarButtonItems = [barButtonItem, barButtonItem2]

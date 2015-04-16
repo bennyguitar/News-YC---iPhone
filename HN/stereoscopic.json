@@ -1,0 +1,19 @@
+{
+    "Name":"Stereoscopic",
+    "BackgroundColor":"193952",
+    "PrimaryColor":"3072AA",
+    "Bar":"1F4C7F",
+    "MainFont":"A6A6A6",
+    "SubFont":"8C8C8C",
+    "JobsBackgorund":"256865",
+    "JobsBar":"184441",
+    "ShowHNBackground":"44186C",
+    "ShowHNBar":"24073F",
+    "CellSeparator":"1A1A1A",
+    "NavLinkColor":"A1C0F3",
+    "CommentLinkColor":"A1C0F3",
+    "CommentBubble":"1F1F1F",
+    "ShowHNCommentBubble":"2E1B11",
+    "Image":"space.jpg",
+    "Pro":"1"
+}

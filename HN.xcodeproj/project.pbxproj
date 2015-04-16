@@ -12,6 +12,8 @@
 		1EF68EB11AAE37C600F2C1BE /* minima.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EF68EAD1AAE37C600F2C1BE /* minima.json */; };
 		1EF68EB21AAE37C600F2C1BE /* night.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EF68EAE1AAE37C600F2C1BE /* night.json */; };
 		1EF68EB31AAE37C600F2C1BE /* spaceone.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EF68EAF1AAE37C600F2C1BE /* spaceone.json */; };
+		1EF69C701AB089DD00413830 /* pacific.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EF69C6F1AB089DD00413830 /* pacific.json */; };
+		1EF69C741AB0910100413830 /* stereoscopic.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EF69C731AB0910100413830 /* stereoscopic.json */; };
 		9736D846DE1540C8A72F1530 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E00BF15266934FC7A9473FF8 /* libPods.a */; };
 		B618606A19C8D46600BF7738 /* commentbubble-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B618606919C8D46600BF7738 /* commentbubble-01.png */; };
 		B618606D19C8D6C300BF7738 /* commentbubbleDark.png in Resources */ = {isa = PBXBuildFile; fileRef = B618606C19C8D6C300BF7738 /* commentbubbleDark.png */; };
@@ -80,6 +82,8 @@
 		1EF68EAD1AAE37C600F2C1BE /* minima.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = minima.json; sourceTree = "<group>"; };
 		1EF68EAE1AAE37C600F2C1BE /* night.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = night.json; sourceTree = "<group>"; };
 		1EF68EAF1AAE37C600F2C1BE /* spaceone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spaceone.json; sourceTree = "<group>"; };
+		1EF69C6F1AB089DD00413830 /* pacific.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pacific.json; sourceTree = "<group>"; };
+		1EF69C731AB0910100413830 /* stereoscopic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stereoscopic.json; sourceTree = "<group>"; };
 		7761B11D6B05DD227B4EBCAC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7766ACE662E0D77E19BE7958 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B618606919C8D46600BF7738 /* commentbubble-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "commentbubble-01.png"; sourceTree = "<group>"; };
@@ -165,6 +169,8 @@
 				1EF68EAD1AAE37C600F2C1BE /* minima.json */,
 				1EF68EAE1AAE37C600F2C1BE /* night.json */,
 				1EF68EAF1AAE37C600F2C1BE /* spaceone.json */,
+				1EF69C6F1AB089DD00413830 /* pacific.json */,
+				1EF69C731AB0910100413830 /* stereoscopic.json */,
 			);
 			name = Themes;
 			sourceTree = "<group>";
@@ -616,6 +622,7 @@
 				1EF68EB21AAE37C600F2C1BE /* night.json in Resources */,
 				B655B9C619DB4DD0005D3146 /* HNNavigationViewController.xib in Resources */,
 				B618607319C9E04900BF7738 /* HNCommentsViewController.xib in Resources */,
+				1EF69C701AB089DD00413830 /* pacific.json in Resources */,
 				B618606A19C8D46600BF7738 /* commentbubble-01.png in Resources */,
 				B63D8E5019BEAF8C0077FCBA /* HNPostsViewController.xib in Resources */,
 				B655B9E019DB653F005D3146 /* HNNavProfileTableViewCell.xib in Resources */,
@@ -626,6 +633,7 @@
 				B655B9E219DB653F005D3146 /* HNNavThemeTableViewCell.xib in Resources */,
 				B669A4A319E1B8B5007B37AD /* twitter-01.png in Resources */,
 				B650969819BF448E0062DBDE /* HNPostsCollectionCell.xib in Resources */,
+				1EF69C741AB0910100413830 /* stereoscopic.json in Resources */,
 				B655B9DE19DB653F005D3146 /* HNNavFilterTableViewCell.xib in Resources */,
 				B655B9CF19DB4E29005D3146 /* night.jpg in Resources */,
 				B655B9EF19DB6682005D3146 /* HNNavSettingsTableViewCell.xib in Resources */,
