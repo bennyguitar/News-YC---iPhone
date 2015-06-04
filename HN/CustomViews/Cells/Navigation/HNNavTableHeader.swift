@@ -14,7 +14,7 @@ class HNNavTableHeader: UIView {
     class func headerWithText(text: String) -> HNNavTableHeader {
         // Create View
         var header = HNNavTableHeader()
-        header = NSBundle.mainBundle().loadNibNamed(BGUtils.className(HNNavTableHeader.self), owner: nil, options: nil)[0] as HNNavTableHeader
+        header = NSBundle.mainBundle().loadNibNamed(BGUtils.className(HNNavTableHeader.self), owner: nil, options: nil)[0] as! HNNavTableHeader
         
         // Set Data
         header.headerLabel.text = text.uppercaseString

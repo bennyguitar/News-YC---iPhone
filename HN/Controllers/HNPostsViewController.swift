@@ -163,7 +163,7 @@ class HNPostsViewController: HNViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: HNPostsCollectionCell = tableView.dequeueReusableCellWithIdentifier(HNPostsCollectionCellIdentifier, forIndexPath: indexPath) as HNPostsCollectionCell
+        var cell: HNPostsCollectionCell = tableView.dequeueReusableCellWithIdentifier(HNPostsCollectionCellIdentifier, forIndexPath: indexPath) as! HNPostsCollectionCell
         cell.setContentWithPost(currentPosts[indexPath.row], indexPath: indexPath, delegate: self)
         cell.setNeedsUpdateConstraints()
         return cell
@@ -185,7 +185,7 @@ class HNPostsViewController: HNViewController, UITableViewDelegate, UITableViewD
     func scrollViewDidScroll(scrollView: UIScrollView) {
         var indexes = postsTableView.indexPathsForVisibleRows()
         if (indexes != nil && indexes?.count > 0) {
-            let i = indexes![indexes!.count - 1] as NSIndexPath
+            let i = indexes![indexes!.count - 1] as! NSIndexPath
             if (i.row == currentPosts.count - 3 && !isLoadingPosts) {
                 loadPosts()
             }

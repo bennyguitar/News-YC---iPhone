@@ -98,9 +98,9 @@ class HNViewController: BMYScrollableNavigationBarViewController, HNGridMenuView
     
     // Notifications
     func didReceiveNavigationNotification(note: NSNotification?) {
-        if (navigationController?.viewControllers.last as HNViewController == self) {
+        if (navigationController?.viewControllers.last as! HNViewController == self) {
             if (note != nil && note!.userInfo != nil) {
-                let vc = note!.userInfo![HNNavigationBrainVCKey] as HNViewController
+                let vc = note!.userInfo![HNNavigationBrainVCKey] as! HNViewController
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
