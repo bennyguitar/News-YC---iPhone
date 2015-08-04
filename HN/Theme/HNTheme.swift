@@ -50,9 +50,9 @@ class HNTheme: NSObject {
     var CommentLinkColor: UIColor = UIColor.clearColor()
     var CommentBubbleImage = UIImage()
     var ShowHNCommentBubbleImage = UIImage()
-    var Image: NSString = ""
-    var ImageUrl: NSString = ""
-    var Name: NSString = ""
+    var Image: String = ""
+    var ImageUrl: String = ""
+    var Name: String = ""
     var Pro: Bool = false
     var Index: Int = 0
     
@@ -113,32 +113,32 @@ class HNTheme: NSObject {
     // MARK: - Init
     init(json: NSString) {
         if let dict = HNTheme.lintedDictionary(json) {
-            BackgroundColor = UIColor(fromHexString: dict[BackgroundColorKey] as NSString)
-            PrimaryColor = UIColor(fromHexString: dict[PrimaryColorKey] as NSString)
-            Bar = UIColor(fromHexString: dict[BarKey] as NSString)
-            MainFont = UIColor(fromHexString: dict[MainFontKey] as NSString)
-            SubFont = UIColor(fromHexString: dict[SubFontKey] as NSString)
-            JobsBackground = UIColor(fromHexString: dict[JobsBackgroundKey] as NSString)
-            JobsBar = UIColor(fromHexString: dict[JobsBarKey] as NSString)
-            ShowHNBackground = UIColor(fromHexString: dict[ShowHNBackgroundKey] as NSString)
-            ShowHNBar = UIColor(fromHexString: dict[ShowHNBarKey] as NSString)
-            CellSeparator = UIColor(fromHexString: dict[CellSeparatorKey] as NSString)
-            NavLinkColor = UIColor(fromHexString: dict[NavLinkColorKey] as NSString)
-            CommentLinkColor = UIColor(fromHexString: dict[CommentLinkColorKey] as NSString)
+            BackgroundColor = UIColor(fromHexString: dict[BackgroundColorKey] as! String)
+            PrimaryColor = UIColor(fromHexString: dict[PrimaryColorKey] as! String)
+            Bar = UIColor(fromHexString: dict[BarKey] as! String)
+            MainFont = UIColor(fromHexString: dict[MainFontKey] as! String)
+            SubFont = UIColor(fromHexString: dict[SubFontKey] as! String)
+            JobsBackground = UIColor(fromHexString: dict[JobsBackgroundKey] as! String)
+            JobsBar = UIColor(fromHexString: dict[JobsBarKey] as! String)
+            ShowHNBackground = UIColor(fromHexString: dict[ShowHNBackgroundKey] as! String)
+            ShowHNBar = UIColor(fromHexString: dict[ShowHNBarKey] as! String)
+            CellSeparator = UIColor(fromHexString: dict[CellSeparatorKey] as! String)
+            NavLinkColor = UIColor(fromHexString: dict[NavLinkColorKey] as! String)
+            CommentLinkColor = UIColor(fromHexString: dict[CommentLinkColorKey] as! String)
             
             if (dict[CommentBubbleKey] != nil) {
-                CommentBubble = UIColor(fromHexString: dict[CommentBubbleKey] as NSString)
+                CommentBubble = UIColor(fromHexString: dict[CommentBubbleKey] as! String)
                 CommentBubbleImage = HNCommentBubbleLight!.imageWithNewColor(CommentBubble);
             }
             if (dict[ShowHNCommentBubbleKey] != nil) {
-                ShowHNCommentBubble = UIColor(fromHexString: dict[ShowHNCommentBubbleKey] as NSString)
+                ShowHNCommentBubble = UIColor(fromHexString: dict[ShowHNCommentBubbleKey] as! String)
                 ShowHNCommentBubbleImage = HNCommentBubbleLight!.imageWithNewColor(ShowHNCommentBubble);
             }
             if (dict[ImageKey] != nil) {
-                Image = dict[ImageKey] as NSString
+                Image = dict[ImageKey] as! String
             }
             if (dict[ImageUrlKey] != nil) {
-                ImageUrl = dict[ImageUrlKey] as NSString
+                ImageUrl = dict[ImageUrlKey] as! String
             }
             if (dict[ProKey] != nil) {
                 Pro = true

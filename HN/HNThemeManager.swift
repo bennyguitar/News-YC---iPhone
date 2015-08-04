@@ -29,7 +29,7 @@ class HNThemeManager: NSObject {
     // MARK: - Set Up
     class func setUp() {
         // Create Themes from JSON
-        let fileNames = ["day","night","minima","pacific"]
+        let fileNames = ["day","night","minima","spaceone"]
         for var i = 0; i < fileNames.count; i++  {
             let file = fileNames[i]
             let path = NSBundle.mainBundle().pathForResource(file, ofType: "json")

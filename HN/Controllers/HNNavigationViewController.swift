@@ -73,8 +73,8 @@ class HNNavigationViewController: UIViewController, UITableViewDataSource, UITab
     
     // MARK: - UI
     func buildUI() {
-        if (HNThemeManager.Theme.Image.length > 0) {
-            backgroundImageView.image = UIImage(named: HNThemeManager.Theme.Image)!
+        if (count(HNThemeManager.Theme.Image) > 0) {
+            backgroundImageView.image = UIImage(named: HNThemeManager.Theme.Image as String)!
         }
         //backgroundImageView.image = HNTheme.currentTheme().navigationBackgroundImage()
     }
